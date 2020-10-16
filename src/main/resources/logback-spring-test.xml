@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- test mode -->
+<configuration scan="true" scanPeriod="30 seconds">
+	<!-- console로 log 남기기 -->
+	<!-- file로 log 남기기 -->
+	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/home/ec2-user/logs/sinsege/sinsegeSvrRollingFile.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+			<!-- LoginController:/log/testRollingFile 2015-04-07-15.log 파일 생성 -->
+			<fileNamePattern>/home/ec2-user/logs/sinsege/sinsegeSvrRollingFile.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- 30시간 지난건 지우겠다. -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>
+				▷ %-5level %d{HH:mm:ss} %logger[%method:%line] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<root level="warn">
+		<appender-ref ref="rollingFile" />
+	</root>
+
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="rollingFile" />
+	</logger>
+
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="rollingFile" />
+	</logger>
+
+	<!-- 이 아래에 있는 애들 다 log로 찍겠다. -->
+	<logger name="org.springframework" level="warn" />
+	<logger name="kr.co.paywith.pw" level="debug" />
+</configuration>

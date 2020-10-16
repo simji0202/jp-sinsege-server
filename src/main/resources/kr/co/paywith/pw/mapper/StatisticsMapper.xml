@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="kr.co.paywith.pw.mapper.StatisticsMapper">
+
+ <select id="requestInfo"   resultType="RequestsInfo" >
+        SELECT
+        <choose>
+            <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 1 ">
+                DATE_FORMAT(requests.depart_date, '%Y') AS date,
+            </when>
+            <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 2 ">
+                DATE_FORMAT(requests.depart_date, '%Y-%m') AS date,
+            </when>
+            <otherwise>
+                DATE_FORMAT(requests.depart_date, '%Y-%m-%d') AS date,
+            </otherwise>
+        </choose>
+            sum(if(requests.req_state_cd='예약신청' , 1, 0)) as request_apply_count,
+            sum(if(requests.req_state_cd='예약신청완료' , 1, 0)) as request_apply_complete_count,
+            sum(if(requests.req_state_cd='예약신청변경' , 1, 0)) as request_apply_changed_count,
+            sum(if(requests.req_state_cd='버스수배중' , 1, 0)) as bus_wanted_count,
+            sum(if(requests.req_state_cd='버스수배완료' , 1, 0)) as bus_wanted_complete_count,
+            sum(if(requests.req_state_cd='예약확정' , 1, 0)) as request_confirm_count,
+            sum(if(requests.req_state_cd='예약취소' , 1, 0)) as request_cancel_count,
+            sum(if(requests.req_state_cd is not null , 1, 0)) as total_request_count
+        FROM
+           requests
+        WHERE
+            <![CDATA[
+                DATE(requests.depart_date) >= STR_TO_DATE(#{searchForm.fromDate}, '%Y-%m-%d')  AND DATE(requests.depart_date) <= STR_TO_DATE(#{searchForm.toDate}, '%Y-%m-%d')
+            ]]>
+            <if test="searchForm != null  and searchForm.companyId != null  and searchForm.companyId != '' ">
+                 AND (select company_id from partners where id = requests.partners_id) = #{searchForm.companyId}
+             </if>
+        GROUP BY date
+        Order by date;
+    </select>
+
+<!--    &lt;!&ndash; 상담신청 리스트 조회 &ndash;&gt;-->
+<!--    <sql id="request_whereSearch">-->
+
+<!--        &lt;!&ndash; 고객명 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.name != null  and searchForm.name != '' ">-->
+<!--            AND requests.NAME LIKE CONCAT('%', #{searchForm.name}, '%')-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 전화번호 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.phone != null  and searchForm.phone != '' ">-->
+<!--            AND requests.phone LIKE CONCAT('%', #{searchForm.phone}, '%')-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 고객 출발 주소 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.departAddress != null  and searchForm.departAddress != '' ">-->
+<!--            AND requests.depart_address LIKE CONCAT('%', #{searchForm.departAddress}, '%')-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 고객 도착 주소 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.arrivalAddress != null  and searchForm.arrivalAddress != '' ">-->
+<!--            AND requests.arrival_address LIKE CONCAT('%', #{searchForm.arrivalAddress}, '%')-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 이사날짜  &ndash;&gt;-->
+<!--        <if test="searchForm != null " >-->
+<!--            <choose>-->
+<!--                <when test="searchForm.fromWishMoveDate != null and searchForm.toWishMoveDate != null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(requests.wish_move_date , '%Y-%m-%d') BETWEEN #{searchForm.fromWishMoveDate} AND #{searchForm.toWishMoveDate}-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromWishMoveDate != null and searchForm.toWishMoveDate == null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(requests.wish_move_date , '%Y-%m-%d') >= #{searchForm.fromWishMoveDate}-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromWishMoveDate == null and searchForm.toWishMoveDate != null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(requests.wish_move_date , '%Y-%m-%d') <= #{searchForm.toWishMoveDate}-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 신청날짜  &ndash;&gt;-->
+<!--        <if test="searchForm != null " >-->
+<!--            <choose>-->
+<!--                <when test="searchForm.fromCreateDate != null and searchForm.toCreateDate != null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(requests.create_date , '%Y-%m-%d') BETWEEN DATE_FORMAT(#{searchForm.fromCreateDate}, '%Y-%m-%d') AND DATE_FORMAT(#{searchForm.toCreateDate}, '%Y-%m-%d')-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromCreateDate != null and searchForm.toCreateDate == null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(requests.create_date , '%Y-%m-%d') >= DATE_FORMAT(#{searchForm.fromCreateDate}, '%Y-%m-%d')-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromCreateDate == null and searchForm.toCreateDate != null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(requests.create_date , '%Y-%m-%d') <= DATE_FORMAT(#{searchForm.toCreateDate}, '%Y-%m-%d')-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 이사타입 &ndash;&gt;-->
+<!--        <choose>-->
+<!--            <when test="searchForm != null  and searchForm.partnersMoveService != null and searchForm.partnersMoveService.size > 0 ">-->
+<!--                AND requests.move_type IN-->
+<!--                <foreach collection="searchForm.partnersMoveService" item="moveService"  open="(" close=")" separator=",">-->
+<!--                    #{moveService}-->
+<!--                </foreach>-->
+<!--            </when>-->
+<!--        </choose>-->
+
+<!--        &lt;!&ndash; 상태 &ndash;&gt;-->
+<!--        <choose>-->
+<!--            <when test="searchForm != null and searchForm.status != null and searchForm.status.size > 0 ">-->
+<!--                AND requests.status IN-->
+<!--                <foreach collection="searchForm.status" item="status"  open="(" close=")" separator=",">-->
+<!--                    #{status}-->
+<!--                </foreach>-->
+<!--            </when>-->
+<!--        </choose>-->
+
+<!--        &lt;!&ndash; 유입경로 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.inflowPath != null  and searchForm.inflowPath != '' ">-->
+<!--            AND inflow_path=#{searchForm.inflowPath}-->
+<!--        </if>-->
+<!--    </sql>-->
+
+<!--    &lt;!&ndash; 상담신청 리스트 조회 &ndash;&gt;-->
+<!--    <sql id="partners_whereSearch">-->
+
+<!--        &lt;!&ndash; 고객명 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.adminNm != null  and searchForm.adminNm != '' ">-->
+<!--            AND NAME LIKE CONCAT('%', #{searchForm.adminNm}, '%')-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 전화번호 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.phone != null  and searchForm.phone != '' ">-->
+<!--            AND phone LIKE CONCAT('%', #{searchForm.phone}, '%')-->
+<!--        </if>-->
+
+
+<!--        &lt;!&ndash; 담당자이름 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.manager != null  and searchForm.manager != '' ">-->
+<!--            AND manager LIKE CONCAT('%', #{searchForm.manager}, '%')-->
+<!--        </if>-->
+
+
+<!--        &lt;!&ndash; 이사업체상태 &ndash;&gt;-->
+<!--        <choose>-->
+<!--            <when test="searchForm != null  and searchForm.partnerStatus != null and searchForm.partnerStatus.size > 0 ">-->
+<!--                AND status IN-->
+<!--                <foreach collection="searchForm.partnerStatus" item="status"  open="(" close=")" separator=",">-->
+<!--                    #{status}-->
+<!--                </foreach>-->
+<!--            </when>-->
+<!--        </choose>-->
+
+
+<!--        &lt;!&ndash; 이사업체 지역 &ndash;&gt;-->
+<!--        <if test="searchForm != null  and searchForm.address != null  and searchForm.address != '' ">-->
+<!--            AND address LIKE CONCAT('%', #{searchForm.address}, '%')-->
+<!--        </if>-->
+
+
+<!--        <choose>-->
+<!--            <when test="searchForm != null  and searchForm.partnersMoveService != null and searchForm.partnersMoveService.size > 0 ">-->
+<!--                and (-->
+<!--                    exists (-->
+<!--                        select-->
+<!--                            1-->
+<!--                        from-->
+<!--                            partners partners1_-->
+<!--                            inner join-->
+<!--                                partners_move_service partnersmo2_-->
+<!--                                on partners1_.id=partnersmo2_.partners_id-->
+<!--                        where-->
+<!--                            partners1_.id=partners0_.id-->
+<!--                            and partnersmo2_.partners_move_service IN-->
+<!--                <foreach collection="searchForm.partnersMoveService" item="partnersMoveService"  open="(" close=")" separator=",">-->
+<!--                    #{partnersMoveService}-->
+<!--                </foreach>-->
+<!--                      )-->
+<!--                )-->
+<!--            </when>-->
+<!--        </choose>-->
+
+
+<!--        &lt;!&ndash; 포인트  &ndash;&gt;-->
+<!--        <if test="searchForm != null " >-->
+<!--            <choose>-->
+<!--                <when test="searchForm.fromPoint > 0 and searchForm.toPoint > 0 ">-->
+<!--                    <![CDATA[-->
+<!--                    AND  POINT BETWEEN #{searchForm.fromPoint} AND #{searchForm.toPoint}-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromPoint > 0 and searchForm.toPoint == 0 ">-->
+<!--                    <![CDATA[-->
+<!--                    AND POINT  >= #{searchForm.fromPoint}-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromPoint == 0 and searchForm.toPoint  > 0  ">-->
+<!--                    <![CDATA[-->
+<!--                    AND POINT  <= #{searchForm.toPoint}-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 신청날짜  &ndash;&gt;-->
+<!--        <if test="searchForm != null " >-->
+<!--            <choose>-->
+<!--                <when test="searchForm.fromCreateDate != null and searchForm.toCreateDate != null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(create_date , '%Y-%m-%d') BETWEEN DATE_FORMAT(#{searchForm.fromCreateDate}, '%Y-%m-%d') AND DATE_FORMAT(#{searchForm.toCreateDate}, '%Y-%m-%d')-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromCreateDate != null and searchForm.toCreateDate == null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(create_date , '%Y-%m-%d') >= DATE_FORMAT(#{searchForm.fromCreateDate}, '%Y-%m-%d')-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--                <when test="searchForm.fromCreateDate == null and searchForm.toCreateDate != null ">-->
+<!--                    <![CDATA[-->
+<!--                    AND DATE_FORMAT(create_date , '%Y-%m-%d') <= DATE_FORMAT(#{searchForm.toCreateDate}, '%Y-%m-%d')-->
+<!--                   ]]>-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+
+<!--    </sql>-->
+
+<!--    <select id="selectPointHistoryStatics" parameterType="kr.co.paywith.pw.data.repository.SearchForm"  resultType="PointHistoriesStatisticsDto" >-->
+<!--         SELECT-->
+<!--             <choose>-->
+<!--                 <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 1 ">-->
+<!--                     DATE_FORMAT(create_date, '%Y') AS date,-->
+<!--                 </when>-->
+<!--                 <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 2 ">-->
+<!--                     DATE_FORMAT(create_date, '%Y-%m') AS date,-->
+<!--                 </when>-->
+<!--                 <otherwise>-->
+<!--                     DATE_FORMAT(create_date, '%Y-%m-%d') AS date,-->
+<!--                 </otherwise>-->
+<!--             </choose>-->
+<!--             sum(point) AS point ,-->
+<!--             sum(refund_point) AS refund_point ,-->
+<!--             sum(deposit_point) AS deposit_point ,-->
+<!--             sum(bonus_point) AS bonus_point-->
+<!--         FROM point_histories-->
+<!--         WHERE-->
+<!--             <choose>-->
+<!--                 <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 1 ">-->
+<!--                     <![CDATA[-->
+<!--                      DATE(create_date) >= STR_TO_DATE(#{searchForm.fromDate}, '%Y')  AND DATE(create_date) <= STR_TO_DATE(#{searchForm.toDate}, '%Y')-->
+<!--                      ]]>-->
+
+<!--                  </when>-->
+<!--                  <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 2 ">-->
+<!--                      <![CDATA[-->
+<!--                      DATE(create_date) >= STR_TO_DATE(#{searchForm.fromDate}, '%Y-%m')  AND DATE(create_date) <= STR_TO_DATE(#{searchForm.toDate}, '%Y-%m')-->
+<!--                       ]]>-->
+<!--                  </when>-->
+<!--                    <otherwise>-->
+<!--                        <![CDATA[-->
+<!--                        DATE(create_date) >= STR_TO_DATE(#{searchForm.fromDate}, '%Y-%m-%d')  AND DATE(create_date) <= STR_TO_DATE(#{searchForm.toDate}, '%Y-%m-%d')-->
+<!--                        ]]>-->
+<!--                    </otherwise>-->
+<!--                </choose>-->
+<!--         GROUP BY date-->
+<!--         Order by date;-->
+<!--     </select>-->
+
+
+<!--    <select id="selectRequestStatics" parameterType="kr.co.paywith.pw.data.repository"  resultType="RequestStatisticsDto" >-->
+<!--        SELECT-->
+<!--        <choose>-->
+<!--            <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 1 ">-->
+<!--                DATE_FORMAT(requests.create_date, '%Y') AS date,-->
+<!--            </when>-->
+<!--            <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 2 ">-->
+<!--                DATE_FORMAT(requests.create_date, '%Y-%m') AS date,-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                DATE_FORMAT(requests.create_date, '%Y-%m-%d') AS date,-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+<!--        <choose>-->
+<!--            <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 1 ">-->
+<!--                <![CDATA[-->
+<!--            (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y') = date and status not in ('중복접수')) AS total_count ,-->
+<!--            (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y') = date and status in ('업체견적완료')) AS estimated_count,-->
+<!--            (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y') = date and status in ('업체선정완료')) AS request_count,-->
+<!--                  ]]>-->
+
+<!--            </when>-->
+<!--            <when test="searchForm != null  and searchForm.searchDateType != null and searchForm.searchDateType == 2 ">-->
+<!--                <![CDATA[-->
+<!--            (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y-%m') = date and status not in ('중복접수')) AS total_count ,-->
+<!--            (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y-%m') = date and status in ('업체견적완료')) AS estimated_count,-->
+<!--            (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y-%m') = date and status in ('업체선정완료')) AS request_count,-->
+<!--                ]]>-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                <![CDATA[-->
+<!--                   (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y-%m-%d') = date and status not in ('중복접수')) AS total_count ,-->
+<!--                   (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y-%m-%d') = date and status in ('업체견적완료')) AS estimated_count,-->
+<!--                   (select count(*) from requests where DATE_FORMAT(requests.create_date, '%Y-%m-%d') = date and status in ('업체선정완료')) AS request_count,-->
+<!--                ]]>-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+<!--            sum(if( (ps.point_type = '견적입력' <![CDATA[ && ]]>  ps.requests_id=requests.id) , 1, 0)) as history_estimated_count,-->
+<!--            sum(if( (ps.point_type = '상담요청' <![CDATA[ && ]]>  ps.requests_id=requests.id) , 1, 0)) as history_requests_count,-->
+<!--            sum(recovery_point) AS recovery_point ,-->
+<!--            sum(estimate_point) AS  estimate_point ,-->
+<!--            sum(consulting_point) AS consulting_point-->
+<!--        FROM-->
+<!--            requests-->
+<!--                Left outer join-->
+<!--                    point_histories ps-->
+<!--                    on ps.requests_id = requests.id-->
+<!--        WHERE-->
+<!--            <![CDATA[-->
+<!--                DATE(requests.create_date) >= STR_TO_DATE(#{searchForm.fromDate}, '%Y-%m-%d')  AND DATE(requests.create_date) <= STR_TO_DATE(#{searchForm.toDate}, '%Y-%m-%d')-->
+<!--            ]]>-->
+<!--        GROUP BY date-->
+<!--        Order by date;-->
+<!--    </select>-->
+
+
+<!--    <select id="selectPartners" parameterType="Integer"  resultType="SalesStatisticsDto" >-->
+<!--      SELECT-->
+<!--        partners.id,-->
+<!--        partners.point,-->
+<!--        partners.slogan,-->
+<!--        partners.team_count,-->
+<!--        partners.has_insurance,-->
+<!--        partners.name,-->
+<!--       (select partners_payments_enums from partners_partners_payments_enums where partners_partners_payments_enums.partners_payments_enums = 'CARD' and partners_partners_payments_enums.partners_id=#{id} ) AS  partners_payments,-->
+<!--        partners.logo_img_url,-->
+<!--        partners.career_start_date,-->
+<!--        sum(if(request_assignments.status='견적요청' , 1, 0)) as estimated_count,-->
+<!--        sum(if(request_assignments.status='견적완료' , 1, 0)) as estimated_complete_count,-->
+<!--        sum(if(request_assignments.status='상담요청' , 1, 0)) as request_count,-->
+<!--        sum(if(request_assignments.status='상담완료' , 1, 0)) as request_complete_count,-->
+<!--        sum(if(request_assignments.status='복구완료' , 1, 0)) as recovery_complete_count,-->
+<!--        (select count(*) from request_reviews where request_reviews.recommend = 'YES' and request_reviews.partners_id=#{id} ) AS  recommend_count,-->
+<!--        (select count(*) from request_reviews where request_reviews.recommend = 'NO' and request_reviews.partners_id=#{id} ) AS  recommend_no_count-->
+<!--      FROM partners-->
+<!--        LEFT OUTER JOIN-->
+<!--            request_assignments-->
+<!--            ON request_assignments.partners_id = partners.id-->
+<!--      WHERE partners.id = #{id}-->
+<!--    </select>-->
+
+<!--    <select id="selectPartnersStatics"  resultType="PartnersStatisticsDto" >-->
+<!--        SELECT-->
+<!--            sum(if(status ='신규가입' , 1, 0)) as newpartner_count,-->
+<!--            sum(if(status ='영업승인' , 1, 0)) as business_count,-->
+<!--            sum(if(status ='잔액부족' , 1, 0)) as insufficient_count,-->
+<!--            sum(if(status ='일시정지' , 1, 0)) as temporarystop_count,-->
+<!--            sum(if(status ='보류' , 1, 0)) as suspension_count,-->
+<!--            sum(if(status ='탈퇴' , 1, 0)) as withdrawal_count-->
+<!--        FROM partners-->
+<!--    </select>-->
+
+
+<!--    <select id="excelPartnersList" resultType="PartnersListExcel" >-->
+<!--         SELECT-->
+<!--             partners.id,-->
+<!--             partners.admin_id,-->
+<!--             partners.address,-->
+<!--             partners.create_date,-->
+<!--             partners.manager,-->
+<!--             partners.name,-->
+<!--             (select  group_concat(partners_move_service) from partners_move_service  where partners_move_service.partners_id = partners.id ) as partners_move_service,-->
+<!--             partners.phone,-->
+<!--             partners.point,-->
+<!--             partners.status ,-->
+<!--             (select count(*) from request_reviews where request_reviews.recommend = 'YES' and request_reviews.partners_id=partners.id ) AS  recommend_count,-->
+<!--             (select count(*) from request_reviews where request_reviews.recommend = 'NO' and request_reviews.partners_id=partners.id ) AS  recommend_no_count,-->
+<!--             (select MAX(request_assignments.create_date) from request_assignments where request_assignments.partners_id = partners.id ) AS point_update_date-->
+<!--        FROM partners-->
+<!--        WHERE-->
+<!--             1=1-->
+<!--            <include refid="partners_whereSearch" />-->
+<!--    </select>-->
+
+
+<!--    <select id="excelRequestsList" resultType="RequestsListExcel" >-->
+<!--        SELECT-->
+<!--            requests.id,-->
+<!--            requests.name,-->
+<!--            requests.phone,-->
+<!--            requests.depart_address,-->
+<!--            requests.depart_address_code,-->
+<!--            requests.depart_addr_floor,-->
+<!--            requests.arrival_address,-->
+<!--            requests.arrival_address_code,-->
+<!--            requests.arrival_addr_floor,-->
+<!--            requests.area_code,-->
+<!--            requests.wish_move_date,-->
+<!--            requests.move_type,-->
+<!--            requests.status,-->
+<!--            requests.client_device,-->
+<!--            requests.space,-->
+<!--            requests.room_count,-->
+<!--            requests.bathroom_count,-->
+<!--            requests.veranda_count,-->
+<!--            requests.building_structure,-->
+<!--            requests.inflow_path,-->
+<!--            requests.referer_url,-->
+<!--            requests.step,-->
+<!--            requests.comment,-->
+<!--        	requests.create_date,-->
+<!--            ag.name as agents,-->
+<!--        ( select count(request_assignments.id) from request_assignments where request_assignments.requests_id = requests.id ) as assignments_count-->
+<!--        FROM-->
+<!--            requests-->
+<!--            left outer join-->
+<!--               agents ag-->
+<!--            on ag.id = requests.agents_id-->
+<!--        WHERE-->
+<!--           1=1-->
+<!--            <include refid="request_whereSearch" />-->
+<!--    </select>-->
+
+
+<!--    <select id="alarmdateList"  parameterType="kr.co.paywith.pw.data.repository.SearchForm"  resultType="RequestAlarmsList" >-->
+<!--        select-->
+<!--           DISTINCT(requests_id) AS id,-->
+<!--           alarm_date-->
+<!--        from request_alarms-->
+<!--        where-->
+<!--            STR_TO_DATE(alarm_date , '%Y-%m') BETWEEN STR_TO_DATE(#{searchForm.fromDate}, '%Y-%m') AND STR_TO_DATE(#{searchForm.toDate}, '%Y-%m')-->
+<!--        GROUP by requests_id-->
+<!--        order by alarm_date-->
+<!--     </select>-->
+
+
+<!--    <select id="partnerShipAlarmsList"  parameterType="kr.co.paywith.pw.data.repository.SearchForm"  resultType="PartnerShipAlarmsList" >-->
+<!--        select-->
+<!--           DISTINCT(partnerships_id) AS id,-->
+<!--           alarm_date-->
+<!--        from partnership_alarms-->
+<!--        where-->
+<!--            STR_TO_DATE(alarm_date , '%Y-%m') BETWEEN STR_TO_DATE(#{searchForm.fromDate}, '%Y-%m') AND STR_TO_DATE(#{searchForm.toDate}, '%Y-%m')-->
+<!--        GROUP by alarm_date, id-->
+<!--        order by alarm_date, id;-->
+<!--     </select>-->
+
+<!--    <select id="partnerClosedates"  resultType="Integer" >-->
+<!--        select-->
+<!--            partners_id-->
+<!--        from-->
+<!--             partner_closedates-->
+<!--        where-->
+<!--             close_date=#{wishMoveDate}-->
+<!--    </select>-->
+
+
+<!--    <select id="selectFrontStatics"  resultType="FrontStatisticsDto" >-->
+<!--      select-->
+<!--           count(*) as request_reviews_count,-->
+<!--           ( select count(*) from requests ) as requests_count,-->
+<!--           ( select count(*) from requests where  create_date > CURRENT_DATE()  ) as today_requests_count,-->
+<!--           ( select count(*) from partners ) as  partners_count-->
+<!--      from request_reviews-->
+<!--    </select>-->
+
+
+</mapper>
