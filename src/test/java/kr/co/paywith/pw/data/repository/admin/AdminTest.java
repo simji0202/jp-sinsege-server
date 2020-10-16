@@ -36,6 +36,7 @@ AdminTest extends BaseControllerTest {
                 .build();
 
 
+        
         assertThat(admin).isNotNull();
     }
 
