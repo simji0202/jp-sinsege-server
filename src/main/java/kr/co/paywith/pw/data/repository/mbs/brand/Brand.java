@@ -126,15 +126,16 @@ public class Brand implements Serializable {
   @ElementCollection(fetch = FetchType.LAZY)
   private List<AvailServiceCd> availServiceCdList  = new ArrayList<>();
 
-  /**
-   * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
-   *
-   * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
-   */
-  @Column(length = 10)
-  @Enumerated(EnumType.STRING)
-  @ElementCollection(fetch = FetchType.LAZY)
-  private List<DuplicateAvailFieldCd> duplicateAvailFieldCdList  = new ArrayList<>();
+  // kms: 삭제가능. 회원 정보 중 중복 가능한 필드 설정하는 부분으로 아이디는 서비스 전체에서
+//  /**
+//   * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
+//   *
+//   * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
+//   */
+//  @Column(length = 10)
+//  @Enumerated(EnumType.STRING)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  private List<DuplicateAvailFieldCd> duplicateAvailFieldCdList  = new ArrayList<>();
 
 
 
@@ -159,19 +160,20 @@ public class Brand implements Serializable {
 
 
 
+// kms: 삭제가능. envValueMap에서 기능 대체 가능
+//  /**
+//   *  기본적인 브랜드 옵션 설정
+//   */
+//  @OneToOne (cascade = CascadeType.ALL )
+//  private BrandApp brandApp;
 
-  /**
-   *  기본적인 브랜드 옵션 설정
-   */
-  @OneToOne (cascade = CascadeType.ALL )
-  private BrandApp brandApp;
 
-
-  /**
-   *  기본적인 안드로이드, IOS 앱  옵션 설정
-   */
-  @OneToOne (cascade = CascadeType.ALL )
-  private BrandAuth brandAuth;
+  // kms: 다날 본인인증 연동에 사용하던 정보인데, 필요있을지 검
+//  /**
+//   *  기본적인 안드로이드, IOS 앱  옵션 설정
+//   */
+//  @OneToOne (cascade = CascadeType.ALL )
+//  private BrandAuth brandAuth;
 
 
   /**

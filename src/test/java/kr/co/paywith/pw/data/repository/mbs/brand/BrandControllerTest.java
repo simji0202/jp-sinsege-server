@@ -52,7 +52,7 @@ public class BrandControllerTest extends BaseControllerTest {
         brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
 
         BrandSetting brandSetting = new BrandSetting();
-        brandSetting.setBillingMinAmt(3000);
+//        brandSetting.setBillingMinAmt(3000);
         brandSetting.setBizClass("bizClass");
         brandSetting.setBizType("bizType");
         brandSetting.setFcmKey("FcmKey");
@@ -71,8 +71,8 @@ public class BrandControllerTest extends BaseControllerTest {
 
 
         brand.setBrandSetting(brandSetting);
-        brand.setBrandApp(brandApp);
-        brand.setBrandAuth(brandAuth);
+//        brand.setBrandApp(brandApp);
+//        brand.setBrandAuth(brandAuth);
 
 
         mockMvc.perform(post("/api/brand/")

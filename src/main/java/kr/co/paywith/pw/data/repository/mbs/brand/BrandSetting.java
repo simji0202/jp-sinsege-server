@@ -58,12 +58,13 @@ public class BrandSetting {
 //  @Column(table = "BRAND_SETTING", length = 10)
 //  private PrpayOvrRuleCd prpayOvrRuleCd = PrpayOvrRuleCd.D;
 
-  /**
-   * 서버사이드에서 관리할 브랜드 테마 값
-   */
-  @Lob
-  @Deprecated
-  private String themeValue;
+  // kms: Brand.envValueMap으로 대체했던 필드이므로 삭제 가능
+//  /**
+//   * 서버사이드에서 관리할 브랜드 테마 값
+//   */
+//  @Lob
+//  @Deprecated
+//  private String themeValue;
 
   /**
    * 서버사이드에서 관리할 브랜드 이미지
@@ -124,13 +125,14 @@ public class BrandSetting {
 
   private Boolean useOrdrFl;
 
-  /**
-   * PG 결제 시 ChrgSetleChnlCd가 APP 일 경우 변경할 타입을 지정
-   *
-   * null일 경우에는 기본 APP 상태로 유지
-   */
-  @Enumerated(EnumType.STRING)
-  private PgTypeCd defaultPgTypeCd;
+  // kms: 삭제. 새 기능 추가하면서 호환 위해서 존재하던 필드
+//  /**
+//   * PG 결제 시 ChrgSetleChnlCd가 APP 일 경우 변경할 타입을 지정
+//   *
+//   * null일 경우에는 기본 APP 상태로 유지
+//   */
+//  @Enumerated(EnumType.STRING)
+//  private PgTypeCd defaultPgTypeCd;
 
   /**
    * 사업자 번호
@@ -157,14 +159,13 @@ public class BrandSetting {
    */
   private String bizClass;
 
-  /**
-   * 정기결제 최소 충전 단위
-   *
-   * (ex: 1000이면 금액이 부족할때 천원씩 2300원이 부족하다면 3000원을 충전한다)
-   */
-  private Integer billingMinAmt = 1;
-
-
+  // kms: 삭제 가능. 선불카드+정기결제(빌링)는 KICC에서 가능하지 않은 기능. 기능구현이 복잡하지 않으므로 추후 가능할 때 다시 구현
+//  /**
+//   * 정기결제 최소 충전 단위
+//   *
+//   * (ex: 1000이면 금액이 부족할때 천원씩 2300원이 부족하다면 3000원을 충전한다)
+//   */
+//  private Integer billingMinAmt = 1;
 
   /**
    * 남은 선불카드가 없을 때 자동으로 발급할 번호 규칙.
@@ -180,10 +181,9 @@ public class BrandSetting {
   private Integer stampStdAmt;
 
   /**
-   * 포인트 사용 가능한 최소 금액\
+   * 포인트 사용 가능한 최소 금액
    */
   private Integer minUsePointAmt = 0;
-
 
   /**
    * 등록 일시
