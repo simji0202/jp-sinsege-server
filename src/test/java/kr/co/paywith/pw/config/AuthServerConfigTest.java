@@ -1,17 +1,12 @@
 package kr.co.paywith.pw.config;
 
-import kr.co.paywith.pw.data.repository.admin.Admin;
-import kr.co.paywith.pw.data.repository.admin.AdminRepository;
-import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.admin.AdminService;
 import kr.co.paywith.pw.common.BaseControllerTest;
+import kr.co.paywith.pw.data.repository.admin.AdminRepository;
+import kr.co.paywith.pw.data.repository.admin.AdminService;
 import kr.co.paywith.pw.common.TestDescription;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Set;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,13 +34,12 @@ public class AuthServerConfigTest extends BaseControllerTest {
     public void getAuthToken() throws Exception {
 
         // Given
-        String username = "won" ;
+        String username = "user" ;
         String password = "1234" ;
 
         // 인증서버 정보 설정
         String clientId = "sinsege";
         String clientSecret = "paywith1234";
-
 
         this.mockMvc.perform(post("/oauth/token")
                 .header("Origin","*")

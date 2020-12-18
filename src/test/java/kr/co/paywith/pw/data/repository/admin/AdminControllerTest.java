@@ -4,8 +4,8 @@ package kr.co.paywith.pw.data.repository.admin;
 import kr.co.paywith.pw.common.AppPropertiesTest;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.agents.Agents;
-import kr.co.paywith.pw.data.repository.partners.Partners;
+
+import kr.co.paywith.pw.data.repository.mbs.enumeration.AuthCd;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AdminControllerTest extends BaseControllerTest {
 
-
-    @Autowired
-    AdminRepository adminRepository;
-
-    @Autowired
-    AdminService adminService;
-
-    @Autowired
-    AppPropertiesTest appPropertiesTest;
-
-
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -52,18 +41,14 @@ public class AdminControllerTest extends BaseControllerTest {
     @TestDescription("업체을 등록하는 테스트")
     public void createAdmin() throws Exception {
 
-        Partners partners = new Partners();
 
-        Agents agents = new Agents();
 
         Admin admin = Admin.builder()
 
-                .adminId("paywith")
+                .adminId("paywith22")
                 .adminPw("1234")
                 .adminNm("페이위드 ")
-                .partners(partners)
-                //   .agents(agents)
-                .adminType(AdminType.ADMIN)
+                .authCd(AuthCd.B_MST)
                 .roles(Set.of(AdminRole.ADMIN_MASTER))
                 .build();
 
@@ -132,71 +117,6 @@ public class AdminControllerTest extends BaseControllerTest {
 
 
     @Test
-    @TestDescription("아이디 존재 조회하기")
-    public void getAdminId() throws Exception {
-
-        // Given
-
-        // When & Then
-        this.mockMvc.perform(get("/api/admin/adminId/")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                        .header("Origin", "*")
-                        .param("adminId", "simji")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andDo(document("update-admin"))
-        ;
-    }
-
-
-    @Test
-    @TestDescription("아이디 존재 조회하기")
-    public void getAdminIdCheck() throws Exception {
-
-        // Given
-
-        // When & Then
-        this.mockMvc.perform(get("/api/admin/idchk/")
-           //     .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                .header("Origin", "*")
-                .param("adminId", "dskjfskfsd")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-        )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andDo(document("update-admin"))
-        ;
-    }
-
-
-
-
-
-    @Test
-    @TestDescription(" 조회하기")
-    public void getAdminInfo() throws Exception {
-
-        // Given
-
-
-        // When & Then
-        this.mockMvc.perform(get("/api/admin/adminInfo/")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                .header("Origin", "*")
-                .param("adminId", "partner@partner.com")
-                .param("adminPw", "1234#")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-        )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andDo(document("update-admin"))
-        ;
-    }
-
-
-    @Test
     @TestDescription("업체정보를 정상적으로 수정하기")
     public void updateAdmin() throws Exception {
 
@@ -204,16 +124,14 @@ public class AdminControllerTest extends BaseControllerTest {
 
         AdminUpdateDto adminDto = new AdminUpdateDto();
         String address = " 변경된 주소 " + LocalDateTime.now();
-        adminDto.setId(1);
-        adminDto.setAdminId("simji0202");
-        adminDto.setAdminNm("Che Won");
-        adminDto.setPhone("1111111111");
-        adminDto.setAdminType(AdminType.PARTNER);
+        adminDto.setId(2);
+        adminDto.setAdminNm("Che Won67");
+
 
 
         // When & Then
-        this.mockMvc.perform(put("/api/admin/{id}", 1)
-                //		   .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+        this.mockMvc.perform(put("/api/admin/{id}", 2)
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(this.objectMapper.writeValueAsString(adminDto)))
@@ -232,11 +150,10 @@ public class AdminControllerTest extends BaseControllerTest {
         // Given
 
         AdminPwUpdateDto adminDto = new AdminPwUpdateDto();
-        adminDto.setAdminPw("1111");
-
+        adminDto.setAdminPw("1234");
 
         // When & Then
-        this.mockMvc.perform(put("/api/admin/adminpw/{id}", 1)
+        this.mockMvc.perform(put("/api/admin/updatePw/{id}", 2)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -246,55 +163,6 @@ public class AdminControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("_links.self").exists())
                 .andDo(document("update-admin"))
         ;
-    }
-
-
-    private Admin generateAdmin(int i) {
-
-        Admin admin = Admin.builder()
-                .adminId("simji0202" + LocalDateTime.now())
-                .adminPw("020202")
-                .adminNm("Che Won")
-                .adminType(AdminType.PARTNER)
-                .roles(Set.of(AdminRole.PARTNER))
-                .build();
-
-        return this.adminRepository.save(admin);
-    }
-
-
-    private String getBearerToken(boolean needToCreateAdmin) throws Exception {
-        return "Bearer " + getAccessToken(needToCreateAdmin);
-    }
-
-    private String getAccessToken(boolean needToCreateAdmin) throws Exception {
-        // Given
-        if (needToCreateAdmin) {
-            // createAdmin();
-        }
-
-        // Given
-        String username = "simji";
-        String password = "1234";
-
-        // 인증서버 정보 설정
-        String clientId = "sinsege";
-        String clientSecret = "paywith1234";
-
-
-        ResultActions perform = this.mockMvc.perform(post("/oauth/token")
-                .header("Origin", "*")
-                .with(httpBasic(clientId, clientSecret))
-                .param("username", username)
-                .param("password", password)
-                .param("grant_type", "password"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("access_token").exists());
-
-        var responseBody = perform.andReturn().getResponse().getContentAsString();
-        Jackson2JsonParser parser = new Jackson2JsonParser();
-        return parser.parseMap(responseBody).get("access_token").toString();
     }
 
 

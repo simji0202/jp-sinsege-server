@@ -2,8 +2,6 @@ package kr.co.paywith.pw.data.repository.admin;
 
 
 import kr.co.paywith.pw.common.BaseControllerTest;
-import kr.co.paywith.pw.data.repository.partners.Partners;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -60,24 +57,16 @@ public class AdminServiceTest  extends BaseControllerTest {
         String userId = "simji";
         String passwd = "1234";
 
-
-        Partners partners = new Partners();
-
         Admin admin  = Admin.builder()
                 .adminNm("채원")
                 .adminId(userId)
                 .adminPw(passwd)
-              //  .partners(partners)
-                //   .agents(agents)
-                .adminType(AdminType.ADMIN)
-                .roles(Set.of(AdminRole.ADMIN_MASTER))                .build();
+                .roles(Set.of(AdminRole.ADMIN_MASTER))
+
+                .build();
 
 
-
-
-
-
-        this.adminService.saveAdmin(admin);
+        this.adminService.create(admin);
 
         // Given
         UserDetailsService userDetailsService = (UserDetailsService) adminService;
@@ -107,16 +96,16 @@ public class AdminServiceTest  extends BaseControllerTest {
 
 
 
-    @Test
-    public void findByUserIdFail2() {
-        // Expected ( 먼저 예측 Exception을 기술 )
-        String userId = "IamfailUser";
-        expectedException.expect(UsernameNotFoundException.class);
-        expectedException.expectMessage(Matchers.containsString(userId));
-
-        // When
-        adminService.loadUserByUsername(userId);
-    }
+//    @Test
+//    public void findByUserIdFail2() {
+//        // Expected ( 먼저 예측 Exception을 기술 )
+//        String userId = "IamfailUser";
+//        expectedException.expect(UsernameNotFoundException.class);
+//        expectedException.expectMessage(Matchers.containsString(userId));
+//
+//        // When
+//        adminService.loadUserByUsername(userId);
+//    }
 
 
 }

@@ -2,16 +2,20 @@ package kr.co.paywith.pw.data.repository.admin;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.agents.Agents;
-import kr.co.paywith.pw.data.repository.partners.Partners;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
+import kr.co.paywith.pw.data.repository.mbs.enumeration.AuthCd;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Data
@@ -20,31 +24,44 @@ import java.util.Set;
 @AllArgsConstructor
 public class AdminDto {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @NameDescription("관리자, 업체, 에이전트 id")
+  @NameDescription("관리자")
   private String adminId;
 
   @NameDescription("이름")
   private String adminNm;
 
-  @NameDescription("타입(agent, 업체, 에이전트, 이사업체)")
-  @Enumerated(EnumType.STRING)
-  private AdminType adminType;
-
   @NameDescription("비밀번호")
   private String adminPw;
 
-  @NameDescription("이메일(아이디)")
-  private String  email;
+  @NameDescription("이메일 주소")
+  private String emailAddr;
+
+  @NameDescription("휴대폰 번호")
+  private String mobileNum;
+
+  @NameDescription("최종 로그인 아이피")
+  private String lastLoginIp;
+
+  @NameDescription("권한 코드")
+  @Enumerated(EnumType.STRING)
+  private AuthCd authCd;
+
+  @NameDescription("브랜드정보")
+  private Brand brand;
+
+  @NameDescription("사용 여부")
+  private Boolean activeFl;
+
+  @NameDescription("최종 로그인 일시")
+  private ZonedDateTime lastLoginDttm;
 
   @NameDescription("관리자타입")
   @Enumerated(EnumType.STRING)
   private Set<AdminRole> roles;
 
-  @NameDescription("관리자타입")
-  private Partners partners;
 
-  @NameDescription("에이젼트 ")
-  private Agents agents;
 }

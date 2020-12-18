@@ -1,31 +1,20 @@
 package kr.co.paywith.pw.security;
 
-import javax.sql.DataSource;
-import kr.co.paywith.pw.data.repository.admin.AdminService;
+import kr.co.paywith.pw.data.repository.account.AccountService;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 /**
  *  인증서버 및 리소스 서버를 위한 기본 설정
@@ -35,7 +24,10 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    AdminService adminService;
+    AccountService accountService;
+
+    @Autowired
+    UserInfoService userInfoService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -58,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-               auth.userDetailsService(adminService)
+               auth.userDetailsService(accountService)
                 .passwordEncoder(passwordEncoder);
     }
 
@@ -82,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 //          http
-// //                 .cors().and()
+ //                 .cors().and()
 //                  .csrf().disable()
 //                  .authorizeRequests()
 //                  .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll();
@@ -95,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        configuration.applyPermitDefaultValues();
 //        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","OPTIONS"));
+//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","OPTIONS", "HEAD"));
 //        configuration.setAllowCredentials(false);
 //        configuration.setAllowedHeaders(Arrays.asList("*"));
 //

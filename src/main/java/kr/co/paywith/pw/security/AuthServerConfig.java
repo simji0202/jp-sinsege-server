@@ -1,11 +1,8 @@
 package kr.co.paywith.pw.security;
 
-import javax.sql.DataSource;
 import kr.co.paywith.pw.common.AppProperties;
-import kr.co.paywith.pw.data.repository.admin.AdminService;
-import lombok.AllArgsConstructor;
+import kr.co.paywith.pw.data.repository.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,20 +11,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.approval.ApprovalStore;
-import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthServerConfig  extends AuthorizationServerConfigurerAdapter  {
-
-
-
 
 
     @Autowired
@@ -37,42 +25,14 @@ public class AuthServerConfig  extends AuthorizationServerConfigurerAdapter  {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    AdminService adminService;
+    AccountService accountService;
 
     @Autowired
     TokenStore tokenStore;
 
-//    @Autowired
-//     TokenStore JdbcTokenStore;
-
-    //   private final DataSource dataSource;
-
 
     @Autowired
     AppProperties appProperties;
-
-
-//    private final AuthenticationManager authenticationManager;
-//    private final AppConfig appConfig;
-//    @Autowired
-//    public AuthServerConfig(AuthenticationManager authenticationManager, AppConfig appConfig) {
-//        this.authenticationManager = authenticationManager;
-//        this.appConfig = appConfig;
-//    }
-
-
-//    @Bean
-//    public TokenStore tokenStore() { //(2)
-//        return new JdbcTokenStore(dataSource);
-//    }
-//
-//    @Bean
-//    public ApprovalStore approvalStore() { //(3)
-//        return new JdbcApprovalStore(dataSource);
-//    }
-
-
-
 
 
     @Override
@@ -81,8 +41,6 @@ public class AuthServerConfig  extends AuthorizationServerConfigurerAdapter  {
         security
                 .passwordEncoder(passwordEncoder)
                 .tokenKeyAccess("permitAll()")
-        //        .checkTokenAccess("isAuthenticated()")
-        //        .allowFormAuthenticationForClients()
         ;
 
     }
@@ -129,24 +87,9 @@ public class AuthServerConfig  extends AuthorizationServerConfigurerAdapter  {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-//        endpoints.authenticationManager(authenticationManager)
-//                .userDetailsService(adminService)
-//          //   .tokenStore(tokenStore)
-//           //     .tokenStore(JdbcTokenStore)
-
-
-//        endpoints. approvalStore(approvalStore())
-//            .tokenStore(tokenStore())
-//        .authenticationManager(authenticationManager)
-        //   .tokenStore(tokenStore)
-        //     .tokenStore(JdbcTokenStore)
-
-        ;
-
-
         // inMemory 에서 관리 방법
         endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(adminService)
+                .userDetailsService(accountService)
                 .tokenStore(tokenStore);
     }
 

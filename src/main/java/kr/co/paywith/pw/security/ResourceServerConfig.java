@@ -27,17 +27,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .anonymous()
                .and()
             .authorizeRequests()
+
+                // 인증없이 리소스 참조 API
                 .mvcMatchers("/api/front/**").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/api/admin/noauth").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/admin/idchk").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/bbs").permitAll()
-                .mvcMatchers(HttpMethod.POST, "/api/partners/**").permitAll()
-                .mvcMatchers(" /swagger-resources/**")
-                    .permitAll()
-                .mvcMatchers("/oauth2/**")
-                    .permitAll()
-                .anyRequest()
-//                .permitAll()
-                 .authenticated()
+                .mvcMatchers(" /swagger-resources/**").permitAll()
+
+                .anyRequest().authenticated()
                 .and()
             .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());

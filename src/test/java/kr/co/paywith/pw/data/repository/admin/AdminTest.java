@@ -22,7 +22,6 @@ AdminTest extends BaseControllerTest {
     @Autowired
     AdminService adminService;
 
-
     @Autowired
     AppPropertiesTest appPropertiesTest;
 
@@ -35,18 +34,11 @@ AdminTest extends BaseControllerTest {
                 .adminPw(appPropertiesTest.getAdminPw())
                 .build();
 
-
-
         assertThat(admin).isNotNull();
     }
 
     @Test
-    public  void
-
-
-
-
-    createAdmin() {
+    public  void  createAdmin() {
 
         // Given
         IntStream.range(0, 1).forEach(this::generateAdmin);
@@ -55,15 +47,13 @@ AdminTest extends BaseControllerTest {
 
     private Admin generateAdmin(int i) {
 
-
         Admin admin = Admin.builder()
                 .adminId("simji")
                 .adminPw("1234")
                 .adminNm("paywith")
-                .adminType(AdminType.ADMIN)
                 .roles(Set.of(AdminRole.ADMIN_MASTER))
                 .build();
 
-        return this.adminService.saveAdmin(admin);
+        return this.adminService.create(admin);
     }
 }
