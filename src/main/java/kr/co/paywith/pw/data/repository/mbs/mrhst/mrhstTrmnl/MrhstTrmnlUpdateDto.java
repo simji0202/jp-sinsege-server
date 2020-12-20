@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
-import kr.co.paywith.pw.data.repository.mbs.enumeration.PosAvailFnCd;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.PosTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosAvailFnCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

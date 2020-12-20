@@ -1,8 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
+import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.file.File;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
@@ -116,7 +117,10 @@ public class Bbs {
     private ZonedDateTime updtDttm;
 
 
+    @NameDescription("갱신담당자")
+    private String updateBy;
 
-
+    @NameDescription("등록담당자")
+    private String createBy;
 
 }

@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.use;
 
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.UseTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.UseTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;

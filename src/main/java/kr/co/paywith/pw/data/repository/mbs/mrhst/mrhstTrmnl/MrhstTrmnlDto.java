@@ -1,14 +1,10 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
-import kr.co.paywith.pw.data.repository.mbs.enumeration.PosAvailFnCd;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.PosTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosAvailFnCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.ZonedDateTime;

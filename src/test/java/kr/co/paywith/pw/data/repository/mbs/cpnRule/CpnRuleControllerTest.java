@@ -2,9 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpnRule;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
-import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRuleDto;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.CpnIssuRuleCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.junit.Assert.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

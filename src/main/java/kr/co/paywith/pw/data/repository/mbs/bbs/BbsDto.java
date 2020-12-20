@@ -2,13 +2,11 @@ package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.file.File;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;

@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
+import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.*;
@@ -83,6 +84,12 @@ public class Goods {
     private String imgUrl;
 
     /**
+     * 적용 대상 상품 목록
+     */
+    @OneToMany
+    private List<GoodsApply> goodsApplyList;
+
+    /**
      * 등록 일시
      */
     @CreationTimestamp
@@ -94,9 +101,9 @@ public class Goods {
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
 
-    /**
-     * 적용 대상 상품 목록
-     */
-    @OneToMany
-    private List<GoodsApply> goodsApplyList;
+    @NameDescription("갱신담당자")
+    private String updateBy;
+
+    @NameDescription("등록담당자")
+    private String createBy;
 }

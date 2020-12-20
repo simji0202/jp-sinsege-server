@@ -3,7 +3,7 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.UserAppOsCd;
+import kr.co.paywith.pw.data.repository.enumeration.UserAppOsCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
 import org.junit.Before;

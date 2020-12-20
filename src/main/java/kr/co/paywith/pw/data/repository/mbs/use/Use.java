@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.use;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.UseTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.UseTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
@@ -60,16 +60,7 @@ public class Use {
     @CsvBindByName(column = "Type")
     private UseTypeCd useTypeCd;
 
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+
 
     /**
      * 취소 일시
@@ -182,5 +173,32 @@ public class Use {
 
     @Transient
     private String paymentConfmNo;
+
+
+
+    /**
+     * 등록 일시
+     */
+    @CreationTimestamp
+    private ZonedDateTime regDttm;
+    /**
+     * 수정 일시
+     */
+    @UpdateTimestamp
+    private ZonedDateTime updtDttm;
+
+    /**
+     * 추가한 관리자
+     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
+     */
+    private String createBy;
+
+    /**
+     * 변경한  관리자
+     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
+     */
+    private String updateBy;
+
+
 
 }

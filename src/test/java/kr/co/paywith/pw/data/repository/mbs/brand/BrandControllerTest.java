@@ -2,8 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.brand;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.AvailBrandFnCd;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.ChrgSetleMthdCd;
+import kr.co.paywith.pw.data.repository.enumeration.AvailBrandFnCd;
+import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
