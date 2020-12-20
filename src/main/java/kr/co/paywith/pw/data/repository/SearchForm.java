@@ -28,5 +28,7 @@ public class SearchForm {
   private String adminId;
 
 
+  @NameDescription("사용처리 Id")
+  private Long useId;
 
 }
