@@ -53,10 +53,7 @@ public class UseDetail {
      */
     @ManyToOne
     private UserInfo userInfo;
-    /**
-     * 사용 이력 일련번호
-     */
-    private Long useSn;
+
 
     /**
      * 사용 요청

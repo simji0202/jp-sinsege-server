@@ -30,7 +30,7 @@ public class UseDto {
     /**
      * 사용 이력 일련번호
      */
-    private Long id;
+    private Integer id;
     /**
      * 승인번호
      */
