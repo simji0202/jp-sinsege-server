@@ -41,6 +41,9 @@ public class CpnRuleController extends CommonController {
     @Autowired
     CpnRuleService cpnRuleService;
 
+    /**
+     * 정보 등록
+     */
     @PostMapping
     public ResponseEntity createCpnRule(
             @RequestBody @Valid CpnRuleDto cpnRuleDto,
@@ -77,6 +80,9 @@ public class CpnRuleController extends CommonController {
     }
 
 
+    /**
+     * 정보취득 (조건별 page )
+     */
     @GetMapping
     public ResponseEntity getCpnRules(SearchForm searchForm,
                                     Pageable pageable,
@@ -111,7 +117,7 @@ public class CpnRuleController extends CommonController {
 
 
     /**
-     *
+     * 정보취득 (1건 )
      */
     @GetMapping("/{id}")
     public ResponseEntity getCpnRule(@PathVariable Integer id,
@@ -135,7 +141,7 @@ public class CpnRuleController extends CommonController {
 
 
     /**
-     *
+     * 정보 변경
      */
     @PutMapping("/{id}")
     public ResponseEntity putCpnRule(@PathVariable Integer id,

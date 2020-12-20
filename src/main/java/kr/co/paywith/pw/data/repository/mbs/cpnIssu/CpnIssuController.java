@@ -41,6 +41,9 @@ public class CpnIssuController extends CommonController {
     @Autowired
     CpnIssuService cpnIssuService;
 
+    /**
+     * 정보 등록
+     */
     @PostMapping
     public ResponseEntity createCpnIssu(
             @RequestBody @Valid CpnIssuDto cpnIssuDto,
@@ -76,7 +79,9 @@ public class CpnIssuController extends CommonController {
         return ResponseEntity.created(createdUri).body(cpnIssuResource);
     }
 
-
+    /**
+     * 정보취득 (조건별 page )
+     */
     @GetMapping
     public ResponseEntity getCpnIssus(SearchForm searchForm,
                                       Pageable pageable,
@@ -111,7 +116,7 @@ public class CpnIssuController extends CommonController {
 
 
     /**
-     *
+     * 정보취득 (1건 )
      */
     @GetMapping("/{id}")
     public ResponseEntity getCpnIssu(@PathVariable Integer id,
@@ -135,7 +140,7 @@ public class CpnIssuController extends CommonController {
 
 
     /**
-     *
+     * 정보 변경
      */
     @PutMapping("/{id}")
     public ResponseEntity putCpnIssu(@PathVariable Integer id,

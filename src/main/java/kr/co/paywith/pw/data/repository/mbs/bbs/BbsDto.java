@@ -1,6 +1,4 @@
-package kr.co.paywith.pw.data.repository.bbs;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.file.File;
@@ -10,7 +8,6 @@ import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -29,45 +26,37 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
-public class Bbs {
+public class BbsDto {
 
     /**
      * 게시물 일련번호
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Integer id;
 
     /**
      * 게시물 구분코드
      */
-    @Column(length = 10)
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
     /**
      * 부모 게시물 일련번호
      */
-    @Column(nullable = true)
     private Integer parentBbsSn;
     /**
      * 게시물 제목
      */
-    @Column(length = 300)
     private String bbsSj;
 
     /**
      * 게시물 본문
      */
-    @Column
     @Lob
     private String bbsCn;
 
     /**
      * 배너 등에 사용할 이미지 웹 경로
      */
-    @Column
     private String imgUrl;
 
     /**
@@ -83,18 +72,6 @@ public class Bbs {
      * 게시물 삭제 표시 여부
      */
     private Boolean delFl = false;
-
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
 
 
     @ManyToOne
