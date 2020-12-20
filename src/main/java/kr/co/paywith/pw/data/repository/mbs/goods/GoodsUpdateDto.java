@@ -1,14 +1,14 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
+import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
-import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * 상품
@@ -71,9 +71,9 @@ public class GoodsUpdateDto {
      */
     private String imgUrl;
 
-//  /**
-//   * 적용 대상 상품 목록
-//   */
-//  @OneToMany
-//  private List<GoodsApply> goodsApplyList;
+    /**
+     * 적용 대상 상품 목록
+     */
+    @OneToMany
+    private List<GoodsApply> goodsApplyList;
 }

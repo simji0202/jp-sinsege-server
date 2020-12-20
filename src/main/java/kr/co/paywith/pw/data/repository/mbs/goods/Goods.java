@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
+import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * 상품
@@ -92,9 +94,9 @@ public class Goods {
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
 
-//  /**
-//   * 적용 대상 상품 목록
-//   */
-//  @OneToMany
-//  private List<GoodsApply> goodsApplyList;
+    /**
+     * 적용 대상 상품 목록
+     */
+    @OneToMany
+    private List<GoodsApply> goodsApplyList;
 }

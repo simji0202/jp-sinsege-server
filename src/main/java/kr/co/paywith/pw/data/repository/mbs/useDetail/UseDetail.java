@@ -1,5 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.useDetail;
 
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
+import kr.co.paywith.pw.data.repository.mbs.useReq.UseReq;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -34,13 +36,9 @@ public class UseDetail {
     /**
      * 사용 상세 개별 상품
      */
-//  @ManyToOne(fetch = FetchType.EAGER)
-//  @JoinColumn(name = "goodsSn", insertable = false, updatable = false)
-//  private Goods goods;
-//  /**
-//   * 사용 상세 개별 상품 일련번호
-//   */
-//  private Long goodsSn;
+    @ManyToOne
+    private Goods goods;
+
     /**
      * 사용 상세 개별 상품 수량
      */
@@ -58,14 +56,8 @@ public class UseDetail {
     /**
      * 사용 요청
      */
-//  @ManyToOne(fetch = FetchType.LAZY, targetEntity = UseReq.class, cascade = CascadeType.ALL)
-//  @JoinColumn(name = "useReqSn", insertable = false, updatable = false)
-//  private UseReq useReq;
-//
-//  /**
-//   * 사용 요청 일련번호
-//   */
-//  private Long useReqSn;
+    @ManyToOne
+    private UseReq useReq;
 
 
 }
