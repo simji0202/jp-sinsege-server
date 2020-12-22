@@ -16,14 +16,7 @@ import java.util.List;
 /**
  * 게시판(게시물)
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-@Getter
-@Setter
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-@DynamicUpdate
+@Data
 public class BbsDto {
 
     /**

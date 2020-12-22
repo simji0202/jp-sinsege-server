@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.config;
+package kr.co.paywith.pw.config;
 
 
 import kr.co.paywith.pw.data.repository.enumeration.*;
