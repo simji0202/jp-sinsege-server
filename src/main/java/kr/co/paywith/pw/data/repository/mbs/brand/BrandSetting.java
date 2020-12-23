@@ -76,10 +76,12 @@ public class BrandSetting {
    */
   private String logoImgUrl;
 
-  /**
-   * 탈퇴회원 정보 보유 기간
-   */
-  private Integer userInfoKeepDay;
+
+  // kms: 삭제가능. ID 통합(시스템 내에서 고유)하므로 brand 별 설정하지 않음
+//  /**
+//   * 탈퇴회원 정보 보유 기간
+//   */
+//  private Integer userInfoKeepDay;
 
   /**
    * 선불카드 유효기간 단위 코드
@@ -123,7 +125,7 @@ public class BrandSetting {
   private Boolean exactCardNoFl = false;
 
 
-  private Boolean useOrdrFl;
+//  private Boolean useOrdrFl;
 
   // kms: 삭제. 새 기능 추가하면서 호환 위해서 존재하던 필드
 //  /**
@@ -158,6 +160,18 @@ public class BrandSetting {
    * 가맹점 현금영수증 서비스 가입시 사용할 종목
    */
   private String bizClass;
+
+  // kms: BrandAuth 에서 옮겨옴
+  /**
+   * 다날 업체 아이디
+   */
+  private String authId;
+
+  // kms: BrandAuth 에서 옮겨옴
+  /**
+   * 다날 업체 암호
+   */
+  private String authPw;
 
   // kms: 삭제 가능. 선불카드+정기결제(빌링)는 KICC에서 가능하지 않은 기능. 기능구현이 복잡하지 않으므로 추후 가능할 때 다시 구현
 //  /**

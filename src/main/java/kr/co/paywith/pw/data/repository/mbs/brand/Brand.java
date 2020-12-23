@@ -55,7 +55,6 @@ public class Brand implements Serializable {
    */
   private Boolean activeFl;
 
-
   /**
    * 업체에서 사용가능한 기능.
    *
@@ -84,37 +83,42 @@ public class Brand implements Serializable {
   @Enumerated(EnumType.STRING)
   private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList  = new ArrayList<>();
 
-  /**
-   * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
-   */
-  @Column(length = 10)
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Enumerated(EnumType.STRING)
-  private List<MenuItemCd> menuItemCdBMstList  = new ArrayList<>();
 
-  /**
-   * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록
-   */
-  @Column(length = 10)
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Enumerated(EnumType.STRING)
-  private List<MenuItemCd> menuItemCdSMstList = new ArrayList<>();
+  // kms: 삭제가능. ROLE 로 대체
+//  /**
+//   * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
+//   */
+//  @Column(length = 10)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Enumerated(EnumType.STRING)
+//  private List<MenuItemCd> menuItemCdBMstList  = new ArrayList<>();
 
-  /**
-   * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
-   */
-  @Column(length = 10)
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Enumerated(EnumType.STRING)
-  private List<MenuItemCd> editableMenuItemCdBMstList  = new ArrayList<>();
+  // kms: 삭제가능. ROLE 로 대체
+//  /**
+//   * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록w
+//   */
+//  @Column(length = 10)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Enumerated(EnumType.STRING)
+//  private List<MenuItemCd> menuItemCdSMstList = new ArrayList<>();
 
-  /**
-   * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
-   */
-  @Column(length = 10)
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Enumerated(EnumType.STRING)
-  private List<MenuItemCd> editableMenuItemCdSMstList  = new ArrayList<>();
+  // kms: 삭제가능. ROLE 로 대체
+//  /**
+//   * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
+//   */
+//  @Column(length = 10)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Enumerated(EnumType.STRING)
+//  private List<MenuItemCd> editableMenuItemCdBMstList  = new ArrayList<>();
+
+  // kms: 삭제가능. ROLE 로 대체
+//  /**
+//   * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
+//   */
+//  @Column(length = 10)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Enumerated(EnumType.STRING)
+//  private List<MenuItemCd> editableMenuItemCdSMstList  = new ArrayList<>();
 
   /**
    * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
@@ -126,7 +130,7 @@ public class Brand implements Serializable {
   @ElementCollection(fetch = FetchType.LAZY)
   private List<AvailServiceCd> availServiceCdList  = new ArrayList<>();
 
-  // kms: 삭제가능. 회원 정보 중 중복 가능한 필드 설정하는 부분으로 아이디는 서비스 전체에서
+  // kms: 삭제가능. 회원 정보 중 중복 가능한 필드 설정하는 부분이었지만, 아이디는 서비스 전체에서 하나가 되므로..
 //  /**
 //   * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
 //   *
