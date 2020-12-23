@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.grade;
 
-import kr.co.paywith.pw.data.repository.mbs.enumeration.GradeUpRuleCd;
+import kr.co.paywith.pw.data.repository.enumeration.GradeUpRuleCd;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

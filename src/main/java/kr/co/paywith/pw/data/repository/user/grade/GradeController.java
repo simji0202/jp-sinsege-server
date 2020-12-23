@@ -80,6 +80,9 @@ public class GradeController extends CommonController {
     }
 
 
+    /**
+     * 페이지별 정보 취득
+     */
     @GetMapping
     public ResponseEntity getGrades(SearchForm searchForm,
                                     Pageable pageable,

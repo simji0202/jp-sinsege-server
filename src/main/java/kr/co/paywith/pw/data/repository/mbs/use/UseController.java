@@ -104,7 +104,7 @@ public class UseController extends CommonController {
 
         // 검색조건 아이디(키)
         if (searchForm.getId() != null) {
-            booleanBuilder.and(qUse.id.eq(searchForm.getUseId()));
+            booleanBuilder.and(qUse.id.eq(searchForm.getId()));
         }
 
 

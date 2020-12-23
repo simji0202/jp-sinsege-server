@@ -2,8 +2,7 @@ package kr.co.paywith.pw.data.repository.admin;
 
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

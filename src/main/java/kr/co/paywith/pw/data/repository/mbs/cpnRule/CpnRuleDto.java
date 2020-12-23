@@ -1,16 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnRule;
 
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.CpnIssuRuleCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 /**
  * 가맹점

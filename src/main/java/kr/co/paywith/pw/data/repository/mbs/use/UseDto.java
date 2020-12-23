@@ -1,17 +1,12 @@
 package kr.co.paywith.pw.data.repository.mbs.use;
 
-import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.UseTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.UseTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -30,7 +25,7 @@ public class UseDto {
     /**
      * 사용 이력 일련번호
      */
-    private Long id;
+    private Integer id;
     /**
      * 승인번호
      */

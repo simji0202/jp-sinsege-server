@@ -2,8 +2,7 @@ package kr.co.paywith.pw.data.repository.account;
 
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.AuthCd;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
+import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;

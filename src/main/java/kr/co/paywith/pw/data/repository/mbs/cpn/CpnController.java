@@ -42,6 +42,9 @@ public class CpnController extends CommonController {
     @Autowired
     CpnService cpnService;
 
+    /**
+     * 정보 등록
+     */
     @PostMapping
     public ResponseEntity createCpn(
             @RequestBody @Valid CpnDto cpnDto,
@@ -78,6 +81,9 @@ public class CpnController extends CommonController {
     }
 
 
+    /**
+     * 정보취득 (조건별 page )
+     */
     @GetMapping
     public ResponseEntity getCpns(SearchForm searchForm,
                                     Pageable pageable,
@@ -112,7 +118,7 @@ public class CpnController extends CommonController {
 
 
     /**
-     *
+     * 정보취득 (1건 )
      */
     @GetMapping("/{id}")
     public ResponseEntity getCpn(@PathVariable Integer id,
@@ -136,7 +142,7 @@ public class CpnController extends CommonController {
 
 
     /**
-     *
+     * 정보 변경
      */
     @PutMapping("/{id}")
     public ResponseEntity putCpn(@PathVariable Integer id,

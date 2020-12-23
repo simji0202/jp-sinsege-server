@@ -2,10 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.use;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.UseTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
-import kr.co.paywith.pw.data.repository.mbs.use.UseDto;
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
+import kr.co.paywith.pw.data.repository.enumeration.UseTypeCd;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

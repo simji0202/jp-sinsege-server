@@ -1,21 +1,13 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnGoods;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.opencsv.bean.CsvBindByName;
-import com.vividsolutions.jts.geom.Point;
-import kr.co.paywith.pw.data.repository.mbs.cd.addr.Addr;
-import kr.co.paywith.pw.data.repository.mbs.cd.addrSub.AddrSub;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.AvailServiceCd;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 /**
  * 가맹점

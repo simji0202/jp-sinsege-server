@@ -2,23 +2,17 @@ package kr.co.paywith.pw.data.repository.mbs.brand;
 
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.mbs.enumeration.*;
+import kr.co.paywith.pw.data.repository.enumeration.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 브랜드

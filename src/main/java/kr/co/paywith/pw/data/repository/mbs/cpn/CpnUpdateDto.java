@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpn;
 
-import kr.co.paywith.pw.data.repository.mbs.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.Data;
 

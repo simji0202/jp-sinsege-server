@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.brand;
 
-import kr.co.paywith.pw.data.repository.mbs.enumeration.*;
+import kr.co.paywith.pw.data.repository.enumeration.*;
 
 import lombok.Data;
 import lombok.ToString;

@@ -1,9 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.userApp;
 
 
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
-import kr.co.paywith.pw.data.repository.user.userApp.UserAppRepository;
-import kr.co.paywith.pw.data.repository.user.userApp.UserAppUpdateDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
