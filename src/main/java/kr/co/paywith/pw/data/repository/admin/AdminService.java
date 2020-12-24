@@ -63,5 +63,4 @@ public class AdminService  {
     return this.adminRepository.save(admin);
   }
 
-
 }

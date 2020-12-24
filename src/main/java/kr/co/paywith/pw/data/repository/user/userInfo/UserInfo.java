@@ -2,24 +2,41 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Set;
 
 
 @NoArgsConstructor
@@ -40,9 +57,6 @@ public class UserInfo {
 
     /**
      * 회원 아이디.
-     *
-     * GUEST# : 게스트회원(멤버십 제공 없는 비회원)
-     * KAKAO# : 카카오 로그인(싱크) 통해 가입한 회원
      *
      */
     @Length(max = 50, min = 4)
@@ -178,7 +192,9 @@ public class UserInfo {
     /**
      * 회원 앱 목록 ( 복수의 헨드폰 및
      */
-    @OneToMany (cascade = CascadeType.ALL )
+    // kms: userApp Api 에서 CRUD 하도록 변경 예정
+//    @OneToMany (cascade = CascadeType.ALL )
+    @OneToMany
     private List<UserApp> userAppList;
 
 //    /**
@@ -199,7 +215,6 @@ public class UserInfo {
     /**
      * 스탬프 갱신 일시
      */
-    @UpdateTimestamp
     private ZonedDateTime stampUpdtDttm;
     /**
      * 회원 스탬프 번호
@@ -217,7 +232,15 @@ public class UserInfo {
     /**
      * 회원 인증 키
      */
-    private String authKey;
+    // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
+    private String certKey;
+
+    /**
+     * 회원 인증 구분
+     */
+    // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
+    @NotNull
+    private CertTypeCd certTypeCd;
 
     /**
      * 스탬프 최대 소지 수량

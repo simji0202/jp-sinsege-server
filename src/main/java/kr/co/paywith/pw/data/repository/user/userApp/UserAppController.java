@@ -55,7 +55,6 @@ public class UserAppController extends CommonController {
             return badRequest(errors);
         }
 
-
         // 입력값 체크
         userAppValidator.validate(userAppDto, errors);
         if (errors.hasErrors()) {
@@ -63,7 +62,9 @@ public class UserAppController extends CommonController {
         }
 
         // 입력값 대입
-        UserApp userApp = this.modelMapper.map(userAppDto, UserApp.class);
+        UserApp userApp = userAppRepository.findByUserInfo_IdAndTrmnlId(
+              userAppDto.getUserInfo().getId(), userAppDto.getTrmnlId()).orElse(new UserApp());
+        this.modelMapper.map(userAppDto, userApp);
 
         // 레코드 등록
         UserApp newUserApp = userAppService.create(userApp);
@@ -104,6 +105,7 @@ public class UserAppController extends CommonController {
             booleanBuilder.and(qUserApp.id.eq(searchForm.getId()));
         }
 
+        // TODO kms: userInfo.id 와 trmnlId 조회조건 필요 -> 클라이언트 설정 변경
 
         Page<UserApp> page = this.userAppRepository.findAll(booleanBuilder, pageable);
         var pagedResources = assembler.toResource(page, e -> new UserAppResource(e));

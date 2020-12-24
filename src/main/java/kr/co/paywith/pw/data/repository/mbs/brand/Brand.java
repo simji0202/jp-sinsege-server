@@ -156,8 +156,6 @@ public class Brand implements Serializable {
   @OneToOne (cascade = CascadeType.ALL )
   private BrandSetting brandSetting;
 
-
-
 // kms: 삭제가능. envValueMap에서 기능 대체 가능
 //  /**
 //   *  기본적인 브랜드 옵션 설정
@@ -166,7 +164,7 @@ public class Brand implements Serializable {
 //  private BrandApp brandApp;
 
 
-  // kms: 다날 본인인증 연동에 사용하던 정보인데, 필요있을지 검
+  // kms: 다날 본인인증 연동에 사용하던 정보인데, 필요있을지 검토. 일단 BrandAuth로 이동(외부 서비스 연동이라는 동일한 성격)
 //  /**
 //   *  기본적인 안드로이드, IOS 앱  옵션 설정
 //   */

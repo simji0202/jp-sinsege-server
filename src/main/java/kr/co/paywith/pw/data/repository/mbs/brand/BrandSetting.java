@@ -31,7 +31,6 @@ public class BrandSetting {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-
   /**
    * FCM registration id
    */
@@ -45,7 +44,7 @@ public class BrandSetting {
   /**
    * 최대 소지 가능 선불카드 매수. 0은 무제한
    */
-  private Integer prpayMaxCnt;
+  private Integer prpayMaxCnt = 0;
 
   /**
    * 최대 소지가능 선불카드 매수 이상 등록할 때, 병합 방법에 관한 규칙

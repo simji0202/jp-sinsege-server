@@ -46,9 +46,10 @@ public class UserAppUpdateDto {
      */
     private String appVerNm;
 
-    /**
-     * 활성여부
-     */
-    private Boolean activeFl = true;
+    // kms: 로그인와 로그아웃을 할 때 변경하는 값으로 dto에 넣을 필요 없음
+//    /**
+//     * 활성여부
+//     */
+//    private Boolean activeFl = true;
 
 }

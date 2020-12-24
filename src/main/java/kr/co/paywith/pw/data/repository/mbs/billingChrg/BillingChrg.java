@@ -1,3 +1,4 @@
+// kms: KICC 빌링 기능 이용해서 선불카드 충전을 할 수 없기 때문에 삭제 고려
 package kr.co.paywith.pw.data.repository.mbs.billingChrg;
 
 

@@ -1,15 +1,15 @@
 package kr.co.paywith.pw.data.repository.user.userInfo;
 
-import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
-import lombok.Data;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+import kr.co.paywith.pw.data.repository.admin.AdminRole;
+import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
+import lombok.Data;
 
 @Data
 public class UserInfoDto {
@@ -84,24 +84,24 @@ public class UserInfoDto {
 
     // 승급관련 항목 start
 
-    /**
-     * 누적 획득 점수
-     */
-    private Integer scorePlus = 0;
-    /**
-     * 현재 점수
-     */
-    private Integer scoreCnt = 0;
+//    /**
+//     * 누적 획득 점수
+//     */
+//    private Integer scorePlus = 0;
+//    /**
+//     * 현재 점수
+//     */
+//    private Integer scoreCnt = 0;
 
-    /**
-     * 등급 변동 일시
-     */
-    private ZonedDateTime gradeUpdtDttm;
+//    /**
+//     * 등급 변동 일시
+//     */
+//    private ZonedDateTime gradeUpdtDttm;
 
-    /**
-     * 회원 등급 ()
-     */
-    private Grade grade;
+//    /**
+//     * 회원 등급 ()
+//     */
+//    private Grade grade;
 
     // 승급관련 항목 end
 
@@ -154,26 +154,27 @@ public class UserInfoDto {
      */
     private List<UserApp> userAppList;
 
-    /**
-     * 회원 소지 스탬프 개수
-     */
-    private Integer stampCnt = 0;
-    /**
-     * 현재 스탬프 적립 시작 일시
-     */
-    private ZonedDateTime stampStartDttm;
-    /**
-     * 스탬프 갱신 일시
-     */
-    private ZonedDateTime stampUpdtDttm;
-    /**
-     * 회원 스탬프 번호
-     */
-    private String stampNo;
-    /**
-     * 카카오 페이 멤버십 스탬프 번호
-     */
-    private String kakaoStampNo;
+//    /**
+//     * 회원 소지 스탬프 개수
+//     */
+//    private Integer stampCnt = 0;
+//    /**
+//     * 현재 스탬프 적립 시작 일시
+//     */
+//    private ZonedDateTime stampStartDttm;
+//    /**
+//     * 스탬프 갱신 일시
+//     */
+//    private ZonedDateTime stampUpdtDttm;
+    // kms: 스탬프 번호는 서버에서 직접 생성
+//    /**
+//     * 회원 스탬프 번호
+//     */
+//    private String stampNo;
+//    /**
+//     * 카카오 페이 멤버십 스탬프 번호
+//     */
+//    private String kakaoStampNo;
     /**
      * 스탬프 누적 획득 개수
      */
@@ -182,7 +183,15 @@ public class UserInfoDto {
     /**
      * 회원 인증 키
      */
-    private String authKey;
+    // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
+    private String certKey;
+
+    /**
+     * 회원 인증 키
+     */
+    @NotNull
+    // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
+    private CertTypeCd certTypeCd;
 
     /**
      * 스탬프 최대 소지 수량
