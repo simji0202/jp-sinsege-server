@@ -28,7 +28,7 @@ import java.time.ZonedDateTime;
 @Table(name = "USE_HIST")
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
-public class Use {
+public class  Use {
 
 
     /**
@@ -173,8 +173,6 @@ public class Use {
 
     @Transient
     private String paymentConfmNo;
-
-
 
     /**
      * 등록 일시
