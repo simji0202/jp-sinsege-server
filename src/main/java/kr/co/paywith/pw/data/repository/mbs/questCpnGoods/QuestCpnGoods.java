@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.questCpnGoods;
 
 
+import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.questCpnRule.QuestCpnRule;
 import lombok.*;
@@ -24,7 +25,8 @@ public class QuestCpnGoods {
      * 퀘스트 상품 세트 일련번호
      */
     @Id
-    private Integer questCpnGoodsSn;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /**
      * 쿠폰 규칙 일련번호
@@ -51,5 +53,12 @@ public class QuestCpnGoods {
      * 상품 개수
      */
     private Integer goodsCnt;
+
+    @NameDescription("갱신담당자")
+    private String updateBy;
+
+    @NameDescription("등록담당자")
+    private String createBy;
+
 
 }

@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.questCpnRule;
 
+import kr.co.paywith.pw.common.NameDescription;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,7 +27,7 @@ public class QuestCpnRule {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer questCpnRuleSn;
+    private Integer id;
 
     /**
      * 퀘스트 쿠폰 규칙 이름
@@ -55,4 +56,11 @@ public class QuestCpnRule {
      */
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
+
+    @NameDescription("갱신담당자")
+    private String updateBy;
+
+    @NameDescription("등록담당자")
+    private String createBy;
+
 }
