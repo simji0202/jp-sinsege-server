@@ -44,11 +44,11 @@ public class Bbs {
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
-    /**
-     * 부모 게시물 일련번호
-     */
-    @Column(nullable = true)
-    private Integer parentBbsSn;
+//    /**
+//     * 부모 게시물 일련번호
+//     */
+//    @Column(nullable = true)
+//    private Integer parentBbsSn;
     /**
      * 게시물 제목
      */

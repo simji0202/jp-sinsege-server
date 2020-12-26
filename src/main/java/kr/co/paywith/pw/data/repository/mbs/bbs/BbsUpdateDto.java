@@ -30,10 +30,10 @@ public class BbsUpdateDto {
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
-    /**
-     * 부모 게시물 일련번호
-     */
-    private Integer parentBbsSn;
+//    /**
+//     * 부모 게시물 일련번호
+//     */
+//    private Integer parentBbsSn;
     /**
      * 게시물 제목
      */

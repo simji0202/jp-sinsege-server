@@ -31,10 +31,6 @@ public class NotifHist {
     @ManyToOne
     private Mrhst mrhst;
 
-    /**
-     * 매장 일련번호
-     */
-    private Integer mrhstSn;
 
     /**
      * 푸시 메시지
@@ -42,15 +38,6 @@ public class NotifHist {
     @ManyToOne
     private Notif notif;
 
-    /**
-     * 푸시 일련번호
-     */
-    private Integer notifSn;
-
-    /**
-     * 푸시 전송 이력 일련번호
-     */
-    private Integer notifHistSn;
 
     /**
      * 전송 여부

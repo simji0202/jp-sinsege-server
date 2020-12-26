@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.chrg;
+package kr.co.paywith.pw.data.repository.mbs.notifHist;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ChrgControllerTest extends BaseControllerTest {
+public class NotifHistControllerTest extends BaseControllerTest {
 
 	 @Autowired
 	 private WebApplicationContext webApplicationContext;
@@ -27,7 +27,7 @@ public class ChrgControllerTest extends BaseControllerTest {
 //					 .webAppContextSetup(webApplicationContext)
 //					 .build();
 
-		  //		 this.chrgRepository.deleteAll();
+		  //		 this.notifHistRepository.deleteAll();
 		  //		 this.adminRepository.deleteAll();
 
 	 }
@@ -35,18 +35,18 @@ public class ChrgControllerTest extends BaseControllerTest {
 
 	 @Test
 	 @TestDescription("고객을 등록하는 테스트")
-	 public void createChrg() throws Exception {
+	 public void createNotifHist() throws Exception {
 
-		  Chrg chrg = new Chrg();
-		  chrg.setChrgAmt(10000);
+		  NotifHist notifHist = new NotifHist();
 
 
-		  mockMvc.perform(post("/api/chrg/")
+
+		  mockMvc.perform(post("/api/notifHist/")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 					 .contentType(MediaType.APPLICATION_JSON_UTF8)
 					 .accept(MediaTypes.HAL_JSON)
-					 .content(objectMapper.writeValueAsString(chrg)))
+					 .content(objectMapper.writeValueAsString(notifHist)))
 					 .andDo(print())
 					 .andExpect(status().isCreated())
 					 .andExpect(jsonPath("id").exists())
@@ -59,12 +59,12 @@ public class ChrgControllerTest extends BaseControllerTest {
 
 	 @Test
 	 @TestDescription("30개의 고객정보를 10개씩 두번째 페이지 조회하기")
-	 public void getChrgs() throws Exception {
+	 public void getNotifHists() throws Exception {
 		  // Given
-		  //  IntStream.range(0, 30).forEach(this::generateChrg);
+		  //  IntStream.range(0, 30).forEach(this::generateNotifHist);
 
 		  // When & Then
-		  this.mockMvc.perform(get("/api/chrg")
+		  this.mockMvc.perform(get("/api/notifHist")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 					 .param("page", "0")
@@ -74,22 +74,22 @@ public class ChrgControllerTest extends BaseControllerTest {
 					 .andDo(print())
 					 .andExpect(status().isOk())
 					 .andExpect(jsonPath("page").exists())
-					 .andExpect(jsonPath("_embedded.chrgList[0]._links.self").exists())
+					 .andExpect(jsonPath("_embedded.notifHistList[0]._links.self").exists())
 					 .andExpect(jsonPath("_links.self").exists())
 					 .andExpect(jsonPath("_links.profile").exists())
-					 .andDo(document("query-chrgs"))
+					 .andDo(document("query-notifHists"))
 		  ;
 	 }
 
 
 	 @Test
 	 @TestDescription("기존의 고객를 하나 조죄하기")
-	 public void getChrg() throws Exception {
+	 public void getNotifHist() throws Exception {
 		  // Given
-		  //  Chrg chrg = this.generateChrg(100);
+		  //  NotifHist notifHist = this.generateNotifHist(100);
 
 		  // When & Then
-		  this.mockMvc.perform(get("/api/chrg/{id}", 1)
+		  this.mockMvc.perform(get("/api/notifHist/{id}", 1)
 					 .header("Origin", "*")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 		  )
@@ -98,30 +98,30 @@ public class ChrgControllerTest extends BaseControllerTest {
 					 .andExpect(jsonPath("id").exists())
 					 .andExpect(jsonPath("_links.self").exists())
 					 .andExpect(jsonPath("_links.profile").exists())
-					 .andDo(document("get-an-chrg"))
+					 .andDo(document("get-an-notifHist"))
 		  ;
 	 }
 
 
 	 @Test
 	 @TestDescription("고객정보를 정상적으로 수정하기")
-	 public void updateChrg() throws Exception {
+	 public void updateNotifHist() throws Exception {
 
 		  // Given
-		  ChrgDto chrg = new ChrgDto();
-		  chrg.setId(1);
+		  NotifHistDto notifHist = new NotifHistDto();
+		  notifHist.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/chrg/{id}", chrg.getId())
+		  this.mockMvc.perform(put("/api/notifHist/{id}", notifHist.getId())
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 
 					 .contentType(MediaType.APPLICATION_JSON_UTF8)
-					 .content(this.objectMapper.writeValueAsString(chrg)))
+					 .content(this.objectMapper.writeValueAsString(notifHist)))
 					 .andDo(print())
 					 .andExpect(status().isOk())
 					 .andExpect(jsonPath("_links.self").exists())
-					 .andDo(document("update-chrg"))
+					 .andDo(document("update-notifHist"))
 		  ;
 	 }
 

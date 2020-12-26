@@ -21,10 +21,7 @@ import java.time.ZonedDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class File implements Serializable {
 
-  /**
-   *
-   */
-  private static final long serialVersionUID = -7183100274674419118L;
+
   /**
    * 첨부파일 일련번호
    */
@@ -47,7 +44,7 @@ public class File implements Serializable {
   /**
    * 게시판 일련번호
    */
-  private Integer bbsSn;
+  private Integer bbsId;
 
   /**
    * 등록 일시

@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpn;
 
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 
@@ -32,13 +33,8 @@ public class CpnDto {
     /**
      * 쿠폰 종류
      */
-//    @ManyToOne
-//    private CpnMaster cpnMaster;
+    private CpnMaster cpnMaster;
 
-    /**
-     * 쿠폰 종류 일련번호
-     */
-    private Integer cpnMasterSn;
 
     /**
      * 쿠폰 소지 회원

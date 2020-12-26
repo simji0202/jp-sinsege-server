@@ -54,12 +54,6 @@ public class Cpn {
     private CpnMaster cpnMaster;
 
     /**
-     * 쿠폰 종류 일련번호
-     */
-    @Column(nullable = true)
-    private Integer cpnMasterSn;
-
-    /**
      * 쿠폰 소지 회원
      */
     @ManyToOne(optional = true, fetch = FetchType.EAGER)

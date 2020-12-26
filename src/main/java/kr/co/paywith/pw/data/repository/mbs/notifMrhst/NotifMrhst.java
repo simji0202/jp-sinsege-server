@@ -43,8 +43,7 @@ public class NotifMrhst {
 	/**
 	 * 푸시 전송 이력 일련번호
 	 */
-	@Column(nullable = true)
-	private Integer notifHistSn;
+	private Integer notifHistId;
 
 	/**
 	 * 전송 여부

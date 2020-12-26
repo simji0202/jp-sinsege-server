@@ -166,16 +166,12 @@ public class Chrg {
     private String adminId;
 
 
-
-
     // che  확인이 필요, 매장아이디와 매장 단말기가 중복되어 엔티티에 설정 필요 여부
     /**
      * 매장
      */
     @ManyToOne
     private Mrhst mrhst;
-
-
 
     /**
      * 매장 단말기
@@ -197,34 +193,6 @@ public class Chrg {
     @OneToMany
     private List<CpnIssu> cpnIssuList;
 
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private String prpayNm;
-
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private String mrhstNm;
-
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private String brandNm;
-
-    public String getPrpayNm() {
-        if (this.prpay == null) {
-            return null;
-        }
-        return this.prpay.getPrpayNm();
-    }
-
-    public String getMrhstNm() {
-        if (this.mrhst == null) {
-            return null;
-        }
-        return this.mrhst.getMrhstNm();
-    }
 
 
 
