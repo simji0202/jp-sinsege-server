@@ -89,9 +89,6 @@ public class Bbs {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private UserInfo userInfo;
 
-    @Column(nullable = true)
-    private Integer userSn;
-
     @OneToMany(fetch = FetchType.LAZY)
     private List<File> fileList;
 

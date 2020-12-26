@@ -115,7 +115,7 @@ public class Payment {
 	 *
 	 * 구매를 하지 않고 결제만 했다면 취소(환불) 처리 등을 해야 한다
 	 */
-	@OneToOne(mappedBy = "payment")
+	@OneToOne
 	private UserInfo useUser;
 
 	/**

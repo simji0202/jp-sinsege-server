@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
+import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
@@ -87,8 +88,8 @@ public class CpnIssu {
      * 충전 이력
      * 충전으로 발급한 쿠폰일 때 사용
      */
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Chrg chrg;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Chrg chrg;
     /**
      * 등록 일시
      */

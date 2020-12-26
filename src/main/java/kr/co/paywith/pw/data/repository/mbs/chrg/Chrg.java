@@ -194,7 +194,7 @@ public class Chrg {
     /**
      * 쿠폰 발급 목록. 충전으로 쿠폰이 발급될 때 연결
      */
-    @OneToMany(mappedBy = "chrg", fetch = FetchType.LAZY)
+    @OneToMany
     private List<CpnIssu> cpnIssuList;
 
     @Transient
