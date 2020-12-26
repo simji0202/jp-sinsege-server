@@ -22,7 +22,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 @Data
 public class PrpayIssuUpdateDto {
-	
+
 	/**
 	 * 선불카드 발급 이름
 	 */
