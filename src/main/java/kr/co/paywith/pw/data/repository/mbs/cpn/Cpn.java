@@ -40,8 +40,6 @@ public class Cpn {
      */
     private String cpnNo;
 
-
-
     /**
      * 쿠폰 상태 코드
      */
@@ -55,13 +53,6 @@ public class Cpn {
     @ManyToOne
     private CpnMaster cpnMaster;
 
-    /**
-     * 쿠폰 종류 일련번호
-     */
-    @Column(nullable = true)
-    private Integer cpnMasterSn;
-
-    // TODO 쿠폰 부하 심하면 LAZY 전환 -> 관리자 표시 수정
     /**
      * 쿠폰 소지 회원
      */
@@ -80,16 +71,11 @@ public class Cpn {
      */
     private Boolean readFl = false;
 
-
-    /**
-     * 등록 일시
-     */
+    @NameDescription("변경 일시")
     @CreationTimestamp
     private ZonedDateTime regDttm;
 
-    /**
-     * 수정 일시
-     */
+    @NameDescription("수정 일시")
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
 

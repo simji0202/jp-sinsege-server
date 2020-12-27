@@ -16,14 +16,7 @@ import java.util.List;
 /**
  * 게시판(게시물)
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-@Getter
-@Setter
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-@DynamicUpdate
+@Data
 public class BbsDto {
 
     /**
@@ -37,10 +30,10 @@ public class BbsDto {
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
-    /**
-     * 부모 게시물 일련번호
-     */
-    private Integer parentBbsSn;
+//    /**
+//     * 부모 게시물 일련번호
+//     */
+//    private Integer parentBbsSn;
     /**
      * 게시물 제목
      */
@@ -72,16 +65,10 @@ public class BbsDto {
     private Boolean delFl = false;
 
 
-    @ManyToOne
     private Admin admin;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private UserInfo userInfo;
 
-    @Column(nullable = true)
-    private Integer userSn;
-
-    @OneToMany(fetch = FetchType.LAZY)
     private List<File> fileList;
 
     private Boolean openedFl;
@@ -90,7 +77,6 @@ public class BbsDto {
 
     private ZonedDateTime endDttm;
 
-    @ManyToOne
     private Mrhst mrhst;
 
 }

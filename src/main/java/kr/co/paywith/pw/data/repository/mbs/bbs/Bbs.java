@@ -44,11 +44,11 @@ public class Bbs {
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
-    /**
-     * 부모 게시물 일련번호
-     */
-    @Column(nullable = true)
-    private Integer parentBbsSn;
+//    /**
+//     * 부모 게시물 일련번호
+//     */
+//    @Column(nullable = true)
+//    private Integer parentBbsSn;
     /**
      * 게시물 제목
      */
@@ -88,9 +88,6 @@ public class Bbs {
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private UserInfo userInfo;
-
-    @Column(nullable = true)
-    private Integer userSn;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<File> fileList;
