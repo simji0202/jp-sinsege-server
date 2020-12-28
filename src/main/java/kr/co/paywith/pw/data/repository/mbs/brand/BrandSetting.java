@@ -107,10 +107,11 @@ public class BrandSetting {
    */
   private Integer stampMaxCnt;
 
-  /**
-   * 상품 관리 기능 미사용 여부(상품 대신 잔액만 관리)
-   */
-  private Boolean offGoodsFl;
+  // kms: AvailBrandFnCd.GOODS 로 대체
+//  /**
+//   * 상품 관리 기능 미사용 여부(상품 대신 잔액만 관리)
+//   */
+//  private Boolean offGoodsFl;
 
   /**
    * 선불-스탬프 번호 교차 조회
