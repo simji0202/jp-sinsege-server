@@ -1,16 +1,14 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
-import kr.co.paywith.pw.data.repository.admin.Admin;
-import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.Data;
 
-import javax.persistence.*;
-import java.time.ZonedDateTime;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import java.util.List;
 
 /**
@@ -64,19 +62,13 @@ public class BbsDto {
      */
     private Boolean delFl = false;
 
-
-    private Admin admin;
-
     private UserInfo userInfo;
 
     private List<File> fileList;
 
     private Boolean openedFl;
 
-    private ZonedDateTime startDttm;
-
-    private ZonedDateTime endDttm;
-
     private Mrhst mrhst;
 
 }
+

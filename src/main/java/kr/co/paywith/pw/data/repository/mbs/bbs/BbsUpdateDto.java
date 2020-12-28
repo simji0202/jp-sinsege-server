@@ -1,15 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import kr.co.paywith.pw.data.repository.admin.Admin;
-import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -63,9 +63,6 @@ public class BbsUpdateDto {
      * 게시물 삭제 표시 여부
      */
     private Boolean delFl = false;
-
-
-    private Admin admin;
 
     private UserInfo userInfo;
 

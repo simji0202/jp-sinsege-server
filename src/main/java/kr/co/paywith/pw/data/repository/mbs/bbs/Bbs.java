@@ -1,9 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.admin.Admin;
-import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
@@ -83,9 +82,6 @@ public class Bbs {
      */
     private Boolean delFl = false;
 
-
-    @ManyToOne
-    private Admin admin;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private UserInfo userInfo;

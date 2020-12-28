@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * 브랜드
+ * 사용 : 가맹점별 그룹 관리를 위해 ( 카테고리 처럼 사용 )
+ *       상품별 그룹 지정에도 사용 할 수 있음
  */
 @NoArgsConstructor
 @AllArgsConstructor

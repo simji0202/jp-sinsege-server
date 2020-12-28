@@ -34,7 +34,7 @@ public  class Account {
   /**
    * 로그인 유저 이름
    */
-  private String accountNw;
+  private String accountNm;
 
   /**
    * 관리자 객체

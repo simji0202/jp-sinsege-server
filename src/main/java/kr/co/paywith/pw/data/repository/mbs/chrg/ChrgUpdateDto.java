@@ -100,16 +100,6 @@ public class ChrgUpdateDto {
     // @Column(length = 100, table = "CHRG_HIST_PROXY")
     private String proxyTid;
 
-    /**
-     * 관리자
-     */
-
-//  che  객체 연계를 삭제하고 CurrentUser 로 부터 아이디값을 스트링으로 저정
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "adminSn", table = "CHRG_HIST_ADMIN", insertable = false, updatable = false, nullable = true)
-//    private Admin admin;
-    private String adminId;
-
     // che  확인이 필요, 매장아이디와 매장 단말기가 중복되어 엔티티에 설정 필요 여부
     /**
      * 매장
@@ -120,7 +110,6 @@ public class ChrgUpdateDto {
      * 매장 단말기
      */
     private MrhstTrmnl mrhstTrmnl;
-
 
     /**
      * 일괄 충전

@@ -2,7 +2,6 @@ package kr.co.paywith.pw.data.repository.mbs.mrhst;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vividsolutions.jts.geom.Point;
-import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr.Addr;
 import kr.co.paywith.pw.data.repository.mbs.cd.addrSub.AddrSub;
 import kr.co.paywith.pw.data.repository.enumeration.AvailServiceCd;
@@ -85,10 +84,6 @@ public class MrhstDto {
      */
     private String addData;
 
-    /**
-     * 추가한 관리자
-     */
-    private Admin admin;
 
 
     /**

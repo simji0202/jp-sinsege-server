@@ -42,13 +42,6 @@ public class ChrgMassUpdateDto {
 	 */
 	private Integer chrgTotAmt = 0;
 
-	/**
-	 * 관리자
-	 */
-	//  che  객체 연계를 삭제하고 CurrentUser 로 부터 아이디값을 스트링으로 저정
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private Admin admin;
-//	private String adminId;
 
 	/**
 	 * 매장
