@@ -28,14 +28,14 @@ import java.time.ZonedDateTime;
 public class Cpn {
 
     /**
-     * 쿠폰 일련번호
+     * 쿠폰 일련번호 (KEY)
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
-     * 쿠폰 번호. 쿠폰을 최초 열람할때 번호 생성. 예전 로직과는 순서가 다르므로 참고
+     * 쿠폰 번호(바코드 16자리). 쿠폰을 최초 열람할때 번호 생성. 예전 로직과는 순서가 다르므로 참고
      */
     private String cpnNo;
 
@@ -47,15 +47,15 @@ public class Cpn {
     private CpnSttsCd cpnSttsCd = CpnSttsCd.AVAIL;
 
     /**
-     * 쿠폰 종류
+     * 쿠폰 종류 ( 무료쿠폰, 활인쿠폰, 상품쿠폰, 금액 쿠폰  등 )
      */
     @ManyToOne
     private CpnMaster cpnMaster;
 
     /**
-     * 쿠폰 소지 회원
+     * 회원 ( 쿠폰 소유자 )
      */
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @ManyToOne
     private UserInfo userInfo;
 
 

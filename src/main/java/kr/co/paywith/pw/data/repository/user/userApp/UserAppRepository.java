@@ -7,5 +7,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface UserAppRepository extends JpaRepository<UserApp, Integer>, QuerydslPredicateExecutor<UserApp> {
 
-  Optional<UserApp> findByUserInfo_IdAndTrmnlId(Integer userId, String trmnlId);
+   Optional<UserApp> findByUserInfo_IdAndTrmnlId(Integer userId, String trmnlId);
 }

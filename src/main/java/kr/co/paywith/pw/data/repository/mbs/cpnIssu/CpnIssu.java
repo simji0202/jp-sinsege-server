@@ -14,7 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * 가맹점
+ * 쿠폰 발급(대장)
  */
 @NoArgsConstructor
 @AllArgsConstructor

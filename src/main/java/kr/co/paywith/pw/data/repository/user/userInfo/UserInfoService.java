@@ -50,16 +50,16 @@ public class UserInfoService {
 
         // 스탬프 번호 생성. 중복 방지를 위해 db 저장 후 ID를 활용한다
         boolean isEndMakeNo = false;
-        do {
-            String noRule = "2";
-            noRule += StringUtils.leftPad("" + userInfo.getId(), 8, "0"); //20000000
-            noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
-            String stampNo = StringUtil.makeNo(noRule);
-            if (userInfoRepository.findUserInfoByStampNo(stampNo).isEmpty()) {
-                isEndMakeNo = true;
-                userInfo.setStampNo(stampNo);
-            }
-        } while(!isEndMakeNo);
+//        do {
+//            String noRule = "2";
+//            noRule += StringUtils.leftPad("" + userInfo.getId(), 8, "0"); //20000000
+//            noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
+//            String stampNo = StringUtil.makeNo(noRule);
+////            if (userInfoRepository.findUserInfoByStampNo(stampNo).isEmpty()) {
+////                isEndMakeNo = true;
+//               //  userInfo.setStampNo(stampNo);
+////            }
+//        } while(!isEndMakeNo);
 
         // 최초 등급 설정
         userInfo.setGrade(gradeService.findFirstGrade());

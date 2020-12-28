@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * 쿠폰발급
+ * 쿠폰 발급(대장)
  */
 @NoArgsConstructor
 @AllArgsConstructor

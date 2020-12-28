@@ -187,8 +187,8 @@ public class UserInfo {
      */
     // kms: userApp Api 에서 CRUD 하도록 변경 예정
 //    @OneToMany (cascade = CascadeType.ALL )
-    @OneToMany
-    private List<UserApp> userAppList;
+//    @OneToMany
+//    private List<UserApp> userAppList;
 
 //    /**
 //     * 브랜드
@@ -209,10 +209,10 @@ public class UserInfo {
      * 스탬프 갱신 일시
      */
     private ZonedDateTime stampUpdtDttm;
-    /**
-     * 회원 스탬프 번호
-     */
-    private String stampNo;
+//    /**
+//     * 회원 스탬프 번호 (바코드 16자리))
+//     */
+//    private String stampNo;
     /**
      * 카카오 페이 멤버십 스탬프 번호
      */
