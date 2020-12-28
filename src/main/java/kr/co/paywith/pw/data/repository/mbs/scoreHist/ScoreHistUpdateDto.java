@@ -1,6 +1,5 @@
 package kr.co.paywith.pw.data.repository.mbs.scoreHist;
 
-import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.payment.Payment;
 import kr.co.paywith.pw.data.repository.mbs.scoreRule.ScoreRule;
@@ -28,16 +27,6 @@ public class ScoreHistUpdateDto {
      * 취소 일시
      */
     private ZonedDateTime cancelRegDttm;
-
-    /**
-     * 관리자
-     */
-    private Admin admin;
-    // @Column(nullable = true)
-    /**
-     * 관리자 일련번호
-     */
-    private Integer adminSn;
 
 
     /**

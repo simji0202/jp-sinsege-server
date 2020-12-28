@@ -54,18 +54,6 @@ public class ScoreHist {
 	private ZonedDateTime cancelRegDttm;
 
 	/**
-	 * 관리자
-	 */
-	@ManyToOne
-	private Admin admin;
-	// @Column(nullable = true)
-	/**
-	 * 관리자 일련번호
-	 */
-	private Integer adminSn;
-
-
-	/**
 	 * 점수 획득 규칙
 	 */
 	@ManyToOne

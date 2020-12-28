@@ -1,7 +1,5 @@
 package kr.co.paywith.pw.data.repository.mbs.chrg;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleChnlCd;
@@ -62,16 +60,7 @@ public class Chrg {
      */
     @CsvBindByName(column = "POSMessageNo")
     private String trmnlDelngNo;
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+
 
     /**
      * 취소 일시. not null 이면 취소
@@ -92,7 +81,7 @@ public class Chrg {
 
     /**
      * 충전 이벤트 후 선불카드 잔액
-     *
+     * <p>
      * TODO 충전 이전 금액이라면 해당 로직 수정해야 함
      */
     private Integer usePosblAmt;
@@ -152,18 +141,8 @@ public class Chrg {
     /**
      * pw-proxy 연동에서 사용하는 거래 ID
      */
-   // @Column(length = 100, table = "CHRG_HIST_PROXY")
+    // @Column(length = 100, table = "CHRG_HIST_PROXY")
     private String proxyTid;
-
-    /**
-     * 관리자
-     */
-
-//  che  객체 연계를 삭제하고 CurrentUser 로 부터 아이디값을 스트링으로 저정
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "adminSn", table = "CHRG_HIST_ADMIN", insertable = false, updatable = false, nullable = true)
-//    private Admin admin;
-    private String adminId;
 
 
     // che  확인이 필요, 매장아이디와 매장 단말기가 중복되어 엔티티에 설정 필요 여부
@@ -194,7 +173,22 @@ public class Chrg {
     private List<CpnIssu> cpnIssuList;
 
 
+    // 공통 항목
+    /**
+     * 등록 일시
+     */
+    @CreationTimestamp
+    private ZonedDateTime regDttm;
+    /**
+     * 수정 일시
+     */
+    @UpdateTimestamp
+    private ZonedDateTime updtDttm;
 
+    @NameDescription("갱신담당자")
+    private String updateBy;
 
+    @NameDescription("등록담당자")
+    private String createBy;
 
 }

@@ -3,8 +3,6 @@ package kr.co.paywith.pw.data.repository.account;
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.MrhstRepository;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
@@ -89,7 +87,7 @@ public class AccountService implements  UserDetailsService {
     Account account = new Account();
     account.setAccountId(admin.getAdminId());
     account.setAccountPw(admin.getAdminPw());
-    account.setAccountNw(admin.getAdminNm());
+    account.setAccountNm(admin.getAdminNm());
     account.setAuthCd(admin.getAuthCd());
     account.setRoles(admin.getRoles());
     account.setAdmin(admin);
@@ -108,7 +106,7 @@ public class AccountService implements  UserDetailsService {
     Account account = new Account();
     account.setAccountId(userInfo.getUserId());
     account.setAccountPw(userInfo.getUserPw());
-    account.setAccountNw(userInfo.getUserNm());
+    account.setAccountNm(userInfo.getUserNm());
     account.setRoles(userInfo.getRoles());
     account.setAuthCd(userInfo.getAuthCd());
     account.setUserInfo(userInfo);
@@ -126,7 +124,7 @@ public class AccountService implements  UserDetailsService {
     Account account = new Account();
     account.setAccountId(mrhstTrmnl.getUserId());
     account.setAccountPw(mrhstTrmnl.getUserPw());
-    account.setAccountNw(mrhstTrmnl.getTrmnlNm());
+    account.setAccountNm(mrhstTrmnl.getTrmnlNm());
     account.setAuthCd(mrhstTrmnl.getAuthCd());
     account.setRoles(mrhstTrmnl.getRoles());
     account.setMrhstTrmnl(mrhstTrmnl);

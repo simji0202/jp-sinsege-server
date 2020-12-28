@@ -71,6 +71,7 @@ public class Cpn {
      */
     private Boolean readFl = false;
 
+
     @NameDescription("변경 일시")
     @CreationTimestamp
     private ZonedDateTime regDttm;
