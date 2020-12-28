@@ -33,25 +33,24 @@ public class CpnRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     /**
      * 발급 대상 회원 등급
      */
     @ManyToOne
     private Grade grade;
-    /**
-     * 발급 대상 회원 등급 일련번호
-     */
+
     /**
      * 쿠폰 발급 규칙 코드
      */
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
     private CpnIssuRuleCd cpnIssuRuleCd;
+
     /**
      * 쿠폰 발급 규칙 명
      */
     private String ruleNm;
+
     /**
      * 쿠폰 발급 규칙 기준 값
      *

@@ -36,7 +36,7 @@ public class Cpn {
     private Integer id;
 
     /**
-     * 쿠폰 번호
+     * 쿠폰 번호. 쿠폰을 최초 열람할때 번호 생성. 예전 로직과는 순서가 다르므로 참고
      */
     private String cpnNo;
 
@@ -45,7 +45,7 @@ public class Cpn {
      */
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
-    private CpnSttsCd cpnSttsCd;
+    private CpnSttsCd cpnSttsCd = CpnSttsCd.AVAIL;
 
     /**
      * 쿠폰 종류

@@ -1,7 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
+import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
+import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
 import lombok.*;
 
 import java.time.ZonedDateTime;
@@ -60,16 +62,18 @@ public class CpnIssuUpdateDto {
      */
     private List<Cpn> cpnList;
 
-//    /**
-//     * 쿠폰 발급 규칙
-//     */
-//    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-//    private CpnRule cpnRule;
-
+    // kms: 관계 설정 필요
     /**
-     * 쿠폰 발급 규칙 일련 번호
+     * 쿠폰 발급 규칙
      */
-    private Integer ruleSn;
+    @ManyToOne
+    private CpnRule cpnRule;
+
+    // kms: 관계 설정 필요
+//    /**
+//     * 쿠폰 발급 규칙 일련 번호
+//     */
+//    private Integer ruleSn;
 
     /**
      * 충전 이력

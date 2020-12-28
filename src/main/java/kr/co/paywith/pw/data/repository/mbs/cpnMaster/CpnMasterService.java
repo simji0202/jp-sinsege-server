@@ -29,6 +29,7 @@ public class CpnMasterService {
         // 데이터베이스 값 갱신
         CpnMaster newCpnMaster = this.cpnMasterRepository.save(cpnMaster);
 
+        // TODO cpnGoodsList 갱신
         return newCpnMaster;
     }
 
@@ -44,6 +45,8 @@ public class CpnMasterService {
 
         // 데이터베이스 값 갱신
         this.cpnMasterRepository.save(existCpnMaster);
+
+        // TODO cpnGoodsList 갱신
 
         return existCpnMaster;
     }

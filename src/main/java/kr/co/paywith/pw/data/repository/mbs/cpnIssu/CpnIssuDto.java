@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
+import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -66,21 +67,22 @@ public class CpnIssuDto {
      */
     private List<Cpn> cpnList;
 
+    // kms: 자동으로 발급하는 경우에 필요
+    /**
+     * 쿠폰 발급 규칙
+     */
+    @ManyToOne
+    private CpnRule cpnRule;
+
 //    /**
-//     * 쿠폰 발급 규칙
+//     * 쿠폰 발급 규칙 일련 번호
 //     */
-//    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-//    private CpnRule cpnRule;
+//    private Integer ruleSn;
 
-    /**
-     * 쿠폰 발급 규칙 일련 번호
-     */
-    private Integer ruleSn;
-
-    /**
-     * 충전 이력
-     * 충전으로 발급한 쿠폰일 때 사용
-     */
+//    /**
+//     * 충전 이력
+//     * 충전으로 발급한 쿠폰일 때 사용
+//     */
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Chrg chrg;
 
@@ -101,6 +103,5 @@ public class CpnIssuDto {
      * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
      */
     private String updateBy;
-
 
 }

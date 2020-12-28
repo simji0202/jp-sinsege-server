@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnGoods;
 
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -32,8 +33,9 @@ public class CpnGoods {
     /**
      * 대상 상품
      */
-//    @ManyToOne
-//    private Goods goods;
+    // kms: 상품 연결해야 하므로 필요
+    @ManyToOne
+    private Goods goods;
 
     /**
      * 쿠폰 종류

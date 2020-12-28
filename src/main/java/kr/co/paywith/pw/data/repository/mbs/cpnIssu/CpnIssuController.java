@@ -64,6 +64,8 @@ public class CpnIssuController extends CommonController {
         // 입력값을 브랜드 객채에 대입
         CpnIssu cpnIssu = modelMapper.map(cpnIssuDto, CpnIssu.class);
 
+        // userIdList 길이만큼 user와 연결한 cpn 생성
+
         // 레코드 등록
         CpnIssu newCpnIssu = cpnIssuService.create(cpnIssu);
 

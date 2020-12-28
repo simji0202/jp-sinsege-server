@@ -1,4 +1,4 @@
-// kms: 삭제 가능. 포스와연동하는 relay, C27에서만 사용하는 톰캣 서비스와 통신할 때 사용
+// kms: 삭제가능. 포스와연동하는 relay, C27에서만 사용하는 톰캣 서비스와 통신할 때 사용
 //package kr.co.paywith.pw.data.repository.mbs.abs;
 //
 //import org.modelmapper.ModelMapper;
