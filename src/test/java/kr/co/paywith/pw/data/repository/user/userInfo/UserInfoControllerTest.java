@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
+import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.UserAppOsCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
@@ -60,38 +61,12 @@ public class UserInfoControllerTest extends BaseControllerTest {
         ;
 
 
-        UserApp userApp = new UserApp();
-        userApp.setAppVerNm("안드로이드 1");
-        userApp.setUserAppOsCd(UserAppOsCd.AOS);
-
-        mockMvc.perform(post("/api/userApp/")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                .header("Origin", "*")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaTypes.HAL_JSON)
-                .content(objectMapper.writeValueAsString(userApp)))
-        ;
-
-
-        UserApp userApp2 = new UserApp();
-        userApp2.setAppVerNm("IOS 2");
-        userApp2.setUserAppOsCd(UserAppOsCd.IOS);
-
-
-        mockMvc.perform(post("/api/userApp/")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                .header("Origin", "*")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaTypes.HAL_JSON)
-                .content(objectMapper.writeValueAsString(userApp2)))
-        ;
-
-
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId("user3");
+        userInfo.setUserId("chewon");
         userInfo.setUserPw("1234");
-        userInfo.setUserNm("테스트 브랜드 4");
+        userInfo.setUserNm("원이");
         userInfo.setActiveFl(true);
+        userInfo.setCertTypeCd(CertTypeCd.CI);
 
 
         Grade existGrade = new Grade();
@@ -100,7 +75,7 @@ public class UserInfoControllerTest extends BaseControllerTest {
         userInfo.setGrade(existGrade);
 
 
-        userInfo.setUserAppList(List.of(userApp, userApp2));
+        // userInfo.setUserAppList(List.of(userApp, userApp2));
 
         // 브랜드 설정
         userInfo.setRoles(Set.of(AdminRole.USER));

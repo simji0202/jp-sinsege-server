@@ -111,7 +111,7 @@ public class CpnControllerTest extends BaseControllerTest {
     public void updateCpn() throws Exception {
 
         // Given
-        CpnDto cpn = new CpnDto();
+        Cpn cpn = new Cpn();
         cpn.setId(1);
         cpn.setCpnNo("121314변경");
 

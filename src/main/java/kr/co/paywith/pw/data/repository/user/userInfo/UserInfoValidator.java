@@ -101,10 +101,9 @@ public class UserInfoValidator {
    */
   private boolean isMobileNumInvalid(String mobileNum) {
     // masking 된 번호를 그대로 보내는 경우 오류
-    if (mobileNum.indexOf("*") >= 0) {
+    if (mobileNum != null && mobileNum.indexOf("*") >= 0) {
       return true;
     }
-
     return false;
   }
 }

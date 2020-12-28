@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * 가맹점
+ * 쿠폰 종류 ( 무료쿠폰, 활인쿠폰, 상품쿠폰, 금액 쿠폰  등 )
  */
 @NoArgsConstructor
 @AllArgsConstructor

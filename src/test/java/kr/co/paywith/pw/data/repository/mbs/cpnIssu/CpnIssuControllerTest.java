@@ -4,6 +4,8 @@ import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuDto;
+import kr.co.paywith.pw.data.repository.user.userInfo.QUserInfo;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,12 @@ public class CpnIssuControllerTest extends BaseControllerTest {
     public void createCpnIssu() throws Exception {
 
         CpnIssu cpnIssu = new CpnIssu();
-        cpnIssu.setCpnIssuNm("CpnIssuNm");
+        cpnIssu.setCpnIssuNm(" 쿠폰 발급 테스트 ");
         cpnIssu.setIssuCnt(50000);
+
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(1);
 
 
         mockMvc.perform(post("/api/cpnIssu/")

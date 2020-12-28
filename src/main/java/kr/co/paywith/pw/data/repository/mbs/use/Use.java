@@ -156,8 +156,7 @@ public class  Use {
     /**
      * 사용 상세(물품) 목록
      */
-    @OneToMany(mappedBy = "use", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = UseDetail.class)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @OneToMany
     private List<UseDetail> useDetailList;
 
     // kms: 바로 PG 결제해서 구매하는 경우. Payment는 결제 한 건
