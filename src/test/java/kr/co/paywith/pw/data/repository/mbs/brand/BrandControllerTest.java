@@ -52,16 +52,17 @@ public class BrandControllerTest extends BaseControllerTest {
         brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
 
         BrandSetting brandSetting = new BrandSetting();
-        brandSetting.setBillingMinAmt(3000);
+//        brandSetting.setBillingMinAmt(3000);
         brandSetting.setBizClass("bizClass");
         brandSetting.setBizType("bizType");
         brandSetting.setFcmKey("FcmKey");
+        // kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
+        brandSetting.setAuthId("simji0202");
+        brandSetting.setAuthPw("0202");
 
+// kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
+//        BrandAuth brandAuth = new BrandAuth();
 
-        BrandAuth brandAuth = new BrandAuth();
-
-        brandAuth.setAuthId("simji0202");
-        brandAuth.setAuthNm("페이위드 인증업체");
 
 
         BrandApp brandApp = new BrandApp();
@@ -71,8 +72,8 @@ public class BrandControllerTest extends BaseControllerTest {
 
 
         brand.setBrandSetting(brandSetting);
-        brand.setBrandApp(brandApp);
-        brand.setBrandAuth(brandAuth);
+//        brand.setBrandApp(brandApp);
+//        brand.setBrandAuth(brandAuth);
 
 
         mockMvc.perform(post("/api/brand/")

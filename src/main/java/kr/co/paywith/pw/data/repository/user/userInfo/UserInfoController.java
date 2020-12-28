@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
+import java.time.ZonedDateTime;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -235,7 +237,41 @@ public class UserInfoController extends CommonController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeUserInfo(@PathVariable Integer id,
+        Errors errors,
+        @CurrentUser Account currentUser) {
+        // 입력체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
 
+        // 논리적 오류 (제약조건) 체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        Optional<UserInfo> userInfoOptional = this.userInfoRepository.findById(id);
+
+        if (userInfoOptional.isEmpty()) {
+            // 404 Error return
+            return ResponseEntity.notFound().build();
+        }
+
+        // 탈퇴 가능한 지(본인 또는 관리자) 확인
+        UserInfo userInfo = userInfoOptional.get();
+        if (!currentUser.getUserInfo().getUserId().equals(id) ||
+            false // TODO 관리자 권한일때도 탈퇴처리 가능해야 함
+        ) {
+          return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+
+        userInfoService.delete(userInfo);
+
+        // 정상적 처리
+        return ResponseEntity.ok().build();
+
+    }
 }
 
 

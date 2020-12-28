@@ -21,6 +21,7 @@ public enum AvailBrandFnCd implements EnumMapperType {
   PAYMENT("결제"),
   MRHST_CN("매장 설명"),
   OPT_ETC("추가상품"),
+  GOODS("상품관리"),
   ;
 
 

@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 /**
- * 회원 삭제 정보
+ * 회원 삭제 정보. 설정한 기간 이후 재가입 가능해진 회원의 개인정보를 별도로 보관.(기존 테이블에 있으면 정보가 중복되므로)
  */
 @NoArgsConstructor
 @AllArgsConstructor

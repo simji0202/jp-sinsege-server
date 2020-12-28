@@ -50,4 +50,13 @@ public class GradeService {
         return existGrade;
     }
 
+    /**
+     * 회원 가입 시 최초 등급 조회
+     *
+     * @return 최초 등급
+     */
+    public Grade findFirstGrade() {
+        // TODO 최초 등급 가져오는 로직 필요
+        return null;
+    }
 }

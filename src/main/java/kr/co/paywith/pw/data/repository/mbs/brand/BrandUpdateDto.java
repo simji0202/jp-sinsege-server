@@ -56,30 +56,30 @@ public class BrandUpdateDto {
     @Enumerated(EnumType.STRING)
     private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList;
 
+    // kms: 삭제가능. ROLE 로 대체
+//    /**
+//     * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
+//     */
+//    @Enumerated(EnumType.STRING)
+//    private List<MenuItemCd> menuItemCdBMstList;
 
-    /**
-     * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
-     */
-    @Enumerated(EnumType.STRING)
-    private List<MenuItemCd> menuItemCdBMstList;
+//    /**
+//     * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록
+//     */
+//    @Enumerated(EnumType.STRING)
+//    private List<MenuItemCd> menuItemCdSMstList;
 
-    /**
-     * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록
-     */
-    @Enumerated(EnumType.STRING)
-    private List<MenuItemCd> menuItemCdSMstList;
+//    /**
+//     * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
+//     */
+//    @Enumerated(EnumType.STRING)
+//    private List<MenuItemCd> editableMenuItemCdBMstList;
 
-    /**
-     * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
-     */
-    @Enumerated(EnumType.STRING)
-    private List<MenuItemCd> editableMenuItemCdBMstList;
-
-    /**
-     * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
-     */
-    @Enumerated(EnumType.STRING)
-    private List<MenuItemCd> editableMenuItemCdSMstList;
+//    /**
+//     * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
+//     */
+//    @Enumerated(EnumType.STRING)
+//    private List<MenuItemCd> editableMenuItemCdSMstList;
 
     /**
      * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
@@ -109,11 +109,11 @@ public class BrandUpdateDto {
      */
     private BrandApp brandApp;
 
-
-    /**
-     * 기본적인 안드로이드, IOS 앱  옵션 설정
-     */
-    private BrandAuth brandAuth;
+// kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
+//    /**
+//     * 기본적인 안드로이드, IOS 앱  옵션 설정
+//     */
+//    private BrandAuth brandAuth;
 
 
     private String envValueMap;

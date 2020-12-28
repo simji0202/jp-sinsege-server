@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.admin;
 
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -45,6 +46,8 @@ public class Admin {
     @Column(length = 30)
     private String mobileNum;
 
+    // kms:
+    // TODO 인증 시, 혹은 인증 후 최초 정보 취득시에 갱신하도록 구현해야 함
     @NameDescription("최종 로그인 아이피")
     @Column(length = 30)
     private String lastLoginIp;
@@ -54,12 +57,17 @@ public class Admin {
     @Column(length = 10)
     private AuthCd authCd;
 
-//    @NameDescription("브랜드정보")
-//    @ManyToOne
-//    private Brand brand;
+    // kms: 아이디가 관리 가능한 매장, 상품 등을 제한해야 하므로 brand 추가
+    /**
+     * 관리 가능한 브랜드
+     */
+    @NameDescription("브랜드정보")
+    @ManyToOne
+    private Brand brand;
 
     @NameDescription("사용 여부")
-    private Boolean activeFl;
+    // kms: WrapperClass 는 null로 DB에 저장되어 오동작 할 수 있으므로 초기값 지정
+    private Boolean activeFl = true;
 
     @NameDescription("최종 로그인 일시")
     private ZonedDateTime lastLoginDttm;

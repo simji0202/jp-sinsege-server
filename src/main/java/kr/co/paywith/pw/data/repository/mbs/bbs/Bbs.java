@@ -44,6 +44,7 @@ public class Bbs {
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
+    // kms: 답글(reply) 기능과 조회 방법 확인 필요
 //    /**
 //     * 부모 게시물 일련번호
 //     */
@@ -94,8 +95,10 @@ public class Bbs {
 
     private Boolean openedFl;
 
+    // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
     private ZonedDateTime startDttm;
 
+    // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
     private ZonedDateTime endDttm;
 
     @ManyToOne

@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.billing;
 
 import kr.co.paywith.pw.data.repository.enumeration.PwCorpType;
+import kr.co.paywith.pw.data.repository.mbs.brandPg.BrandPg;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -76,10 +77,12 @@ public class Billing {
     @ManyToOne
     private UserInfo userInfo;
 
-    /**
-     * 브랜드PG
-     */
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+//    /**
+//     * 브랜드PG
+//     */
+    // kms: 복수의 pg를 사용할 수 있으므로 Brand 관계된 PG 정보 필요
+    // kms: pw-proxy 의 pg 정보 연결
+//    @ManyToOne
 //    private BrandPg brandPg;
 
 
