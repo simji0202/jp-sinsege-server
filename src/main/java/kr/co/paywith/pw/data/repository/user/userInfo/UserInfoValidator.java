@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 
 
 import java.util.Optional;
+import javax.validation.constraints.NotNull;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
@@ -36,6 +37,36 @@ public class UserInfoValidator {
       errors.reject("전화번호 오류", "전화번호 형식이 맞지 않습니다");
     }
 
+    // 생년 오류 검증
+    if (isBrthYInvalid(userInfoDto.getBrthY())) {
+      errors.reject("생년 오류", "생년 형식이 맞지 않습니다");
+    }
+
+    // 생월 오류 검증
+    if (isBrthMInvalid(userInfoDto.getBrthM())) {
+      errors.reject("생월 오류", "생월 형식이 맞지 않습니다");
+    }
+
+    // 생일 오류 검증
+    if (isBrthDInvalid(userInfoDto.getBrthD())) {
+      errors.reject("생일 오류", "생일 형식이 맞지 않습니다");
+    }
+
+    // 아이디 오류 검증
+    if (isUserIdInvalid(userInfoDto.getUserId())) {
+      errors.reject("아이디 오류", "아이디 형식이 맞지 않습니다");
+    }
+
+    // 이름 오류 검증
+    if (isUserNmInvalid(userInfoDto.getUserNm())) {
+      errors.reject("이름 오류", "이름 형식이 맞지 않습니다");
+    }
+
+    // 인증 구분 오류 검증
+    if (isCertTypeCdInvalid(userInfoDto.getCertTypeCd())) {
+      errors.reject("인증 구분 오류", "인증 구분 값이 없습니다");
+    }
+
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
@@ -50,6 +81,36 @@ public class UserInfoValidator {
     // 전화번호 오류 검증
     if (isMobileNumInvalid(userInfoUpdateDto.getMobileNum())) {
       errors.reject("전화번호 오류", "전화번호 형식이 맞지 않습니다");
+    }
+
+    // 생년 오류 검증
+    if (isBrthYInvalid(userInfoUpdateDto.getBrthY())) {
+      errors.reject("생년 오류", "생년 형식이 맞지 않습니다");
+    }
+
+    // 생월 오류 검증
+    if (isBrthMInvalid(userInfoUpdateDto.getBrthM())) {
+      errors.reject("생월 오류", "생월 형식이 맞지 않습니다");
+    }
+
+    // 생일 오류 검증
+    if (isBrthDInvalid(userInfoUpdateDto.getBrthD())) {
+      errors.reject("생일 오류", "생일 형식이 맞지 않습니다");
+    }
+
+    // 아이디 오류 검증
+    if (isUserIdInvalid(userInfoUpdateDto.getUserId())) {
+      errors.reject("아이디 오류", "아이디 형식이 맞지 않습니다");
+    }
+
+    // 이름 오류 검증
+    if (isUserNmInvalid(userInfoUpdateDto.getUserNm())) {
+      errors.reject("이름 오류", "이름 형식이 맞지 않습니다");
+    }
+
+    // 인증 구분 오류 검증
+    if (isCertTypeCdInvalid(userInfoUpdateDto.getCertTypeCd())) {
+      errors.reject("인증 구분 오류", "인증 구분 값이 없습니다");
     }
 
     // TODO BeginEventDateTime
@@ -100,11 +161,100 @@ public class UserInfoValidator {
    * @return 오류가 존재하면 true
    */
   private boolean isMobileNumInvalid(String mobileNum) {
+    if (mobileNum == null) {
+      return true;
+    }
     // masking 된 번호를 그대로 보내는 경우 오류
     if (mobileNum.indexOf("*") >= 0) {
       return true;
     }
 
     return false;
+  }
+
+  /**
+   * 생년 오류 확인
+   *
+   * @return 오류가 존재하면 true
+   */
+  private boolean isBrthYInvalid(Integer brthY) {
+    if (brthY == null ||
+    (brthY >= 1900 &&
+    brthY <= 3000)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * 생월 오류 확인
+   *
+   * @return 오류가 존재하면 true
+   */
+  private boolean isBrthMInvalid(Integer brthM) {
+    if (brthM == null ||
+    (brthM >= 0 &&
+    brthM <= 12)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * 생일 오류 확인
+   *
+   * @return 오류가 존재하면 true
+   */
+  private boolean isBrthDInvalid(Integer brthD) {
+    if (brthD == null ||
+    (brthD >= 0 &&
+    brthD <= 31)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * 아이디 오류 확인
+   *
+   * @return 오류가 존재하면 true
+   */
+  private boolean isUserIdInvalid(String userId) {
+    if (userId == null ||
+        (userId.length() >= 0 &&
+        userId.length() <= 50)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * 이름 오류 확인
+   *
+   * @return 오류가 존재하면 true
+   */
+  private boolean isUserNmInvalid(String userNm) {
+    if (userNm != null) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * 아이디 오류 확인
+   *
+   * @return 오류가 존재하면 true
+   */
+  private boolean isCertTypeCdInvalid(CertTypeCd certTypeCd) {
+    if (certTypeCd != null) {
+      return false;
+    }
+
+    return true;
   }
 }

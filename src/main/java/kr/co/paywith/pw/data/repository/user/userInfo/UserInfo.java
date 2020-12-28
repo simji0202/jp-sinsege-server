@@ -71,7 +71,6 @@ public class UserInfo {
     /**
      * 회원 이름
      */
-    @NotNull
     private String userNm;
     /**
      * 회원 별명
@@ -81,20 +80,14 @@ public class UserInfo {
     /**
      * 회원 생년
      */
-    @Max(value = 3000)
-    @Min(value = 1900)
     private Integer brthY;
     /**
      * 회원 생월
      */
-    @Max(value = 12)
-    @Min(value = 0)
     private Integer brthM;
     /**
      * 회원 생일
      */
-    @Max(value = 31)
-    @Min(value = 0)
     private Integer brthD;
     /**
      * 회원 남자 여부
@@ -239,7 +232,6 @@ public class UserInfo {
      * 회원 인증 구분
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
-    @NotNull
     private CertTypeCd certTypeCd;
 
     /**
