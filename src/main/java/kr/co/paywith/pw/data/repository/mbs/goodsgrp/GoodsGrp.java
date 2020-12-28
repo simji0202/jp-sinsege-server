@@ -39,6 +39,7 @@ public class GoodsGrp {
      */
     private String goodsGrpCd;
 
+    // kms: 2차 3차 그룹이 있다면 필드를 어떻게 관리할지 확인 필요
     /**
      * 부모 상품 그룹 일련번호
      */
@@ -52,7 +53,7 @@ public class GoodsGrp {
     /**
      * 사용 여부
      */
-    private Boolean activeFl;
+    private Boolean activeFl = false;
 
     /**
      * 등록 일시

@@ -51,20 +51,21 @@ public class UseDto {
      */
     private ZonedDateTime cancelRegDttm;
 
-    /**
-     * 취소 관리자 일련번호. 멤버십 관리 페이지 통해 취소할 때 auth의 adminSn 을 기입한다
-     */
-    private Integer cancelAdminSn;
-
-    /**
-     * 취소 회원 일련번호. 회원이 pw-ordr 통해 취소를 하는 경우 회원 일련번호를 기입한다.
-     */
-    private Integer cancelUserSn;
-
-    /**
-     * 취소 단말기 일련번호. 매장 관리 페이지 통해 취소할 때 auth의
-     */
-    private Integer cancelMrhstTrmnlSn;
+    // kms: cancelBy 필드 추가
+//    /**
+//     * 취소 관리자 일련번호. 멤버십 관리 페이지 통해 취소할 때 auth의 adminSn 을 기입한다
+//     */
+//    private Integer cancelAdminSn;
+//
+//    /**
+//     * 취소 회원 일련번호. 회원이 pw-ordr 통해 취소를 하는 경우 회원 일련번호를 기입한다.
+//     */
+//    private Integer cancelUserSn;
+//
+//    /**
+//     * 취소 단말기 일련번호. 매장 관리 페이지 통해 취소할 때 auth의
+//     */
+//    private Integer cancelMrhstTrmnlSn;
 
     /**
      * 취소 클라이언트 IP

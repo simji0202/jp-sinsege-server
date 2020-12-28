@@ -52,7 +52,7 @@ public class PointRuleDto {
     /**
      * 적용 여부
      */
-    private Boolean activeFl;
+    private Boolean activeFl = false;
 
     /**
      * 등록 일시

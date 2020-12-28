@@ -27,7 +27,6 @@ import java.time.ZonedDateTime;
 @DynamicUpdate
 public class Cpn {
 
-
     /**
      * 쿠폰 일련번호
      */

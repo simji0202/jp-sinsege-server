@@ -55,7 +55,8 @@ public class PointRule {
     /**
      * 적용 여부
      */
-    private Boolean activeFl;
+    // kms: 기본값 설정
+    private Boolean activeFl = false;
 
     /**
      * 등록 일시

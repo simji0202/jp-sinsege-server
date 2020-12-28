@@ -6,6 +6,7 @@ import kr.co.paywith.pw.data.repository.enumeration.PointHistCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
+import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,8 +52,9 @@ public class PointHist {
 	/**
 	 * 포인트 적립 규칙
 	 */
+	// kms: JsonIgnore 했던 중요한 이유가 없었음(효과 : 네트워크 부하 감소)
+//	@JsonIgnore
 	@ManyToOne
-	@JsonIgnore
 	private PointRule pointRule;
 	/**
 	 * 포인트 적립 규칙 일련번호
@@ -86,6 +88,10 @@ public class PointHist {
 	/**
 	 * 관계있는 사용 이력
 	 */
+	// kms: UserInfo 가 아닌 Use
+	@OneToOne
+	private Use use;
+
 	// che  UserInfo 가 중복 사용중 확인 필요
 //	@OneToOne
 //	private UserInfo userInfo;

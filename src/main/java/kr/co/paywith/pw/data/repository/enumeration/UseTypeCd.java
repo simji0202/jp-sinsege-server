@@ -7,7 +7,7 @@ public enum UseTypeCd implements EnumMapperType {
   P("선불카드"),
   C("쿠폰"),
   S("스탬프"),
-  A("앱"),
+  A("앱결제"),
   N("포인트");
 
   private String title;

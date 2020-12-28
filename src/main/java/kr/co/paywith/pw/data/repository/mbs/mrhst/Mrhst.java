@@ -108,11 +108,13 @@ public class Mrhst {
      */
     @CsvBindByName(column = "Open", required = true)
     private Boolean openFl;
-    /**
-     * 선불카드 사용 여부
-     */
-    @CsvBindByName(column = "UsePrpay", required = true)
-    private Boolean usePrpayFl;
+
+    // kms: 삭제가능. availServiceCdList.PRPAY 로 대체
+//    /**
+//     * 선불카드 사용 여부
+//     */
+//    @CsvBindByName(column = "UsePrpay", required = true)
+//    private Boolean usePrpayFl;
 
     /**
      * 가맹점 서비스 가능 목록
@@ -141,15 +143,19 @@ public class Mrhst {
      */
     private String pobbillId;
 
+    /**
+     * 위치정보에 대한 hex 값으로, DB에만 저장하고 json 값으로는 전달하지 않는다.
+     */
     @Column(columnDefinition = "geometry")
     @JsonIgnore
     private Point coords;
 
-    /**
-     * 가맹점 소개 대표 이미지
-     */
-    @Column
-    private String imgUrl;
+    // kms: 삭제가능. imgUrlList 로 대체
+//    /**
+//     * 가맹점 소개 대표 이미지
+//     */
+//    @Column
+//    private String imgUrl;
 
     /**
      * 가맹점 소개 대표 이미지
@@ -161,6 +167,7 @@ public class Mrhst {
     @Transient
     private Double distance;
 
+    // kms: 국외 지역 코드 조사 및 체계 적용 필요
     /**
      * 시도코드
      */

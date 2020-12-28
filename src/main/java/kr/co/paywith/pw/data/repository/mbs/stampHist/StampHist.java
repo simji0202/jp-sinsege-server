@@ -38,7 +38,7 @@ public class StampHist {
     private UserInfo userInfo;
 
     /**
-     * 스탬프 이력 구분 코
+     * 스탬프 이력 구분 코드
      */
     @Enumerated(EnumType.STRING)
     private StampHistTypeCd stampHistTypeCd;

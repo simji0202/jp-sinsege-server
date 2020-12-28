@@ -68,10 +68,10 @@ public class MrhstDto {
      * 운영 여부. 앱에서 기본적으로 표시할 지 안할 지를 설정.
      */
     private Boolean openFl;
-    /**
-     * 선불카드 사용 여부
-     */
-    private Boolean usePrpayFl;
+//    /**
+//     * 선불카드 사용 여부
+//     */
+//    private Boolean usePrpayFl;
 
     /**
      * 가맹점 서비스 가능 목록
@@ -101,11 +101,11 @@ public class MrhstDto {
     @JsonIgnore
     private Point coords;
 
-    /**
-     * 가맹점 소개 대표 이미지
-     */
-    @Column
-    private String imgUrl;
+//    /**
+//     * 가맹점 소개 대표 이미지
+//     */
+//    @Column
+//    private String imgUrl;
 
     /**
      * 가맹점 소개 대표 이미지

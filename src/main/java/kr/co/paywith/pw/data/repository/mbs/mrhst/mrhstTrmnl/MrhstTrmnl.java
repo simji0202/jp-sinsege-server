@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 가맹점 단말기
+ * 가맹점 단말기.
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,7 +45,7 @@ public class MrhstTrmnl {
     private Mrhst mrhst;
 
     /**
-     * 단말기 번호
+     * 단말기 번호. 외부 시스템 연동에 사용
      */
     @CsvBindByName(column = "DeviceNumber")
     private String trmnlNo;
@@ -63,11 +63,11 @@ public class MrhstTrmnl {
     private Boolean activeFl = true;
 
     // kms: 불필요. od에서 매장의 단말기가 하나씩만 매칭되어서 사용했던 필드
-    /**
-     * 주문 서비스 연동 가능 여부
-     * 현재 한 매장당 주문서비스 연동 기기는 하나만 있어야 한다.
-     */
-    private Boolean ordrAvailFl = false;
+//    /**
+//     * 주문 서비스 연동 가능 여부
+//     * 현재 한 매장당 주문서비스 연동 기기는 하나만 있어야 한다.
+//     */
+//    private Boolean ordrAvailFl = false;
 
     // kms: 불필요. 기존 relay 등에서 받을 경우 대비한 필드였으므로
 //    /**
@@ -88,6 +88,11 @@ public class MrhstTrmnl {
      * 웹포스 로그인 암호
      */
     private String userPw;
+
+    /**
+     * 로그인 정보. 로그인 시 클라이언트에서 UUID를 보내오면 저장. 로그아웃 하면 삭제한다.(중복 로그인 방지)
+     */
+    private String userUuid;
 
     /**
      * 푸시 키. 웹포스 앱 버전등에 사용
@@ -137,10 +142,11 @@ public class MrhstTrmnl {
     private ZonedDateTime updtDttm;
 
 
-    @NameDescription("권한 코드")
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10)
-    private AuthCd authCd;
+    // kms: 삭제가능. roles로 대체
+//    @NameDescription("권한 코드")
+//    @Enumerated(EnumType.STRING)
+//    @Column(length = 10)
+//    private AuthCd authCd;
 
     /**
      * 관리자타입

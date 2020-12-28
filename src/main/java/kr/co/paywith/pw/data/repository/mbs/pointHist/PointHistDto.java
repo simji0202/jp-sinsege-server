@@ -7,6 +7,7 @@ import kr.co.paywith.pw.data.repository.enumeration.PointHistCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
+import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import kr.co.paywith.pw.common.NameDescription;
 import lombok.AllArgsConstructor;
@@ -80,6 +81,9 @@ public class PointHistDto {
 	/**
 	 * 관계있는 사용 이력
 	 */
+	// kms: UserInfo 가 아닌 Use
+	private Use use;
+
 	// che  UserInfo 가 중복 사용중 확인 필요
 //	@OneToOne
 //	private UserInfo userInfo;
