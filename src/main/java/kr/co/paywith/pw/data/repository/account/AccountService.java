@@ -108,7 +108,7 @@ public class AccountService implements  UserDetailsService {
     account.setAccountPw(userInfo.getUserPw());
     account.setAccountNm(userInfo.getUserNm());
     account.setRoles(userInfo.getRoles());
-    account.setAuthCd(userInfo.getAuthCd());
+//    account.setAuthCd(userInfo.getAuthCd());
     account.setUserInfo(userInfo);
 
     return account;

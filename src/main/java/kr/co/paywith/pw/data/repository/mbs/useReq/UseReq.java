@@ -60,15 +60,17 @@ public class UseReq {
     @ManyToOne
     private UserInfo userInfo;
 
-    /**
-     * 가맹점. 판매하는 매장
-     */
-    @ManyToOne
-    private Mrhst mrhst;
+//    /**
+//     * 가맹점. 판매하는 매장
+//     */
+    // kms: 삭제가능. 바로 처리 후 Use 에 기록되므로 Mrhst는 불필요해서 삭제
+//    @ManyToOne
+//    private Mrhst mrhst;
 
 
     //// Mrhst 객체가 이미 MrhstTrmnl를 포함하고 있는데 다시 정의할  필요가 있을지 ??
-    // kms: Mrhst는 거래가 이뤄지는 매장. MrhstTrmnl는 메시지 발신한 단말기 기록. trmnlNo 로 대체가 가능한지 검토 필요
+    // kms: Mrhst는 거래가 이뤄지는 매장. MrhstTrmnl는 메시지 발신한 단말기 기록.
+    // UseReq를 생성한 단말기에 결과값을 전달해야 하므로 필요. Mrhst는 UseReq에서 제거
     /**
      * 가맹점 단말기
      * <p>

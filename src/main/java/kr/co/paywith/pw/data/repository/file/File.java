@@ -31,7 +31,8 @@ public class File implements Serializable {
   /**
    * 첨부파일 순서
    */
-  private Integer ordr;
+  // kms: sort로 변경. ordr은 pw-ordr 과 단어 중복. sort로
+  private Integer sort;
   /**
    * 첨부파일 원본 파일명
    */
@@ -41,10 +42,11 @@ public class File implements Serializable {
    */
   private String fileUrl;
 
-  /**
-   * 게시판 일련번호
-   */
-  private Integer bbsId;
+  // kms:
+//  /**
+//   * 게시판 일련번호
+//   */
+//  private Integer bbsId;
 
   /**
    * 등록 일시

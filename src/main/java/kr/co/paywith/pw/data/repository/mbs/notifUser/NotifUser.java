@@ -37,10 +37,11 @@ public class NotifUser {
 	@ManyToOne
 	private Notif notif;
 
-	/**
-	 * 푸시 일련번호
-	 */
-	private Integer notifSn;
+	// kms: 삭제. notif.id 사용
+//	/**
+//	 * 푸시 일련번호
+//	 */
+//	private Integer notifSn;
 
 	/**
 	 * 푸시 전송 이력 일련번호

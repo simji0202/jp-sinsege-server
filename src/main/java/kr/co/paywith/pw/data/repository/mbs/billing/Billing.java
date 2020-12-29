@@ -77,13 +77,13 @@ public class Billing {
     @ManyToOne
     private UserInfo userInfo;
 
-//    /**
-//     * 브랜드PG
-//     */
+    /**
+     * 브랜드PG
+     */
     // kms: 복수의 pg를 사용할 수 있으므로 Brand 관계된 PG 정보 필요
     // kms: pw-proxy 의 pg 정보 연결
-//    @ManyToOne
-//    private BrandPg brandPg;
+    @ManyToOne
+    private BrandPg brandPg;
 
 
     /**

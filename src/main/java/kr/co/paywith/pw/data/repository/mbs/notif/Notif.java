@@ -91,6 +91,7 @@ public class Notif {
 	 */
 	private Boolean testFl = false;
 
+	// kms:
 	/**
 	 * 발송 회원 일련번호 목록
 	 */

@@ -142,10 +142,12 @@ public class Chrg {
      * pw-proxy 연동에서 사용하는 거래 ID
      */
     // @Column(length = 100, table = "CHRG_HIST_PROXY")
+    // kms: TODO 통합 후 같은 값 연결할지 검토 필요
     private String proxyTid;
 
 
     // che  확인이 필요, 매장아이디와 매장 단말기가 중복되어 엔티티에 설정 필요 여부
+    // kms: Mrhst는 거래가 이뤄지는 매장. MrhstTrmnl는 메시지 발신한 단말기 기록. trmnlNo 로 대체가 가능한지 검토 필요
     /**
      * 매장
      */
@@ -190,5 +192,11 @@ public class Chrg {
 
     @NameDescription("등록담당자")
     private String createBy;
+
+    /**
+     * 취소한 user
+     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
+     */
+    private String cancelBy;
 
 }
