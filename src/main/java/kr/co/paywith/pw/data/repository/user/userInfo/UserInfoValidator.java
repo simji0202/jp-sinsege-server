@@ -23,6 +23,8 @@ public class UserInfoValidator {
   @Autowired
   private MrhstTrmnlRepository mrhstTrmnlRepository;
 
+
+  // 생성
   public void validate(UserInfoDto userInfoDto, Errors errors) {
 
     // 아이디 중복 확인
@@ -71,6 +73,8 @@ public class UserInfoValidator {
     // TODO CloseEnrollmentDateTime
   }
 
+
+  // 변경 (수정)
   public void validate(UserInfoUpdateDto userInfoUpdateDto, Errors errors) {
     // 아이디 중복 확인
     if (isIdDuplicated(userInfoUpdateDto.getUserId(), userInfoUpdateDto.getCertTypeCd(),

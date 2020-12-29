@@ -31,4 +31,10 @@ public class SearchForm {
   @NameDescription("사용처리 Id")
   private Long useId;
 
+
+  // 게시판
+
+  private String bbsSj;
+
+
 }

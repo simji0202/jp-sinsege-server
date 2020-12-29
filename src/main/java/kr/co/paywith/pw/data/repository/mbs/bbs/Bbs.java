@@ -44,11 +44,11 @@ public class Bbs {
     private BbsTypeCd bbsTypeCd;
 
     // kms: 답글(reply) 기능과 조회 방법 확인 필요
-//    /**
-//     * 부모 게시물 일련번호
-//     */
-//    @Column(nullable = true)
-//    private Integer parentBbsSn;
+    /**
+     * 부모 게시물 일련번호
+     */
+    @Column(nullable = true)
+    private Integer parentId;
     /**
      * 게시물 제목
      */
