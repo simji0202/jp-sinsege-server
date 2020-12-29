@@ -39,6 +39,9 @@ public class MrhstService {
     @Transactional
     public Mrhst update(MrhstUpdateDto mrhstUpdateDto, Mrhst existMrhst) {
 
+        // 매핑 전 저정된 list 초기화 -> 새 list의 length 만큼만 업데이트 되는 증상 방지
+        existMrhst.getImgUrlList().clear();
+
         // 입력값 대입
         this.modelMapper.map(mrhstUpdateDto, existMrhst);
 

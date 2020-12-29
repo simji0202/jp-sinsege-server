@@ -6,6 +6,7 @@ import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.use.Use;
+import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -71,6 +72,12 @@ public class StampHist {
      */
     @ManyToOne
     private Mrhst mrhst;
+
+    /**
+     * 등급. 통계위한 거래 당시 회원의 등급
+     */
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    private Grade grade;
 
     /**
      * 사용 이력

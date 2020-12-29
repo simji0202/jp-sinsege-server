@@ -175,10 +175,10 @@ public class UserInfoDto {
 //     * 카카오 페이 멤버십 스탬프 번호
 //     */
 //    private String kakaoStampNo;
-    /**
-     * 스탬프 누적 획득 개수
-     */
-    private Integer stampTotalGet = 0;
+//    /**
+//     * 스탬프 누적 획득 개수
+//     */
+//    private Integer stampTotalGet = 0;
 
     /**
      * 회원 인증 키

@@ -48,5 +48,10 @@ public class GradeUpdateDto {
      */
     private Integer validDay;
 
+    /**
+     * 등급 순서. 0 -> 1 -> 2 순서대로 등급이 올라감. 0 은 회원가입 직후 등급
+     */
+    private Integer sort;
+
 
 }

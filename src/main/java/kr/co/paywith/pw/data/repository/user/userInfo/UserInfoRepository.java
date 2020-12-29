@@ -13,6 +13,4 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer>, Qu
 
   Optional<UserInfo> findUserInfoByUserId(String userId);
 
-//  Optional<UserInfo> findUserInfoByStampNo(String stampNo);
-
 }

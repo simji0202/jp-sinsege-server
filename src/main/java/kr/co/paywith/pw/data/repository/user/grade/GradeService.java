@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.user.grade;
 
 
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,11 @@ public class GradeService {
      * @return 최초 등급
      */
     public Grade findFirstGrade() {
-        // TODO 최초 등급 가져오는 로직 필요
-        return null;
+        Optional<Grade> optionalGrade = gradeRepository.findBySort(0);
+        if (optionalGrade.isEmpty()) {
+            // TODO kms: Exception 확인
+            throw new RuntimeException("등급 설정 오류");
+        }
+        return optionalGrade.get();
     }
 }

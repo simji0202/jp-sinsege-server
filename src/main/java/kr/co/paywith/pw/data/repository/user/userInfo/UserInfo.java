@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -28,6 +29,7 @@ import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
+import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -158,6 +160,7 @@ public class UserInfo {
      * 활성 여부(실제 사용이 가능한 상태)
      */
     private Boolean activeFl = true;
+
     /**
      * 최근 로그인 일시
      */
@@ -196,31 +199,8 @@ public class UserInfo {
 //    @ManyToOne
 //    private Brand brand;
 
-
-    /**
-     * 회원 소지 스탬프 개수
-     */
-    private Integer stampCnt = 0;
-    /**
-     * 현재 스탬프 적립 시작 일시
-     */
-    private ZonedDateTime stampStartDttm;
-    /**
-     * 스탬프 갱신 일시
-     */
-    private ZonedDateTime stampUpdtDttm;
-//    /**
-//     * 회원 스탬프 번호 (바코드 16자리))
-//     */
-//    private String stampNo;
-    /**
-     * 카카오 페이 멤버십 스탬프 번호
-     */
-    private String kakaoStampNo;
-    /**
-     * 스탬프 누적 획득 개수
-     */
-    private Integer stampTotalGet = 0;
+    @OneToOne
+    private UserStamp userStamp;
 
     /**
      * 회원 인증 키
@@ -234,13 +214,6 @@ public class UserInfo {
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
     private CertTypeCd certTypeCd;
 
-    /**
-     * 스탬프 최대 소지 수량
-     */
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private Integer stampMaxCnt;
 
     /**
      * 원본 회원 아이디(기본 정보를 가지고 있을 회원 아이디) 일련번호

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserStampDto {
 
-	@NameDescription("식별번호")
-	private Integer id;
+  @NameDescription("식별번호")
+  private Integer id;
 
 
 }
