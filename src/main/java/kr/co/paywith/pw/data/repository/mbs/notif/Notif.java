@@ -4,6 +4,7 @@ import javax.persistence.Id;
 
 import kr.co.paywith.pw.data.repository.enumeration.NotifTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.SendSttsCd;
+import kr.co.paywith.pw.data.repository.mbs.notifUser.NotifUser;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -23,6 +25,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
+@ToString(exclude = {"notifUsers"})
 public class Notif { 
 
 	@Id
@@ -97,6 +100,10 @@ public class Notif {
 	 */
 	@Transient
 	private List<Integer> userSnArr;
+
+
+	@OneToMany (mappedBy = "notif")
+	private List<NotifUser> notifUsers = new ArrayList<NotifUser>();
 
 	/**
 	 * 등록 일시

@@ -104,6 +104,14 @@ public class BbsController extends CommonController {
             booleanBuilder.and(qBbs.id.eq(searchForm.getId()));
         }
 
+        // 재목
+        if (searchForm.getBbsSj() != null ) {
+            booleanBuilder.and(qBbs.bbsSj.containsIgnoreCase(searchForm.getBbsSj()));
+        }
+
+        //
+
+
 
         Page<Bbs> page = this.bbsRepository.findAll(booleanBuilder, pageable);
         var pagedResources = assembler.toResource(page, e -> new BbsResource(e));

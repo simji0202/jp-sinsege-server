@@ -42,7 +42,7 @@ public class  Use {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     /**
-     * 승인번호
+     * 승인번호 (POS , WEBAPP )
      */
     @CsvBindByName(column = "ConfirmationNo")
     private String confmNo;
@@ -134,16 +134,17 @@ public class  Use {
 
 
     /**
-     * 등급. 통계위한 거래 당시 회원의 등급
+     * 거래시 현재 회원 등급 정보 ( 발생 당시의 등급 확인을 위해 )
      */
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Grade grade;
 
     /**
      * 가맹점 일련번호
+     * 거래시 현재 회원 가맹잠 정보 ( 발생 당시의 가맹점 확인을 위해 )
      */
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    private Mrhst mrhst;
+    private Mrhst mrhst  ;
 
     /**
      * 가맹점 단말기
