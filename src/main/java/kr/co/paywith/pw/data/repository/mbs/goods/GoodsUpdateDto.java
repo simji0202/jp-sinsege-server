@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.Data;
@@ -52,7 +53,7 @@ public class GoodsUpdateDto {
      * 구매시 스탬프 추가 개수
      */
     @CsvBindByName(column = "Stamp")
-    private Integer stampPlusCnt;
+    private Integer stampPlusCnt = 0;
 
     /**
      * 구매시 점수 추가 양
@@ -63,7 +64,6 @@ public class GoodsUpdateDto {
     /**
      * 상품 그룹(카테고리)
      */
-    @ManyToOne
     private GoodsGrp goodsGrp;
 
     /**
@@ -74,6 +74,7 @@ public class GoodsUpdateDto {
     /**
      * 적용 대상 상품 목록
      */
-    @OneToMany
     private List<GoodsApply> goodsApplyList;
+
+    private Brand brand;
 }

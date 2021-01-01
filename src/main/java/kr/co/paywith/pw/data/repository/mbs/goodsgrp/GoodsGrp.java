@@ -60,6 +60,7 @@ public class GoodsGrp {
      */
     @CreationTimestamp
     private ZonedDateTime regDttm;
+
     /**
      * 수정 일시
      */

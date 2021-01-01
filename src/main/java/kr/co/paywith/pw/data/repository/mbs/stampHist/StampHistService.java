@@ -1,5 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
+import java.time.ZonedDateTime;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,19 @@ public class StampHistService {
 
 		  return existStampHist;
 	 }
+
+
+	/**
+	 * 스탬프 이력 취소 처리
+	 */
+	@Transactional
+	public void delete(StampHist stamphist) {
+		// 스탬프 이력 취소
+		stamphist.setCancelRegDttm(ZonedDateTime.now());
+		stampHistRepository.save(stamphist);
+
+		// TODO 회원정보에 스탬프 취소 개수 반영(유효한 쿠폰 있다면 취소처리까지 해야 함)
+
+	}
 
 }

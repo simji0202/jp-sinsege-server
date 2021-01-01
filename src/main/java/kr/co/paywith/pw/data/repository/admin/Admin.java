@@ -39,17 +39,13 @@ public class Admin {
     private String adminPw;
 
     @NameDescription("이메일 주소")
-    @Column(length = 50)
     private String emailAddr;
 
     @NameDescription("휴대폰 번호")
-    @Column(length = 30)
     private String mobileNum;
 
-    // kms:
     // TODO 인증 시, 혹은 인증 후 최초 정보 취득시에 갱신하도록 구현해야 함
     @NameDescription("최종 로그인 아이피")
-    @Column(length = 30)
     private String lastLoginIp;
 
     @NameDescription("권한 코드")
@@ -57,7 +53,6 @@ public class Admin {
     @Column(length = 10)
     private AuthCd authCd;
 
-    // kms: 아이디가 관리 가능한 매장, 상품 등을 제한해야 하므로 brand 추가
     /**
      * 관리 가능한 브랜드
      */
@@ -66,7 +61,6 @@ public class Admin {
     private Brand brand;
 
     @NameDescription("사용 여부")
-    // kms: WrapperClass 는 null로 DB에 저장되어 오동작 할 수 있으므로 초기값 지정
     private Boolean activeFl = true;
 
     @NameDescription("최종 로그인 일시")

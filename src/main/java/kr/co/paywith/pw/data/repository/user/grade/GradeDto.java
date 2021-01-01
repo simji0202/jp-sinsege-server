@@ -9,13 +9,6 @@ import javax.persistence.*;
 @Data
 public class GradeDto {
 
-
-
-    /**
-     * 회원 앱 일련번호
-     */
-    private Integer id;
-
     /**
      * 등급 명
      */

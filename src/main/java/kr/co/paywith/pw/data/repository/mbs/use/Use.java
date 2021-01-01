@@ -1,24 +1,39 @@
 package kr.co.paywith.pw.data.repository.mbs.use;
 
 import com.opencsv.bean.CsvBindByName;
+import java.time.ZonedDateTime;
 import java.util.List;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import kr.co.paywith.pw.data.repository.enumeration.UseTypeCd;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.mbs.payment.Payment;
 import kr.co.paywith.pw.data.repository.mbs.useDetail.UseDetail;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
-import org.hibernate.annotations.Cascade;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 /**
  * 사용 처리

@@ -1,8 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
+import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
+import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
+import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -21,6 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
+@ToString(exclude = {"chrg", "use", "stampHist"})
 public class CpnIssuDto {
 
     /**
@@ -67,41 +71,29 @@ public class CpnIssuDto {
      */
     private List<Cpn> cpnList;
 
-    // kms: 자동으로 발급하는 경우에 필요
     /**
      * 쿠폰 발급 규칙
      */
-    @ManyToOne
     private CpnRule cpnRule;
 
-//    /**
-//     * 쿠폰 발급 규칙 일련 번호
-//     */
-//    private Integer ruleSn;
-
-//    /**
-//     * 충전 이력
-//     * 충전으로 발급한 쿠폰일 때 사용
-//     */
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Chrg chrg;
+    /**
+     * 충전 이력
+     * 충전으로 발급한 쿠폰일 때 사용
+     */
+    private Chrg chrg;
 
     /**
-     * 등록 일시
+     * 사용 이력
+     * 사용으로 발급한 쿠폰일 때 사용
      */
-    private ZonedDateTime regDttm;
-
-
-    /**
-     * 추가한 관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String createBy;
+    @ManyToOne
+    private Use use;
 
     /**
-     * 변경한  관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
+     * 스탬프 이력
+     * 스탬프 적립으로 발급한 쿠폰일 때 사용
      */
-    private String updateBy;
+    @ManyToOne
+    private StampHist stampHist;
 
 }

@@ -51,51 +51,12 @@ public class BrandDto {
    */
   private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList;
 
-  // kms: 삭제가능. ROLE 로 대체
-//    /**
-//     * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> menuItemCdBMstList;
-
-  // kms: 삭제가능. ROLE 로 대체
-//    /**
-//     * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> menuItemCdSMstList;
-
-  // kms: 삭제가능. ROLE 로 대체
-//    /**
-//     * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> editableMenuItemCdBMstList;
-
-  // kms: 삭제가능. ROLE 로 대체
-//    /**
-//     * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> editableMenuItemCdSMstList;
-
-  // kms: 삭제가능. ROLE 로 대체
   /**
    * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
    * <p>
    * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
    */
   private List<AvailServiceCd> availServiceCdList;
-
-  // kms: 삭제가능. 회원 정보 중 중복 가능한 필드 설정하는 부분이었지만, 아이디는 서비스 전체에서 하나가 되므로..
-//    /**
-//     * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
-//     * <p>
-//     * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<DuplicateAvailFieldCd> duplicateAvailFieldCdList;
-
 
   /**
    * 기본적인 브랜드 옵션 설정
@@ -107,13 +68,6 @@ public class BrandDto {
    * 기본적인 브랜드 옵션 설정
    */
   private BrandApp brandApp;
-
-// kms:
-//    /**
-//     * 기본적인 안드로이드, IOS 앱  옵션 설정
-//     */
-//    private BrandAuth brandAuth;
-
 
   private String envValueMap;
 

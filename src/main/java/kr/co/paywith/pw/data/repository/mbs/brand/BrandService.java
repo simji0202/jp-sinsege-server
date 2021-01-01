@@ -27,11 +27,6 @@ public class BrandService {
         // 기존 List 항목 초기 설정
         existBrand.getAvailBrandFnCdList().clear();
         existBrand.getAvailServiceCdList().clear();
-        // kms: 삭제가능. ROLE 로 대체
-//        existBrand.getMenuItemCdBMstList().clear();
-//        existBrand.getMenuItemCdSMstList().clear();
-//        existBrand.getEditableMenuItemCdBMstList().clear();
-//        existBrand.getEditableMenuItemCdSMstList().clear();
 
         // 입력값 대입
         this.modelMapper.map(brandUpdateDto, existBrand);

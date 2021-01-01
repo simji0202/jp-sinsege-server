@@ -40,7 +40,7 @@ public class GoodsGrpDto {
     /**
      * 사용 여부
      */
-    private Boolean activeFl;
+    private Boolean activeFl = true;
 
     /**
      * 등록 일시

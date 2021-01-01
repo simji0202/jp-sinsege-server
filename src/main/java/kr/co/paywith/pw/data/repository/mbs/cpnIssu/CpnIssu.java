@@ -4,6 +4,8 @@ import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
+import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
+import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -64,32 +66,39 @@ public class CpnIssu {
     @ManyToOne
     private CpnMaster cpnMaster;
 
-    // kms: 기존 userSnList 만 받던 걸 list -> user -> id 구조로 변경하였으므로 참고
     /**
      * 발급 쿠폰 목록
      */
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Cpn> cpnList;
 
     /**
      * 쿠폰 발급 규칙
      */
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @ManyToOne
     private CpnRule cpnRule;
 
-    /**
-     * 쿠폰 발급 규칙 일련 번호
-     */
-    @Column(nullable = true)
-    private Integer ruleSn;
-
-    // kms: 특정 이벤트에 관계되어 발급하는 쿠폰의 경우 참조. chrg, use 등
     /**
      * 충전 이력
      * 충전으로 발급한 쿠폰일 때 사용
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Chrg chrg;
+
+    /**
+     * 사용 이력
+     * 사용으로 발급한 쿠폰일 때 사용
+     */
+    @ManyToOne
+    private Use use;
+
+    /**
+     * 스탬프 이력
+     * 스탬프 적립으로 발급한 쿠폰일 때 사용
+     */
+    @ManyToOne
+    private StampHist stampHist;
+
     /**
      * 등록 일시
      */

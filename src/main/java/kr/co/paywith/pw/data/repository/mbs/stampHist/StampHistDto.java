@@ -61,11 +61,6 @@ public class StampHistDto {
 	private String trmnlDelngNo;
 
 	/**
-	 * 취소 일시
-	 */
-	private ZonedDateTime cancelRegDttm;
-
-	/**
 	 * 가맹점
 	 */
 	private Mrhst mrhst;

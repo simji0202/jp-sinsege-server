@@ -44,12 +44,6 @@ public class MrhstTrmnlDto {
      */
     private Boolean activeFl = true;
 
-//    /**
-//     * 주문 서비스 연동 가능 여부
-//     * 현재 한 매장당 주문서비스 연동 기기는 하나만 있어야 한다.
-//     */
-//    private Boolean ordrAvailFl = false;
-
     /**
      * 단말기 POS 종류
      * 결제 시 ChrgSetleChnlCd가 STR 일 경우 이 타입으로 변경
@@ -83,27 +77,10 @@ public class MrhstTrmnlDto {
      */
     private Boolean pushFl = true;
 
-    // kms: posAvailFnCdList
-//    /**
-//     * 충전 기능 숨김 여부 posAvailFnCdList 에 통합
-//     */
-//    private Boolean chrgHiddenFl = true;
-
     /**
      * POS에서 사용가능한 기능
      */
-    @Enumerated(EnumType.STRING)
     private List<PosAvailFnCd> posAvailFnCdList;
-
-    /**
-     * 최근 로그인 일시
-     */
-    private ZonedDateTime lastLoginDttm;
-
-    /**
-     * 최근 로그인 아이피
-     */
-    private String lastLoginIp;
 
 
 }

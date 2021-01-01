@@ -62,23 +62,6 @@ public class MrhstTrmnl {
     @CsvBindByName(column = "Active")
     private Boolean activeFl = true;
 
-    // kms: 불필요. od에서 매장의 단말기가 하나씩만 매칭되어서 사용했던 필드
-//    /**
-//     * 주문 서비스 연동 가능 여부
-//     * 현재 한 매장당 주문서비스 연동 기기는 하나만 있어야 한다.
-//     */
-//    private Boolean ordrAvailFl = false;
-
-    // kms: 불필요. 기존 relay 등에서 받을 경우 대비한 필드였으므로
-//    /**
-//     * 단말기 POS 종류
-//     * 결제 시 ChrgSetleChnlCd가 STR 일 경우 이 타입으로 변경
-//     * null일 경우에는 STR 상태로 유지
-//     */
-//    @Column(length = 10)
-//    @Enumerated(EnumType.STRING)
-//    private PosTypeCd posTypeCd = PosTypeCd.STR;
-
     /**
      * 웹포스 로그인 아이디
      */
@@ -103,12 +86,6 @@ public class MrhstTrmnl {
      * 푸시 수신 여부
      */
     private Boolean pushFl = true;
-
-    // kms: 불필요. posAvailFnCdList 에 통합해서
-//    /**
-//     * 충전 기능 숨김 여부 posAvailFnCdList 에 통합
-//     */
-//    private Boolean chrgHiddenFl = true;
 
     /**
      * POS에서 사용가능한 기능
@@ -140,13 +117,6 @@ public class MrhstTrmnl {
      */
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
-
-
-    // kms: 삭제가능. roles로 대체
-//    @NameDescription("권한 코드")
-//    @Enumerated(EnumType.STRING)
-//    @Column(length = 10)
-//    private AuthCd authCd;
 
     /**
      * 관리자타입

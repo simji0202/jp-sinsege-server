@@ -53,13 +53,6 @@ public class BrandSetting {
 //  @Column(table = "BRAND_SETTING", length = 10)
 //  private PrpayOvrRuleCd prpayOvrRuleCd = PrpayOvrRuleCd.D;
 
-  // kms: Brand.envValueMap으로 대체했던 필드이므로 삭제 가능
-//  /**
-//   * 서버사이드에서 관리할 브랜드 테마 값
-//   */
-//  @Lob
-//  @Deprecated
-//  private String themeValue;
 
   /**
    * 서버사이드에서 관리할 브랜드 이미지
@@ -70,13 +63,6 @@ public class BrandSetting {
    * 서버사이드에서 관리할 브랜드 로고 이미지
    */
   private String logoImgUrl;
-
-
-  // kms: 삭제가능. ID 통합(시스템 내에서 고유)하므로 brand 별 설정하지 않음
-//  /**
-//   * 탈퇴회원 정보 보유 기간
-//   */
-//  private Integer userInfoKeepDay;
 
   /**
    * 선불카드 유효기간 단위 코드
@@ -107,30 +93,12 @@ public class BrandSetting {
    */
   private Integer stampMaxCnt;
 
-  // kms: AvailBrandFnCd.GOODS 로 대체
-//  /**
-//   * 상품 관리 기능 미사용 여부(상품 대신 잔액만 관리)
-//   */
-//  private Boolean offGoodsFl;
-
   /**
    * 선불-스탬프 번호 교차 조회
    *
    * 선불카드 번호 ←→ 스탬프 번호로 착오 조회 시 서버에서 다른 번호 조회할 지 여부
    */
   private Boolean exactCardNoFl = false;
-
-
-//  private Boolean useOrdrFl;
-
-  // kms: 삭제. 새 기능 추가하면서 호환 위해서 존재하던 필드
-//  /**
-//   * PG 결제 시 ChrgSetleChnlCd가 APP 일 경우 변경할 타입을 지정
-//   *
-//   * null일 경우에는 기본 APP 상태로 유지
-//   */
-//  @Enumerated(EnumType.STRING)
-//  private PgTypeCd defaultPgTypeCd;
 
   /**
    * 사업자 번호
@@ -157,25 +125,15 @@ public class BrandSetting {
    */
   private String bizClass;
 
-  // kms: BrandAuth 에서 옮겨옴
   /**
-   * 다날 업체 아이디
+   * 다날 본인인증 CPID
    */
-  private String authId;
+  private String danalCpid;
 
-  // kms: BrandAuth 에서 옮겨옴
   /**
-   * 다날 업체 암호
+   * 다날 본인인증 CPPWD
    */
-  private String authPw;
-
-  // kms: 삭제 가능. 선불카드+정기결제(빌링)는 KICC에서 가능하지 않은 기능. 기능구현이 복잡하지 않으므로 추후 가능할 때 다시 구현
-//  /**
-//   * 정기결제 최소 충전 단위
-//   *
-//   * (ex: 1000이면 금액이 부족할때 천원씩 2300원이 부족하다면 3000원을 충전한다)
-//   */
-//  private Integer billingMinAmt = 1;
+  private String danalCppwd;
 
   /**
    * 남은 선불카드가 없을 때 자동으로 발급할 번호 규칙.

@@ -33,7 +33,6 @@ public class CpnGoods {
     /**
      * 대상 상품
      */
-    // kms: 상품 연결해야 하므로 필요
     @ManyToOne
     private Goods goods;
 

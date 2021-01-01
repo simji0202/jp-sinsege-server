@@ -79,43 +79,6 @@ public class Brand implements Serializable {
   @Enumerated(EnumType.STRING)
   private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList  = new ArrayList<>();
 
-
-  // kms: 삭제가능. ROLE 로 대체
-//  /**
-//   * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
-//   */
-//  @Column(length = 10)
-//  @ElementCollection(fetch = FetchType.LAZY)
-//  @Enumerated(EnumType.STRING)
-//  private List<MenuItemCd> menuItemCdBMstList  = new ArrayList<>();
-
-  // kms: 삭제가능. ROLE 로 대체
-//  /**
-//   * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록w
-//   */
-//  @Column(length = 10)
-//  @ElementCollection(fetch = FetchType.LAZY)
-//  @Enumerated(EnumType.STRING)
-//  private List<MenuItemCd> menuItemCdSMstList = new ArrayList<>();
-
-  // kms: 삭제가능. ROLE 로 대체
-//  /**
-//   * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
-//   */
-//  @Column(length = 10)
-//  @ElementCollection(fetch = FetchType.LAZY)
-//  @Enumerated(EnumType.STRING)
-//  private List<MenuItemCd> editableMenuItemCdBMstList  = new ArrayList<>();
-
-  // kms: 삭제가능. ROLE 로 대체
-//  /**
-//   * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
-//   */
-//  @Column(length = 10)
-//  @ElementCollection(fetch = FetchType.LAZY)
-//  @Enumerated(EnumType.STRING)
-//  private List<MenuItemCd> editableMenuItemCdSMstList  = new ArrayList<>();
-
   /**
    * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
    *
@@ -126,19 +89,6 @@ public class Brand implements Serializable {
   @ElementCollection(fetch = FetchType.LAZY)
   private List<AvailServiceCd> availServiceCdList  = new ArrayList<>();
 
-  // kms: 삭제가능. 회원 정보 중 중복 가능한 필드 설정하는 부분이었지만, 아이디는 서비스 전체에서 하나가 되므로..
-//  /**
-//   * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
-//   *
-//   * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
-//   */
-//  @Column(length = 10)
-//  @Enumerated(EnumType.STRING)
-//  @ElementCollection(fetch = FetchType.LAZY)
-//  private List<DuplicateAvailFieldCd> duplicateAvailFieldCdList  = new ArrayList<>();
-
-
-
 //  /**
 //   * 자동으로 발급할 선불카드 종류
 //   */
@@ -146,42 +96,11 @@ public class Brand implements Serializable {
 //  @JoinColumn(name = "prpayGoodsSn", insertable = false, updatable = false)
 //  private PrpayGoods prpayGoods;
 
-//  /**
-//   * 자동으로 발급할 선불카드 종류 일련번호
-//   */
-//  @Column(name = "prpayGoodsSn")
-//  private Integer prpayGoodsSn;
-
   /**
    *  기본적인 브랜드 옵션 설정
    */
-  @OneToOne (cascade = CascadeType.ALL )
+  @OneToOne(cascade = CascadeType.ALL)
   private BrandSetting brandSetting;
-
-// kms: 삭제가능. envValueMap에서 기능 대체 가능
-//  /**
-//   *  기본적인 브랜드 옵션 설정
-//   */
-//  @OneToOne (cascade = CascadeType.ALL )
-//  private BrandApp brandApp;
-
-
-  // kms: 다날 본인인증 연동에 사용하던 정보인데, 필요있을지 검토. 일단 BrandAuth로 이동(외부 서비스 연동이라는 동일한 성격)
-//  /**
-//   *  기본적인 안드로이드, IOS 앱  옵션 설정
-//   */
-//  @OneToOne (cascade = CascadeType.ALL )
-//  private BrandAuth brandAuth;
-
-
-  /**
-   * 브랜드 별 환경 변수. 기존 themeValue 대체
-   */
-//  @ElementCollection
-//  @MapKeyColumn(name = "env_key")
-//  @Column(name = "env_value")
-//  @CollectionTable(name = "brand_env_value_map", joinColumns = @JoinColumn(name = "brand_sn"))
-//  private Map<String, String> envValueMap = new HashMap<>();
 
   @Column(columnDefinition = "json")
   private String envValueMap;

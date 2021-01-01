@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsApply;
 
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -17,12 +18,11 @@ import javax.persistence.*;
 @EntityListeners(AuditingEntityListener.class)
 public class GoodsApply {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-
-    /// 사용 목적이 명확하지 않아 차후 작업 예정 ///
-
+  @ManyToOne
+  private Goods goods;
 
 }

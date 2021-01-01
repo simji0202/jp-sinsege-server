@@ -1,6 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
+import javax.persistence.CascadeType;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.Data;
@@ -15,11 +17,6 @@ import java.util.List;
  */
 @Data
 public class GoodsDto {
-
-    /**
-     * 상품 일련번호
-     */
-    private Integer id;
 
     /**
      * 상품 코드 (POS 연동)
@@ -46,13 +43,13 @@ public class GoodsDto {
      * 사용 여부
      */
     @CsvBindByName(column = "Active")
-    private Boolean activeFl;
+    private Boolean activeFl = true;
 
     /**
      * 구매시 스탬프 추가 개수
      */
     @CsvBindByName(column = "Stamp")
-    private Integer stampPlusCnt;
+    private Integer stampPlusCnt = 0;
 
     /**
      * 구매시 점수 추가 양
@@ -74,6 +71,7 @@ public class GoodsDto {
     /**
      * 적용 대상 상품 목록
      */
-    @OneToMany
     private List<GoodsApply> goodsApplyList;
+
+    private Brand brand;
 }

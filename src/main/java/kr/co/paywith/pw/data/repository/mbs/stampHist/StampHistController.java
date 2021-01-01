@@ -6,13 +6,16 @@ import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
-import kr.co.paywith.pw.common.ErrorsResource;import org.modelmapper.ModelMapper;
+import kr.co.paywith.pw.common.ErrorsResource;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -181,4 +184,45 @@ public class StampHistController extends CommonController {
 		  // 정상적 처리
 		  return ResponseEntity.ok(stampHistResource);
 	 }
+
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity removeStampHist(@PathVariable Integer id,
+			Errors errors,
+			@CurrentUser Account currentUser) {
+		// 입력체크
+		if (errors.hasErrors()) {
+			return badRequest(errors);
+		}
+
+		// 논리적 오류 (제약조건) 체크
+		if (errors.hasErrors()) {
+			return badRequest(errors);
+		}
+
+		Optional<StampHist> stampHistOptional = this.stampHistRepository.findById(id);
+
+		if (stampHistOptional.isEmpty()) {
+			// 404 Error return
+			return ResponseEntity.notFound().build();
+		}
+
+		// 탈퇴 가능한 지(본인 또는 관리자) 확인
+		StampHist stampHist = stampHistOptional.get();
+		if ((currentUser.getAdmin() != null &&
+				currentUser.getAdmin().getBrand() != null &&
+				!currentUser.getAdmin().getBrand().getId().equals(stampHist.getMrhst().getBrand().getId())
+				) || // 관리자 브랜드가 일치하지 않는 경우. TODO brandCd 확인 로직 생기면 그걸로 비교해야 함
+				(currentUser.getMrhstTrmnl() != null &&
+						!stampHist.getMrhst().getId().equals(currentUser.getMrhstTrmnl().getMrhst().getId())) // 거래 매장일 경우
+		) {
+			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+		}
+
+		stampHistService.delete(stampHist);
+
+		// 정상적 처리
+		return ResponseEntity.ok().build();
+
+	}
 }

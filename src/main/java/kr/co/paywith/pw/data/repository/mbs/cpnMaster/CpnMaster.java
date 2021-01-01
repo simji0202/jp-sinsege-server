@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnGoods.CpnGoods;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -91,6 +92,9 @@ public class CpnMaster {
      * 설정 금액 이상 사용할 때에만 쿠폰 사용가능
      */
     private Integer minUseStdAmt;
+
+    @ManyToOne
+    private Brand brand;
 
     /**
      * 등록 일시

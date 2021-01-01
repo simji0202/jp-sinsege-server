@@ -1,14 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vividsolutions.jts.geom.Point;
-import kr.co.paywith.pw.data.repository.enumeration.AvailServiceCd;
-import kr.co.paywith.pw.data.repository.mbs.cd.addr.Addr;
-import kr.co.paywith.pw.data.repository.mbs.cd.addrSub.AddrSub;
-import lombok.Data;
-
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import kr.co.paywith.pw.data.repository.enumeration.AvailServiceCd;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr3.CdAddr3;
+import lombok.Data;
 
 @Data
 public class MrhstUpdateDto {
@@ -33,16 +34,16 @@ public class MrhstUpdateDto {
      * 주소
      */
     private String address;
+
     /**
      * 시도 코드
      */
+    private CdAddr1 cdAddr1;
 
-    private String addrCd;
-    /**
-     * 시군구 코드
-     */
+    private CdAddr2 cdAddr2;
 
-    private String addrSubCd;
+    private CdAddr3 cdAddr3;
+
     /**
      * 운영 시간
      */
@@ -68,15 +69,10 @@ public class MrhstUpdateDto {
      * 운영 여부. 앱에서 기본적으로 표시할 지 안할 지를 설정.
      */
     private Boolean openFl;
-    /**
-     * 선불카드 사용 여부
-     */
-    private Boolean usePrpayFl;
 
     /**
      * 가맹점 서비스 가능 목록
      */
-    @Enumerated(EnumType.STRING)
     private List<AvailServiceCd> availServiceCdList;
 
     /**
@@ -97,36 +93,12 @@ public class MrhstUpdateDto {
      */
     private String pobbillId;
 
-    @JsonIgnore
-    private Point coords;
 
     /**
      * 가맹점 소개 대표 이미지
      */
-    @Column
-    private String imgUrl;
-
-    /**
-     * 가맹점 소개 대표 이미지
-     */
-    @Column
     private List<String> imgUrlList;
 
-    @Transient
-    private Double distance;
-
-    /**
-     * 시도코드
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "addrCd", insertable = false, updatable = false)
-    private Addr addr;
-
-    /**
-     * 시군구코드
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "addrSubCd", insertable = false, updatable = false)
-    private AddrSub addrSub;
+    private Brand brand;
 
 }
