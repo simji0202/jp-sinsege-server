@@ -17,7 +17,6 @@ public class BrandService {
     @Autowired
     private ModelMapper modelMapper;
 
-
     /**
      * 브랜드 정보 갱신
      */
@@ -37,4 +36,14 @@ public class BrandService {
         return existBrand;
     }
 
+    /**
+     * 브랜드 접근 권한이 있는 다른 브랜드 인지 확인. brandCd를 사용하여 비교한다
+     *
+     * @param currentBrand 현재 Account, 클라이언트 등의 브랜드
+     * @param targetBrand 확인하려고 하는 브랜드(조회, 등록 등을 하는 브랜드)
+     * @return 권한이 있으면 true
+     */
+    public boolean hasAuthorization(Brand currentBrand, Brand targetBrand) {
+        return targetBrand.getBrandCd().startsWith(currentBrand.getBrandCd());
+    }
 }

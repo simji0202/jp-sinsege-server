@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.*;
@@ -91,6 +92,9 @@ public class Goods {
    */
   @OneToMany(cascade = {CascadeType.ALL})
   private List<GoodsApply> goodsApplyList;
+
+  @ManyToOne
+  private Brand brand;
 
   /**
    * 등록 일시

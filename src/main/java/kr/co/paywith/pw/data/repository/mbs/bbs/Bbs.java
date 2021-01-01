@@ -42,7 +42,7 @@ public class Bbs {
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
-    
+
     /**
      * 부모 게시물 일련번호
      */

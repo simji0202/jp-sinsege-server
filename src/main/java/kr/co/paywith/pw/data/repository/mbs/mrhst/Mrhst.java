@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.mbs.mrhst;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvBindByName;
 import com.vividsolutions.jts.geom.Point;
+import java.util.ArrayList;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2;
@@ -102,7 +103,7 @@ public class Mrhst {
   @Column
   @Enumerated(EnumType.STRING)
   @ElementCollection(fetch = FetchType.LAZY)
-  private List<AvailServiceCd> availServiceCdList;
+  private List<AvailServiceCd> availServiceCdList = new ArrayList<>();
 
   @Column(columnDefinition = "json")
   private String envValueMap;
@@ -131,7 +132,7 @@ public class Mrhst {
    */
   @Column
   @ElementCollection
-  private List<String> imgUrlList;
+  private List<String> imgUrlList = new ArrayList<>();
 
   @Transient
   private Double distance;
