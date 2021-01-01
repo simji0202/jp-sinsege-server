@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.notifUser;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.notif.Notif;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
@@ -35,12 +36,14 @@ public class NotifUser {
 	 * 푸시 메시지
 	 */
 	@ManyToOne
+//	@JsonSerialize(using = NotifSerializer.class)
 	private Notif notif;
 
-	/**
-	 * 푸시 일련번호
-	 */
-	private Integer notifSn;
+	// kms: 삭제. notif.id 사용
+//	/**
+//	 * 푸시 일련번호
+//	 */
+//	private Integer notifSn;
 
 	/**
 	 * 푸시 전송 이력 일련번호

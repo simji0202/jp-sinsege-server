@@ -92,6 +92,7 @@ public class Payment {
 	/**
 	 * pw-proxy 연동에서 사용하는 거래 ID
 	 */
+	// kms: TODO 통합 후 같은 값 연결할지 검토 필요
 	private String proxyTid;
 
 	/**
@@ -122,6 +123,8 @@ public class Payment {
 	 * 브랜드PG
 	 */
 	@ManyToOne
+	// kms: 복수의 pg를 사용할 수 있으므로 Brand 관계된 PG 정보 필요
+	// kms: pw-proxy 의 pg 정보 연결
 	private BrandPg brandPg;
 
 	/**

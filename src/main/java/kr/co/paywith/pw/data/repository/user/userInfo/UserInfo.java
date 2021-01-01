@@ -61,8 +61,6 @@ public class UserInfo {
      * 회원 아이디.
      *
      */
-    @Length(max = 50, min = 4)
-    @NotNull
     private String userId;
 
     /**
@@ -227,10 +225,11 @@ public class UserInfo {
     private Boolean testerFl;
 
 
-    @NameDescription("권한 코드")
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10)
-    private AuthCd authCd;
+//    // kms: UserInfo 테이블에 있으면 관리권한
+//    @NameDescription("권한 코드")
+//    @Enumerated(EnumType.STRING)
+//    @Column(length = 10)
+//    private AuthCd authCd;
 
     /**
      * 관리자타입

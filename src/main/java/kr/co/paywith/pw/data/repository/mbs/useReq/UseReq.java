@@ -61,13 +61,6 @@ public class UseReq {
     private UserInfo userInfo;
 
     /**
-     * 가맹점. 판매하는 매장
-     */
-    @ManyToOne
-    private Mrhst mrhst;
-
-
-    /**
      * 가맹점 단말기
      * <p>
      * 단말기에서 온 요청은 단말기 정보가 존재. 회원에게 결제 요청을 보낸다.
