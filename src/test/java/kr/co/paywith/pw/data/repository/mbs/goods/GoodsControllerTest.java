@@ -108,10 +108,10 @@ public class GoodsControllerTest extends BaseControllerTest {
 
 		  // Given
 		  GoodsDto goods = new GoodsDto();
-		  goods.setId(1);
+//		  goods.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/goods/{id}", goods.getId())
+		  this.mockMvc.perform(put("/api/goods/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 
