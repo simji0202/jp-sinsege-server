@@ -1,6 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvBindByName;
+import java.util.ArrayList;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
@@ -70,6 +72,7 @@ public class MrhstTrmnl {
     /**
      * 웹포스 로그인 암호
      */
+    @JsonIgnore
     private String userPw;
 
     /**
@@ -93,7 +96,7 @@ public class MrhstTrmnl {
     @Column(length = 10)
     @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
-    private List<PosAvailFnCd> posAvailFnCdList;
+    private List<PosAvailFnCd> posAvailFnCdList = new ArrayList<>();
 
     /**
      * 최근 로그인 일시

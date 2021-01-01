@@ -1,6 +1,8 @@
 package kr.co.paywith.pw.data.repository.admin;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
@@ -35,7 +37,7 @@ public class Admin {
     private String adminNm;
 
     @NameDescription("비밀번호")
-    @NotNull
+    @JsonIgnore
     private String adminPw;
 
     @NameDescription("이메일 주소")
@@ -69,7 +71,7 @@ public class Admin {
     @NameDescription("관리자타입")
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private Set<AdminRole> roles;
+    private Set<AdminRole> roles = new HashSet<>();
 
 
     // 공통 부분

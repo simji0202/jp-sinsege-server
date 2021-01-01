@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.userInfo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.ZonedDateTime;
@@ -66,6 +67,7 @@ public class UserInfo {
     /**
      * 회원 암호
      */
+    @JsonIgnore
     private String userPw;
 
     /**
@@ -131,7 +133,9 @@ public class UserInfo {
      */
     private ZonedDateTime gradeUpdtDttm;
 
-    /** 회원 등급 ()*/
+    /**
+     * 회원 등급. TODO GUEST는 grade가 없어도 될지 검토
+     * */
     @ManyToOne
     private Grade grade;
 
