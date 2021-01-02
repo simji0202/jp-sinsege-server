@@ -28,7 +28,7 @@ public class Grade {
 //
 //
 //
-//    브랜드  인스던스   DB
+
 
 
     /**

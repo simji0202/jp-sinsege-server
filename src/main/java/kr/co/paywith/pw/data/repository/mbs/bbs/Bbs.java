@@ -102,6 +102,8 @@ public class Bbs {
     @ManyToOne
     private Mrhst mrhst;
 
+
+    /// 공통 항목 ////
     /**
      * 등록 일시
      */

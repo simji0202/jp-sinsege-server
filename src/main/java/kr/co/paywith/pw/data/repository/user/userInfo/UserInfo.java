@@ -50,6 +50,51 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class UserInfo {
 
+//
+//    등급,  점수,  스템프
+//
+//    브랜드 정산
+//
+//    user ---  a브랜드별 ,  b브랜드별
+//
+//
+//      -------------------
+//
+//    미장원  (브랜드)
+//
+//        A 점   vvip vip gold
+//
+//        B 정   vip  gold
+//
+//        C 점   cvip cgold
+//
+//      -------------------
+//
+//               1     :     N                  N      :       1  (브랜)
+//    userInfo ---      userInfo-Grade  +  포인트,   ----    Grade  (종류)
+//            q
+//    userInfo    --          b.g            b.g   브랜드   ---  123        (1--- N종류  )
+//
+//
+//    Grade 등급 마스터 : 1 ---- 10
+//    Grade OPtion1  : a,b,c,d,
+//    Grade OPtion2  : ㅁㅁ,ㅠ,
+//
+//
+//    Grade_Use (브랜드별 등급 조절 로직 ) : 1 a,b,  2-c,d, 3-a.c
+//
+//
+//            브랜드  -- Grade_Use1,2,3
+//
+//a브랜드  :  1,2,3
+//b브랜드  :  1,2,4,5
+//c브랜드  :  1,2,3,5
+//         1        :   n
+//       userInfo       Brand_use : 브랜드 ,  포인트,        +          Brand_Grade
+//                                  c브랜드,  점수  ,        +
+
+
+
     /**
      * 회원 일련번호
      */
