@@ -92,9 +92,11 @@ public class Bbs {
     private Boolean openedFl;
 
     // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
+    // che: null 허용해도 문제 없을것 같습니다 (21.01.02)
     private ZonedDateTime startDttm;
 
     // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
+    // che: null 허용해도 문제 없을것 같습니다 (21.01.02)
     private ZonedDateTime endDttm;
 
     @ManyToOne

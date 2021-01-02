@@ -158,6 +158,11 @@ public class Brand implements Serializable {
   @OneToOne (cascade = CascadeType.ALL )
   private BrandSetting brandSetting;
 
+
+
+
+
+
 // kms: 삭제가능. envValueMap에서 기능 대체 가능
 //  /**
 //   *  기본적인 브랜드 옵션 설정
@@ -185,6 +190,8 @@ public class Brand implements Serializable {
 
   @Column(columnDefinition = "json")
   private String envValueMap;
+
+
 
   /**
    * 등록 일시
