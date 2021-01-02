@@ -53,19 +53,25 @@ public class PrpayIssuService {
         // TODO 선불카드 충전 금액
 //					prpay.setChrgTotAmt();
 
-        // 선불카드 번호 생성. 중복 방지를 위해 prpayIssu를 활용한다
-        boolean isEndMakeNo = false;
-        do {
-          String noRule = "9";
-          noRule += StringUtils.leftPad("" + prpayIssu.getId(), 8, "0"); //20000000
-          noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
-          String prpayNo = StringUtil.makeNo(noRule);
-          if (prpayRepository.findByPrpayNo(prpayNo).isEmpty()) {
-            isEndMakeNo = true;
-            prpay.setPrpayNo(prpayNo);
-          }
-        } while (!isEndMakeNo);
+        if (StringUtils.isEmpty(prpay.getPrpayNo())) {
+          // 선불카드 번호 생성. 중복 방지를 위해 prpayIssu를 활용한다
+          boolean isEndMakeNo = false;
+          do {
+            String noRule = "9";
+            noRule += StringUtils.leftPad("" + prpayIssu.getId(), 8, "0"); //90000000
+            noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
+            String prpayNo = StringUtil.makeNo(noRule);
+            if (prpayRepository.findByPrpayNo(prpayNo).isEmpty()) {
+              isEndMakeNo = true;
+              prpay.setPrpayNo(prpayNo);
+            }
+          } while (!isEndMakeNo);
+        }
 
+        if (StringUtils.isEmpty(prpay.getPinNum())) { // PIN번호가 없다면
+          // PIN 번호 서버에서 생성
+          prpay.setPinNum(RandomStringUtils.randomNumeric(6));
+        }
         prpayList.add(prpay);
       }
     }
