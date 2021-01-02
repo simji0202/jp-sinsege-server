@@ -105,6 +105,8 @@ public class Brand implements Serializable {
   @Column(columnDefinition = "json")
   private String envValueMap;
 
+
+
   /**
    * 등록 일시
    */

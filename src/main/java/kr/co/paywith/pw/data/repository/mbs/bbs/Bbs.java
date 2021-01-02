@@ -90,8 +90,14 @@ public class Bbs {
 
     private Boolean openedFl;
 
+    /**
+     * 이벤트 등 시작 시각
+     */
     private ZonedDateTime startDttm;
 
+    /**
+     * 이벤트 등 종료 시각
+     */
     private ZonedDateTime endDttm;
 
     @ManyToOne
