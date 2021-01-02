@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnRule;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
@@ -33,6 +34,7 @@ public class CpnRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // kms: TODO 브랜드별 등급 만들면 해당 entity로 변경
     /**
      * 발급 대상 회원 등급
      */
@@ -74,13 +76,11 @@ public class CpnRule {
     /**
      * 이메일, 푸시 등 발급시 전송할 메시지 본문
      */
-    @Column(length = 4000)
-    private String msg;
+    private String msgCn;
 
     /**
      * 쿠폰 발급 전송 메시지 제목
      */
-    @Column(length = 100)
     private String msgSj;
 
     /**
@@ -135,6 +135,9 @@ public class CpnRule {
      */
     private Integer dayBeforeBrth;
 
+    @ManyToOne
+    private Brand brand;
+
     /**
      * 등록 일시
      */
@@ -146,7 +149,6 @@ public class CpnRule {
      */
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
-
 
     /**
      * 추가한 관리자

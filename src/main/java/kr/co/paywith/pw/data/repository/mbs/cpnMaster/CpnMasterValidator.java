@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
 
-import kr.co.paywith.pw.common.ValidatorUtils;
+import kr.co.paywith.pw.component.ValidatorUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 

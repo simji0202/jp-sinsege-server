@@ -7,6 +7,7 @@ import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
 import kr.co.paywith.pw.common.ErrorsResource;
+import kr.co.paywith.pw.data.repository.mbs.brand.BrandService;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 public class StampHistController extends CommonController {
 
 	 @Autowired
-	 StampHistRepository stampHistRepository;
+	 private StampHistRepository stampHistRepository;
 
 	 @Autowired
 	 ModelMapper modelMapper;
@@ -42,6 +43,9 @@ public class StampHistController extends CommonController {
 
 	 @Autowired
 	 StampHistService stampHistService;
+
+	 @Autowired
+	 private BrandService brandService;
 
 	 /**
 	  * 정보 등록
@@ -142,48 +146,48 @@ public class StampHistController extends CommonController {
 	 }
 
 
-	 /**
-	  * 정보 변경
-	  */
-	 @PutMapping("/{id}")
-	 public ResponseEntity putStampHist(@PathVariable Integer id,
-											  @RequestBody @Valid StampHistUpdateDto stampHistUpdateDto,
-											  Errors errors,
-											  @CurrentUser Account currentUser) {
-		  // 입력체크
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-		  // 논리적 오류 (제약조건) 체크
-		  this.stampHistValidator.validate(stampHistUpdateDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-		  // 기존 테이블에서 관련 정보 취득
-		  Optional<StampHist> stampHistOptional = this.stampHistRepository.findById(id);
-
-		  // 기존 정보 유무 체크
-		  if (stampHistOptional.isEmpty()) {
-				// 404 Error return
-				return ResponseEntity.notFound().build();
-		  }
-
-		  // 기존 정보 취득
-		  StampHist existStampHist = stampHistOptional.get();
-
-		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
-		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
-		  StampHist saveStampHist = this.stampHistService.update(stampHistUpdateDto, existStampHist);
-
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  StampHistResource stampHistResource = new StampHistResource(saveStampHist);
-		  stampHistResource.add(new Link("/docs/index.html#resources-stampHist-update").withRel("profile"));
-
-		  // 정상적 처리
-		  return ResponseEntity.ok(stampHistResource);
-	 }
+//	 /**
+//	  * 정보 변경
+//	  */
+//	 @PutMapping("/{id}")
+//	 public ResponseEntity putStampHist(@PathVariable Integer id,
+//											  @RequestBody @Valid StampHistUpdateDto stampHistUpdateDto,
+//											  Errors errors,
+//											  @CurrentUser Account currentUser) {
+//		  // 입력체크
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 논리적 오류 (제약조건) 체크
+//		  this.stampHistValidator.validate(stampHistUpdateDto, errors);
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 기존 테이블에서 관련 정보 취득
+//		  Optional<StampHist> stampHistOptional = this.stampHistRepository.findById(id);
+//
+//		  // 기존 정보 유무 체크
+//		  if (stampHistOptional.isEmpty()) {
+//				// 404 Error return
+//				return ResponseEntity.notFound().build();
+//		  }
+//
+//		  // 기존 정보 취득
+//		  StampHist existStampHist = stampHistOptional.get();
+//
+//		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
+//		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
+//		  StampHist saveStampHist = this.stampHistService.update(stampHistUpdateDto, existStampHist);
+//
+//		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//		  StampHistResource stampHistResource = new StampHistResource(saveStampHist);
+//		  stampHistResource.add(new Link("/docs/index.html#resources-stampHist-update").withRel("profile"));
+//
+//		  // 정상적 처리
+//		  return ResponseEntity.ok(stampHistResource);
+//	 }
 
 
 	@DeleteMapping("/{id}")
@@ -195,7 +199,10 @@ public class StampHistController extends CommonController {
 			return badRequest(errors);
 		}
 
+		StampHistDeleteDto stampHistDeleteDto = new StampHistDeleteDto();
+		stampHistDeleteDto.setId(id);
 		// 논리적 오류 (제약조건) 체크
+		this.stampHistValidator.validate(stampHistDeleteDto, errors);
 		if (errors.hasErrors()) {
 			return badRequest(errors);
 		}
@@ -207,15 +214,17 @@ public class StampHistController extends CommonController {
 			return ResponseEntity.notFound().build();
 		}
 
-		// 탈퇴 가능한 지(본인 또는 관리자) 확인
+		// 취소 가능한 관리자 / 매장 확인
 		StampHist stampHist = stampHistOptional.get();
-		if ((currentUser.getAdmin() != null &&
-				currentUser.getAdmin().getBrand() != null &&
-				!currentUser.getAdmin().getBrand().getId().equals(stampHist.getMrhst().getBrand().getId())
-				) || // 관리자 브랜드가 일치하지 않는 경우. TODO brandCd 확인 로직 생기면 그걸로 비교해야 함
-				(currentUser.getMrhstTrmnl() != null &&
-						!stampHist.getMrhst().getId().equals(currentUser.getMrhstTrmnl().getMrhst().getId())) // 거래 매장일 경우
-		) {
+		if (
+				(currentUser.getAdmin() != null &&
+						!brandService.hasAuthorization(
+								currentUser.getAdmin().getBrand(), stampHist.getMrhst().getBrand())) || //
+		(currentUser.getMrhstTrmnl() != null &&
+				!stampHist.getMrhst().getId()
+						.equals(currentUser.getMrhstTrmnl().getMrhst().getId())) || // 거래 매장일 경우
+				currentUser.getUserInfo() != null
+		){
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 		}
 

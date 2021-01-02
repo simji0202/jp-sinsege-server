@@ -132,6 +132,12 @@ public class BrandSetting {
    */
   private String newPrpayNo;
 
+//  /**
+//   * 자동으로 발급할 선불카드 종류
+//   */
+//  @ManyToOne
+//  @JoinColumn(name = "prpayGoodsSn", insertable = false, updatable = false)
+//  private PrpayGoods prpayGoods;
 
   /**
    * 스탬프 적립할 선불카드 사용 / 결제 구매 금액 단위. 0 이상일 경우 단위 금액마다 스탬프를 적립한다

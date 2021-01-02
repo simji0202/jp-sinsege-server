@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnRule;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
@@ -62,7 +63,7 @@ public class CpnRuleDto {
     /**
      * 이메일, 푸시 등 발급시 전송할 메시지 본문
      */
-    private String msg;
+    private String msgCn;
 
     /**
      * 쿠폰 발급 전송 메시지 제목
@@ -73,10 +74,6 @@ public class CpnRuleDto {
      * 발급할 쿠폰 종류
      */
     private CpnMaster cpnMaster;
-    /**
-     * 발급할 쿠폰 종류 일련번호
-     */
-    private Integer cpnMasterSn;
 
     /**
      * 발급 후 회원 노출까지 지연시킬 시간(부하 대비 미리 발급)
@@ -124,19 +121,6 @@ public class CpnRuleDto {
      */
     private Integer dayBeforeBrth;
 
-
-
-    /**
-     * 추가한 관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String createBy;
-
-    /**
-     * 변경한  관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String updateBy;
-
+    private Brand brand;
 
 }

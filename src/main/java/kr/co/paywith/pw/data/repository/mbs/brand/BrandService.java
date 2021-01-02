@@ -44,6 +44,10 @@ public class BrandService {
      * @return 권한이 있으면 true
      */
     public boolean hasAuthorization(Brand currentBrand, Brand targetBrand) {
+        if (currentBrand == null) {
+            // null 인 경우 브랜드 관리하지 않은 최상위 관리자 이므로 true
+            return true;
+        }
         return targetBrand.getBrandCd().startsWith(currentBrand.getBrandCd());
     }
 }

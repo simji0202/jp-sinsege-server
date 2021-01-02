@@ -56,11 +56,4 @@ public class UserStamp {
    */
   private Integer stampTotalGet = 0;
 
-  /**
-   * 스탬프 최대 소지 수량
-   */
-  @Transient
-  @JsonSerialize
-  @JsonDeserialize
-  private Integer stampMaxCnt;
 }

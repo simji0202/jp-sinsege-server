@@ -33,6 +33,7 @@ public class StampHist {
     @NameDescription("식별번호")
     private Integer id;
 
+    // kms: 브랜드별 멤버십 정보 분리하면 userInfo 대신 해당 entity 연결
     /**
      * 회원
      */
@@ -49,14 +50,17 @@ public class StampHist {
      * 처리 일시
      */
     private ZonedDateTime setleDttm;
+
     /**
-     * 스탬프 개수
+     * 스탬프 개수. 사용되었다면 음수가 들어간다
      */
     private Integer cnt = 0;
+
     /**
      * 요청 단말기 번호
      */
     private String trmnlNo;
+
     /**
      * 단말기 영수증 번호
      */
@@ -83,13 +87,20 @@ public class StampHist {
     /**
      * 사용 이력
      * <p>
-     * 스탬프 적립 시 / 스탬프 직접 사용 시 연결(이 둘은 useTypeCd로 구분한다)
+     * 스탬프 적립 시 / 스탬프 직접 사용 시 연결(이 둘은 useTypeCd로 구분한다).
+     * 스탬프 직접 사용은, 사용하지 않을 예정(커피베이에서 사용한 방식)
+     * 사용 저장 후, StampHist 저장
      */
     @OneToOne
     private Use use;
 
     /**
-     * 쿠폰 발급
+     * 쿠폰 발급.
+     * stampHistTypeCd.CPN 일 때 연결.
+     * CpnIssu.stampHist 와 직접적으로 연결되는 게 아니므로 주의.
+     * CpnIssu 저장 후 StampHist 저장
+     *
+     * ex> 스탬프가 사용되었는데, 언제 어떤 쿠폰이 발급되었는지 확인
      */
     @OneToOne
     private CpnIssu cpnIssu;

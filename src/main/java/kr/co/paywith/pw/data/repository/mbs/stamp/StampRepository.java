@@ -5,4 +5,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface StampRepository extends JpaRepository<Stamp, Integer>, QuerydslPredicateExecutor<Stamp> {
 
+  Iterable<Stamp> findByStampHist_Id(Integer stampHistId);
 }

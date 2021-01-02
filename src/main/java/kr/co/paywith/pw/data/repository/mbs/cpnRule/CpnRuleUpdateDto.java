@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnRule;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
@@ -17,12 +18,6 @@ import javax.persistence.Enumerated;
 @Getter
 @Setter
 public class CpnRuleUpdateDto {
-
-    /**
-     * 쿠폰 발급 규칙 일련번호
-     */
-    private Integer id;
-
 
     /**
      * 발급 대상 회원 등급
@@ -63,7 +58,7 @@ public class CpnRuleUpdateDto {
     /**
      * 이메일, 푸시 등 발급시 전송할 메시지 본문
      */
-    private String msg;
+    private String msgCn;
 
     /**
      * 쿠폰 발급 전송 메시지 제목
@@ -125,19 +120,5 @@ public class CpnRuleUpdateDto {
      */
     private Integer dayBeforeBrth;
 
-
-
-    /**
-     * 추가한 관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String createBy;
-
-    /**
-     * 변경한  관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String updateBy;
-
-
+    private Brand brand;
 }

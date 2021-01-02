@@ -1,9 +1,8 @@
 package kr.co.paywith.pw.data.repository.user.userInfo;
 
-import com.querydsl.core.BooleanBuilder;
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;
-import kr.co.paywith.pw.common.StringUtil;
+import kr.co.paywith.pw.component.StringUtil;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;

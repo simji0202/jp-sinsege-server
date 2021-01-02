@@ -90,7 +90,7 @@ public class Prpay {
 	 * 선불카드 상태 코드
 	 */
 	@Enumerated(EnumType.STRING)
-	private PrpaySttsCd prpaySttsCd;
+	private PrpaySttsCd prpaySttsCd = PrpaySttsCd.AVAIL;
 
 //	/**
 //	 * 병합한 부모 선불카드 일련번호
@@ -119,7 +119,7 @@ public class Prpay {
 	/**
 	 * 최대 충전 가능 금액
 	 */
-	private Integer chrgMaxAmt = 0;
+	private Integer chrgMaxAmt = 99999999;
 	/**
 	 * 총 충전 금액
 	 */
@@ -154,34 +154,11 @@ public class Prpay {
 	@ManyToOne
 	private PrpayIssu prpayIssu;
 
-	/**
-	 * 빌링
-	 */
-	@ManyToOne
-	private Billing billing;
-
-
-	public Boolean isAvail() {
-		switch (this.prpaySttsCd) {
-			case AVAIL:
-			case RGST:
-			case USED:
-				if (ZonedDateTime.now().isBefore(this.validDttm)) {
-					return true;
-				}
-
-			case MRGD:
-			case STOP:
-				break;
-		}
-		return false;
-	}
-
-	// che 존재 여부 확인 필요
-//	public Boolean getBillingAvailFl() {
-//		return this.billingSn != null;
-//	}
-
-
+	// kms: 빌링 통해서 충전하는 건 KICC 제약이 있어서 불가
+//	/**
+//	 * 빌링
+//	 */
+//	@ManyToOne
+//	private Billing billing;
 
 }

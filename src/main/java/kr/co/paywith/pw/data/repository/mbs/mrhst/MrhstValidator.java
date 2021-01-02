@@ -1,9 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst;
 
 
-import kr.co.paywith.pw.common.ValidatorUtils;
-import kr.co.paywith.pw.data.repository.mbs.brand.BrandDto;
-import kr.co.paywith.pw.data.repository.mbs.brand.BrandUpdateDto;
+import kr.co.paywith.pw.component.ValidatorUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 

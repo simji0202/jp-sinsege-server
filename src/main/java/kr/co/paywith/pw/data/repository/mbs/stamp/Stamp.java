@@ -57,11 +57,12 @@ public class Stamp {
 	@ManyToOne
 	private Use use;
 
-	/**
-	 * 스탬프를 소지(획득) 한 회원
-	 */
-	@ManyToOne
-	private UserInfo userInfo;
+	// stampHist.UserInfo
+//	/**
+//	 * 스탬프를 소지(획득) 한 회원
+//	 */
+//	@ManyToOne
+//	private UserInfo userInfo;
 
 	/**
 	 * 현재 스탬프를 적립한 이력(이력의 일자를 참고하여 만료 로직 수행)

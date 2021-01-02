@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst;
 
 
-import kr.co.paywith.pw.common.GeoLocationUtil;
+import kr.co.paywith.pw.component.GeoLocationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

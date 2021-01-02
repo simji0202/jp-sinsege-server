@@ -25,8 +25,6 @@ import java.util.List;
 @AllArgsConstructor
 public class PrpayIssuDto {
 
-	@NameDescription("식별번호")
-	private Integer id;
 	/**
 	 * 선불카드 발급 이름
 	 */
@@ -38,22 +36,13 @@ public class PrpayIssuDto {
 	private Integer cnt;
 
 	/**
-	 * 등록 일시
-	 */
-	private ZonedDateTime regDttm;
-
-	/**
 	 * 선불카드 종류
 	 */
 	private PrpayGoods prpayGoods;
-	/**
-	 * 선불카드 종류 일련번호
-	 */
-	private Integer prpayGoodsSn;
 
 	/**
 	 * 발급 선불카드 목록
 	 */
-	private List<Prpay> prpay;
+	private List<Prpay> prpayList = new ArrayList<>();
 
 }

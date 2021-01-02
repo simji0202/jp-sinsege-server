@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
+import java.util.ArrayList;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
@@ -26,6 +27,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
+@ToString(exclude = {"cpnList"})
 public class CpnIssu {
 
     /**
@@ -70,7 +72,7 @@ public class CpnIssu {
      * 발급 쿠폰 목록
      */
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<Cpn> cpnList;
+    private List<Cpn> cpnList = new ArrayList<>();
 
     /**
      * 쿠폰 발급 규칙
@@ -82,29 +84,21 @@ public class CpnIssu {
      * 충전 이력
      * 충전으로 발급한 쿠폰일 때 사용
      */
-    @ManyToOne
+    @OneToOne
     private Chrg chrg;
 
     /**
      * 사용 이력
      * 사용으로 발급한 쿠폰일 때 사용
      */
-    @ManyToOne
+    @OneToOne
     private Use use;
-
-    /**
-     * 스탬프 이력
-     * 스탬프 적립으로 발급한 쿠폰일 때 사용
-     */
-    @ManyToOne
-    private StampHist stampHist;
 
     /**
      * 등록 일시
      */
     @CreationTimestamp
     private ZonedDateTime regDttm;
-
 
     /**
      * 추가한 관리자

@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.common;
+package kr.co.paywith.pw.component;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;

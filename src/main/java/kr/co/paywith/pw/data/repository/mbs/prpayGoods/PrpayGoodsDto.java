@@ -37,7 +37,7 @@ public class PrpayGoodsDto {
 	/**
 	 * 선불카드 이미지 웹 경로
 	 */
-	private String prpayImg;
+	private String imgUrl;
 
 	/**
 	 * 선불카드 제공(구분) 코드

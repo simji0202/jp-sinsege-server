@@ -51,7 +51,6 @@ public class Brand implements Serializable {
    */
   private Boolean activeFl;
 
-
   /**
    * 서버사이드에서 관리할 브랜드 이미지
    */
@@ -99,13 +98,6 @@ public class Brand implements Serializable {
   @Enumerated(EnumType.STRING)
   @ElementCollection(fetch = FetchType.LAZY)
   private List<AvailServiceCd> availServiceCdList  = new ArrayList<>();
-
-//  /**
-//   * 자동으로 발급할 선불카드 종류
-//   */
-//  @ManyToOne
-//  @JoinColumn(name = "prpayGoodsSn", insertable = false, updatable = false)
-//  private PrpayGoods prpayGoods;
 
   /**
    *  기본적인 브랜드 옵션 설정

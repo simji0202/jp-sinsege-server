@@ -194,12 +194,6 @@ public class UserInfoDto {
     private CertTypeCd certTypeCd;
 
     /**
-     * 스탬프 최대 소지 수량
-     */
-
-    private Integer stampMaxCnt;
-
-    /**
      * 원본 회원 아이디(기본 정보를 가지고 있을 회원 아이디) 일련번호
      */
     private Integer parentUserSn;

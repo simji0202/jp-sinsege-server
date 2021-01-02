@@ -89,11 +89,4 @@ public class CpnIssuDto {
     @ManyToOne
     private Use use;
 
-    /**
-     * 스탬프 이력
-     * 스탬프 적립으로 발급한 쿠폰일 때 사용
-     */
-    @ManyToOne
-    private StampHist stampHist;
-
 }

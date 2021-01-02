@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.ZonedDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -22,51 +23,52 @@ import java.time.ZonedDateTime;
 @DynamicUpdate
 public class PrpayGoods {
 
-	/**
-	 * 선불카드 종류 일련번호
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NameDescription("식별번호")
-	private Integer id;
+  /**
+   * 선불카드 종류 일련번호
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @NameDescription("식별번호")
+  private Integer id;
 
-	/**
-	 * 선불카드 종류 이름
-	 */
-	private String prpayGoodsNm;
-	/**
-	 * 선불카드 이미지 웹 경로
-	 */
-	private String prpayImg;
+  /**
+   * 선불카드 종류 이름
+   */
+  private String prpayGoodsNm;
 
-	/**
-	 * 선불카드 제공(구분) 코드
-	 */
-	@Enumerated(EnumType.STRING)
-	private PrpayOperCd prpayOperCd;
+  /**
+   * 선불카드 이미지 웹 경로
+   */
+  private String imgUrl;
 
-	/**
-	 * 사용 여부
-	 */
-	private Boolean activeFl;
+  /**
+   * 선불카드 제공(구분) 코드
+   */
+  @Enumerated(EnumType.STRING)
+  private PrpayOperCd prpayOperCd;
 
-	/**
-	 * 등록 일시
-	 */
-	@CreationTimestamp
-	private ZonedDateTime regDttm;
+  /**
+   * 사용 여부
+   */
+  private Boolean activeFl;
 
-	/**
-	 * 수정 일시
-	 */
-	@UpdateTimestamp
-	private ZonedDateTime updtDttm;
+  /**
+   * 등록 일시
+   */
+  @CreationTimestamp
+  private ZonedDateTime regDttm;
+
+  /**
+   * 수정 일시
+   */
+  @UpdateTimestamp
+  private ZonedDateTime updtDttm;
 
 
-	@NameDescription("갱신담당자")
-	private String updateBy;
+  @NameDescription("갱신담당자")
+  private String updateBy;
 
-	@NameDescription("등록담당자")
-	private String createBy;
+  @NameDescription("등록담당자")
+  private String createBy;
 
 }

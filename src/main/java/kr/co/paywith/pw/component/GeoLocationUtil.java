@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.common;
+package kr.co.paywith.pw.component;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;

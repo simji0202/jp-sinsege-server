@@ -107,7 +107,7 @@ public class StampController extends CommonController {
 		  }
 
 		  // 검색조건 회원
-			booleanBuilder.and(qStamp.userInfo.id.eq(currentUser.getUserInfo().getId()));
+			booleanBuilder.and(qStamp.stampHist.userInfo.id.eq(currentUser.getUserInfo().getId()));
 
 
 		  Page<Stamp> page = this.stampRepository.findAll(booleanBuilder, pageable);

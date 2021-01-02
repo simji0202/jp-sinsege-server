@@ -1,6 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 
+import java.time.ZonedDateTime;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.cpn.CpnService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +22,9 @@ public class CpnIssuService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CpnService cpnService;
 
     /**
      * 정보 등록
@@ -48,4 +54,16 @@ public class CpnIssuService {
         return existCpnIssu;
     }
 
+    /**
+     * 쿠폰 발급 취소.
+     * cpnList의 쿠폰이 모두 사용가능한 상태여야 가능하며, cpn 들을 모두 무효처리한다
+     */
+    @Transactional
+    public void delete(CpnIssu cpnIssu) {
+        // 쿠폰 무효처리. 이전 validator에서 사용가능 쿠폰인지 모두 확인했어야 함
+        for (Cpn cpn : cpnIssu.getCpnList()) {
+            cpnService.delete(cpn);
+        }
+        cpnIssu.setValidEndDttm(ZonedDateTime.now());
+    }
 }
