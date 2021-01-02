@@ -60,17 +60,6 @@ public class BrandControllerTest extends BaseControllerTest {
         brandSetting.setDanalCpid("simji0202");
         brandSetting.setDanalCppwd("0202");
 
-// kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
-//        BrandAuth brandAuth = new BrandAuth();
-
-
-
-        BrandApp brandApp = new BrandApp();
-
-        brandApp.setAosRefPath("AosRefPaht");
-        brandApp.setIosVerNm("IOS");
-
-
         brand.setBrandSetting(brandSetting);
 //        brand.setBrandApp(brandApp);
 //        brand.setBrandAuth(brandAuth);

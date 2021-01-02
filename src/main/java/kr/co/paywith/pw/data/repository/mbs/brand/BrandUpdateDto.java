@@ -36,6 +36,16 @@ public class BrandUpdateDto {
     private Boolean activeFl;
 
     /**
+     * 서버사이드에서 관리할 브랜드 이미지
+     */
+    private String imgUrl;
+
+    /**
+     * 서버사이드에서 관리할 브랜드 로고 이미지
+     */
+    private String logoImgUrl;
+
+    /**
      * 업체에서 사용가능한 기능.
      * <p>
      * 개별 필드로 구분하던 걸 토글할 기능이 많아져서 리스트로 구현
@@ -69,12 +79,6 @@ public class BrandUpdateDto {
      * 기본적인 브랜드 옵션 설정
      */
     private BrandSetting brandSetting;
-
-
-    /**
-     * 기본적인 브랜드 옵션 설정
-     */
-    private BrandApp brandApp;
 
     private String envValueMap;
 

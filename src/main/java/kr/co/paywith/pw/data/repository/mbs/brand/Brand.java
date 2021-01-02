@@ -51,6 +51,17 @@ public class Brand implements Serializable {
    */
   private Boolean activeFl;
 
+
+  /**
+   * 서버사이드에서 관리할 브랜드 이미지
+   */
+  private String imgUrl;
+
+  /**
+   * 서버사이드에서 관리할 브랜드 로고 이미지
+   */
+  private String logoImgUrl;
+
   /**
    * 업체에서 사용가능한 기능.
    *

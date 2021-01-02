@@ -12,7 +12,9 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
- * 브랜드
+ * 브랜드 환경 설정.
+ * 비즈니스 로직이나, 외부 서비스 연계 등에 사용하는 설정값을 관리한다.
+ * 정책에 따라 사용하지 않을 수 있다
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +24,6 @@ import java.time.ZonedDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class BrandSetting {
-
 
   /**
    * 브랜드 일련번호
@@ -52,17 +53,6 @@ public class BrandSetting {
 //  @Enumerated(EnumType.STRING)
 //  @Column(table = "BRAND_SETTING", length = 10)
 //  private PrpayOvrRuleCd prpayOvrRuleCd = PrpayOvrRuleCd.D;
-
-
-  /**
-   * 서버사이드에서 관리할 브랜드 이미지
-   */
-  private String imgUrl;
-
-  /**
-   * 서버사이드에서 관리할 브랜드 로고 이미지
-   */
-  private String logoImgUrl;
 
   /**
    * 선불카드 유효기간 단위 코드
