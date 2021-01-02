@@ -26,13 +26,13 @@ public class BbsDto {
     /**
      * 게시물 구분코드
      */
-    @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
-//    /**
-//     * 부모 게시물 일련번호
-//     */
-//    private Integer parentBbsSn;
+    /**
+     * 부모 게시물 일련번호
+     */
+    private Integer parentId;
+
     /**
      * 게시물 제목
      */
@@ -41,7 +41,6 @@ public class BbsDto {
     /**
      * 게시물 본문
      */
-    @Lob
     private String bbsCn;
 
     /**
@@ -65,18 +64,12 @@ public class BbsDto {
 
     private UserInfo userInfo;
 
-    private List<File> fileList;
+//    private List<File> fileList;
 
     private Boolean openedFl;
 
-    // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
-    // che: null 허용해도 문제 없을것 같습니다 (21.01.02)
-    // che: 항목추가 (21.01.02)
     private ZonedDateTime startDttm;
 
-    // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
-    // che: null 허용해도 문제 없을것 같습니다 (21.01.02)
-    // che: 항목추가 (21.01.02)
     private ZonedDateTime endDttm;
 
 
