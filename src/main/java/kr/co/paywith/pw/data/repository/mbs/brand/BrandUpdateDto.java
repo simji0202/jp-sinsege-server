@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.brand;
 
+import java.util.ArrayList;
 import kr.co.paywith.pw.data.repository.enumeration.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,16 @@ public class BrandUpdateDto {
     private Boolean activeFl;
 
     /**
+     * 서버사이드에서 관리할 브랜드 이미지
+     */
+    private String imgUrl;
+
+    /**
+     * 서버사이드에서 관리할 브랜드 로고 이미지
+     */
+    private String logoImgUrl;
+
+    /**
      * 업체에서 사용가능한 기능.
      * <p>
      * 개별 필드로 구분하던 걸 토글할 기능이 많아져서 리스트로 구현
@@ -42,44 +53,19 @@ public class BrandUpdateDto {
      * TODO 관리자와 그 외 사용이 없어진다면 offGoodsFl, useOrdrFl 필드 삭제
      */
     @Enumerated(EnumType.STRING)
-    private List<AvailBrandFnCd> availBrandFnCdList;
+    private List<AvailBrandFnCd> availBrandFnCdList = new ArrayList<>();
 
     /**
      * 앱(PG)에서 결제 가능한 수단
      */
     @Enumerated(EnumType.STRING)
-    private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList;
+    private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList = new ArrayList<>();
 
     /**
      * 매장에서 결제 가능한 수단
      */
     @Enumerated(EnumType.STRING)
-    private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList;
-
-    // kms: 삭제가능. ROLE 로 대체
-//    /**
-//     * 관리자에서 브랜드 관리자에게 보일 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> menuItemCdBMstList;
-
-//    /**
-//     * 관리자에서 상점 관리자에게 보일 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> menuItemCdSMstList;
-
-//    /**
-//     * 관리자에서 브랜드 관리자에게 수정 권한을 줄 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> editableMenuItemCdBMstList;
-
-//    /**
-//     * 관리자에서 상점 관리자에게 수정 권한을 줄 메뉴 코드 목록
-//     */
-//    @Enumerated(EnumType.STRING)
-//    private List<MenuItemCd> editableMenuItemCdSMstList;
+    private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList = new ArrayList<>();
 
     /**
      * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
@@ -87,34 +73,12 @@ public class BrandUpdateDto {
      * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
      */
     @Enumerated(EnumType.STRING)
-    private List<AvailServiceCd> availServiceCdList;
-
-    /**
-     * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
-     * <p>
-     * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
-     */
-    @Enumerated(EnumType.STRING)
-    private List<DuplicateAvailFieldCd> duplicateAvailFieldCdList;
-
+    private List<AvailServiceCd> availServiceCdList = new ArrayList<>();
 
     /**
      * 기본적인 브랜드 옵션 설정
      */
     private BrandSetting brandSetting;
-
-
-    /**
-     * 기본적인 브랜드 옵션 설정
-     */
-    private BrandApp brandApp;
-
-// kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
-//    /**
-//     * 기본적인 안드로이드, IOS 앱  옵션 설정
-//     */
-//    private BrandAuth brandAuth;
-
 
     private String envValueMap;
 

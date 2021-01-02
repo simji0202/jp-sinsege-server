@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.admin;
 
 import java.util.Optional;
+import kr.co.paywith.pw.common.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
@@ -27,6 +28,10 @@ public class AdminValidator {
       errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
     };
 
+    ValidatorUtils.checkString(adminDto.getEmailAddr(), "이메일", errors, false, 3, 50);
+
+    ValidatorUtils.checkString(adminDto.getMobileNum(), "휴대폰번호", errors, false, 3, 30);
+
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
@@ -38,6 +43,10 @@ public class AdminValidator {
     if (isIdDuplicated(adminDto.getAdminId(), adminDto.getId())) {
       errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
     };
+
+    ValidatorUtils.checkString(adminDto.getEmailAddr(), "이메일", errors, false, 3, 50);
+
+    ValidatorUtils.checkString(adminDto.getMobileNum(), "휴대폰번호", errors, false, 3, 30);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime

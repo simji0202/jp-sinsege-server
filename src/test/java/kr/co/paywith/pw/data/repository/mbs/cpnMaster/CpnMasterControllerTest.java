@@ -112,11 +112,10 @@ public class CpnMasterControllerTest extends BaseControllerTest {
 
         // Given
         CpnMasterDto cpnMaster = new CpnMasterDto();
-        cpnMaster.setId(1);
         cpnMaster.setCpnNm("정보변경");
 
         // When & Then
-        this.mockMvc.perform(put("/api/cpnMaster/{id}", cpnMaster.getId())
+        this.mockMvc.perform(put("/api/cpnMaster/{id}", 1)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

@@ -34,7 +34,7 @@ public class AuthServerConfigTest extends BaseControllerTest {
     public void getAuthToken() throws Exception {
 
         // Given
-        String username = "user" ;
+        String username = "simji" ;
         String password = "1234" ;
 
         // 인증서버 정보 설정

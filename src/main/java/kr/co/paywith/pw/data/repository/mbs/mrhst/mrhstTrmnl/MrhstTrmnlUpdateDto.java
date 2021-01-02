@@ -82,25 +82,9 @@ public class MrhstTrmnlUpdateDto {
     private Boolean pushFl = true;
 
     /**
-     * 충전 기능 숨김 여부 posAvailFnCdList 에 통합
-     */
-    private Boolean chrgHiddenFl = true;
-
-    /**
      * POS에서 사용가능한 기능
      */
     @Enumerated(EnumType.STRING)
     private List<PosAvailFnCd> posAvailFnCdList;
-
-    /**
-     * 최근 로그인 일시
-     */
-    private ZonedDateTime lastLoginDttm;
-
-    /**
-     * 최근 로그인 일시
-     */
-    private String lastLoginIp;
-
 
 }

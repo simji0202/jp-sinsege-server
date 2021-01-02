@@ -112,12 +112,12 @@ public class GradeControllerTest extends BaseControllerTest {
 
         // Given
         GradeDto grade = new GradeDto();
-        grade.setId(1);
+//        grade.setId(1);
         grade.setGradeNm("테스트 브랜드 1");
 
 
         // When & Then
-        this.mockMvc.perform(put("/api/grade/{id}", grade.getId())
+        this.mockMvc.perform(put("/api/grade/{id}", 1)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

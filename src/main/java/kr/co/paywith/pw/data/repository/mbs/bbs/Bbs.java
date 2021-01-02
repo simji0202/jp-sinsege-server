@@ -43,7 +43,6 @@ public class Bbs {
     @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
-    // kms: 답글(reply) 기능과 조회 방법 확인 필요
     /**
      * 부모 게시물 일련번호
      */
@@ -52,7 +51,7 @@ public class Bbs {
     /**
      * 게시물 제목
      */
-    @Column(length = 300)
+    @Column
     private String bbsSj;
 
     /**
@@ -82,21 +81,23 @@ public class Bbs {
      */
     private Boolean delFl = false;
 
-
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne
     private UserInfo userInfo;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<File> fileList;
+//     TODO pw-file 업로드 후 URL과 이름만 기록
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<File> fileList;
 
     private Boolean openedFl;
 
-    // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
-    // che: null 허용해도 문제 없을것 같습니다 (21.01.02)
+    /**
+     * 이벤트 등 시작 시각
+     */
     private ZonedDateTime startDttm;
 
-    // kms: 이벤트 게시판에서만 사용하는 필드(이벤트 시작 시간). 다른 Bbs는 null로 들어가는데 괜찮은지
-    // che: null 허용해도 문제 없을것 같습니다 (21.01.02)
+    /**
+     * 이벤트 등 종료 시각
+     */
     private ZonedDateTime endDttm;
 
     @ManyToOne

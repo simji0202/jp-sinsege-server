@@ -2,14 +2,13 @@ package kr.co.paywith.pw.data.repository.mbs.cd;
 
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
-
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.cd.addr.Addr;
-import kr.co.paywith.pw.data.repository.mbs.cd.addr.AddrRepository;
-import kr.co.paywith.pw.data.repository.mbs.cd.addr.AddrResponseDto;
-import kr.co.paywith.pw.data.repository.mbs.cd.addrSub.AddrSubRepository;
-import kr.co.paywith.pw.data.repository.mbs.cd.addrSub.AddrSubResponseDto;
-import kr.co.paywith.pw.data.repository.mbs.cd.addrSub.QAddrSub;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1Repository;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1ResponseDto;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2Repository;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2ResponseDto;
+import kr.co.paywith.pw.data.repository.mbs.cd.addr2.QCdAddr2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -28,43 +27,38 @@ import org.springframework.web.bind.annotation.RestController;
 public class CdController extends CommonController {
 
   @Autowired
-  AddrRepository addrRepository;
+  CdAddr1Repository cdAddr1Repository;
 
   @Autowired
-  AddrSubRepository addrSubRepository;
+  CdAddr2Repository cdAddr2Repository;
 
-  @GetMapping("/addr")
-  public Page<AddrResponseDto> getAddrList(
-      Addr addr,
+  @GetMapping("/addr1")
+  public Page<CdAddr1ResponseDto> getCdAddrList(
+      CdAddr1 cdAddr1,
       Pageable pageable) {
     ExampleMatcher m = ExampleMatcher.matchingAll();
 //				.withMatcher("brandSn", match -> match.exact())
 
-    Example<Addr> e = Example.of(addr, m);
+    Example<CdAddr1> e = Example.of(cdAddr1, m);
 
-    return addrRepository.findAll(e, pageable)
-        .map(addr2 -> {
-          AddrResponseDto dto = modelMapper.map(addr2, AddrResponseDto.class);
-          dto.setName(addr2.getAddrName());
-          return dto;
+    return cdAddr1Repository.findAll(e, pageable)
+        .map(addr1 -> {
+          return modelMapper.map(addr1, CdAddr1ResponseDto.class);
         });
   }
 
-  @GetMapping("/addr-sub")
-  public Page<AddrSubResponseDto> getAddrSubList(
-      @RequestParam(required = false) String addrCd,
+  @GetMapping("/addr2")
+  public Page<CdAddr2ResponseDto> getCdAddr2List(
+      @RequestParam(required = false) String addr1Cd,
       Pageable pageable) {
     BooleanBuilder bb = new BooleanBuilder();
-    QAddrSub qAddrSub = QAddrSub.addrSub;
-    if (addrCd != null) {
-      bb.and(qAddrSub.addrCd.eq(addrCd));
+    QCdAddr2 qCdAddr2 = QCdAddr2.cdAddr2;
+
+    if (addr1Cd != null) {
+      bb.and(qCdAddr2.cdAddr1.cd.eq(addr1Cd));
     }
 
-    return addrSubRepository.findAll(bb, pageable)
-        .map(addrSub -> {
-          AddrSubResponseDto dto = modelMapper.map(addrSub, AddrSubResponseDto.class);
-          dto.setName(addrSub.getAddrSubName());
-          return dto;
-        });
+    return cdAddr2Repository.findAll(bb, pageable)
+        .map(addr2 -> modelMapper.map(addr2, CdAddr2ResponseDto.class));
   }
 }

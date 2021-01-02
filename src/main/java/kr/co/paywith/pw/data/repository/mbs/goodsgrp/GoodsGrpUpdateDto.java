@@ -40,16 +40,5 @@ public class GoodsGrpUpdateDto {
     /**
      * 사용 여부
      */
-    private Boolean activeFl;
-
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private Boolean activeFl = true;
 }

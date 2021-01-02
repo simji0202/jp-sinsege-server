@@ -46,7 +46,7 @@ public class CpnMasterService {
         // 데이터베이스 값 갱신
         this.cpnMasterRepository.save(existCpnMaster);
 
-        // TODO cpnGoodsList 갱신
+        // TODO cpnGoodsList 갱신? 잘 되는지 확인 후 안되면 list clear
 
         return existCpnMaster;
     }

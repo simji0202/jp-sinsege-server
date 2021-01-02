@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class UserAddrControllerTest extends BaseControllerTest {
+public class UserCdAddr1CdControllerTest extends BaseControllerTest {
 
 	 @Autowired
 	 private WebApplicationContext webApplicationContext;

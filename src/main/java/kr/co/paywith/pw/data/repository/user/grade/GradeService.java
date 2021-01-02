@@ -18,7 +18,6 @@ public class GradeService {
     @Autowired
     private ModelMapper modelMapper;
 
-
     /**
      *
      */
@@ -63,5 +62,34 @@ public class GradeService {
             throw new RuntimeException("등급 설정 오류");
         }
         return optionalGrade.get();
+    }
+
+    /**
+     * 현재 등급 기준 다음 등급 조회
+     *
+     * @param currentGrade 현재 등급
+     * @return 다음 등급, 없으면 null
+     */
+    public Grade getNextGrade(Grade currentGrade) {
+        if (currentGrade.getSort() == null) {
+            return null;
+        }
+
+        return gradeRepository.findBySort(currentGrade.getSort() + 1).orElse(null);
+    }
+
+    /**
+     * 현재 등급 기준 이전 등급 조회
+     *
+     * @param currentGrade 현재 등급
+     * @return 이전 등급, 없으면 null
+     */
+    public Grade getPreviousGrade(Grade currentGrade) {
+        if (currentGrade.getSort() == null || currentGrade.getSort() == 0) {
+            return null;
+        }
+
+        return gradeRepository.findBySort(currentGrade.getSort() - 1).orElse(null);
+
     }
 }

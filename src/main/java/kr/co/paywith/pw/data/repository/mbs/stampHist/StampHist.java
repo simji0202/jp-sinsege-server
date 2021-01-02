@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.mbs.stampHist;
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.use.Use;

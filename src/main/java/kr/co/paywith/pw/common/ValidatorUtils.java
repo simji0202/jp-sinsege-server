@@ -20,14 +20,37 @@ public class ValidatorUtils {
         errors.reject(fieldNm + " 오류", fieldNm + "값이 비어있습니다");
       }
     }
-    if (minLength != null) {
+    if (fieldValue != null && minLength != null) {
       if (fieldValue.length() < minLength) {
         errors.reject(fieldNm + " 오류", "길이가 " + minLength + "보다 짧습니다");
       }
     }
-    if (maxLength != null) {
+    if (fieldValue != null && maxLength != null) {
       if (fieldValue.length() > maxLength) {
         errors.reject(fieldNm + " 오류", "길이가 " + maxLength + "를 초과합니다");
+      }
+    }
+  }
+
+  /**
+   * null인지, 최소, 최대 값 검증
+   */
+  public static void checkInteger(
+      Integer fieldValue, String fieldNm, Errors errors,
+      boolean checkNull, Integer minValue, Integer maxValue) {
+    if (checkNull) {
+      if (fieldValue == null) {
+        errors.reject(fieldNm + " 오류", fieldNm + "값이 비어있습니다");
+      }
+    }
+    if (fieldValue != null && minValue != null) {
+      if (fieldValue < minValue) {
+        errors.reject(fieldNm + " 오류", "값이 " + minValue + "보다 작습니다");
+      }
+    }
+    if (fieldValue != null && maxValue != null) {
+      if (fieldValue > maxValue) {
+        errors.reject(fieldNm + " 오류", "값이 " + maxValue + "를 큽니다");
       }
     }
   }

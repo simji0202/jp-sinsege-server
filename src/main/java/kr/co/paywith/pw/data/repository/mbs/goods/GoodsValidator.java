@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 
+import kr.co.paywith.pw.common.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.mbs.use.UseDto;
 import kr.co.paywith.pw.data.repository.mbs.use.UseUpdateDto;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,9 @@ public class GoodsValidator {
 
   public void validate(GoodsDto goodsDto, Errors errors) {
 
+    ValidatorUtils.checkInteger(goodsDto.getScorePlusCnt(), "상품 점수", errors, false, 0, null);
+
+    ValidatorUtils.checkInteger(goodsDto.getScorePlusCnt(), "스탬프 개수", errors, false, 0, null);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
@@ -19,6 +23,9 @@ public class GoodsValidator {
 
   public void validate(GoodsUpdateDto goodsUpdateDto, Errors errors) {
 
+    ValidatorUtils.checkInteger(goodsUpdateDto.getScorePlusCnt(), "상품 점수", errors, false, 0, null);
+
+    ValidatorUtils.checkInteger(goodsUpdateDto.getScorePlusCnt(), "스탬프 개수", errors, false, 0, null);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime

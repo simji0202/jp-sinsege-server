@@ -27,13 +27,13 @@ public class BbsUpdateDto {
     /**
      * 게시물 구분코드
      */
-    @Enumerated(EnumType.STRING)
     private BbsTypeCd bbsTypeCd;
 
 //    /**
 //     * 부모 게시물 일련번호
 //     */
 //    private Integer parentBbsSn;
+
     /**
      * 게시물 제목
      */
@@ -66,7 +66,7 @@ public class BbsUpdateDto {
 
     private UserInfo userInfo;
 
-    private List<File> fileList;
+//    private List<File> fileList;
 
     private Boolean openedFl;
 

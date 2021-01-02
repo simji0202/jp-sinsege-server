@@ -29,10 +29,6 @@ public class AdminUpdateDto {
   @NameDescription("이름")
   private String adminNm;
 
-  @NameDescription("비밀번호")
-  private String adminPw;
-
-
   @NameDescription("이메일 주소")
   private String emailAddr;
 

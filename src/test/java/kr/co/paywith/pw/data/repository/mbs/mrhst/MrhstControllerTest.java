@@ -112,7 +112,7 @@ public class MrhstControllerTest extends BaseControllerTest {
 
         // Given
         MrhstDto mrhst = new MrhstDto();
-        mrhst.setId(1);
+//        mrhst.setId(1);
         mrhst.setMrhstNm("  정보 ");
 
         UserApp userApp2 = new UserApp();
@@ -120,7 +120,7 @@ public class MrhstControllerTest extends BaseControllerTest {
 
 
         // When & Then
-        this.mockMvc.perform(put("/api/mrhst/{id}", mrhst.getId())
+        this.mockMvc.perform(put("/api/mrhst/{id}", 1)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

@@ -57,19 +57,8 @@ public class BrandControllerTest extends BaseControllerTest {
         brandSetting.setBizType("bizType");
         brandSetting.setFcmKey("FcmKey");
         // kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
-        brandSetting.setAuthId("simji0202");
-        brandSetting.setAuthPw("0202");
-
-// kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
-//        BrandAuth brandAuth = new BrandAuth();
-
-
-
-        BrandApp brandApp = new BrandApp();
-
-        brandApp.setAosRefPath("AosRefPaht");
-        brandApp.setIosVerNm("IOS");
-
+        brandSetting.setDanalCpid("simji0202");
+        brandSetting.setDanalCppwd("0202");
 
         brand.setBrandSetting(brandSetting);
 //        brand.setBrandApp(brandApp);

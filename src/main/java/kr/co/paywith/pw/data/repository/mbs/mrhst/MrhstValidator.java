@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst;
 
 
+import kr.co.paywith.pw.common.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandDto;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandUpdateDto;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ public class MrhstValidator {
 
   public void validate(MrhstDto mrhstDto, Errors errors) {
 
+    ValidatorUtils.checkString(mrhstDto.getCorpNo(), "사업자 번호", errors, false, 0, 100);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
@@ -19,6 +21,7 @@ public class MrhstValidator {
 
   public void validate(MrhstUpdateDto mrhstUpdateDto, Errors errors) {
 
+    ValidatorUtils.checkString(mrhstUpdateDto.getCorpNo(), "사업자 번호", errors, false, 0, 100);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime

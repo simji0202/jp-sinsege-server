@@ -20,10 +20,6 @@ import java.util.List;
 public class CpnIssuUpdateDto {
 
     /**
-     * 쿠폰 발급 일련번호
-     */
-    private Integer id;
-    /**
      * 쿠폰 발급 명
      */
     private String cpnIssuNm;
@@ -42,63 +38,5 @@ public class CpnIssuUpdateDto {
      * 쿠폰 유효 종료 일시
      */
     private ZonedDateTime validEndDttm = ZonedDateTime.now().plusDays(30);
-
-    /**
-     * 쿠폰 발급 수량
-     */
-    private Integer issuCnt;
-
-    /**
-     * 쿠폰 종류
-     */
-    private CpnMaster cpnMaster;
-    /**
-     * 쿠폰 종류 일련번호
-     */
-    private Integer cpnMasterSn;
-
-    /**
-     * 발급 쿠폰 목록
-     */
-    private List<Cpn> cpnList;
-
-    // kms: 관계 설정 필요
-    /**
-     * 쿠폰 발급 규칙
-     */
-    @ManyToOne
-    private CpnRule cpnRule;
-
-    // kms: 관계 설정 필요
-//    /**
-//     * 쿠폰 발급 규칙 일련 번호
-//     */
-//    private Integer ruleSn;
-
-    /**
-     * 충전 이력
-     * 충전으로 발급한 쿠폰일 때 사용
-     */
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Chrg chrg;
-
-    /**
-     * 등록 일시
-     */
-    private ZonedDateTime regDttm;
-
-
-    /**
-     * 추가한 관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String createBy;
-
-    /**
-     * 변경한  관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String updateBy;
-
 
 }
