@@ -7,6 +7,8 @@ import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
 import kr.co.paywith.pw.data.repository.user.grade.GradeService;
+import kr.co.paywith.pw.data.repository.user.userDel.UserDel;
+import kr.co.paywith.pw.data.repository.user.userDel.UserDelService;
 import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
 import kr.co.paywith.pw.data.repository.user.userStamp.UserStampRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -40,6 +42,9 @@ public class UserInfoService {
 
   @Autowired
   PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private UserDelService userDelService;
 
   /**
    * 일반 유저 정보 신규 등록
@@ -104,11 +109,14 @@ public class UserInfoService {
       }
     }
 
+    if (StringUtils.isNotEmpty(userInfoUpdateDto.getUserPw())) {
+      // 새 암호가 있을 때에만 암호 변경
+      userInfoUpdateDto.setUserPw(this.passwordEncoder.encode(userInfoUpdateDto.getUserPw()));
+    }
     // 입력값 대입
     this.modelMapper.map(userInfoUpdateDto, userInfo);
     return this.userInfoRepository.save(userInfo);
   }
-
 
   /**
    *
@@ -120,15 +128,37 @@ public class UserInfoService {
     return this.userInfoRepository.save(userInfo);
   }
 
-
   /**
    * 회원의 탈퇴 처리
    */
   @Transactional
-  public void delete(UserInfo userInfo) {
+  public void outUser(UserInfo userInfo) {
     // 활설 - 비활성 상태 바꿀 때 outDttm 변경
     userInfo.setOutDttm(ZonedDateTime.now());
     userInfo.setActiveFl(false);
+  }
+
+  // TODO 스케쥴러로 주기적으로 실행하게 개발 필요
+  /**
+   * 탈퇴 회원 정보 삭제. 스케쥴러에 의해 설정한 회원정보 보유 기간 정책값이 지나면 개인정보 삭제 로직.
+   */
+  @Transactional
+  public void delete(UserInfo userInfo) {
+    // 삭제할 정보는 userDel로 이동
+    UserDel userDel = new UserDel();
+    userDel.setUserId(userInfo.getUserId());
+    userInfo.setUserId(null);
+    userDel.setUserNm(userInfo.getUserNm());
+    userInfo.setUserNm(null);
+    userDel.setNickNm(userInfo.getNickNm());
+    userInfo.setNickNm(null);
+    userDel.setEmailAddr(userInfo.getEmailAddr());
+    userInfo.setEmailAddr(null);
+    userDel.setMobileNum(userInfo.getMobileNum());
+    userInfo.setMobileNum(null);
+    userDel.setUserInfo(userInfo);
+
+    userDelService.create(userDel);
   }
 
 }

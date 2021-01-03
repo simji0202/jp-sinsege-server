@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,15 +15,10 @@ import javax.persistence.Enumerated;
 public class UserAppUpdateDto {
 
     /**
-     * 회원 앱 일련번호
-     */
-    private Integer id;
-
-    /**
      * 회원 앱 구분 코드
      */
-    @Enumerated(EnumType.STRING)
     private UserAppOsCd userAppOsCd;
+
     /**
      * 단말기 아이디(식별 고유 키)
      */
@@ -36,6 +28,7 @@ public class UserAppUpdateDto {
      * 푸시 메시지 수신 여부
      */
     private Boolean pushFl;
+
     /**
      * 단말기 푸시 FCM 키
      */
@@ -45,11 +38,5 @@ public class UserAppUpdateDto {
      * 앱 버전 명
      */
     private String appVerNm;
-
-    // kms: 로그인와 로그아웃을 할 때 변경하는 값으로 dto에 넣을 필요 없음
-//    /**
-//     * 활성여부
-//     */
-//    private Boolean activeFl = true;
 
 }

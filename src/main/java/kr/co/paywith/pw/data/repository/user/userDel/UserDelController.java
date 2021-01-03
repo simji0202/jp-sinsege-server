@@ -43,42 +43,43 @@ public class UserDelController extends CommonController {
     UserDelService userDelService;
 
 
-    /**
-     *  정보 등록
-     */
-    @PostMapping
-    public ResponseEntity createUserDel(
-            @RequestBody @Valid UserDelDto userDelDto,
-            Errors errors,
-            @CurrentUser Account currentUser) {
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-
-        // 입력값 체크
-        userDelValidator.validate(userDelDto, errors);
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-        // 입력값 대입
-        UserDel userDel = this.modelMapper.map(userDelDto, UserDel.class);
-
-        // 레코드 등록
-        UserDel newUserDel = userDelService.create(userDel);
-
-        ControllerLinkBuilder selfLinkBuilder = linkTo(UserDelController.class).slash(newUserDel.getId());
-
-        URI createdUri = selfLinkBuilder.toUri();
-        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-        UserDelResource userDelResource = new UserDelResource(newUserDel);
-        userDelResource.add(linkTo(UserDelController.class).withRel("query-userDel"));
-        userDelResource.add(selfLinkBuilder.withRel("update-userDel"));
-        userDelResource.add(new Link("/docs/index.html#resources-userDel-create").withRel("profile"));
-
-        return ResponseEntity.created(createdUri).body(userDelResource);
-    }
+    // kms: userInfo 데이터를 사용해서 서버 내부에서 저장하므로 POST, PUT API 불필요
+//    /**
+//     *  정보 등록
+//     */
+//    @PostMapping
+//    public ResponseEntity createUserDel(
+//            @RequestBody @Valid UserDelDto userDelDto,
+//            Errors errors,
+//            @CurrentUser Account currentUser) {
+//        if (errors.hasErrors()) {
+//            return badRequest(errors);
+//        }
+//
+//
+//        // 입력값 체크
+//        userDelValidator.validate(userDelDto, errors);
+//        if (errors.hasErrors()) {
+//            return badRequest(errors);
+//        }
+//
+//        // 입력값 대입
+//        UserDel userDel = this.modelMapper.map(userDelDto, UserDel.class);
+//
+//        // 레코드 등록
+//        UserDel newUserDel = userDelService.create(userDel);
+//
+//        ControllerLinkBuilder selfLinkBuilder = linkTo(UserDelController.class).slash(newUserDel.getId());
+//
+//        URI createdUri = selfLinkBuilder.toUri();
+//        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//        UserDelResource userDelResource = new UserDelResource(newUserDel);
+//        userDelResource.add(linkTo(UserDelController.class).withRel("query-userDel"));
+//        userDelResource.add(selfLinkBuilder.withRel("update-userDel"));
+//        userDelResource.add(new Link("/docs/index.html#resources-userDel-create").withRel("profile"));
+//
+//        return ResponseEntity.created(createdUri).body(userDelResource);
+//    }
 
 
     /**
@@ -140,49 +141,49 @@ public class UserDelController extends CommonController {
         return ResponseEntity.ok(userDelResource);
     }
 
-
-    /**
-     * 정보 변경
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity putUserDel(@PathVariable Integer id,
-                                   @RequestBody @Valid UserDelUpdateDto userDelUpdateDto,
-                                   Errors errors,
-                                   @CurrentUser Account currentUser) {
-        // 입력체크
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-        // 논리적 오류 (제약조건) 체크
-        this.userDelValidator.validate(userDelUpdateDto, errors);
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-        // 기존 테이블에서 관련 정보 취득
-        Optional<UserDel> userDelOptional = this.userDelRepository.findById(id);
-
-        // 기존 정보 유무 체크
-        if (userDelOptional.isEmpty()) {
-            // 404 Error return
-            return ResponseEntity.notFound().build();
-        }
-
-        // 기존 정보 취득
-        UserDel existUserDel = userDelOptional.get();
-
-        // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
-        // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
-        UserDel saveUserDel = this.userDelService.update(userDelUpdateDto, existUserDel);
-
-        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-        UserDelResource userDelResource = new UserDelResource(saveUserDel);
-        userDelResource.add(new Link("/docs/index.html#resources-userDel-update").withRel("profile"));
-
-        // 정상적 처리
-        return ResponseEntity.ok(userDelResource);
-    }
+// kms: userInfo 데이터를 사용해서 서버 내부에서 저장하므로 POST, PUT API 불필요
+//    /**
+//     * 정보 변경
+//     */
+//    @PutMapping("/{id}")
+//    public ResponseEntity putUserDel(@PathVariable Integer id,
+//                                   @RequestBody @Valid UserDelUpdateDto userDelUpdateDto,
+//                                   Errors errors,
+//                                   @CurrentUser Account currentUser) {
+//        // 입력체크
+//        if (errors.hasErrors()) {
+//            return badRequest(errors);
+//        }
+//
+//        // 논리적 오류 (제약조건) 체크
+//        this.userDelValidator.validate(userDelUpdateDto, errors);
+//        if (errors.hasErrors()) {
+//            return badRequest(errors);
+//        }
+//
+//        // 기존 테이블에서 관련 정보 취득
+//        Optional<UserDel> userDelOptional = this.userDelRepository.findById(id);
+//
+//        // 기존 정보 유무 체크
+//        if (userDelOptional.isEmpty()) {
+//            // 404 Error return
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        // 기존 정보 취득
+//        UserDel existUserDel = userDelOptional.get();
+//
+//        // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
+//        // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
+//        UserDel saveUserDel = this.userDelService.update(userDelUpdateDto, existUserDel);
+//
+//        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//        UserDelResource userDelResource = new UserDelResource(saveUserDel);
+//        userDelResource.add(new Link("/docs/index.html#resources-userDel-update").withRel("profile"));
+//
+//        // 정상적 처리
+//        return ResponseEntity.ok(userDelResource);
+//    }
 
 
 }

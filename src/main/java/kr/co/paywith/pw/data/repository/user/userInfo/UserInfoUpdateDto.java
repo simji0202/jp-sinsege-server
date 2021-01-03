@@ -40,6 +40,12 @@ public class UserInfoUpdateDto {
      * 회원 이름
      */
     private String userNm;
+
+    /**
+     * 회원 암호. 입력 시에만 변경
+     */
+    private String userPw;
+
     /**
      * 회원 별명
      */
@@ -49,24 +55,27 @@ public class UserInfoUpdateDto {
      * 회원 생년
      */
     private Integer brthY;
+
     /**
      * 회원 생월
      */
-
     private Integer brthM;
+
     /**
      * 회원 생일
      */
-
     private Integer brthD;
+
     /**
      * 회원 남자 여부
      */
     private Boolean maleFl;
+
     /**
      * 휴대폰 번호
      */
     private String mobileNum;
+
     /**
      * 통신사 코드
      */

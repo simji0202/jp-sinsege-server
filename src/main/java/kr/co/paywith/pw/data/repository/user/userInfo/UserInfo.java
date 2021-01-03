@@ -232,20 +232,7 @@ public class UserInfo {
      */
     private ZonedDateTime outDttm;
 
-    /**
-     * 회원 앱 목록 ( 복수의 헨드폰 및
-     */
-    // kms: userApp Api 에서 CRUD 하도록 변경 예정
-//    @OneToMany (cascade = CascadeType.ALL )
-//    @OneToMany
-//    private List<UserApp> userAppList;
-
-//    /**
-//     * 브랜드
-//     */
-//    @ManyToOne
-//    private Brand brand;
-
+    // kms: TODO 브랜드 별 멤버십 정보 관리 필요
     @OneToOne
     private UserStamp userStamp;
 
@@ -262,10 +249,11 @@ public class UserInfo {
     private CertTypeCd certTypeCd;
 
 
-    /**
-     * 원본 회원 아이디(기본 정보를 가지고 있을 회원 아이디) 일련번호
-     */
-    private Integer parentUserSn;
+    // kms: TODO userInfo 테이블에 브랜드 별 회원 정보 만드는 대신 멤버십 관리 필요
+//    /**
+//     * 원본 회원 아이디(기본 정보를 가지고 있을 회원 아이디) 일련번호
+//     */
+//    private Integer parentUserSn;
 
     /**
      * 테스터 여부1100000111
@@ -273,13 +261,7 @@ public class UserInfo {
      */
     private Boolean testerFl;
 
-
-//    // kms: UserInfo 테이블에 있으면 관리권한
-//    @NameDescription("권한 코드")
-//    @Enumerated(EnumType.STRING)
-//    @Column(length = 10)
-//    private AuthCd authCd;
-
+    // kms: 일반 회원도 rule 필요한 지
     /**
      * 관리자타입
      */

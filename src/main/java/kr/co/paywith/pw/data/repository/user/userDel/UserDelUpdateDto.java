@@ -13,11 +13,6 @@ import java.io.Serializable;
 public class UserDelUpdateDto implements Serializable {
 
     /**
-     * 회원 삭제 정보 일련번호
-     */
-    private Integer id;
-
-    /**
      * 회원 아이디
      */
     private String userId;
@@ -41,7 +36,6 @@ public class UserDelUpdateDto implements Serializable {
     /**
      * 회원
      */
-    @OneToOne
     private UserInfo userInfo;
 
 }

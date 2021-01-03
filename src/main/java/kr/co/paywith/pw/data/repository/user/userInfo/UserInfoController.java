@@ -2,15 +2,11 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
-import java.time.ZonedDateTime;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlPwUpdateDto;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -266,7 +262,7 @@ public class UserInfoController extends CommonController {
           return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
-        userInfoService.delete(userInfo);
+        userInfoService.outUser(userInfo);
 
         // 정상적 처리
         return ResponseEntity.ok().build();
