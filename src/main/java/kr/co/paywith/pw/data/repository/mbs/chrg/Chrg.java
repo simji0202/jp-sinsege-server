@@ -146,8 +146,6 @@ public class Chrg {
     private String proxyTid;
 
 
-    // che  확인이 필요, 매장아이디와 매장 단말기가 중복되어 엔티티에 설정 필요 여부
-    // kms: Mrhst는 거래가 이뤄지는 매장. MrhstTrmnl는 메시지 발신한 단말기 기록. trmnlNo 로 대체가 가능한지 검토 필요
     /**
      * 매장
      */

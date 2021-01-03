@@ -115,9 +115,6 @@ public class ChrgDto {
     // @Column(length = 100, table = "CHRG_HIST_PROXY")
     private String proxyTid;
 
-
-
-    // che  확인이 필요, 매장아이디와 매장 단말기가 중복되어 엔티티에 설정 필요 여부
     /**
      * 매장
      */

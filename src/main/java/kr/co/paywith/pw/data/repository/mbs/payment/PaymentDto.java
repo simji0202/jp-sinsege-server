@@ -22,9 +22,6 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 public class PaymentDto {
 
-    @NameDescription("식별번호")
-    private Integer id;
-
     /**
      * 서버 승인번호
      */
@@ -34,20 +31,11 @@ public class PaymentDto {
      * 단말기 영수증 번호
      */
     private String trmnlDelngNo;
-    /**
-     * 취소 일시. not null 이면 취소
-     */
-    private ZonedDateTime cancelRegDttm;
 
     /**
      * 결제 금액
      */
     private Integer paymentAmt = 0;
-
-    /**
-     * 환불 금액
-     */
-    private Integer cancelAmt = 0;
 
     /**
      * 결제 승인번호(PG 쪽에서 받는 번호)
@@ -74,7 +62,6 @@ public class PaymentDto {
     /**
      * 결제 진행 상태. PG는 결제 이전 PRE 상태로 먼저 추가
      */
-    @Enumerated(EnumType.STRING)
     private PaymentSttsCd paymentSttsCd = PaymentSttsCd.PRE; // 결제 상태
 
     /**
