@@ -1,9 +1,12 @@
 package kr.co.paywith.pw.data.repository.mbs.cpn;
 
 
+import kr.co.paywith.pw.component.StringUtil;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,9 +34,21 @@ public class CpnService {
    */
   @Transactional
   public Cpn create(Cpn cpn) {
-
     // 데이터베이스 값 갱신
     Cpn newCpn = this.cpnRepository.save(cpn);
+
+    // 쿠폰 번호 생성. 중복 방지를 위해 cpnIssu를 활용한다
+    boolean isEndMakeNo = false;
+    do {
+      String noRule = "3";
+      noRule += StringUtils.leftPad("" + cpn.getCpnIssu().getId(), 8, "0"); //90000000
+      noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
+      String cpnNo = StringUtil.makeNo(noRule);
+      if (cpnRepository.findByCpnNo(cpnNo).isEmpty()) {
+        isEndMakeNo = true;
+        cpn.setCpnNo(cpnNo);
+      }
+    } while (!isEndMakeNo);
 
     return newCpn;
   }

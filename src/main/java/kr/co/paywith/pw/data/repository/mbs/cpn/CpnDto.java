@@ -8,11 +8,9 @@ import lombok.Data;
  */
 @Data
 public class CpnDto {
-
-
     /**
      * 쿠폰 소지 회원
      */
-    private UserInfoDto userInfoDto;
+    private UserInfoDto userInfo;
 
 }

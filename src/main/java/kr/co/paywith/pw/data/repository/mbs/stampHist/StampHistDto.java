@@ -20,9 +20,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StampHistDto {
 
-  @NameDescription("식별번호")
-  private Integer id;
-
   /**
    * 회원
    */
@@ -37,15 +34,18 @@ public class StampHistDto {
   /**
    * 처리 일시
    */
-  private ZonedDateTime setleDttm;
+  private ZonedDateTime setleDttm = ZonedDateTime.now();
+
   /**
    * 스탬프 개수
    */
   private Integer cnt = 0;
+
   /**
    * 요청 단말기 번호
    */
   private String trmnlNo;
+
   /**
    * 단말기 영수증 번호
    */
@@ -55,16 +55,4 @@ public class StampHistDto {
    * 가맹점
    */
   private Mrhst mrhst;
-
-  /**
-   * 사용 이력
-   * <p>
-   * 스탬프 적립 시 / 스탬프 직접 사용 시 연결(이 둘은 useTypeCd로 구분한다)
-   */
-  private Use use;
-
-  /**
-   * 쿠폰 발급
-   */
-  private CpnIssu cpnIssu;
 }

@@ -15,8 +15,13 @@ public class StampHistValidator {
 
   public void validate(StampHistDto stampHistDto, Errors errors) {
 
-    ValidatorUtils.checkInteger(stampHistDto.getCnt(), "스탬프 개수", errors, true, 1, 99);
+    ValidatorUtils.checkObjectNull(stampHistDto.getCnt(), "스탬프 개수", errors);
+    ValidatorUtils.checkInteger(Math.abs(stampHistDto.getCnt()), "스탬프 개수", errors, true, 1, 99);
     ValidatorUtils.checkString(stampHistDto.getTrmnlNo(), "단말기 번호", errors, false, 1, 30);
+    ValidatorUtils.checkObjectNull(stampHistDto.getUserInfo(), "회원 정보", errors);
+    ValidatorUtils.checkObjectNull(stampHistDto.getUserInfo().getId(), "회원 정보", errors);
+    ValidatorUtils.checkObjectNull(stampHistDto.getStampHistTypeCd(), "스탬프 구분", errors);
+
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }

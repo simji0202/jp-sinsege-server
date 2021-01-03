@@ -11,6 +11,7 @@ import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnService;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnValidator;
 import kr.co.paywith.pw.data.repository.mbs.cpn.QCpn;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuService;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuValidator;
 import kr.co.paywith.pw.data.repository.mbs.stamp.Stamp;
@@ -63,6 +64,7 @@ public class StampHistService {
 
     // 데이터베이스 값 갱신
     StampHist newStampHist = this.stampHistRepository.save(stampHist);
+    // kms: TODO 멤버십 구조 개편 후 등급 저장
 
     switch (newStampHist.getStampHistTypeCd()) {
       case RSRV:
@@ -88,8 +90,18 @@ public class StampHistService {
 
       case EXPR:
         // stamp 먼저 저장 후 동작이므로 stampHist만 저장
-
+        break;
     }
+
+    // kms: TODO 회원정보 스탬프 갱신. 멤버십 구조 변경 후 개발
+//    UserInfo userInfo =stampHist.getUserInfo();
+//    userInfo.setScoreCnt(userInfo.stamp);
+
+    // 쿠폰 개수가 충분하면 cpnIssu 추가
+//    CpnIssu cpnIssu = new CpnIssu();
+//    cpnIssu.setStampHist(stampHist);
+//    cpnIssuService.create(cpnissu);
+
     return newStampHist;
   }
 

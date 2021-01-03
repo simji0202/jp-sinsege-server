@@ -95,6 +95,15 @@ public class CpnIssu {
     private Use use;
 
     /**
+     * 스탬프 이력
+     * 스탬프 적립으로 발급한 쿠폰일 때 사용
+     *
+     * ex> 스탬프 직접 적립 혹은 Use 추가해서 적립 -> stampRule.SI(바로발급) 인 경우 cpnIssu를 생성하면서 여기에 연결
+     */
+    @OneToOne
+    private StampHist stampHist;
+
+    /**
      * 등록 일시
      */
     @CreationTimestamp

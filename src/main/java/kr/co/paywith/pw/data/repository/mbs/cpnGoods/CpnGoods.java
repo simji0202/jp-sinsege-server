@@ -29,18 +29,18 @@ public class CpnGoods {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     /**
      * 대상 상품
      */
     @ManyToOne
     private Goods goods;
 
-    /**
-     * 쿠폰 종류
-     */
-    @ManyToOne
-    private CpnMaster cpnMaster;
+    // kms: CpnMaster 에서 관리
+//    /**
+//     * 쿠폰 종류
+//     */
+//    @ManyToOne
+//    private CpnMaster cpnMaster;
 
     /**
      * 등록 일시

@@ -115,7 +115,13 @@ public class UserInfoService {
     }
     // 입력값 대입
     this.modelMapper.map(userInfoUpdateDto, userInfo);
-    return this.userInfoRepository.save(userInfo);
+    userInfo = this.userInfoRepository.save(userInfo);
+
+    // kms: TODO stamp 정보 변경 맞춰서 쿠폰 발급
+//    if (stampCnt > maxCnt) {
+//      cpnIssuService.create()
+//    }
+    return userInfo;
   }
 
   /**

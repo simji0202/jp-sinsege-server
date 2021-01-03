@@ -62,7 +62,7 @@ public class CpnMaster {
     /**
      * 쿠폰 대상 상품 목록
      */
-    @OneToMany(mappedBy = "cpnMaster", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CpnGoods> cpnGoodsList;
 
     /**
