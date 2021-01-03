@@ -75,6 +75,7 @@ public class PrpayIssuService {
         prpayList.add(prpay);
       }
     }
+    newPrpayIssu.setCnt(newPrpayIssu.getPrpayList().size());
 
     return newPrpayIssu;
   }
