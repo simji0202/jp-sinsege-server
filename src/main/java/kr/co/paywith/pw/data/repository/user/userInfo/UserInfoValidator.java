@@ -34,7 +34,7 @@ public class UserInfoValidator {
 
     // TODO 기존 가입 확인. certTypeCd에 따라 중복 확인(정책 검토 필요)
 
-    // 전화번호 오류 검증
+    // 전화번호 오류 검증 ( 필수항목 아님 )
     if (isMobileNumInvalid(userInfoDto.getMobileNum())) {
       errors.reject("전화번호 오류", "전화번호 형식이 맞지 않습니다");
     }
@@ -165,9 +165,12 @@ public class UserInfoValidator {
    * @return 오류가 존재하면 true
    */
   private boolean isMobileNumInvalid(String mobileNum) {
+
+    // 필수 체크
     if (mobileNum == null) {
       return true;
     }
+
     // masking 된 번호를 그대로 보내는 경우 오류
     if (mobileNum != null && mobileNum.indexOf("*") >= 0) {
       return true;

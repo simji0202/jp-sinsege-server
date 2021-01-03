@@ -62,7 +62,7 @@ public class UserInfoControllerTest extends BaseControllerTest {
 
 
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId("chewon");
+        userInfo.setUserId("che12");
         userInfo.setUserPw("1234");
         userInfo.setUserNm("원이");
         userInfo.setActiveFl(true);
