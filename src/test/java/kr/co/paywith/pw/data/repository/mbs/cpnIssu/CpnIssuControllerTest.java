@@ -120,11 +120,10 @@ public class CpnIssuControllerTest extends BaseControllerTest {
 
         // Given
         CpnIssuDto cpnIssu = new CpnIssuDto();
-        cpnIssu.setId(1);
         cpnIssu.setCpnIssuNm("정보변경");
 
         // When & Then
-        this.mockMvc.perform(put("/api/cpnIssu/{id}", cpnIssu.getId())
+        this.mockMvc.perform(put("/api/cpnIssu/{id}", 1)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 
