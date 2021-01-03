@@ -36,13 +36,11 @@ public class CpnMaster {
     /**
      * 쿠폰 명
      */
-    @Column(length = 100)
     private String cpnNm;
 
     /**
      * 쿠폰 코드 (POS연동)
      */
-    @Column(length = 12)
     private String cpnCd;
 
     /**

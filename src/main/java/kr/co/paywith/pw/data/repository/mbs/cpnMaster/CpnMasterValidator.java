@@ -14,6 +14,8 @@ public class CpnMasterValidator {
     ValidatorUtils.checkString(cpnMasterDto.getCpnNm(), "쿠폰 명", errors, true, 1, 100);
 
     ValidatorUtils.checkInteger(cpnMasterDto.getValidDay(), "유효기간", errors, true, 1, null);
+
+    ValidatorUtils.checkString(cpnMasterDto.getCpnCd(), "쿠폰 코드", errors, false, 1, 20);
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
@@ -23,6 +25,8 @@ public class CpnMasterValidator {
     ValidatorUtils.checkString(cpnMasterUpdateDto.getCpnNm(), "쿠폰 명", errors, true, 1, 100);
 
     ValidatorUtils.checkInteger(cpnMasterUpdateDto.getValidDay(), "유효기간", errors, true, 1, null);
+
+    ValidatorUtils.checkString(cpnMasterUpdateDto.getCpnCd(), "쿠폰 코드", errors, false, 1, 20);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
