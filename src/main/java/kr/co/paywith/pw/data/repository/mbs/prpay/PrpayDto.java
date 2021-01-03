@@ -42,26 +42,9 @@ public class PrpayDto {
     private ZonedDateTime regDttm = ZonedDateTime.now();
 
     /**
-     * 등록 일시
-     */
-    private ZonedDateTime registDttm; // 회원이 등록한 일시
-    /**
-     * 사용 일시
-     */
-    private ZonedDateTime useDttm;
-    /**
      * 유효 일시
      */
     private ZonedDateTime validDttm;
-    /**
-     * 정지 일시
-     */
-    private ZonedDateTime stopDttm;
-
-    /**
-     * 수정 일시
-     */
-    private ZonedDateTime updtDttm;
 
     /**
      * 사용 가능 금액
@@ -79,16 +62,6 @@ public class PrpayDto {
      * 최대 충전 가능 금액
      */
     private Integer chrgMaxAmt;
-
-    /**
-     * 총 충전 금액
-     */
-    private Integer chrgTotAmt;
-
-    /**
-     * 총 사용 금액
-     */
-    private Integer useTotAmt;
 
     /**
      * 선불카드 종류

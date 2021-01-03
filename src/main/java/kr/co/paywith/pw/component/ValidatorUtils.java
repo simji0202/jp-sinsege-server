@@ -60,7 +60,7 @@ public class ValidatorUtils {
    * Object null 체크
    */
   public static void checkObjectNull(
-      String fieldValue, String fieldNm, Errors errors) {
+      Object fieldValue, String fieldNm, Errors errors) {
     if (fieldValue == null) {
       errors.reject(fieldNm + " 오류", "값이 비어있습니다");
     }

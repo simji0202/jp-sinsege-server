@@ -18,6 +18,7 @@ public class PrpayIssuValidator {
 
         ValidatorUtils.checkString(prpayIssuDto.getPrpayIssuNm(), "선불카드 발급 명", errors, false, 1, 30);
         ValidatorUtils.checkInteger(prpayIssuDto.getCnt(), "선불카드 발급 매수", errors, true, 0, null);
+        ValidatorUtils.checkObjectNull(prpayIssuDto.getValidDttm(), "유효일시", errors);
 
         if (prpayIssuDto.getPrpayList() != null && prpayIssuDto.getPrpayList().size() > 0) {
             // 발급 요청시 기입력한 선불카드 번호 오류가 있는지 확인

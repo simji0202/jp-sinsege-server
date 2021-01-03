@@ -48,6 +48,11 @@ public class PrpayIssu {
   private Integer cnt;
 
   /**
+   * 발급할 prpay에 일괄로 정할 유효일시
+   */
+  private ZonedDateTime validDttm;
+
+  /**
    * 선불카드 종류
    */
   @ManyToOne
