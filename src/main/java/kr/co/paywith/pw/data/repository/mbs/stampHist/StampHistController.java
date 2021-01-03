@@ -29,7 +29,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping(value = "/api/stampHist")
-@Api(value = "StampHistController", description = "쿠폰 API", basePath = "/api/stampHist")
+@Api(value = "StampHistController", description = "스탬프  API", basePath = "/api/stampHist")
 public class StampHistController extends CommonController {
 
 	 @Autowired
