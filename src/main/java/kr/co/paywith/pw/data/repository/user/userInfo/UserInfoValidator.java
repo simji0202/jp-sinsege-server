@@ -166,9 +166,9 @@ public class UserInfoValidator {
    */
   private boolean isMobileNumInvalid(String mobileNum) {
 
-    // 필수 체크
+    // 빈 값이면 skip
     if (mobileNum == null) {
-      return true;
+      return false;
     }
 
     // masking 된 번호를 그대로 보내는 경우 오류

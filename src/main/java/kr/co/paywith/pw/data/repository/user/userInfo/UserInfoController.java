@@ -42,7 +42,6 @@ public class UserInfoController extends CommonController {
     @Autowired
     UserInfoService userInfoService;
 
-
     @PostMapping
     public ResponseEntity createUserInfo(
             @RequestBody @Valid UserInfoDto userInfoDto,
