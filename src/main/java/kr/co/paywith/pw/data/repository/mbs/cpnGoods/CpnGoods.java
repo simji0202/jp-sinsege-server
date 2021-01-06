@@ -35,13 +35,6 @@ public class CpnGoods {
     @ManyToOne
     private Goods goods;
 
-    // kms: CpnMaster 에서 관리
-//    /**
-//     * 쿠폰 종류
-//     */
-//    @ManyToOne
-//    private CpnMaster cpnMaster;
-
     /**
      * 등록 일시
      */

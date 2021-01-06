@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
+import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnGoods.CpnGoods;
 import lombok.*;
@@ -39,15 +40,17 @@ public class CpnMaster {
     private String cpnNm;
 
     /**
+     * 쿠폰 마스터 종류. 상품에 관계없이 사용할 수 있는 쿠폰과 특정 상품에 사용하는 쿠폰.
+     *
+     * 사용 이력 연결에서 위치가 다르기 때문에
+     */
+    private CpnMasterTypeCd cpnMasterTypeCd;
+
+    /**
      * 쿠폰 코드 (POS연동)
      */
     private String cpnCd;
 
-    /**
-     * 카카오페이 멤버십 쿠폰 고유 아이디(카카오에서 채번 후 전달)
-     */
-    //  @Column(length = 12, table = "CPN_MASTER_EXT")
-    private Integer kakaoCouponId;
     /**
      * 쿠폰 내용(본문)
      */
@@ -62,7 +65,7 @@ public class CpnMaster {
     /**
      * 쿠폰 대상 상품 목록
      */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CpnGoods> cpnGoodsList;
 
     /**

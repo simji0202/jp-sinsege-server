@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
 import javax.persistence.ManyToOne;
+import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnGoods.CpnGoods;
 import lombok.*;
@@ -27,15 +28,16 @@ public class CpnMasterDto {
    * 쿠폰 명
    */
   private String cpnNm;
+
+  /**
+   * 쿠폰 마스터 종류. 상품에 관계없이 사용할 수 있는 쿠폰과 특정 상품에 사용하는 쿠폰
+   */
+  private CpnMasterTypeCd cpnMasterTypeCd;
+
   /**
    * 쿠폰 코드 (POS연동)
    */
   private String cpnCd;
-
-  /**
-   * 카카오페이 멤버십 쿠폰 고유 아이디(카카오에서 채번 후 전달)
-   */
-  private Integer kakaoCouponId;
   /**
    * 쿠폰 내용(본문)
    */

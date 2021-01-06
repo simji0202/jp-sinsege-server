@@ -90,7 +90,7 @@ public class Goods {
    *
    * ex. 곱빼기 상품은 goodsApplyList에 짜장, 짬뽕 등이 Goods 로 있어야 한다
    */
-  @OneToMany(cascade = {CascadeType.ALL})
+  @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
   private List<GoodsApply> goodsApplyList;
 
   @ManyToOne

@@ -29,11 +29,6 @@ public class CpnMasterUpdateDto {
    * 쿠폰 코드 (POS연동)
    */
   private String cpnCd;
-
-  /**
-   * 카카오페이 멤버십 쿠폰 고유 아이디(카카오에서 채번 후 전달)
-   */
-  private Integer kakaoCouponId;
   /**
    * 쿠폰 내용(본문)
    */

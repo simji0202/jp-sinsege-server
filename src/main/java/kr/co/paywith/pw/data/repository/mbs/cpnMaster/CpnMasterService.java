@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
 
+import kr.co.paywith.pw.data.repository.mbs.cpnGoods.CpnGoods;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,13 +41,15 @@ public class CpnMasterService {
     @Transactional
     public CpnMaster update(CpnMasterUpdateDto cpnMasterUpdateDto, CpnMaster existCpnMaster) {
 
+        // TODO cpnGoodsList 갱신? 잘 되는지 확인 후 안되면 cpnGoodsList 처리 개선
+        existCpnMaster.getCpnGoodsList().clear();
+
         // 입력값 대입
         this.modelMapper.map(cpnMasterUpdateDto, existCpnMaster);
 
         // 데이터베이스 값 갱신
         this.cpnMasterRepository.save(existCpnMaster);
 
-        // TODO cpnGoodsList 갱신? 잘 되는지 확인 후 안되면 list clear
 
         return existCpnMaster;
     }

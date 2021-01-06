@@ -39,6 +39,9 @@ public class GoodsService {
     @Transactional
     public Goods update(GoodsUpdateDto goodsUpdateDto, Goods existGoods) {
 
+        // TODO goodsApplyList 갱신이 잘 되는지 확인 후 안되면 별도 처리 해야 함
+        existGoods.getGoodsApplyList().clear();
+
         // 입력값 대입
         this.modelMapper.map(goodsUpdateDto, existGoods);
 

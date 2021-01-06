@@ -8,6 +8,7 @@ import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import kr.co.paywith.pw.data.repository.mbs.cpn.*;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -104,7 +105,6 @@ public class CpnController extends CommonController {
             booleanBuilder.and(qCpn.id.eq(searchForm.getId()));
         }
 
-
         Page<Cpn> page = this.cpnRepository.findAll(booleanBuilder, pageable);
         var pagedResources = assembler.toResource(page, e -> new CpnResource(e));
         pagedResources.add(new Link("/docs/index.html#resources-cpns-list").withRel("profile"));
@@ -132,6 +132,18 @@ public class CpnController extends CommonController {
         }
 
         Cpn cpn = cpnOptional.get();
+
+        if (currentUser.getUserInfo().getUserId() != null) {
+            // 회원이 쿠폰을 열람할 때 로직
+            if (!cpn.getReadFl()) { // 열람 여부 확인 후 true로 변경
+                // 처음 쿠폰을 열람하면 쿠폰번호를 생성한다
+                if (StringUtils.isEmpty(cpn.getCpnNo())) {
+                    cpn.setCpnNo(cpnService.getCpnNo(cpn));
+                }
+                cpn.setReadFl(true);
+                cpnRepository.save(cpn);
+            }
+        }
 
         // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
         CpnResource cpnResource = new CpnResource(cpn);
