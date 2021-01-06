@@ -49,47 +49,47 @@ public class GradeService {
 
         return existGrade;
     }
-
-    /**
-     * 회원 가입 시 최초 등급 조회
-     *
-     * @return 최초 등급
-     */
-    public Grade findFirstGrade() {
-        Optional<Grade> optionalGrade = gradeRepository.findBySort(0);
-        if (optionalGrade.isEmpty()) {
-            // TODO kms: Exception 확인
-            throw new RuntimeException("등급 설정 오류");
-        }
-        return optionalGrade.get();
-    }
-
-    /**
-     * 현재 등급 기준 다음 등급 조회
-     *
-     * @param currentGrade 현재 등급
-     * @return 다음 등급, 없으면 null
-     */
-    public Grade getNextGrade(Grade currentGrade) {
-        if (currentGrade.getSort() == null) {
-            return null;
-        }
-
-        return gradeRepository.findBySort(currentGrade.getSort() + 1).orElse(null);
-    }
-
-    /**
-     * 현재 등급 기준 이전 등급 조회
-     *
-     * @param currentGrade 현재 등급
-     * @return 이전 등급, 없으면 null
-     */
-    public Grade getPreviousGrade(Grade currentGrade) {
-        if (currentGrade.getSort() == null || currentGrade.getSort() == 0) {
-            return null;
-        }
-
-        return gradeRepository.findBySort(currentGrade.getSort() - 1).orElse(null);
-
-    }
+      // che2 : 회원가입시 등급 조회 로직 수정
+//    /**
+//     * 회원 가입 시 최초 등급 조회
+//     *
+//     * @return 최초 등급
+//     */
+//    public Grade findFirstGrade() {
+//        Optional<Grade> optionalGrade = gradeRepository.findBySort(0);
+//        if (optionalGrade.isEmpty()) {
+//            // TODO kms: Exception 확인
+//            throw new RuntimeException("등급 설정 오류");
+//        }
+//        return optionalGrade.get();
+//    }
+//
+//    /**
+//     * 현재 등급 기준 다음 등급 조회
+//     *
+//     * @param currentGrade 현재 등급
+//     * @return 다음 등급, 없으면 null
+//     */
+//    public Grade getNextGrade(Grade currentGrade) {
+//        if (currentGrade.getSort() == null) {
+//            return null;
+//        }
+//
+//        return gradeRepository.findBySort(currentGrade.getSort() + 1).orElse(null);
+//    }
+//
+//    /**
+//     * 현재 등급 기준 이전 등급 조회
+//     *
+//     * @param currentGrade 현재 등급
+//     * @return 이전 등급, 없으면 null
+//     */
+//    public Grade getPreviousGrade(Grade currentGrade) {
+//        if (currentGrade.getSort() == null || currentGrade.getSort() == 0) {
+//            return null;
+//        }
+//
+//        return gradeRepository.findBySort(currentGrade.getSort() - 1).orElse(null);
+//
+//    }
 }

@@ -178,13 +178,13 @@ public class UserInfo {
      */
     private ZonedDateTime gradeUpdtDttm;
 
-    /**
-     * 회원 등급. TODO GUEST는 grade가 없어도 될지 검토
-     * */
-    @ManyToOne
-    private Grade grade;
-
-    // 승급관련 항목 end
+//    /**
+//     * 회원 등급. TODO GUEST는 grade가 없어도 될지 검토
+//     * */
+//    @ManyToOne
+//    private Grade grade;
+//
+//    // 승급관련 항목 end
 
     /**
      * 회원 누적 사용 점수
@@ -233,6 +233,7 @@ public class UserInfo {
     private ZonedDateTime outDttm;
 
     // kms: TODO 브랜드 별 멤버십 정보 관리 필요
+ //   @OneToOne (cascade = CascadeType.ALL)
     @OneToOne
     private UserStamp userStamp;
 
