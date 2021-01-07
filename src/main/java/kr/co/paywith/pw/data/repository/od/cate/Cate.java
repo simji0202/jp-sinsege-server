@@ -52,7 +52,7 @@ public class Cate {
 	private List<Cate> subCateList;
 
 	@Column(name = "parent_id")
-	private Long parentId;
+	private Integer parentId;
 
 	@Column(name = "use_fl")
 	private Boolean useFl;
