@@ -1,9 +1,12 @@
 package kr.co.paywith.pw.data.repository.mbs.cpn;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuSerializer;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMasterSerializer;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,23 +49,20 @@ public class Cpn {
     @Enumerated(EnumType.STRING)
     private CpnSttsCd cpnSttsCd = CpnSttsCd.AVAIL;
 
-    /**
-     * 쿠폰 종류 ( 무료쿠폰, 활인쿠폰, 상품쿠폰, 금액 쿠폰  등 )
-     */
-    @ManyToOne
-    private CpnMaster cpnMaster;
 
     /**
      * 회원 ( 쿠폰 소유자 )
      */
-    @ManyToOne
+    @OneToOne
     private UserInfo userInfo;
-
 
     /**
      * 쿠폰 발급(대장)
+     *  CpnIssu
+     *     cpu1, cpn2 .....
      */
     @ManyToOne
+    @JsonSerialize(using = CpnIssuSerializer.class)
     private CpnIssu cpnIssu;
 
     /**

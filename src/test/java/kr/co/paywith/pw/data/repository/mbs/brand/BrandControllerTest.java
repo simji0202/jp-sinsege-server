@@ -45,7 +45,7 @@ public class BrandControllerTest extends BaseControllerTest {
 
 
         Brand brand = new Brand();
-        brand.setBrandNm("coffeebay");
+        brand.setBrandNm("채원의식탁");
         brand.setActiveFl(true);
         brand.setBrandCd("1234567890123456");
         brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.CALCU, AvailBrandFnCd.CPN));

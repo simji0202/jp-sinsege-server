@@ -43,7 +43,7 @@ public class CpnMasterControllerTest extends BaseControllerTest {
     public void createCpnMaster() throws Exception {
 
         CpnMaster cpnMaster = new CpnMaster();
-        cpnMaster.setCpnNm("커피베이 할인권 ");
+        cpnMaster.setCpnNm("커피베이  쿠폰  ");
         cpnMaster.setCpnCd("1234567890123456");
         cpnMaster.setCpnAmt(50000);
         cpnMaster.setValidDay(20210101);

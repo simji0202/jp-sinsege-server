@@ -18,6 +18,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+
+/**
+ * 스템프 직인
+ *
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

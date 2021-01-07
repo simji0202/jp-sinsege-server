@@ -6,6 +6,7 @@ import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleChnlCd;
 import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
 import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleSttsCd;
 import kr.co.paywith.pw.data.repository.mbs.chrgMass.ChrgMass;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
@@ -170,7 +171,7 @@ public class Chrg {
      * 쿠폰 발급 목록. 충전으로 쿠폰이 발급될 때 연결
      */
     @OneToMany
-    private List<CpnIssu> cpnIssuList;
+    private List<Cpn> cpns;
 
 
     // 공통 항목

@@ -38,7 +38,7 @@ public class CpnRule {
     /**
      * 발급 대상 회원 등급
      */
-    @ManyToOne
+    @OneToOne
     private Grade grade;
 
     /**

@@ -4,6 +4,7 @@ import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,11 @@ public class CpnControllerTest extends BaseControllerTest {
     @TestDescription("고객을 등록하는 테스트")
     public void createCpn() throws Exception {
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(2);
+
         Cpn cpn = new Cpn();
-        cpn.setCpnNo("user3");
+        cpn.setUserInfo(userInfo);
         cpn.setCpnNo("12233242");
 
 

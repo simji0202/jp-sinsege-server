@@ -41,8 +41,8 @@ public class GoodsControllerTest extends BaseControllerTest {
 		  Goods goods = new Goods();
 
 		  goods.setGoodsCd("1234567890");
-		  goods.setGoodsNm(" 쿠폰 관련 상품 변경 테스트 ");
-		  goods.setGoodsCn("쿠폰 관련 상품 변경 테스트피 ");
+		  goods.setGoodsNm("아메리카노 핫   ");
+		  goods.setGoodsCn("지적 구운 아메리카노 ");
           goods.setGoodsAmt(1000);
           goods.setActiveFl(false);
 

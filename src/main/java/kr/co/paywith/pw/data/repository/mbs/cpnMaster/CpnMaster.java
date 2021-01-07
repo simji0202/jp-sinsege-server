@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +64,7 @@ public class CpnMaster {
      * 쿠폰 대상 상품 목록
      */
     @OneToMany(mappedBy = "cpnMaster", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<CpnMasterGoods> cpnMasterGoodsList;
+    private List<CpnMasterGoods> cpnMasterGoodsList = new ArrayList<CpnMasterGoods>();
 
     /**
      * 쿠폰 금액. 비율과 같이 사용하면 최대 할인 금액. 실제 상품 금액보다 작다면 이 금액만큼만 할인한다.

@@ -45,23 +45,26 @@ public class CpnIssuService {
         // 쿠폰 번호 생성
         for (Cpn cpn : newCpnIssu.getCpnList()) {
             // TODO persist 상태가 되어 cpn.cpnIssu 가 들어가있는지 확인
-            cpn.setCpnMaster(cpnIssu.getCpnMaster());
+        //    cpn.setCpnMaster(cpnIssu.getCpnMaster());
+
+            // che2 부모 클라스 설정
+            cpn.setCpnIssu(newCpnIssu);
             cpn.setCreateBy(cpnIssu.getCreateBy());
             cpnService.create(cpn);
         }
 
         newCpnIssu.setIssuCnt(newCpnIssu.getCpnList().size());
 
-        if (cpnIssu.getStampHist() != null) {
-            // kms: TODO 멤버십 구조 변경 후 생성
-//            // 스탬프 달성한 순간 발급하는 쿠폰이므로 stampHist도 생성해야 한다.
-//            StampHist stampHist = new StampHist();
-//            stampHist.setCnt(cpnIssu.getCpnList() * ); // 정책의 달성해야 할 스탬프 개수 곱
-//            stampHist.setCpnIssu(cpnIssu);
-//            stampHist.setStampHistTypeCd(StampHistTypeCd.CPN);
-//            stampHist.setUserInfo(cpnIssu.getStampHist().getUserInfo());
-//            stampHistService.create(stampHist)
-        }
+//        if (cpnIssu.getStampHist() != null) {
+//            // kms: TODO 멤버십 구조 변경 후 생성
+////            // 스탬프 달성한 순간 발급하는 쿠폰이므로 stampHist도 생성해야 한다.
+////            StampHist stampHist = new StampHist();
+////            stampHist.setCnt(cpnIssu.getCpnList() * ); // 정책의 달성해야 할 스탬프 개수 곱
+////            stampHist.setCpnIssu(cpnIssu);
+////            stampHist.setStampHistTypeCd(StampHistTypeCd.CPN);
+////            stampHist.setUserInfo(cpnIssu.getStampHist().getUserInfo());
+////            stampHistService.create(stampHist)
+//        }
         return newCpnIssu;
     }
 
