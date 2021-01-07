@@ -85,13 +85,6 @@ public class Goods {
   @Column(nullable = true)
   private String imgUrl;
 
-  /**
-   * 적용 대상 상품 목록.
-   *
-   * ex. 곱빼기 상품은 goodsApplyList에 짜장, 짬뽕 등이 Goods 로 있어야 한다
-   */
-  @OneToMany(cascade = {CascadeType.ALL})
-  private List<GoodsApply> goodsApplyList;
 
   @ManyToOne
   private Brand brand;

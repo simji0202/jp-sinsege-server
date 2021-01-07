@@ -1,6 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsApply;
 
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
+import kr.co.paywith.pw.data.repository.mbs.stamp.Stamp;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -24,5 +26,9 @@ public class GoodsApply {
 
   @ManyToOne
   private Goods goods;
+
+  @OneToOne
+  private Cpn cpn;
+
 
 }

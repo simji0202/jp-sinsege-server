@@ -104,7 +104,7 @@ public class MrhstTrmnl {
     private ZonedDateTime lastLoginDttm;
 
     /**
-     * 최근 로그인 일시
+     * 최근 로그인 IP
      */
     private String lastLoginIp;
 

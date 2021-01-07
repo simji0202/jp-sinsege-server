@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,18 @@ public class GoodsControllerTest extends BaseControllerTest {
 	 public void createGoods() throws Exception {
 
 		  Goods goods = new Goods();
+
+		  goods.setGoodsCd("1234567890");
+		  goods.setGoodsNm(" 쿠폰 관련 상품 변경 테스트 ");
+		  goods.setGoodsCn("쿠폰 관련 상품 변경 테스트피 ");
+          goods.setGoodsAmt(1000);
+          goods.setActiveFl(false);
+
+
+		 Brand brand = new Brand();
+		 brand.setId(1);
+
+		 goods.setBrand(brand);
 
 
 		  mockMvc.perform(post("/api/goods/")
@@ -107,8 +120,9 @@ public class GoodsControllerTest extends BaseControllerTest {
 	 public void updateGoods() throws Exception {
 
 		  // Given
-		  GoodsDto goods = new GoodsDto();
-//		  goods.setId(1);
+		  Goods goods = new Goods();
+		  goods.setId(1);
+		  goods.setGoodsNm(" 변경된 이름 ");
 
 		  // When & Then
 		  this.mockMvc.perform(put("/api/goods/{id}", 1)
