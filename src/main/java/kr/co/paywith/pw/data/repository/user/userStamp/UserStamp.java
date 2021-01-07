@@ -1,15 +1,12 @@
 package kr.co.paywith.pw.data.repository.user.userStamp;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.time.ZonedDateTime;
-import javax.persistence.Id;
-import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
-import javax.persistence.*;
-
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,6 +37,11 @@ public class UserStamp {
    * 스탬프 갱신 일시
    */
   private ZonedDateTime stampUpdtDttm;
+
+  /**
+   * 카카오 페이 멤버십 스탬프 번호
+   */
+  private String kakaoStampNo;
 
   /**
    * 회원 스탬프 번호 (바코드 16자리))

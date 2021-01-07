@@ -39,7 +39,6 @@ AdminTest extends BaseControllerTest {
 
     @Test
     public  void  createAdmin() {
-
         // Given
         IntStream.range(0, 1).forEach(this::generateAdmin);
     }

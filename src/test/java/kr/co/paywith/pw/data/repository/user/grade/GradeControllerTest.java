@@ -41,7 +41,8 @@ public class GradeControllerTest extends BaseControllerTest {
 
 
         Grade grade = new Grade();
-        grade.setGradeNm("테스트 브랜드 10");
+        grade.setGradeCode("1");
+        grade.setGradeNm("골목시장1등급");
 
 
         mockMvc.perform(post("/api/grade/")
@@ -112,7 +113,6 @@ public class GradeControllerTest extends BaseControllerTest {
 
         // Given
         GradeDto grade = new GradeDto();
-//        grade.setId(1);
         grade.setGradeNm("테스트 브랜드 1");
 
 

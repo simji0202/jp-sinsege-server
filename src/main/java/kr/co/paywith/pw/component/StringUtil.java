@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StringUtil {
 
-  final static int VALID_PRPAY_SUM_VALUE = 0;
+  final static int VALID_PRPAY_SUM_VALUE = 10;
 
   /**
    * 규칙에 맞춰 번호 생성. noRule 길이와 동일한 숫자를 나열하고, 추가로 한자리 검증 숫자를 추가한다

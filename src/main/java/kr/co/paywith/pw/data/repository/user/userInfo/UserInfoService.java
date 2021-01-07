@@ -54,9 +54,7 @@ public class UserInfoService {
 
     userInfo.setUserPw(this.passwordEncoder.encode(userInfo.getUserPw()));
 
-    userInfo.setUserStamp(new UserStamp());
-
-    userInfo = this.userInfoRepository.save(userInfo);
+    this.userInfoRepository.save(userInfo);
 
     // 스탬프 번호 생성. 중복 방지를 위해 db 저장 후 ID를 활용한다
     boolean isEndMakeNo = false;
@@ -65,14 +63,28 @@ public class UserInfoService {
       noRule += StringUtils.leftPad("" + userInfo.getId(), 8, "0"); //20000000
       noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
       String stampNo = StringUtil.makeNo(noRule);
+
       if (userStampRepository.findByStampNo(stampNo).isEmpty()) {
         isEndMakeNo = true;
-        userInfo.getUserStamp().setStampNo(stampNo);
+   //     userInfo.getUserStamp().setStampNo(stampNo);
+
+        // 스탬프 객체 생성
+        UserStamp userStamp = new UserStamp();
+        userStamp.setStampNo(stampNo);
+
+        // 스탬프 번호 생성
+        userStampRepository.save(userStamp);
+
+        // 유저에 스템프 번호 적요
+        userInfo.setUserStamp(userStamp);
+
       }
     } while (!isEndMakeNo);
 
+
+    // che2 : TODO 최초 등급 설정 (21.01.05)
     // 최초 등급 설정
-    userInfo.setGrade(gradeService.findFirstGrade());
+   // userInfo.setGrade(gradeService.findFirstGrade());
 
     // TODO 신규 회원 쿠폰 발급
 

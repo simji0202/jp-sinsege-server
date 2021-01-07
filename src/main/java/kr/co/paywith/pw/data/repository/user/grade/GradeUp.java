@@ -1,13 +1,9 @@
 package kr.co.paywith.pw.data.repository.user.grade;
 
-import kr.co.paywith.pw.data.repository.enumeration.GradeUpRuleCd;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 
 @NoArgsConstructor
@@ -17,7 +13,7 @@ import java.time.ZonedDateTime;
 @Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Grade {
+public class GradeUp {
 
 
     /**
@@ -28,14 +24,19 @@ public class Grade {
     private Integer id;
 
     /**
-     * 등급 명
+     * 등급
      */
-    private String gradeNm;
+    @OneToOne
+    private Grade grade;
 
     /**
-     * 등급 표시 코드
+     * 등급 위한 점수 ( <= )
      */
-    private String gradeCode;
+    private Integer goeValue; // 조건 달성 시 다음 등급으로 진입
 
+    /**
+     * 등급 위한 점수 ( < )
+     */
+    private Integer ltValue; // 다음 등급 갈 때 점수 초기화 여부
 
 }
