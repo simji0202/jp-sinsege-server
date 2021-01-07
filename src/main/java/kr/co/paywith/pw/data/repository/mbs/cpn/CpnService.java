@@ -101,7 +101,7 @@ public class CpnService {
       if (cpnRepository.findByCpnNo(cpnNo2).isEmpty()) {
         cpnNo = cpnNo2;
       }
-    } while (cpnNo != null);
+    } while (cpnNo == null);
     return cpnNo;
   }
 }

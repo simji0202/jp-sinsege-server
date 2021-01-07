@@ -48,7 +48,7 @@ UserInfoControllerTest extends BaseControllerTest {
     public void createUserInfo() throws Exception {
 
         UserInfoDto userInfo = new UserInfoDto();
-        userInfo.setUserId("che34");
+        userInfo.setUserId("che36");
         userInfo.setUserPw("1234");
         userInfo.setUserNm("원이");
         userInfo.setActiveFl(true);

@@ -51,12 +51,11 @@ public class CpnIssuControllerTest extends BaseControllerTest {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(1);
 
-
         Cpn cpn = new Cpn();
         cpn.setUserInfo(userInfo);
 
         CpnIssu cpnIssu = new CpnIssu();
-        cpnIssu.setCpnIssuNm(" 쿠폰 발급 테스트 ");
+        cpnIssu.setCpnIssuNm(" 쿠폰 발급 테스트2 ");
         cpnIssu.setIssuCnt(50000);
         cpnIssu.setCpnList(List.of(cpn));
 
@@ -114,7 +113,7 @@ public class CpnIssuControllerTest extends BaseControllerTest {
         //  CpnIssu cpnIssu = this.generateCpnIssu(100);
 
         // When & Then
-        this.mockMvc.perform(get("/api/cpnIssu/{id}", 1)
+        this.mockMvc.perform(get("/api/cpnIssu/{id}", 3)
                 .header("Origin", "*")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
         )
@@ -137,7 +136,7 @@ public class CpnIssuControllerTest extends BaseControllerTest {
         cpnIssu.setCpnIssuNm("정보변경");
 
         // When & Then
-        this.mockMvc.perform(put("/api/cpnIssu/{id}", 1)
+        this.mockMvc.perform(put("/api/cpnIssu/{id}", 3)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

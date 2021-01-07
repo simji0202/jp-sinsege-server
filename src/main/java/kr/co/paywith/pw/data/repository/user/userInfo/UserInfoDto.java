@@ -1,17 +1,14 @@
 package kr.co.paywith.pw.data.repository.user.userInfo;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
 import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
 import lombok.Data;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Data
 public class UserInfoDto {
@@ -20,7 +17,6 @@ public class UserInfoDto {
 
     /**
      * 회원 아이디.
-     *
      */
     private String userId;
 
@@ -63,10 +59,14 @@ public class UserInfoDto {
      */
     private String userPhoneCd;
 
-    /** 문자(메시지) 수신 동의 */
+    /**
+     * 문자(메시지) 수신 동의
+     */
     private Boolean smsFl;
 
-    /** 마케팅 정보 수신 등 (선택)동의*/
+    /**
+     * 마케팅 정보 수신 등 (선택)동의
+     */
     private Boolean agreFl;
 
     /**
@@ -102,7 +102,7 @@ public class UserInfoDto {
 
     /**
      * 혜택을 받은 최종 등급
-     *
+     * <p>
      * 등급 업 후 등급 업 혜택을 받으면 해당 gradeSn으로 업데이트 한다(강등 후 재차 혜택 받는 것을 방지)
      */
     private Integer lastMaxGradeSn;
@@ -120,19 +120,18 @@ public class UserInfoDto {
 
     /**
      * 탈퇴(신청)일
-     *
+     * <p>
      * 브랜드 별 정책에 따라, 일정 기간 후 activeFl을 false로 처리
-     *
+     * <p>
      * 적용 패턴
-     *
+     * <p>
      * 1. activeFl = true, outDttm == null : 일반적인 이용가능 회원
-     *
+     * <p>
      * 2. activeFl = true, outDttm != null : outDttm 에 탈퇴 신청. activeFl = false로 다시 변경 필요
-     *
+     * <p>
      * 3. activeFl = false, outDttm != null : outDttm 부터 이용이 불가하게 된 회원
-     *
+     * <p>
      * 4. activeFl = false, outDttm == null : 현재 존재하지 않는 상태
-     *
      */
     private ZonedDateTime outDttm;
 
@@ -150,7 +149,6 @@ public class UserInfoDto {
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
     private CertTypeCd certTypeCd;
-
 
 
     /**

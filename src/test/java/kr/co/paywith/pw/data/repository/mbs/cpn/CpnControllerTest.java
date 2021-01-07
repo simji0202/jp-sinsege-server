@@ -96,7 +96,7 @@ public class CpnControllerTest extends BaseControllerTest {
         //  Cpn cpn = this.generateCpn(100);
 
         // When & Then
-        this.mockMvc.perform(get("/api/cpn/{id}", 1)
+        this.mockMvc.perform(get("/api/cpn/{id}", 5)
                 .header("Origin", "*")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
         )

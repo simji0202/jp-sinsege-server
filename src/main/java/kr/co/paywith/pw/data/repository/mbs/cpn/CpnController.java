@@ -17,7 +17,10 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,7 +32,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RestController
 @RequestMapping(value = "/api/cpn")
 @Api(value = "CpnController", description = "쿠폰 API", basePath = "/api/cpn")
-public class CpnController extends CommonController {
+public class CpnController extends CommonController  {
 
     @Autowired
     CpnRepository cpnRepository;
@@ -121,8 +124,10 @@ public class CpnController extends CommonController {
      * 정보취득 (1건 )
      */
     @GetMapping("/{id}")
-    public ResponseEntity getCpn(@PathVariable Integer id,
-                                   @CurrentUser Account currentUser) {
+    public ResponseEntity getCpn(@PathVariable  Integer id,
+                                 @ModelAttribute SearchForm searchForm,
+                                 Errors errors,
+                                 @CurrentUser Account currentUser) {
 
         Optional<Cpn> cpnOptional = this.cpnRepository.findById(id);
 
@@ -133,7 +138,15 @@ public class CpnController extends CommonController {
 
         Cpn cpn = cpnOptional.get();
 
-        if (currentUser.getUserInfo().getUserId() != null) {
+        // 유저 체크
+        cpnValidator.validate(currentUser, cpn, errors);
+
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        if (currentUser.getAccountId() != null
+                && currentUser.getAccountId().equalsIgnoreCase(cpn.getUserInfo().getUserId())) {
             // 회원이 쿠폰을 열람할 때 로직
             if (!cpn.getReadFl()) { // 열람 여부 확인 후 true로 변경
                 // 처음 쿠폰을 열람하면 쿠폰번호를 생성한다
@@ -195,6 +208,10 @@ public class CpnController extends CommonController {
         // 정상적 처리
         return ResponseEntity.ok(cpnResource);
     }
+
+
+
+
 }
 
 

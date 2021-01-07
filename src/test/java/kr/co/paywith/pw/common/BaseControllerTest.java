@@ -60,7 +60,7 @@ public class BaseControllerTest {
         }
 
         // Given
-        String username = "simji";
+        String username = "che36";
         String password = "1234";
 
         // 인증서버 정보 설정
