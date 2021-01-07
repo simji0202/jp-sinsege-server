@@ -29,19 +29,19 @@ public class CpnService {
   @Autowired
   private UserInfoRepository userInfoRepository;
 
-  /**
-   * 정보 등록
-   */
-  @Transactional
-  public Cpn create(Cpn cpn) {
-    // 데이터베이스 값 갱신
-    Cpn newCpn = this.cpnRepository.save(cpn);
-
-    // 쿠폰 번호는 처음 저장할 때 생성하면 사용하지 않고 만료되는 번호가 많이 남게 되므로, 최초 상세 조회시에 번호를 만든다
-
-
-    return newCpn;
-  }
+//  /**
+//   * 정보 등록
+//   */
+//  @Transactional
+//  public Cpn create(Cpn cpn) {
+//    // 데이터베이스 값 갱신
+//
+//
+//    // 쿠폰 번호는 처음 저장할 때 생성하면 사용하지 않고 만료되는 번호가 많이 남게 되므로, 최초 상세 조회시에 번호를 만든다
+//
+//
+//    return newCpn;
+//  }
 
 
   /**

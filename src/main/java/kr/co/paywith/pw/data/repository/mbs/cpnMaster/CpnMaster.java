@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
 import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.cpnGoods.CpnGoods;
+import kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods.CpnMasterGoods;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,13 +66,13 @@ public class CpnMaster {
     /**
      * 쿠폰 대상 상품 목록
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CpnGoods> cpnGoodsList;
+    @OneToMany(mappedBy = "cpnMaster", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<CpnMasterGoods> cpnMasterGoodsList = new ArrayList<CpnMasterGoods>();
 
     /**
      * 쿠폰 금액. 비율과 같이 사용하면 최대 할인 금액. 실제 상품 금액보다 작다면 이 금액만큼만 할인한다.
      */
-    private Integer cpnAmt = 0;
+    private Integer cpnAmt;
 
     /**
      * 쿠폰 할인 비율. 0이상이면 비율로 할인 처리(1이면 전액)
@@ -121,4 +122,15 @@ public class CpnMaster {
      */
     private String updateBy;
 
+
+    public void setCpnMasterGoodsList(List<CpnMasterGoods> cpnMasterGoodsList) {
+
+        if (cpnMasterGoodsList != null) {
+            this.cpnMasterGoodsList.clear();
+            this.cpnMasterGoodsList.addAll(cpnMasterGoodsList);
+
+        } else {
+            this.cpnMasterGoodsList = cpnMasterGoodsList;
+        }
+    }
 }

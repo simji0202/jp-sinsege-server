@@ -24,7 +24,7 @@ public class CpnIssuValidator {
       for (CpnDto cpn : cpnIssuDto.getCpnList()) {
         if (cpn == null ||
             cpn.getUserInfo() == null ||
-            cpn.getUserInfo().getUserId() == null) {
+            cpn.getUserInfo().getId() == null) {
           errors.reject("쿠폰 발급 회원 정보 누락", "발급할 회원정보가 필요합니다");
           break;
         }

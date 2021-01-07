@@ -43,7 +43,6 @@ public class GradeUpControllerTest extends BaseControllerTest {
         grade.setId(2);
 
         GradeUp gradeUp = new GradeUp();
-
         gradeUp.setGrade(grade);
         gradeUp.setLtValue(2001);
         gradeUp.setGoeValue(3000);

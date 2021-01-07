@@ -2,8 +2,11 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuDto;
+import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.user.userInfo.QUserInfo;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.junit.Before;
@@ -13,6 +16,8 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -43,13 +48,22 @@ public class CpnIssuControllerTest extends BaseControllerTest {
     @TestDescription("고객을 등록하는 테스트")
     public void createCpnIssu() throws Exception {
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(1);
+
+
+        Cpn cpn = new Cpn();
+        cpn.setUserInfo(userInfo);
+
         CpnIssu cpnIssu = new CpnIssu();
         cpnIssu.setCpnIssuNm(" 쿠폰 발급 테스트 ");
         cpnIssu.setIssuCnt(50000);
+        cpnIssu.setCpnList(List.of(cpn));
 
+        CpnMaster cpnMaster = new CpnMaster();
+        cpnMaster.setId(1);
 
-        UserInfo userInfo = new UserInfo();
-        userInfo.setId(1);
+        cpnIssu.setCpnMaster(cpnMaster);
 
 
         mockMvc.perform(post("/api/cpnIssu/")

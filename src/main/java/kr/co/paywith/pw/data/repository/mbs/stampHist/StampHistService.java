@@ -145,17 +145,19 @@ public class StampHistService {
           booleanBuilder.and(qCpn.cpnIssu.cpnRule.cpnIssuRuleCd.eq(CpnIssuRuleCd.S)
               .or(qCpn.cpnIssu.cpnRule.cpnIssuRuleCd.eq(CpnIssuRuleCd.SI))); // 스탬프 적립으로 발급한 쿠폰
 
-          for (Cpn cpn :
-              cpnRepository.findAll(
-                  booleanBuilder, PageRequest.of(0, 100, new QSort(qCpn.cpnIssu.regDttm.asc())))) {
-            cpnService.delete(cpn);
-            int stampMaxCnt = cpn.getCpnMaster().getBrand().getBrandSetting().getStampMaxCnt();
-            reqCnt -= stampMaxCnt;
-            // reqCnt 만큼 취소하면 종료
-            if (reqCnt <= 0) {
-              break;
-            }
-          }
+
+            // che2 : 일단 커맨드 처리
+//          for (Cpn cpn :
+//              cpnRepository.findAll(
+//                  booleanBuilder, PageRequest.of(0, 100, new QSort(qCpn.cpnIssu.regDttm.asc())))) {
+//            cpnService.delete(cpn);
+//            int stampMaxCnt = cpn.getCpnMaster().getBrand().getBrandSetting().getStampMaxCnt();
+//            reqCnt -= stampMaxCnt;
+//            // reqCnt 만큼 취소하면 종료
+//            if (reqCnt <= 0) {
+//              break;
+//            }
+//          }
         }
         break;
       default:

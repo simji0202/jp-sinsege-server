@@ -56,6 +56,7 @@ public class GoodsGrp {
      */
     private Boolean activeFl = false;
 
+
     @ManyToOne
     private Brand brand;
 

@@ -48,7 +48,7 @@ UserInfoControllerTest extends BaseControllerTest {
     public void createUserInfo() throws Exception {
 
         UserInfoDto userInfo = new UserInfoDto();
-        userInfo.setUserId("che30");
+        userInfo.setUserId("che34");
         userInfo.setUserPw("1234");
         userInfo.setUserNm("원이");
         userInfo.setActiveFl(true);
@@ -152,7 +152,7 @@ UserInfoControllerTest extends BaseControllerTest {
         //  UserInfo userInfo = this.generateUserInfo(100);
 
         // When & Then
-        this.mockMvc.perform(get("/api/userInfo/{id}", 9)
+        this.mockMvc.perform(get("/api/userInfo/{id}", 1)
                 .header("Origin", "*")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
         )
@@ -172,15 +172,15 @@ UserInfoControllerTest extends BaseControllerTest {
 
         // Given
         UserInfo userInfo = new UserInfo();
-        userInfo.setId(9);
+        userInfo.setId(1);
         userInfo.setUserNm(" 변경유정정보 ");
+        userInfo.setCertTypeCd(CertTypeCd.CI);
 
 
         // When & Then
         this.mockMvc.perform(put("/api/userInfo/{id}", userInfo.getId())
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
-
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(this.objectMapper.writeValueAsString(userInfo)))
                 .andDo(print())

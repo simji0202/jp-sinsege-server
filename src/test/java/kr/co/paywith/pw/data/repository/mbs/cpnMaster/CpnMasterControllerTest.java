@@ -2,6 +2,9 @@ package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
+import kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods.CpnMasterGoods;
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -38,10 +43,35 @@ public class CpnMasterControllerTest extends BaseControllerTest {
     public void createCpnMaster() throws Exception {
 
         CpnMaster cpnMaster = new CpnMaster();
-        cpnMaster.setCpnNm("user3");
-        cpnMaster.setCpnCd("12233242");
+        cpnMaster.setCpnNm("커피베이  쿠폰  ");
+        cpnMaster.setCpnCd("1234567890123456");
         cpnMaster.setCpnAmt(50000);
-        cpnMaster.setCpnCd("0000134");
+        cpnMaster.setValidDay(20210101);
+
+
+        // 브랜드 셋팅
+        Brand  brand = new Brand();
+        brand.setId(1);
+        // 브랜든 설정
+        cpnMaster.setBrand(brand);
+
+
+        Goods goods1 = new Goods();
+        goods1.setId(1);
+
+        Goods goods2 = new Goods();
+        goods2.setId(2);
+
+
+        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
+        cpnMasterGoods.setGoods(goods1);
+
+        CpnMasterGoods cpnMasterGoods2 = new CpnMasterGoods();
+        cpnMasterGoods2.setGoods(goods2);
+
+
+        //
+        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods, cpnMasterGoods2));
 
 
         mockMvc.perform(post("/api/cpnMaster/")
@@ -112,7 +142,24 @@ public class CpnMasterControllerTest extends BaseControllerTest {
 
         // Given
         CpnMasterDto cpnMaster = new CpnMasterDto();
-        cpnMaster.setCpnNm("정보변경");
+        cpnMaster.setId(1);
+        cpnMaster.setCpnNm("커피베이 할인권 ");
+        cpnMaster.setCpnCd("1234567890123456");
+        cpnMaster.setCpnAmt(50000);
+        cpnMaster.setValidDay(20210101);
+
+
+        Goods goods1 = new Goods();
+        goods1.setId(4);
+
+
+
+        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
+        cpnMasterGoods.setGoods(goods1);
+
+        //
+        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods));
+
 
         // When & Then
         this.mockMvc.perform(put("/api/cpnMaster/{id}", 1)

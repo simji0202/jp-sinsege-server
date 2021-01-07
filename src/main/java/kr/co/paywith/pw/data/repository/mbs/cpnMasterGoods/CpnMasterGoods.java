@@ -1,6 +1,8 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnGoods;
+package kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
+import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMasterSerializer;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +13,8 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
- * 가맹점
+ *
+ * CpnMasterGoods 을 이용하여 , 쿠폰마스터 및 상품 등록을 일괄적으로 처리
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +24,7 @@ import java.time.ZonedDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
-public class CpnGoods {
+public class CpnMasterGoods {
 
 
 
@@ -30,16 +33,14 @@ public class CpnGoods {
     private Integer id;
 
     /**
-     * 대상 상품
+     * 대상 상품 (적용상품)
      */
-    @ManyToOne
+    @OneToOne
     private Goods goods;
 
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
+    @ManyToOne
+    @JsonSerialize(using = CpnMasterSerializer.class)
+    private CpnMaster cpnMaster;
 
     /**
      * 상품 개수
@@ -59,5 +60,12 @@ public class CpnGoods {
      * 0 이상이면 비율로 할인 처리. 값이 있을 경우 상품단가에 곱하여 계산하고 goodsAmt가 있다면 상한만큼까지만 할인
      */
     private Float goodsRatio = 0f;
+
+    /**
+     * 등록 일시
+     */
+    @CreationTimestamp
+    private ZonedDateTime regDttm;
+
 
 }
