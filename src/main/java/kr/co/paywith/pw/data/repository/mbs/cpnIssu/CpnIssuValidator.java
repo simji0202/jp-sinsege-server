@@ -21,7 +21,7 @@ public class CpnIssuValidator {
     if (cpnIssuDto.getCpnList() == null || cpnIssuDto.getCpnList().size() == 0) {
       errors.reject("쿠폰 발급 회원 정보 누락", "발급할 회원정보가 필요합니다");
     } else {
-      for (CpnDto cpn : cpnIssuDto.getCpnList()) {
+      for (Cpn cpn : cpnIssuDto.getCpnList()) {
         if (cpn == null ||
             cpn.getUserInfo() == null ||
             cpn.getUserInfo().getId() == null) {

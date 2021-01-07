@@ -59,7 +59,7 @@ public class CpnMasterService {
   public CpnMaster update(CpnMasterUpdateDto cpnMasterUpdateDto, CpnMaster existCpnMaster) {
 
     // TODO cpnGoodsList 갱신? 잘 되는지 확인 후 안되면 cpnGoodsList 처리 개선
-    existCpnMaster.getCpnMasterGoodsList().clear();
+   //  existCpnMaster.getCpnMasterGoodsList().clear();
 
     // 입력값 대입
     this.modelMapper.map(cpnMasterUpdateDto, existCpnMaster);

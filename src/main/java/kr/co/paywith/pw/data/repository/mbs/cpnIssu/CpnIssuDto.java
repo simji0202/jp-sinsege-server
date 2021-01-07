@@ -62,7 +62,7 @@ public class CpnIssuDto {
   /**
    * 발급 쿠폰 목록
    */
-  private List<CpnDto> cpnList = new ArrayList<>();
+  private List<Cpn> cpnList = new ArrayList<>();
 
 
   /**

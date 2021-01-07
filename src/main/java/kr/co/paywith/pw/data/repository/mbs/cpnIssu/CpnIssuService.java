@@ -8,6 +8,7 @@ import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnService;
+import kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods.CpnMasterGoods;
 import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -82,10 +83,28 @@ public class CpnIssuService {
         // 입력값 대입
         this.modelMapper.map(cpnIssuUpdateDto, existCpnIssu);
 
+        // 기존 관련 리스트 초기화
+        if (existCpnIssu.getCpnList() != null) {
+            existCpnIssu.getCpnList().clear();
+            existCpnIssu.getCpnList().addAll(cpnIssuUpdateDto.getCpnList());
+        }
+        // 변경된 리스트 취득
+        List<Cpn> cpnList = cpnIssuUpdateDto.getCpnList();
+
+        // 쿠폰 관련상품들 등록
+        if (cpnList != null && cpnList.size() > 0) {
+
+            cpnList.forEach( cpn -> {
+                cpn.setCpnIssu(existCpnIssu);
+                this.cpnRepository.save(cpn);
+            });
+        }
+
         // 데이터베이스 값 갱신
         this.cpnIssuRepository.save(existCpnIssu);
 
         return existCpnIssu;
+
     }
 
     /**

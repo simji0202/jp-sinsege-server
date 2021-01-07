@@ -50,14 +50,18 @@ public class CpnIssuControllerTest extends BaseControllerTest {
 
         UserInfo userInfo = new UserInfo();
         userInfo.setId(1);
-
+        UserInfo userInfo2 = new UserInfo();
+        userInfo2.setId(2);
         Cpn cpn = new Cpn();
         cpn.setUserInfo(userInfo);
+
+        Cpn cpn2 = new Cpn();
+        cpn2.setUserInfo(userInfo2);
 
         CpnIssu cpnIssu = new CpnIssu();
         cpnIssu.setCpnIssuNm(" 쿠폰 발급 테스트2 ");
         cpnIssu.setIssuCnt(50000);
-        cpnIssu.setCpnList(List.of(cpn));
+        cpnIssu.setCpnList(List.of(cpn, cpn2));
 
         CpnMaster cpnMaster = new CpnMaster();
         cpnMaster.setId(1);
@@ -132,8 +136,16 @@ public class CpnIssuControllerTest extends BaseControllerTest {
     public void updateCpnIssu() throws Exception {
 
         // Given
-        CpnIssuDto cpnIssu = new CpnIssuDto();
+        CpnIssu cpnIssu = new CpnIssu();
+        cpnIssu.setId(8);
         cpnIssu.setCpnIssuNm("정보변경");
+
+        Cpn cpn = new Cpn();
+        cpn.setId(5);
+
+        cpnIssu.setCpnList(List.of(cpn));
+
+
 
         // When & Then
         this.mockMvc.perform(put("/api/cpnIssu/{id}", 3)

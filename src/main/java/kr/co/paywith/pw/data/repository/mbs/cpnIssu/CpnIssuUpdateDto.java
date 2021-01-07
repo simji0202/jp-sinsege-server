@@ -2,11 +2,13 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
 import lombok.*;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +36,14 @@ public class CpnIssuUpdateDto {
 //     * 쿠폰 유효 시작 일시
 //     */
 //    private ZonedDateTime validStartDttm = ZonedDateTime.now();
+
+    // che2 : 쿠폰 목록 추가 (20.01.07)
+    /**
+     * 발급 쿠폰 목록
+     */
+    private List<Cpn> cpnList = new ArrayList<>();
+
+
 
     /**
      * 쿠폰 유효 종료 일시
