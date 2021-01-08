@@ -1,13 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.refund;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.mbs.payment.Payment;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.OneToOne;
 
 @Data
 @Builder
@@ -22,7 +20,7 @@ public class RefundDto {
     /**
      * 결제
      */
-    private Payment payment;
+    private DelngPayment delngPayment;
 
     /**
      * 환불 금액

@@ -1,12 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.cashReceipt;
 
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
+import java.time.ZonedDateTime;
+import javax.persistence.Column;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import java.time.ZonedDateTime;
 
 @Data
 public class CashReceiptUpdateDto {
@@ -21,18 +18,6 @@ public class CashReceiptUpdateDto {
      */
     @Column(length = 8)
     private String orgTradeDate;
-
-    /**
-     * 현금영수증 발급 한 사용이력
-     */
-    @ManyToOne
-    private Use use;
-
-    /**
-     * 사용이력 일련번호
-     */
-    @Column
-    private Long useSn;
 
     /**
      * 등록 일시

@@ -69,9 +69,8 @@ public class CpnService {
   public void delete(Cpn cpn) {
     cpn.setCpnSttsCd(CpnSttsCd.INVALID);
 
-    if (cpn.getCpnIssu().getCpnRule() != null &&
-        cpn.getCpnIssu().getCpnRule().getCpnIssuRuleCd().equals(CpnIssuRuleCd.S) ||
-        cpn.getCpnIssu().getCpnRule().getCpnIssuRuleCd().equals(CpnIssuRuleCd.SI) // 스탬프 쿠폰이면
+    if (cpn.getCpnIssu().getCpnIssuRule() != null &&
+        cpn.getCpnIssu().getCpnIssuRule().getCpnIssuRuleCd().equals(CpnIssuRuleCd.S) // 스탬프 쿠폰이면
     ) {
       // 회원의 스탬프 개수 복원
       // kms TODO 쿠폰 마스터와 동일한 회원의 브랜드 정보에서 스탬프 차감 필요

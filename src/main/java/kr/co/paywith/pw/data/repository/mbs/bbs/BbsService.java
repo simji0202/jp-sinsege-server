@@ -11,41 +11,49 @@ import javax.transaction.Transactional;
 @Service
 public class BbsService {
 
-    @Autowired
-    private BbsRepository bbsRepository;
+  @Autowired
+  private BbsRepository bbsRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+  @Autowired
+  private ModelMapper modelMapper;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
-    /**
-     * 정보 등록
-     */
-    @Transactional
-    public Bbs create(Bbs bbs) {
+  /**
+   * 정보 등록
+   */
+  @Transactional
+  public Bbs create(Bbs bbs) {
 
-        // 데이터베이스 값 갱신
-        Bbs newBbs = this.bbsRepository.save(bbs);
+    // 데이터베이스 값 갱신
+    Bbs newBbs = this.bbsRepository.save(bbs);
 
-        return newBbs;
-    }
+    return newBbs;
+  }
 
 
-    /**
-     * 정보 갱신
-     */
-    @Transactional
-    public Bbs update(BbsUpdateDto bbsUpdateDto, Bbs existBbs) {
+  /**
+   * 정보 갱신
+   */
+  @Transactional
+  public Bbs update(BbsUpdateDto bbsUpdateDto, Bbs existBbs) {
 
-        // 입력값 대입
-        this.modelMapper.map(bbsUpdateDto, existBbs);
+    // 입력값 대입
+    this.modelMapper.map(bbsUpdateDto, existBbs);
 
-        // 데이터베이스 값 갱신
-        this.bbsRepository.save(existBbs);
+    // 데이터베이스 값 갱신
+    this.bbsRepository.save(existBbs);
 
-        return existBbs;
-    }
+    return existBbs;
+  }
 
+
+  /**
+   * 정보 삭제
+   */
+  @Transactional
+  public void delete(Bbs bbs) {
+    bbs.setDelFl(true);
+  }
 }

@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.refund;
 
-import kr.co.paywith.pw.data.repository.mbs.payment.Payment;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import lombok.Data;
 
 import javax.persistence.OneToOne;
@@ -12,7 +12,7 @@ public class RefundUpdateDto {
      * 결제
      */
     @OneToOne
-    private Payment payment;
+    private DelngPayment delngPayment;
 
     /**
      * 환불 금액

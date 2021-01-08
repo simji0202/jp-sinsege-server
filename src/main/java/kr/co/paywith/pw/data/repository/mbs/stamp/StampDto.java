@@ -1,18 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.stamp;
 
+import java.time.ZonedDateTime;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.ManyToOne;
-import java.time.ZonedDateTime;
 
 @Data
 @Builder
@@ -42,11 +39,10 @@ public class StampDto {
      */
     private Cpn cpn;
 
-    /**
-     * 스탬프를 사용했을 때 해당 사용 이력
-     */
-
-    private Use use;
+//    /**
+//     * 스탬프를 사용했을 때 해당 사용 이력
+//     */
+//    private Use use;
 
     /**
      * 스탬프를 소지(획득) 한 회원

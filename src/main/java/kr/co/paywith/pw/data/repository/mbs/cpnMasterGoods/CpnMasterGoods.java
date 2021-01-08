@@ -24,9 +24,8 @@ import java.time.ZonedDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
+@ToString(exclude = {"cpnMaster"})
 public class CpnMasterGoods {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

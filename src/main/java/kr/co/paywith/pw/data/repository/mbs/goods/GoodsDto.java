@@ -73,5 +73,4 @@ public class GoodsDto {
      */
     private List<GoodsApply> goodsApplyList;
 
- //   private Brand brand;
 }

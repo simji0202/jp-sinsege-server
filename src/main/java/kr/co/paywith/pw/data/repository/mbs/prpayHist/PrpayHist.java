@@ -1,20 +1,26 @@
 package kr.co.paywith.pw.data.repository.mbs.prpayHist;
 
+import java.time.ZonedDateTime;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.PrpayHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
-import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import kr.co.paywith.pw.common.NameDescription;
-import javax.persistence.*;
-
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -39,11 +45,12 @@ public class PrpayHist {
 	 */
 	@ManyToOne
 	private Chrg chrg;
+
 	/**
-	 * 사용 이력
+	 * 선불카드 결제 이력
 	 */
 	@ManyToOne
-	private Use use;
+	private DelngPayment delngPayment;
 
 
 	@ManyToOne

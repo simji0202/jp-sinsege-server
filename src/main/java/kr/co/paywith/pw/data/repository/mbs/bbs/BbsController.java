@@ -2,12 +2,14 @@ package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
+import java.util.Map;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import kr.co.paywith.pw.data.repository.mbs.bbs.*;
+import kr.co.paywith.pw.data.repository.mbs.bbs.Bbs;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,7 +56,6 @@ public class BbsController extends CommonController {
             return badRequest(errors);
         }
 
-
         // 입력값 체크
         bbsValidator.validate(bbsDto, errors);
         if (errors.hasErrors()) {
@@ -64,6 +65,13 @@ public class BbsController extends CommonController {
 
         // 입력값을 브랜드 객채에 대입
         Bbs bbs = modelMapper.map(bbsDto, Bbs.class);
+
+        bbs.setCreateBy(currentUser.getAccountId());
+        bbs.setUserInfo(currentUser.getUserInfo());
+        if (currentUser.getMrhstTrmnl() != null) {
+            bbs.setMrhst(currentUser.getMrhstTrmnl().getMrhst());
+        }
+
 
         // 레코드 등록
         Bbs newBbs = bbsService.create(bbs);
@@ -109,9 +117,16 @@ public class BbsController extends CommonController {
             booleanBuilder.and(qBbs.bbsSj.containsIgnoreCase(searchForm.getBbsSj()));
         }
 
-        //
-
-
+        // 삭제 레코드 포함 여부
+        if (searchForm.getDelYn() != null) {
+            if ("Y".equals(searchForm.getDelYn())) {
+                // 삭제 게시물만
+                booleanBuilder.and(qBbs.delFl.isTrue());
+            } else {
+                // 삭제되지 않은 게시물만
+                booleanBuilder.and(qBbs.delFl.isFalse());
+            }
+        }
 
         Page<Bbs> page = this.bbsRepository.findAll(booleanBuilder, pageable);
         var pagedResources = assembler.toResource(page, e -> new BbsResource(e));
@@ -180,6 +195,12 @@ public class BbsController extends CommonController {
         // 기존 정보 취득
         Bbs existBbs = bbsOptional.get();
 
+        // 권한 체크
+        this.bbsValidator.validate(currentUser, existBbs, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
         // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
         // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
         Bbs saveBbs = this.bbsService.update(bbsUpdateDto, existBbs);
@@ -190,6 +211,38 @@ public class BbsController extends CommonController {
 
         // 정상적 처리
         return ResponseEntity.ok(bbsResource);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeBbs(@PathVariable Integer id,
+        @RequestBody(required = false) BbsDeleteDto bbsDeleteDto,
+        Errors errors,
+        @CurrentUser Account currentUser) {
+        // 입력체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        Optional<Bbs> bbsOptional = this.bbsRepository.findById(id);
+
+        if (bbsOptional.isEmpty()) {
+            // 404 Error return
+            return ResponseEntity.notFound().build();
+        }
+
+        Bbs bbs = bbsOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.bbsValidator.validate(currentUser, bbs, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        bbs.setDeleteBy(currentUser.getAccountId());
+        bbsService.delete(bbs);
+
+        // 정상적 처리
+        return ResponseEntity.ok().build();
     }
 }
 

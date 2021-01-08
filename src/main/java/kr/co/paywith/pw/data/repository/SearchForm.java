@@ -31,6 +31,8 @@ public class SearchForm {
   @NameDescription("사용처리 Id")
   private Long useId;
 
+  @NameDescription("삭제/취소 레코드 포함 여부. 삭제만(Y), 삭제제외(N), 전체(null)")
+  private String delYn;
 
   // 게시판
 

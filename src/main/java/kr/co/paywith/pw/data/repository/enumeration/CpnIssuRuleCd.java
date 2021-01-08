@@ -16,7 +16,9 @@ public enum CpnIssuRuleCd implements EnumMapperType {
   J("회원 가입"),
   BD("생일"),
   S("스탬프 적립"),
-  SI("스탬프적립 즉시"),
+  // kms: 구조 간편화를 위해 스탬프 쿠폰은 무조건 스케쥴러로 발행하도록 통일 예정
+//  @Deprecated
+//  SI("스탬프적립 즉시"),
   GU("등급 상승");
 
   private String title;

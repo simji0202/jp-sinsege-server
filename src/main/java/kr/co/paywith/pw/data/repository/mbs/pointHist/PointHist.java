@@ -1,20 +1,30 @@
 package kr.co.paywith.pw.data.repository.mbs.pointHist;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.ZonedDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.PointHistCd;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
+import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -86,11 +96,10 @@ public class PointHist {
 
 	// 사용금액 비율 -> 포인트
 	/**
-	 * 관계있는 사용 이력
+	 * 관계있는 거래 이력
 	 */
-	// kms: UserInfo 가 아닌 Use
 	@OneToOne
-	private Use use;
+	private Delng delng;
 
 	// che  UserInfo 가 중복 사용중 확인 필요
 //	@OneToOne

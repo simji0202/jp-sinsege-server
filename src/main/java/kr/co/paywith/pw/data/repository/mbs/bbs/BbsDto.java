@@ -19,11 +19,6 @@ import java.util.List;
 public class BbsDto {
 
     /**
-     * 게시물 일련번호
-     */
-    private Integer id;
-
-    /**
      * 게시물 구분코드
      */
     private BbsTypeCd bbsTypeCd;
@@ -49,29 +44,17 @@ public class BbsDto {
     private String imgUrl;
 
     /**
-     * 게시물 조회수
-     */
-    private Integer viewCnt = 0;
-    /**
      * 게시물 비밀글 여부
      */
     private Boolean secretFl;
 
-    /**
-     * 게시물 삭제 표시 여부
-     */
-    private Boolean delFl = false;
-
     private UserInfo userInfo;
-
-//    private List<File> fileList;
 
     private Boolean openedFl;
 
     private ZonedDateTime startDttm;
 
     private ZonedDateTime endDttm;
-
 
     private Mrhst mrhst;
 

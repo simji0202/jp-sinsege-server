@@ -1,22 +1,33 @@
 package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
 import com.opencsv.bean.CsvBindByName;
+import java.time.ZonedDateTime;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
+import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 
 /**
@@ -90,14 +101,14 @@ public class StampHist {
     private Grade grade;
 
     /**
-     * 사용 이력
+     * 거래 이력
      * <p>
      * 스탬프 적립 시 / 스탬프 직접 사용 시 연결(이 둘은 useTypeCd로 구분한다).
      * 스탬프 직접 사용은, 사용하지 않을 예정(커피베이에서 사용한 방식)
-     * 사용 저장 후, StampHist 저장
+     * 거래 저장 후, StampHist 저장
      */
     @OneToOne
-    private Use use;
+    private Delng delng;
 
     /**
      * 쿠폰 발급.

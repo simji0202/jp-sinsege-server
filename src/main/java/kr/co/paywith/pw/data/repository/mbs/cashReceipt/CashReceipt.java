@@ -1,15 +1,26 @@
 package kr.co.paywith.pw.data.repository.mbs.cashReceipt;
 
 
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
-import lombok.*;
+import java.time.ZonedDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.time.ZonedDateTime;
-
+// kms: 시스템 내부에서 생성하므로 POST api, DTO 등 불필요
 /**
  * 현금영수증
  */
@@ -40,17 +51,18 @@ public class CashReceipt {
   @Column(length = 8)
   private String orgTradeDate;
 
+  // kms: DelngPayment로 연결 변경 예정
   /**
    * 현금영수증 발급 한 사용이력
    */
-  @ManyToOne
-  private Use use;
+  @OneToOne
+  private DelngPayment delngPayment;
 
-  /**
-   * 사용이력 일련번호
-   */
-  @Column
-  private Long useSn;
+//  /**
+//   * 사용이력 일련번호
+//   */
+//  @Column
+//  private Long useSn;
 
   /**
    * 등록 일시

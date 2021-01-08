@@ -46,12 +46,6 @@ public class GoodsControllerTest extends BaseControllerTest {
           goods.setGoodsAmt(1000);
           goods.setActiveFl(false);
 
-
-		 Brand brand = new Brand();
-		 brand.setId(1);
-
-
-
 		  mockMvc.perform(post("/api/goods/")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")

@@ -11,7 +11,7 @@ public enum ScoreRuleTypeCd implements EnumMapperType {
   SCR("구매 상품 점수"),
   UA("구매 금액"),
   UM("구매 횟수 "),
-  PA("결제(Payment) 금액"),
+  PA("결제(DelngPayment) 금액"),
   USC("스탬프 개수(자동)"),
   SC("스탬프 개수");
 

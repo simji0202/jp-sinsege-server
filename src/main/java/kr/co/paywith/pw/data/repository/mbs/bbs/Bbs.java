@@ -81,6 +81,9 @@ public class Bbs {
      */
     private Boolean delFl = false;
 
+    /**
+     * 조회가능한 회원. QnA 등에서 관리자와 회원, 매장과 회원 간 글 작성에 활용
+     */
     @ManyToOne
     private UserInfo userInfo;
 
@@ -100,6 +103,9 @@ public class Bbs {
      */
     private ZonedDateTime endDttm;
 
+    /**
+     * 조회가능한 매장. QnA 등에서 관리자와 회원, 매장과 회원 간 글 작성에 활용. 매장 공지에 활용
+     */
     @ManyToOne
     private Mrhst mrhst;
 
@@ -117,11 +123,13 @@ public class Bbs {
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
 
-
     @NameDescription("갱신담당자")
     private String updateBy;
 
     @NameDescription("등록담당자")
     private String createBy;
+
+    @NameDescription("삭제담당자")
+    private String deleteBy;
 
 }

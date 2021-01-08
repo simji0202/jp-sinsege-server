@@ -93,10 +93,6 @@ public class Goods {
   @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
   private List<GoodsApply> goodsApplyList;
 
-  // che2 : GoodsGrp에서 브랜드 관리
-//  @ManyToOne
-//  private Brand brand;
-
   /**
    * 등록 일시
    */

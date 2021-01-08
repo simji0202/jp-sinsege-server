@@ -15,6 +15,8 @@ public class GoodsValidator {
 
     ValidatorUtils.checkInteger(goodsDto.getScorePlusCnt(), "스탬프 개수", errors, false, 0, null);
 
+    ValidatorUtils.checkObjectNull(goodsDto.getGoodsGrp(), "상품 그룹", errors);
+
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
@@ -24,6 +26,8 @@ public class GoodsValidator {
     ValidatorUtils.checkInteger(goodsUpdateDto.getScorePlusCnt(), "상품 점수", errors, false, 0, null);
 
     ValidatorUtils.checkInteger(goodsUpdateDto.getScorePlusCnt(), "스탬프 개수", errors, false, 0, null);
+
+    ValidatorUtils.checkObjectNull(goodsUpdateDto.getGoodsGrp(), "상품 그룹", errors);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
