@@ -1,19 +1,18 @@
 package kr.co.paywith.pw.data.repository.mbs.prpayHist;
 
+import java.time.ZonedDateTime;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.PrpayHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import java.time.ZonedDateTime;
 
 @Data
 @Builder
@@ -34,11 +33,12 @@ public class PrpayHistDto {
      */
     @ManyToOne
     private Chrg chrg;
+
     /**
-     * 사용 이력
+     * 선불카드 결제 이력
      */
     @ManyToOne
-    private Use use;
+    private DelngPayment delngPayment;
 
 
     @ManyToOne

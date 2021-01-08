@@ -44,9 +44,6 @@ public class StampHistController extends CommonController {
 	 @Autowired
 	 StampHistService stampHistService;
 
-	 @Autowired
-	 private BrandService brandService;
-
 	 /**
 	  * 정보 등록
 	  */
@@ -199,14 +196,6 @@ public class StampHistController extends CommonController {
 			return badRequest(errors);
 		}
 
-		StampHistDeleteDto stampHistDeleteDto = new StampHistDeleteDto();
-		stampHistDeleteDto.setId(id);
-		// 논리적 오류 (제약조건) 체크
-		this.stampHistValidator.validate(stampHistDeleteDto, errors);
-		if (errors.hasErrors()) {
-			return badRequest(errors);
-		}
-
 		Optional<StampHist> stampHistOptional = this.stampHistRepository.findById(id);
 
 		if (stampHistOptional.isEmpty()) {
@@ -214,19 +203,17 @@ public class StampHistController extends CommonController {
 			return ResponseEntity.notFound().build();
 		}
 
-		// 취소 가능한 관리자 / 매장 확인
+
 		StampHist stampHist = stampHistOptional.get();
-		if (
-				(currentUser.getAdmin() != null &&
-						!brandService.hasAuthorization(
-								currentUser.getAdmin().getBrand(), stampHist.getMrhst().getBrand())) || //
-		(currentUser.getMrhstTrmnl() != null &&
-				!stampHist.getMrhst().getId()
-						.equals(currentUser.getMrhstTrmnl().getMrhst().getId())) || // 거래 매장일 경우
-				currentUser.getUserInfo() != null
-		){
-			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+
+		// 논리적 오류 (제약조건) 체크
+		this.stampHistValidator.validate(currentUser, stampHist, errors);
+		if (errors.hasErrors()) {
+			return badRequest(errors);
 		}
+
+		// 취소 가능한 관리자 / 매장 확인
+
 
 		stampHistService.delete(stampHist);
 

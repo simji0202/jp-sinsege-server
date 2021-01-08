@@ -93,9 +93,6 @@ public class Goods {
   @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
   private List<GoodsApply> goodsApplyList;
 
-  @ManyToOne
-  private Brand brand;
-
   /**
    * 등록 일시
    */

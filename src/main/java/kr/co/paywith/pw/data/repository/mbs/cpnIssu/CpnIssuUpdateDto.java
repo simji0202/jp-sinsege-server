@@ -1,13 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
-import javax.persistence.ManyToOne;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
-import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
 import lombok.*;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 /**
  * 쿠폰 발급(대장)

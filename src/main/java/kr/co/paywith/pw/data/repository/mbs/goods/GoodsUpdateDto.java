@@ -18,11 +18,6 @@ import java.util.List;
 public class GoodsUpdateDto {
 
     /**
-     * 상품 일련번호
-     */
-    private Integer id;
-
-    /**
      * 상품 코드 (POS 연동)
      */
     @CsvBindByName(column = "Code")
@@ -76,5 +71,4 @@ public class GoodsUpdateDto {
      */
     private List<GoodsApply> goodsApplyList;
 
-    private Brand brand;
 }

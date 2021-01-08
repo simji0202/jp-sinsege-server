@@ -161,6 +161,13 @@ public class CpnController extends CommonController {
                                    @RequestBody @Valid CpnUpdateDto cpnUpdateDto,
                                    Errors errors,
                                    @CurrentUser Account currentUser) {
+        if (currentUser.getAdmin() == null ||
+            currentUser.getAdmin().getId() == null) {
+            // 회원은 쿠폰 정보를 업데이트 할 수 없음.
+            // 관리자는 만료 처리가 가능
+            errors.reject("권한 없음", "쿠폰 정보 수정 권한이 없습니다");
+        }
+
         // 입력체크
         if (errors.hasErrors()) {
             return badRequest(errors);

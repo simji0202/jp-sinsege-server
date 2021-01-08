@@ -19,16 +19,6 @@ import java.util.List;
 @Data
 public class BbsUpdateDto {
 
-    /**
-     * 게시물 일련번호
-     */
-    private Integer id;
-
-    /**
-     * 게시물 구분코드
-     */
-    private BbsTypeCd bbsTypeCd;
-
 //    /**
 //     * 부모 게시물 일련번호
 //     */
@@ -49,11 +39,6 @@ public class BbsUpdateDto {
      * 배너 등에 사용할 이미지 웹 경로
      */
     private String imgUrl;
-
-    /**
-     * 게시물 조회수
-     */
-    private Integer viewCnt = 0;
     /**
      * 게시물 비밀글 여부
      */
@@ -65,8 +50,6 @@ public class BbsUpdateDto {
     private Boolean delFl = false;
 
     private UserInfo userInfo;
-
-//    private List<File> fileList;
 
     private Boolean openedFl;
 

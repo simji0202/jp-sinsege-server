@@ -31,8 +31,11 @@ public class MrhstService {
             mrhst.setCorpNo(mrhst.getCorpNo().replaceAll("-", "").trim());
         }
 
-        mrhst.setCoords(
-            GeoLocationUtil.makeGeometry(mrhst.getLat(), mrhst.getLng()).getInteriorPoint());
+        // 위도 경도 정보가 있다면 좌표 추가
+        if (mrhst.getLat() != null && mrhst.getLng() != null) {
+            mrhst.setCoords(
+                GeoLocationUtil.makeGeometry(mrhst.getLat(), mrhst.getLng()).getInteriorPoint());
+        }
 
         // 데이터베이스 값 갱신
         Mrhst newMrhst = this.mrhstRepository.save(mrhst);
@@ -59,8 +62,11 @@ public class MrhstService {
             existMrhst.setCorpNo(existMrhst.getCorpNo().replaceAll("-", "").trim());
         }
 
-        existMrhst.setCoords(
-            GeoLocationUtil.makeGeometry(existMrhst.getLat(), existMrhst.getLng()).getInteriorPoint());
+        // 위도 경도 정보가 있다면 좌표 추가
+        if (existMrhst.getLat() != null && existMrhst.getLng() != null) {
+            existMrhst.setCoords(
+                GeoLocationUtil.makeGeometry(existMrhst.getLat(), existMrhst.getLng()).getInteriorPoint());
+        }
 
         // 데이터베이스 값 갱신
         this.mrhstRepository.save(existMrhst);

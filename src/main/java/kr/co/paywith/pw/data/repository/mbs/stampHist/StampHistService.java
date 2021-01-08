@@ -142,8 +142,7 @@ public class StampHistService {
           BooleanBuilder booleanBuilder = new BooleanBuilder();
           booleanBuilder.and(qCpn.userInfo.id.eq(stampHist.getUserInfo().getId())); // 본인
           booleanBuilder.and(qCpn.cpnSttsCd.eq(CpnSttsCd.AVAIL)); // 사용 가능한 쿠폰
-          booleanBuilder.and(qCpn.cpnIssu.cpnRule.cpnIssuRuleCd.eq(CpnIssuRuleCd.S)
-              .or(qCpn.cpnIssu.cpnRule.cpnIssuRuleCd.eq(CpnIssuRuleCd.SI))); // 스탬프 적립으로 발급한 쿠폰
+          booleanBuilder.and(qCpn.cpnIssu.cpnIssuRule.cpnIssuRuleCd.eq(CpnIssuRuleCd.S)); // 스탬프 적립으로 발급한 쿠폰
 
 
             // che2 : 일단 커맨드 처리

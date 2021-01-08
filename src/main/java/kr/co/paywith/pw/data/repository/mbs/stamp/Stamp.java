@@ -1,21 +1,23 @@
 package kr.co.paywith.pw.data.repository.mbs.stamp;
 
+import java.time.ZonedDateTime;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import kr.co.paywith.pw.common.NameDescription;
-import javax.persistence.*;
-
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -51,11 +53,11 @@ public class Stamp {
 	@ManyToOne
 	private Cpn cpn;
 
-	/**
-	 * 스탬프를 사용했을 때 해당 사용 이력
-	 */
-	@ManyToOne
-	private Use use;
+//	/**
+//	 * 스탬프를 사용했을 때 해당 사용 이력
+//	 */
+//	@ManyToOne
+//	private DelngPayment delngPayment;
 
 	// stampHist.UserInfo
 //	/**

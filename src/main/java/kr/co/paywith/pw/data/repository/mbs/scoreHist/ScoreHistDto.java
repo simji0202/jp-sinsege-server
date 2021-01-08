@@ -1,17 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.scoreHist;
 
+import java.time.ZonedDateTime;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
-import kr.co.paywith.pw.data.repository.mbs.payment.Payment;
+import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.scoreRule.ScoreRule;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.ZonedDateTime;
 
 @Data
 @Builder
@@ -50,20 +48,9 @@ public class ScoreHistDto {
     private Chrg chrg;
 
     /**
-     * 결제 이력
+     * 거래 이력
      */
-    private Payment payment;
-
-    /**
-     * 결제 이력 일련번호
-     */
-    private Long paymentSn;
-
-    /**
-     * 사용 이력
-     */
-    private Use use;
-
+    private Delng delng;
 
     /**
      * 스탬프 이력

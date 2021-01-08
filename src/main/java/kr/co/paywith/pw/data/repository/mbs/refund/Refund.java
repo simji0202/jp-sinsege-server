@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.refund;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.mbs.payment.Payment;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -31,7 +31,7 @@ public class Refund {
 	 * 결제
 	 */
 	@OneToOne
-	private Payment payment;
+	private DelngPayment delngPayment;
 
 	/**
 	 * 환불 금액

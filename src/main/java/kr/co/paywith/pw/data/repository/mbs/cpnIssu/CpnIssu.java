@@ -1,13 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 import java.util.ArrayList;
-import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
-import kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods.CpnMasterGoods;
-import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
-import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssuRule.CpnIssuRule;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -19,6 +15,10 @@ import java.util.List;
 
 /**
  * 쿠폰 발급 (대장)
+ *
+ * CpnIssuRule에 의해서 발급, 혹은 관리자가 대상을 임의로 지정해서 발급.
+ *
+ * 선불카드 충전, 선불카드 사용, 상품 구매, 등급별로 정기 발급 등의 이벤트를 고려하여 개발
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -78,7 +78,7 @@ public class CpnIssu {
      * 쿠폰 발급 규칙
      */
     @ManyToOne
-    private CpnRule cpnRule;
+    private CpnIssuRule cpnIssuRule;
 
 //    /**
 //     * 충전 이력

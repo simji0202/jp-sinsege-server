@@ -1,22 +1,19 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
-import java.util.ArrayList;
-import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
-import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
-import kr.co.paywith.pw.data.repository.mbs.cpnRule.CpnRule;
-import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.mbs.use.Use;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
+import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssuRule.CpnIssuRule;
+import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
+import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 쿠폰 발급(대장)
@@ -68,7 +65,7 @@ public class CpnIssuDto {
   /**
    * 쿠폰 발급 규칙
    */
-  private CpnRule cpnRule;
+  private CpnIssuRule cpnIssuRule;
 
   /**
    * 충전 이력 충전으로 발급한 쿠폰일 때 사용
@@ -76,8 +73,8 @@ public class CpnIssuDto {
   private Chrg chrg;
 
   /**
-   * 사용 이력 사용으로 발급한 쿠폰일 때 사용
+   * 구매 이력. 구매로 발급한 쿠폰일 때 사용
    */
-  private Use use;
+  private Delng delng;
 
 }

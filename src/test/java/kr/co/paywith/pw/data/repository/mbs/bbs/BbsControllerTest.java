@@ -110,10 +110,9 @@ public class BbsControllerTest extends BaseControllerTest {
 
 		  // Given
 		  BbsDto bbs = new BbsDto();
-		  bbs.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/bbs/{id}", bbs.getId())
+		  this.mockMvc.perform(put("/api/bbs/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 
