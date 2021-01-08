@@ -50,7 +50,6 @@ public class GoodsControllerTest extends BaseControllerTest {
 		 Brand brand = new Brand();
 		 brand.setId(1);
 
-		 goods.setBrand(brand);
 
 
 		  mockMvc.perform(post("/api/goods/")

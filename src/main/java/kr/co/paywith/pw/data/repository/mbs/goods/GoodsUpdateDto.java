@@ -76,5 +76,5 @@ public class GoodsUpdateDto {
      */
     private List<GoodsApply> goodsApplyList;
 
-    private Brand brand;
+   //  private Brand brand;
 }

@@ -76,7 +76,7 @@ public class Goods {
   /**
    * 상품 그룹(카테고리)
    */
-  @ManyToOne
+  @OneToOne
   private GoodsGrp goodsGrp;
 
   /**
@@ -93,8 +93,9 @@ public class Goods {
   @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
   private List<GoodsApply> goodsApplyList;
 
-  @ManyToOne
-  private Brand brand;
+  // che2 : GoodsGrp에서 브랜드 관리
+//  @ManyToOne
+//  private Brand brand;
 
   /**
    * 등록 일시

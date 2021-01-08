@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsApply;
 
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.stamp.Stamp;
 import lombok.*;
@@ -28,7 +29,7 @@ public class GoodsApply {
   private Goods goods;
 
   @OneToOne
-  private Cpn cpn;
+  private CpnMaster cpnMaster;
 
 
 }

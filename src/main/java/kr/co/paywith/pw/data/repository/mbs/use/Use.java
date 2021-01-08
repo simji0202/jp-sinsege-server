@@ -79,8 +79,6 @@ public class  Use {
     @CsvBindByName(column = "Type")
     private UseTypeCd useTypeCd;
 
-
-
     /**
      * 취소 일시
      */
