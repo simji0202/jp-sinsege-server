@@ -131,8 +131,9 @@ public class CpnIssuRule {
      */
     private Integer dayBeforeBrth;
 
-    @ManyToOne
-    private Brand brand;
+    // che2 : cpnMaster 에 선언된  Brand 참조
+//    @ManyToOne
+//    private Brand brand;
 
     /**
      * 등록 일시

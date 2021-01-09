@@ -11,6 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
+import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -52,11 +53,11 @@ public class DelngGoodsOpt {
      */
     private Integer cpnAmt;
 
-    /**
-     * 거래 상품(옵션)
-     */
-    @ManyToOne
-    private Goods goods;
+//    /**
+//     * 거래 상품(옵션)
+//     */
+//    @ManyToOne
+//    private Goods goods;
 
     /**
      * 거래 상품(옵션) 수량
@@ -69,12 +70,12 @@ public class DelngGoodsOpt {
      * 거래 상품
      */
     @ManyToOne
-    private DelngGoodsOpt delngGoods;
+    private DelngGoods delngGoods;
 
-    /**
-     * 사용한 상품(옵션) 쿠폰
-     */
-    @OneToOne
-    private Cpn cpn;
+//    /**
+//     * 사용한 상품(옵션) 쿠폰
+//     */
+//    @OneToOne
+//    private Cpn cpn;
 
 }

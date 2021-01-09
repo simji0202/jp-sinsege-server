@@ -30,7 +30,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
                 // 인증없이 리소스 참조 API
                 .mvcMatchers("/api/front/**").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/api/admin/noauth").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/userInfo/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/admin/idchk").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/bbs").permitAll()
                 .mvcMatchers(" /swagger-resources/**").permitAll()
