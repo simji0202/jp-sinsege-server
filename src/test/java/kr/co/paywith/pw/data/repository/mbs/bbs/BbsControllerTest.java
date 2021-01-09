@@ -42,6 +42,8 @@ public class BbsControllerTest extends BaseControllerTest {
 
 
 
+
+
 		  mockMvc.perform(post("/api/bbs/")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")

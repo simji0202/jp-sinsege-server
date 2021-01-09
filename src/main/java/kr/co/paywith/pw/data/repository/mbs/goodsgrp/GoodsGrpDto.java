@@ -1,9 +1,14 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.ZonedDateTime;
 
 /**
@@ -27,6 +32,7 @@ public class GoodsGrpDto {
      */
     private String goodsGrpCd;
 
+    // kms: 2차 3차 그룹이 있다면 필드를 어떻게 관리할지 확인 필요
     /**
      * 부모 상품 그룹 일련번호
      */
@@ -40,16 +46,9 @@ public class GoodsGrpDto {
     /**
      * 사용 여부
      */
-    private Boolean activeFl = true;
+    private Boolean activeFl = false;
 
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    // che2 : 추가
+    private Brand brand;
+
 }

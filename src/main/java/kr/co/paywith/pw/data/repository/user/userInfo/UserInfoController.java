@@ -52,7 +52,7 @@ public class UserInfoController extends CommonController {
         }
 
         // 입력값 체크
-        this.userInfoValidator.validate(userInfoDto, errors);
+        userInfoValidator.validate(userInfoDto, errors);
         if (errors.hasErrors()) {
             return badRequest(errors);
         }

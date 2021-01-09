@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrpDto;
 import org.junit.Before;
@@ -41,8 +42,16 @@ public class GoodsGrpControllerTest extends BaseControllerTest {
 
 		  GoodsGrp goodsGrp = new GoodsGrp();
 		  goodsGrp.setGoodsGrpCd("2131324");
-		  goodsGrp.setGoodsGrpNm("testfa23332");
+		  goodsGrp.setGoodsGrpNm("커피식품");
 		  goodsGrp.setActiveFl(false);
+		  goodsGrp.setSort(1);
+
+
+		  Brand brand = new Brand();
+		  brand.setId(1);
+
+		  goodsGrp.setBrand(brand);
+
 
 
 

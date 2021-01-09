@@ -241,9 +241,5 @@ public class AdminController {
 
         // 정상적 처리
         return ResponseEntity.ok(adminResource);
-
     }
-
-
-
 }

@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
+import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,17 @@ public class GoodsControllerTest extends BaseControllerTest {
 		  Goods goods = new Goods();
 
 		  goods.setGoodsCd("1234567890");
-		  goods.setGoodsNm("아메리카노 핫   ");
-		  goods.setGoodsCn("지적 구운 아메리카노 ");
+		  goods.setGoodsNm("아메리카노 아이스");
+		  goods.setGoodsCn("아메  아메리카노 ");
           goods.setGoodsAmt(1000);
           goods.setActiveFl(false);
+
+
+		 GoodsGrp goodsGrp  = new  GoodsGrp();
+		 goodsGrp.setId(5);
+
+		 goods.setGoodsGrp(goodsGrp);
+
 
 		  mockMvc.perform(post("/api/goods/")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))

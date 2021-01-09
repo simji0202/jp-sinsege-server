@@ -60,7 +60,6 @@ public class GoodsDto {
     /**
      * 상품 그룹(카테고리)
      */
-    @ManyToOne
     private GoodsGrp goodsGrp;
 
     /**
