@@ -74,13 +74,11 @@ public class GoodsGrp {
 
     /**
      * 추가한 관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
      */
     private String createBy;
 
     /**
      * 변경한  관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
      */
     private String updateBy;
 

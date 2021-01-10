@@ -51,12 +51,9 @@ public class Cate {
 //	@JoinColumn(name = "parent_id", nullable = true)
 //	private List<Cate> subCateList;
 
-	@Column(name = "parent_id")
 	private Integer parentId;
 
-	@Column(name = "use_fl")
 	private Boolean useFl;
-
 
 	/**
 	 * 등록 일시

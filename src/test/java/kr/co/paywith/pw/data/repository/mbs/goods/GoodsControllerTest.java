@@ -42,7 +42,7 @@ public class GoodsControllerTest extends BaseControllerTest {
 		  Goods goods = new Goods();
 
 		  goods.setGoodsCd("1234567890");
-		  goods.setGoodsNm("아메리카노 아이스");
+		  goods.setGoodsNm("라테  hot");
 		  goods.setGoodsCn("아메  아메리카노 ");
           goods.setGoodsAmt(1000);
           goods.setActiveFl(false);
