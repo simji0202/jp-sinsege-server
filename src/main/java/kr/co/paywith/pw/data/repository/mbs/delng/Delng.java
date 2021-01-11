@@ -78,6 +78,7 @@ public class Delng {
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
     private DelngTypeCd delngTypeCd;
+
     /**
      * 취소 클라이언트 IP
      */
@@ -89,34 +90,35 @@ public class Delng {
     private ZonedDateTime delngDttm;
 
     /**
-     * 거래 금액. 쿠폰 할인 등이 있다면 할인 전의 금액.
+     * 거래 금액. 상품에 적용한 쿠폰이 있다면 그 할인금액을 제외한 상품금액의 합.
+     * delngPaymentList의 합과 같아야 한다
      *
      * 회원이 저장한다면, 조작을 막기 위해 검증을 함.
-     * 이 delngAmt 금액과 delngGoodsList.delngAmt*delngCnt의 금액 합이 같아야 한다
      */
     private Integer delngAmt;
 
-    /**
-     * 쿠폰으로 할인 받는 금액. cpnAmt, cpnRatio 중 주문에 사용된 실제 금액
-     */
-    private Integer cpnAmt;
+    // kms: delngPayment로 이동
+//    /**
+//     * 쿠폰으로 할인 받는 금액. cpnAmt, cpnRatio 중 주문에 사용된 실제 금액
+//     */
+//    private Integer cpnAmt;
 
-    /**
-     * 사용한 금액 쿠폰
-     */
-    @OneToOne
-    private Cpn cpn;
+//    /**
+//     * 사용한 금액 쿠폰
+//     */
+//    @OneToOne
+//    private Cpn cpn;
 
-    /**
-     * 상품권 적용 금액.
-     */
-    private Integer gcctAmt;
+//    /**
+//     * 상품권 적용 금액.
+//     */
+//    private Integer gcctAmt;
 
-    /**
-     * 상품권. 단순한 금액 상품권(선불카드와 유사)
-     */
-    @OneToOne
-    private Gcct gcct;
+//    /**
+//     * 상품권. 단순한 금액 상품권(선불카드와 유사)
+//     */
+//    @OneToOne
+//    private Gcct gcct;
 
     /**
      * 회원

@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -37,19 +38,11 @@ public class GoodsGrpDto {
      */
     private Integer sort;
 
+    private Brand brand;
+
     /**
      * 사용 여부
      */
     private Boolean activeFl = true;
 
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
 }

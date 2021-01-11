@@ -62,7 +62,6 @@ public class CpnIssuDto {
    */
   private List<Cpn> cpnList = new ArrayList<>();
 
-
   /**
    * 쿠폰 발급 규칙
    */

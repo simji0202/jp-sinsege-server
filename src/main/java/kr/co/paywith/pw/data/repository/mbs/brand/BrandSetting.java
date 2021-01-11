@@ -33,12 +33,14 @@ public class BrandSetting {
   private Integer id;
 
   /**
-   * FCM registration id
+   * FCM registration id.
+   * 일반 사용자에게 노출되는건 피하는게 좋음.
    */
   private String fcmKey;
 
   /**
-   * 포스 플랫폼 용 FCM registration id
+   * 포스 플랫폼 용 FCM registration id.
+   * 일반 사용자에게 노출되는건 피하는게 좋음.
    */
   private String posFcmKey;
 

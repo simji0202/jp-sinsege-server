@@ -88,6 +88,11 @@ public class Gcct {
     /**
      * 취소 일시. null 여부로 취소 여부 확인
      */
+    private ZonedDateTime usedDttm;
+
+    /**
+     * 취소 일시. null 여부로 취소 여부 확인
+     */
     private ZonedDateTime cancelRegDttm;
 
     // kms: TODO prx 결제 만들어지면 여기 연결

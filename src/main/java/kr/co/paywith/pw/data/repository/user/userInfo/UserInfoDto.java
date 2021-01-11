@@ -99,14 +99,6 @@ public class UserInfoDto {
      */
     private Integer pointChrged = 0;
 
-
-    /**
-     * 혜택을 받은 최종 등급
-     * <p>
-     * 등급 업 후 등급 업 혜택을 받으면 해당 gradeSn으로 업데이트 한다(강등 후 재차 혜택 받는 것을 방지)
-     */
-    private Integer lastMaxGradeSn;
-
     /**
      * 활성 여부(실제 사용이 가능한 상태)
      */

@@ -2,6 +2,9 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
@@ -91,6 +94,9 @@ public class UserInfoController extends CommonController {
         //
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
+        // 탈퇴해서 개인정보 삭제한 회원은 표시하지 않음
+        booleanBuilder.and(qUserInfo.userId.isNotNull());
+
         // 검색조건 아이디(키)
         if (searchForm.getId() != null) {
             booleanBuilder.and(qUserInfo.id.eq(searchForm.getId()));
@@ -145,6 +151,8 @@ public class UserInfoController extends CommonController {
         if (errors.hasErrors()) {
             return badRequest(errors);
         }
+
+        userInfoUpdateDto.setId(id);
 
         // 논리적 오류 (제약조건) 체크
         this.userInfoValidator.validate(userInfoUpdateDto, errors);
@@ -234,17 +242,7 @@ public class UserInfoController extends CommonController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity removeUserInfo(@PathVariable Integer id,
-        Errors errors,
         @CurrentUser Account currentUser) {
-        // 입력체크
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-        // 논리적 오류 (제약조건) 체크
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
 
         Optional<UserInfo> userInfoOptional = this.userInfoRepository.findById(id);
 
@@ -253,9 +251,11 @@ public class UserInfoController extends CommonController {
             return ResponseEntity.notFound().build();
         }
 
+        // kms: TODO 상태 검증 필요
+
         // 탈퇴 가능한 지(본인 또는 관리자) 확인
         UserInfo userInfo = userInfoOptional.get();
-        if (!currentUser.getUserInfo().getUserId().equals(id) ||
+        if (!currentUser.getUserInfo().getId().equals(id) ||
             false // TODO 관리자 권한일때도 탈퇴처리 가능해야 함
         ) {
           return new ResponseEntity(HttpStatus.UNAUTHORIZED);
@@ -265,6 +265,39 @@ public class UserInfoController extends CommonController {
 
         // 정상적 처리
         return ResponseEntity.ok().build();
+
+    }
+
+    @GetMapping("/checkExist")
+    public ResponseEntity checkExist(UserInfoCheckExistDto userInfoCheckExistDto
+        ) {
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QUserInfo qUserInfo = QUserInfo.userInfo;
+
+        if (userInfoCheckExistDto.getUserId() != null) {
+            booleanBuilder.and(qUserInfo.userId.eq(userInfoCheckExistDto.getUserId()));
+        }
+        if (userInfoCheckExistDto.getCertTypeCd() != null) {
+            booleanBuilder.and(qUserInfo.certTypeCd.eq(userInfoCheckExistDto.getCertTypeCd()));
+        }
+        if (userInfoCheckExistDto.getCertKey() != null) {
+            booleanBuilder.and(qUserInfo.certKey.eq(userInfoCheckExistDto.getCertKey()));
+        }
+        if (userInfoCheckExistDto.getEmailAddr() != null) {
+            booleanBuilder.and(qUserInfo.emailAddr.eq(userInfoCheckExistDto.getEmailAddr()));
+        }
+        if (userInfoCheckExistDto.getMobileNum() != null) {
+            booleanBuilder.and(qUserInfo.mobileNum.eq(
+                userInfoCheckExistDto.getMobileNum().trim().replaceAll("-", "")));
+        }
+
+        List<Integer> idList = new ArrayList<>();
+        for (UserInfo userInfo: userInfoRepository.findAll(booleanBuilder)) {
+            idList.add(userInfo.getId());
+        }
+        // 정상적 처리
+        return ResponseEntity.ok(Map.of("userInfoIdList", idList));
 
     }
 }

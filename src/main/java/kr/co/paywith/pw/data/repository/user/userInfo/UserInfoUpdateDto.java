@@ -30,7 +30,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class UserInfoUpdateDto {
 
 
+    /**
+     * 회원 정보 일련번호.
+     * updateDto에 id를 안 넣는게 맞으나, validator에서 추가와 수정을 구분하며 아이디 중복 확인하기 위해 추가
+     */
     private Integer id;
+
     /**
      * 회원 아이디.
      *
@@ -111,14 +116,6 @@ public class UserInfoUpdateDto {
      * 회원 누적 적립 점수
      */
     private Integer pointChrged = 0;
-
-
-    /**
-     * 혜택을 받은 최종 등급
-     *
-     * 등급 업 후 등급 업 혜택을 받으면 해당 gradeSn으로 업데이트 한다(강등 후 재차 혜택 받는 것을 방지)
-     */
-    private Integer lastMaxGradeSn;
 
     /**
      * 활성 여부(실제 사용이 가능한 상태)

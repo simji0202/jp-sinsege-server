@@ -53,7 +53,8 @@ public class CashReceipt {
 
   // kms: DelngPayment로 연결 변경 예정
   /**
-   * 현금영수증 발급 한 사용이력
+   * 현금영수증 발급 한 사용이력.
+   * DelngPaymentTypeCd.PRPAY 일 때 현금영수증 발급한다
    */
   @OneToOne
   private DelngPayment delngPayment;

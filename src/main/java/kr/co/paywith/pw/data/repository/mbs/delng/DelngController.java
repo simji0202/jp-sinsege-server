@@ -11,6 +11,7 @@ import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,12 +63,16 @@ public class DelngController extends CommonController {
         }
 
 
+        if (DelngTypeCd.APP.equals(delngDto.getDelngTypeCd())) {
+            // 앱 주문일 때는 currentUser.userInfo를 dto 에 설정
+            delngDto.setUserInfo(currentUser.getUserInfo());
+        }
+
         // 입력값 체크
         delngValidator.validate(delngDto, errors);
         if (errors.hasErrors()) {
             return badRequest(errors);
         }
-
 
         // 입력값을 브랜드 객채에 대입
         Delng delng = modelMapper.map(delngDto, Delng.class);

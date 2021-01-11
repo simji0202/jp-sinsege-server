@@ -1,15 +1,24 @@
 package kr.co.paywith.pw.data.repository.user.userDel;
 
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.time.ZonedDateTime;
 
 /**
  * 회원 삭제 정보. 설정한 기간 이후 재가입 가능해진 회원의 개인정보를 별도로 보관.(기존 테이블에 있으면 정보가 중복되므로)
@@ -47,6 +56,17 @@ public class UserDel implements Serializable {
      * 회원 아이디
      */
     private String userId;
+
+    /**
+     * 회원 인증 키
+     */
+    private String certKey;
+
+    /**
+     * 회원 인증 구분
+     */
+    private CertTypeCd certTypeCd;
+
     /**
      * 회원 이름
      */

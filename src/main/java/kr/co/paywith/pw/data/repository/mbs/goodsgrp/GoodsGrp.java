@@ -49,7 +49,7 @@ public class GoodsGrp {
     /**
      * 정렬순서
      */
-    private Integer sort;
+    private Integer sort = 0;
 
     /**
      * 사용 여부
