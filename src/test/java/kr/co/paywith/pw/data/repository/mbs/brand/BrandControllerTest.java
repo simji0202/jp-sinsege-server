@@ -40,12 +40,11 @@ public class BrandControllerTest extends BaseControllerTest {
 
 
     @Test
-    @TestDescription("브랜드를 등록하는 테스트")
+    @TestDescription("기본 브랜드를 등록하는 테스트")
     public void createBrand() throws Exception {
 
-
         Brand brand = new Brand();
-        brand.setBrandNm("채원의식탁");
+        brand.setBrandNm("샐러디");
         brand.setActiveFl(true);
         brand.setBrandCd("1234567890123456");
         brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.CALCU, AvailBrandFnCd.CPN));
@@ -79,6 +78,47 @@ public class BrandControllerTest extends BaseControllerTest {
         ;
 
     }
+
+
+    @Test
+    @TestDescription("커피베이 브랜드를 등록 ")
+    public void createBrand2() throws Exception {
+
+        Brand brand = new Brand();
+        brand.setBrandNm("커피베이");
+        brand.setActiveFl(true);
+        brand.setBrandCd("1234567890123456");
+        brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.CALCU, AvailBrandFnCd.CPN));
+        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
+
+        BrandSetting brandSetting = new BrandSetting();
+        brandSetting.setBizClass("bizClass");
+        brandSetting.setBizType("bizType");
+        brandSetting.setFcmKey("FcmKey");
+
+        // kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
+        brandSetting.setDanalCpid("simji0202");
+        brandSetting.setDanalCppwd("0202");
+
+        brand.setBrandSetting(brandSetting);
+
+
+
+        mockMvc.perform(post("/api/brand/")
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+                .header("Origin", "*")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaTypes.HAL_JSON)
+                .content(objectMapper.writeValueAsString(brand)))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("id").exists())
+                .andExpect(header().exists(HttpHeaders.LOCATION))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
+        ;
+
+    }
+
 
 
     @Test

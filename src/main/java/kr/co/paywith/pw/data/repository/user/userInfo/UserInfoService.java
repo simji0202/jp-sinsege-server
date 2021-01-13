@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.component.StringUtil;
+import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
@@ -15,12 +16,16 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class UserInfoService {
+
+  @Value("${user-info-keep-day}")
+  private Integer userInfoKeepDay = 0;
 
   @Autowired
   UserInfoRepository userInfoRepository;
@@ -154,6 +159,12 @@ public class UserInfoService {
     // 활설 - 비활성 상태 바꿀 때 outDttm 변경
     userInfo.setOutDttm(ZonedDateTime.now());
     userInfo.setActiveFl(false);
+
+    if (userInfoKeepDay == 0) {
+      // 탈퇴회원 정보 보유기간이 없으므로 바로 삭제
+      delete(userInfo);
+    }
+    userInfoRepository.save(userInfo);
   }
 
   // TODO 스케쥴러로 주기적으로 실행하게 개발 필요
@@ -166,6 +177,10 @@ public class UserInfoService {
     UserDel userDel = new UserDel();
     userDel.setUserId(userInfo.getUserId());
     userInfo.setUserId(null);
+    userDel.setCertKey(userInfo.getCertKey());
+    userInfo.setCertKey(null);
+    userDel.setCertTypeCd(userInfo.getCertTypeCd());
+    userInfo.setCertTypeCd(null);
     userDel.setUserNm(userInfo.getUserNm());
     userInfo.setUserNm(null);
     userDel.setNickNm(userInfo.getNickNm());

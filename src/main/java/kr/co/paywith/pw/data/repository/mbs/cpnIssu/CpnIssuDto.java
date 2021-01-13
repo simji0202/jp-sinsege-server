@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /**
  * 쿠폰 발급(대장)
  */
@@ -62,20 +66,8 @@ public class CpnIssuDto {
    */
   private List<Cpn> cpnList = new ArrayList<>();
 
-
   /**
    * 쿠폰 발급 규칙
    */
   private CpnIssuRule cpnIssuRule;
-
-  /**
-   * 충전 이력 충전으로 발급한 쿠폰일 때 사용
-   */
-  private Chrg chrg;
-
-  /**
-   * 구매 이력. 구매로 발급한 쿠폰일 때 사용
-   */
-  private Delng delng;
-
 }

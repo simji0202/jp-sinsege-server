@@ -63,7 +63,6 @@ public class GoodsController extends CommonController {
             return badRequest(errors);
         }
 
-
         // 입력값을 브랜드 객채에 대입
         Goods goods = modelMapper.map(goodsDto, Goods.class);
 

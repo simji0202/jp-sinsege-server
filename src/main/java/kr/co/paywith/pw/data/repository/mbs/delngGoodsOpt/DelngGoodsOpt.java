@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
+import kr.co.paywith.pw.data.repository.mbs.gcct.Gcct;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -42,29 +43,34 @@ public class DelngGoodsOpt {
     private Integer id;
 
     /**
-     * 거래 상품 옵션 개별 금액(단가)
+     * 쿠폰 금액 제외하고 결제할 금액
      */
     private Integer delngAmt;
 
     /**
-     * 쿠폰 적용 금액. delngAmt - cpnAmt 만큼 결제가 되어야 한다.
+     * 쿠폰 적용 금액. (goodsAmt * goodsCnt) - cpnAmt 만큼 결제가 되어야 한다.
      *
-     * 조작을 막기 위해 cpn의 할인율과 금액, goods를 확인해서 계산 후 서버에서 입력한다.
+     * 매장에서 보내는게 아니라면, 조작을 막기 위해 cpn의 할인율과 금액, goods를 확인해서 계산 후 서버에서 입력한다.
      */
     private Integer cpnAmt;
 
-//    /**
-//     * 거래 상품(옵션)
-//     */
+
+    // che2 : 필요여부 체크 (20210111)
+    /**
+     * 거래 상품(옵션)
+     */
 //    @ManyToOne
 //    private Goods goods;
 
     /**
      * 거래 상품(옵션) 수량
      */
-    @Max(value = 99)
-    @Min(value = -99)
     private Integer goodsCnt;
+
+    /**
+     * 거래 상품(옵션) 단가
+     */
+    private Integer goodsAmt;
 
     /**
      * 거래 상품
@@ -72,10 +78,17 @@ public class DelngGoodsOpt {
     @ManyToOne
     private DelngGoods delngGoods;
 
+    // che2 : 필요여부 체크 (20210111)
 //    /**
 //     * 사용한 상품(옵션) 쿠폰
 //     */
 //    @OneToOne
 //    private Cpn cpn;
+
+//    /**
+//     * 상품권
+//     */
+//    @OneToOne
+//    private Gcct gcct;
 
 }

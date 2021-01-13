@@ -18,7 +18,7 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
- * 가맹점
+ * 쿠폰
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -69,6 +69,14 @@ public class Cpn {
      * 확인 여부
      */
     private Boolean readFl = false;
+
+
+    /**
+     * 쿠폰 종류
+     */
+    @ManyToOne
+    private CpnMaster cpnMaster;
+
 
 
     @NameDescription("변경 일시")

@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import java.util.Optional;
 import javax.validation.constraints.NotNull;
+import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
@@ -27,8 +28,13 @@ public class UserInfoValidator {
   // 생성
   public void validate(UserInfoDto userInfoDto, Errors errors) {
 
+    ValidatorUtils.checkObjectNull(userInfoDto.getUserId(), "아이디", errors);
+
+    // 비밀번호 필수 확인. GUEST회원은 클라이언트에서 임의로 생성하는 UUID를 넣는데
+    ValidatorUtils.checkObjectNull(userInfoDto.getUserPw(), "비밀번호", errors);
+
     // 아이디 중복 확인
-    if (isIdDuplicated(userInfoDto.getUserId(), userInfoDto.getCertTypeCd(), userInfoDto.getId())) {
+    if (isIdDuplicated(userInfoDto.getUserId(), userInfoDto.getCertTypeCd(), null)) {
       errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
     }
 
@@ -152,7 +158,7 @@ public class UserInfoValidator {
     // UserInfo 중복 조회
     Optional<UserInfo> userInfo = userInfoRepository.findByUserId(userId);
     if (userInfo.isPresent()) { // 수정하는 경우가 있어 분기 처리
-      if (id == null || !id.equals(userInfo.get().getUserId())) { // 본인이 아닌 경우
+      if (id == null || !id.equals(userInfo.get().getId())) { // 본인이 아닌 경우
         return true;
       }
     }

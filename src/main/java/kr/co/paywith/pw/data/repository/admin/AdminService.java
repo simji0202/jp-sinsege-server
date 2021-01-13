@@ -22,9 +22,6 @@ public class AdminService  {
   AdminRepository adminRepository;
 
   @Autowired
-  PasswordEncoder passwordEncoder;
-
-  @Autowired
   private ModelMapper modelMapper;
 
 
@@ -34,7 +31,6 @@ public class AdminService  {
   @Transactional
   public Admin create(Admin admin) {
 
-    admin.setAdminPw(this.passwordEncoder.encode(admin.getAdminPw()));
     return this.adminRepository.save(admin);
   }
 
@@ -59,7 +55,6 @@ public class AdminService  {
   @Transactional
   public Admin updateAdminPw(Admin admin) {
 
-    admin.setAdminPw(this.passwordEncoder.encode(admin.getAdminPw()));
     return this.adminRepository.save(admin);
   }
 

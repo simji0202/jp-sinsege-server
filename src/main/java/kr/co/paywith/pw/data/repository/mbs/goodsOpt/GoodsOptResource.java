@@ -1,7 +1,8 @@
-package kr.co.paywith.pw.data.repository.od.goodsOpt;
+package kr.co.paywith.pw.data.repository.mbs.goodsOpt;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 public class GoodsOptResource extends Resource<GoodsOpt> {

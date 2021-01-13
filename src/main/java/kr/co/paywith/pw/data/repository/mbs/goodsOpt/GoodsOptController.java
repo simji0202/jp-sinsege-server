@@ -1,12 +1,13 @@
-package kr.co.paywith.pw.data.repository.od.goodsOpt;
+package kr.co.paywith.pw.data.repository.mbs.goodsOpt;
 
+import com.querydsl.core.BooleanBuilder;
+import io.swagger.annotations.Api;
+import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import com.querydsl.core.BooleanBuilder;
-import io.swagger.annotations.Api;
-import kr.co.paywith.pw.common.ErrorsResource;import org.modelmapper.ModelMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 public class GoodsOptController extends CommonController {
 
 	 @Autowired
-	 GoodsOptRepository goodsOptRepository;
+     GoodsOptRepository goodsOptRepository;
 
 	 @Autowired
 	 ModelMapper modelMapper;

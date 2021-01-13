@@ -2,8 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,6 +54,7 @@ public class Goods {
    */
   @CsvBindByName(column = "Price")
   private Integer goodsAmt;
+
   /**
    * 사용 여부
    */
@@ -79,19 +79,30 @@ public class Goods {
   @OneToOne
   private GoodsGrp goodsGrp;
 
+
+  /**
+   * 상품 그룹(카테고리)
+   */
+  @OneToMany (cascade = CascadeType.ALL)
+  private List<GoodsOpt> goodsOpts;
+
   /**
    * 상품 이미지 웹 경로
    */
   @Column(nullable = true)
   private String imgUrl;
 
-  /**
-   * 적용 대상 상품 목록.
-   *
-   * ex. 곱빼기 상품은 goodsApplyList에 짜장, 짬뽕 등이 Goods 로 있어야 한다
-   */
-  @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-  private List<GoodsApply> goodsApplyList;
+
+//
+//  /**
+//   * 적용 대상 상품 목록.
+//   *
+//   * ex. 곱빼기 상품은 goodsApplyList에 짜장, 짬뽕 등이 Goods 로 있어야 한다
+//   */
+//  @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+//  private List<GoodsApply> goodsApplyList;
+//
+//
 
   /**
    * 등록 일시

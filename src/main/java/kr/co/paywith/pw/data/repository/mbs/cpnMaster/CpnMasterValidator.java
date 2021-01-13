@@ -15,12 +15,27 @@ public class CpnMasterValidator {
 
     ValidatorUtils.checkInteger(cpnMasterDto.getValidDay(), "유효기간", errors, true, 1, null);
 
+    ValidatorUtils.checkInteger(cpnMasterDto.getCpnAmt(), "할인 금액", errors, false, 1, 99999999);
+
     ValidatorUtils.checkString(cpnMasterDto.getCpnCd(), "쿠폰 코드", errors, false, 1, 20);
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
 
   public void validate(CpnMasterUpdateDto cpnMasterUpdateDto, Errors errors) {
+
+    ValidatorUtils.checkString(cpnMasterUpdateDto.getCpnNm(), "쿠폰 명", errors, true, 1, 100);
+
+    ValidatorUtils.checkInteger(cpnMasterUpdateDto.getValidDay(), "유효기간", errors, true, 1, null);
+
+    ValidatorUtils.checkString(cpnMasterUpdateDto.getCpnCd(), "쿠폰 코드", errors, false, 1, 20);
+
+    // TODO BeginEventDateTime
+    // TODO CloseEnrollmentDateTime
+  }
+
+
+  public void validate(CpnMasterUpdateDto cpnMasterUpdateDto, CpnMaster cpnMaster,  Errors errors) {
 
     ValidatorUtils.checkString(cpnMasterUpdateDto.getCpnNm(), "쿠폰 명", errors, true, 1, 100);
 

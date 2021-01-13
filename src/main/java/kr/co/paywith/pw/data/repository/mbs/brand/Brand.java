@@ -105,6 +105,10 @@ public class Brand implements Serializable {
   @OneToOne(cascade = CascadeType.ALL)
   private BrandSetting brandSetting;
 
+
+  /**
+   * 브랜드 별 앱 버젼등 정보 저장
+   */
   @Column(columnDefinition = "json")
   private String envValueMap;
 

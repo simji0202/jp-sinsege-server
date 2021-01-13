@@ -66,11 +66,6 @@ public class DelngPayment {
   @OneToOne
   private Cpn cpn;
 
-  /**
-   * 거래
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Delng delng;
 
   /**
    * 등록 일시

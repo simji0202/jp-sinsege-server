@@ -199,6 +199,7 @@ public class GcctController extends CommonController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity removeGcct(@PathVariable Integer id,
+      @RequestBody GcctDeleteDto gcctDeleteDto,
       Errors errors,
       @CurrentUser Account currentUser) {
     // 입력체크

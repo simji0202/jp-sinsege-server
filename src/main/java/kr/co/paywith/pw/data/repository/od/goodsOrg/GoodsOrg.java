@@ -3,7 +3,6 @@ package kr.co.paywith.pw.data.repository.od.goodsOrg;
 import javax.persistence.Id;
 
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.od.goodsOpt.GoodsOpt;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -51,8 +50,8 @@ public class GoodsOrg {
 
 	private Boolean useFl;
 
-	@OneToMany
-	private List<GoodsOpt> goodsOptList = new ArrayList<>();
+//	@OneToMany
+//	private List<GoodsOpt> goodsOptList = new ArrayList<>();
 
 	@CreationTimestamp
 	private LocalDateTime regDttm;

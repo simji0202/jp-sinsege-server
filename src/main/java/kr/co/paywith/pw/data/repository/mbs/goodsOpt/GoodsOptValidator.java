@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.od.goodsOpt;
+package kr.co.paywith.pw.data.repository.mbs.goodsOpt;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

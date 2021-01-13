@@ -66,7 +66,7 @@ public class CpnIssuControllerTest extends BaseControllerTest {
         CpnMaster cpnMaster = new CpnMaster();
         cpnMaster.setId(1);
 
-        cpnIssu.setCpnMaster(cpnMaster);
+     //   cpnIssu.setCpnMaster(cpnMaster);
 
 
         mockMvc.perform(post("/api/cpnIssu/")

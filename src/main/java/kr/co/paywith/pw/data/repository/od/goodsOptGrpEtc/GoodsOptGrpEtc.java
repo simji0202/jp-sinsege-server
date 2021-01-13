@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.od.goodsOptGrpEtc;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.od.goodsOpt.GoodsOpt;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import kr.co.paywith.pw.data.repository.od.goodsOptEtc.GoodsOptEtc;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

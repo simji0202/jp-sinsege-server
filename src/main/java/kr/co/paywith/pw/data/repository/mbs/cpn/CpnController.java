@@ -6,6 +6,7 @@ import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import kr.co.paywith.pw.data.repository.mbs.cpn.*;
 import org.apache.commons.lang3.StringUtils;
@@ -102,6 +103,10 @@ public class CpnController extends CommonController  {
 
         //
         BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+
+        // 무효(발급 취소) 된 쿠폰 비표시
+        booleanBuilder.and(qCpn.cpnSttsCd.ne(CpnSttsCd.INVALID));
 
         // 검색조건 아이디(키)
         if (searchForm.getId() != null) {
@@ -215,10 +220,6 @@ public class CpnController extends CommonController  {
         // 정상적 처리
         return ResponseEntity.ok(cpnResource);
     }
-
-
-
-
 }
 
 

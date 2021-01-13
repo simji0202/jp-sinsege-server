@@ -1,9 +1,18 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods.CpnMasterGoods;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,13 +21,6 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.List;
-
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class CpnMasterControllerTest extends BaseControllerTest {
 
@@ -63,15 +65,17 @@ public class CpnMasterControllerTest extends BaseControllerTest {
         goods2.setId(2);
 
 
-        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
-        cpnMasterGoods.setGoods(goods1);
-
-        CpnMasterGoods cpnMasterGoods2 = new CpnMasterGoods();
-        cpnMasterGoods2.setGoods(goods2);
+        // kms: CpnMaster.cpnMasterGoodsList 대신 CpnMaster.goods 하나로 변경. 정책적으로 제한해서 하나만 써도 될 듯 함
+      //  cpnMaster.setGoods(goods1);
+//        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
+//        cpnMasterGoods.setGoods(goods1);
+//
+//        CpnMasterGoods cpnMasterGoods2 = new CpnMasterGoods();
+//        cpnMasterGoods2.setGoods(goods2);
 
 
         //
-        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods, cpnMasterGoods2));
+//        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods, cpnMasterGoods2));
 
 
         mockMvc.perform(post("/api/cpnMaster/")
@@ -152,13 +156,13 @@ public class CpnMasterControllerTest extends BaseControllerTest {
         Goods goods1 = new Goods();
         goods1.setId(4);
 
+        cpnMaster.setGoods(goods1);
 
-
-        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
-        cpnMasterGoods.setGoods(goods1);
-
-        //
-        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods));
+//        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
+//        cpnMasterGoods.setGoods(goods1);
+//
+//        //
+//        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods));
 
 
         // When & Then

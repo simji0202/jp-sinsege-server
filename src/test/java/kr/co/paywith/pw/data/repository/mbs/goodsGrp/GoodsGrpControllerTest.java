@@ -41,18 +41,16 @@ public class GoodsGrpControllerTest extends BaseControllerTest {
 	 public void createGoodsGrp() throws Exception {
 
 		  GoodsGrp goodsGrp = new GoodsGrp();
-		  goodsGrp.setGoodsGrpCd("2131324");
-		  goodsGrp.setGoodsGrpNm("커피식품");
+		  goodsGrp.setGoodsGrpCd("2131325");
+		  goodsGrp.setGoodsGrpNm("set 인기메뉴");
 		  goodsGrp.setActiveFl(false);
 		  goodsGrp.setSort(1);
 
 
 		  Brand brand = new Brand();
-		  brand.setId(1);
+		  brand.setId(2);
 
 		  goodsGrp.setBrand(brand);
-
-
 
 
 		  mockMvc.perform(post("/api/goodsGrp/")
@@ -124,6 +122,7 @@ public class GoodsGrpControllerTest extends BaseControllerTest {
 		  // Given
 		  GoodsGrpDto goodsGrp = new GoodsGrpDto();
 		  goodsGrp.setId(1);
+		  goodsGrp.setGoodsGrpNm("변경된 정보이름");
 
 		  // When & Then
 		  this.mockMvc.perform(put("/api/goodsGrp/{id}", goodsGrp.getId())

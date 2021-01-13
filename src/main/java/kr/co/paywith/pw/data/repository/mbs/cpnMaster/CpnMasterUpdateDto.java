@@ -1,10 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
 
-import java.util.List;
-import javax.persistence.Lob;
-
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.cpnMasterGoods.CpnMasterGoods;
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,9 +41,14 @@ public class CpnMasterUpdateDto {
   private String imgUrl;
 
   /**
-   * 쿠폰 대상 상품 목록
+   * 대상 상품 (적용상품)
    */
-  private List<CpnMasterGoods> cpnMasterGoodsList;
+  private Goods goods;
+
+  /**
+   * 상품 개수
+   */
+  private Integer goodsCnt;
 
   /**
    * 쿠폰 금액. 비율과 같이 사용하면 최대 할인 금액. 실제 상품 금액보다 작다면 이 금액만큼만 할인한다.

@@ -1,18 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.prpay;
 
-import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.PrpaySttsCd;
-import kr.co.paywith.pw.data.repository.mbs.billing.Billing;
 import kr.co.paywith.pw.data.repository.mbs.prpayGoods.PrpayGoods;
-import kr.co.paywith.pw.data.repository.mbs.prpayIssu.PrpayIssu;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.ZonedDateTime;
 
 @Data

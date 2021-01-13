@@ -2,21 +2,12 @@ package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
 
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.ZonedDateTime;
 
 /**
  * 상품 그룹(카테고리)
  */
 @Data
 public class GoodsGrpUpdateDto {
-
-    /**
-     * 상품 그룹 일련번호
-     */
-    private Integer id;
 
     /**
      * 상품 그룹 명

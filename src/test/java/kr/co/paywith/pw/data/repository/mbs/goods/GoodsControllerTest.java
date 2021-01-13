@@ -1,8 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
+import java.util.List;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
+import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,16 +45,36 @@ public class GoodsControllerTest extends BaseControllerTest {
 		  Goods goods = new Goods();
 
 		  goods.setGoodsCd("1234567890");
-		  goods.setGoodsNm("라테  hot");
-		  goods.setGoodsCn("아메  아메리카노 ");
+		  goods.setGoodsNm("아메리카노");
+		  goods.setGoodsCn("상품옵션을 테스트");
           goods.setGoodsAmt(1000);
           goods.setActiveFl(false);
 
 
 		 GoodsGrp goodsGrp  = new  GoodsGrp();
-		 goodsGrp.setId(5);
+		 goodsGrp.setId(1);
 
 		 goods.setGoodsGrp(goodsGrp);
+
+     GoodsOpt goodsOpt = new GoodsOpt();
+     goodsOpt.setOptTitle("기본");
+     goodsOpt.setMultiChoiceFl(true);
+     goodsOpt.setRequiredFl(false);
+     goodsOpt.setActiveFl(true);
+
+     GoodsOptMaster goodsOptMaster = new GoodsOptMaster();
+     goodsOptMaster.setGoodsOptNm("Hot");
+     goodsOptMaster.setGoodsOptAmt(0);
+
+
+
+     GoodsOptMaster goodsOptMaster2 = new GoodsOptMaster();
+     goodsOptMaster2.setGoodsOptNm("ice");
+     goodsOptMaster2.setGoodsOptAmt(500);
+
+     goodsOpt.setGoodsOptMasters(List.of(goodsOptMaster, goodsOptMaster2));
+
+     goods.setGoodsOpts(List.of(goodsOpt));
 
 
 		  mockMvc.perform(post("/api/goods/")
@@ -102,7 +125,7 @@ public class GoodsControllerTest extends BaseControllerTest {
 		  //  Goods goods = this.generateGoods(100);
 
 		  // When & Then
-		  this.mockMvc.perform(get("/api/goods/{id}", 1)
+		  this.mockMvc.perform(get("/api/goods/{id}", 2)
 					 .header("Origin", "*")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 		  )
@@ -125,8 +148,15 @@ public class GoodsControllerTest extends BaseControllerTest {
 		  goods.setId(1);
 		  goods.setGoodsNm(" 변경된 이름 ");
 
+
+
+		 GoodsGrp goodsGrp  = new  GoodsGrp();
+		 goodsGrp.setId(1);
+
+		 goods.setGoodsGrp(goodsGrp);
+
 		  // When & Then
-		  this.mockMvc.perform(put("/api/goods/{id}", 1)
+		  this.mockMvc.perform(put("/api/goods/{id}", 2)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 

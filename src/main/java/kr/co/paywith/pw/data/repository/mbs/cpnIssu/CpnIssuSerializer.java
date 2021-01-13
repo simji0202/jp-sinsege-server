@@ -16,7 +16,7 @@ public class CpnIssuSerializer extends JsonSerializer<CpnIssu> {
         gen.writeStartObject();
         gen.writeNumberField("id", value.getId());
         gen.writeStringField("cpnIssuNm", value.getCpnIssuNm());
-        gen.writeStringField("cpnNm", value.getCpnMaster().getCpnNm());
+     //   gen.writeStringField("cpnNm", value.getCpnMaster().getCpnNm());
 
         gen.writeEndObject();
 

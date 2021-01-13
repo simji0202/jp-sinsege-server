@@ -39,11 +39,6 @@ public class UserStamp {
   private ZonedDateTime stampUpdtDttm;
 
   /**
-   * 카카오 페이 멤버십 스탬프 번호
-   */
-  private String kakaoStampNo;
-
-  /**
    * 회원 스탬프 번호 (바코드 16자리))
    */
   private String stampNo;

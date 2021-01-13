@@ -48,24 +48,19 @@ public class DelngDto {
     private ZonedDateTime delngDttm = ZonedDateTime.now();
 
     /**
-     * 사용 금액.
+     * 거래 금액.
      */
     private Integer delngAmt;
 
-    /**
-     * 금액 쿠폰으로 할인 받는 금액.
-     */
-    private Integer cpnAmt;
+//    /**
+//     * 금액 쿠폰으로 할인 받는 금액.
+//     */
+//    private Integer cpnAmt;
 
-    /**
-     * 사용한 금액 쿠폰
-     */
-    private Cpn cpn;
-
-    /**
-     * 포인트 사용 금액
-     */
-    private Integer delngPointAmt = 0;
+//    /**
+//     * 사용한 금액 쿠폰
+//     */
+//    private Cpn cpn;
 
     /**
      * 회원

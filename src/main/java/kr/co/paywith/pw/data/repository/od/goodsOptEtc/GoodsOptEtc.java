@@ -3,7 +3,7 @@ package kr.co.paywith.pw.data.repository.od.goodsOptEtc;
 import javax.persistence.Id;
 
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.od.goodsOpt.GoodsOpt;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import kr.co.paywith.pw.data.repository.od.goodsOptGrpEtc.GoodsOptGrpEtc;
 import kr.co.paywith.pw.data.repository.od.optEtc.OptEtc;
 import lombok.*;

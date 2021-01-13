@@ -195,14 +195,6 @@ public class UserInfo {
      */
     private Integer pointChrged = 0;
 
-
-    /**
-     * 혜택을 받은 최종 등급
-     *
-     * 등급 업 후 등급 업 혜택을 받으면 해당 gradeSn으로 업데이트 한다(강등 후 재차 혜택 받는 것을 방지)
-     */
-    private Integer lastMaxGradeSn;
-
     /**
      * 활성 여부(실제 사용이 가능한 상태)
      */
@@ -241,6 +233,7 @@ public class UserInfo {
      * 회원 인증 키
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
+    @JsonIgnore
     private String certKey;
 
     /**

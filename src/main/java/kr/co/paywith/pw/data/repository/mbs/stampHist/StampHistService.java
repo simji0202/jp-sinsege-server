@@ -18,6 +18,8 @@ import kr.co.paywith.pw.data.repository.mbs.stamp.Stamp;
 import kr.co.paywith.pw.data.repository.mbs.stamp.StampRepository;
 import kr.co.paywith.pw.data.repository.mbs.stamp.StampService;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -55,6 +57,9 @@ public class StampHistService {
 
   @Autowired
   private StampRepository stampRepository;
+
+  @Autowired
+  private UserInfoRepository userInfoRepository;
 
   /**
    * 정보 등록
@@ -94,6 +99,11 @@ public class StampHistService {
     }
 
     // kms: TODO 회원정보 스탬프 갱신. 멤버십 구조 변경 후 개발
+    UserInfo userInfo = stampHist.getUserInfo();
+    UserStamp userStamp = userInfo.getUserStamp();
+    userStamp.setStampCnt(userStamp.getStampCnt() + stampHist.getCnt());
+    userInfoRepository.save(userInfo);
+
 //    UserInfo userInfo =stampHist.getUserInfo();
 //    userInfo.setScoreCnt(userInfo.stamp);
 

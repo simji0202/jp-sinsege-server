@@ -39,9 +39,11 @@ public class DelngControllerTest extends BaseControllerTest {
     public void createDelng() throws Exception {
 
         Delng delng = new Delng();
-        delng.setConfmNo("123456781234");
-        delng.setTrmnlNo("11313131");
-        delng.setDelngTypeCd(DelngTypeCd.PW);
+
+        //
+        delng.setConfmNo("20210111000001");
+  //      delng.setTrmnlNo("11313131");
+        delng.setDelngTypeCd(DelngTypeCd.APP);
 
 
 

@@ -5,4 +5,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface PointRuleRepository extends JpaRepository<PointRule, Integer>, QuerydslPredicateExecutor<PointRule> {
 
+  Iterable<PointRule> findByMinAmtGreaterThanEqualAndActiveFlIsTrue(Integer amt);
 }

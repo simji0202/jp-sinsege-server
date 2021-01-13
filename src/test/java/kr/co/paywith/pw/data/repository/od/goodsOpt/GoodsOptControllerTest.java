@@ -2,6 +2,8 @@ package kr.co.paywith.pw.data.repository.od.goodsOpt;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOptDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

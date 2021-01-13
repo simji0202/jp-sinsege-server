@@ -48,15 +48,12 @@ UserInfoControllerTest extends BaseControllerTest {
     public void createUserInfo() throws Exception {
 
         UserInfoDto userInfo = new UserInfoDto();
-        userInfo.setUserId("che36");
+        userInfo.setUserId("che02");
         userInfo.setUserPw("1234");
         userInfo.setUserNm("원이");
         userInfo.setActiveFl(true);
         userInfo.setMobileNum("01046940301");
         userInfo.setCertTypeCd(CertTypeCd.CI);
-
-
-
 
         // 롤 설정
         userInfo.setRoles(Set.of(AdminRole.USER));
@@ -76,6 +73,7 @@ UserInfoControllerTest extends BaseControllerTest {
         ;
 
     }
+
 
 
 

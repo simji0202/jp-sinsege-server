@@ -155,7 +155,7 @@ public class OrdrHist {
 	public String getOrdrNm() {
 		String nm = "";
 		if (this.goodsOptList != null && this.goodsOptList.size() > 0) {
-			nm += this.goodsOptList.get(0).getGoodsOpt().getGoodsOptNm();
+	//		nm += this.goodsOptList.get(0).getGoodsOpt().getGoodsOptNm();
 			if (this.goodsOptList.size() > 1) {
 				nm += "외 " + (this.goodsOptList.size() - 1) + " 상품";
 			}

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import kr.co.paywith.pw.data.repository.enumeration.PrpaySttsCd;
 import kr.co.paywith.pw.data.repository.mbs.billing.Billing;
 import kr.co.paywith.pw.data.repository.mbs.prpayGoods.PrpayGoods;
-import kr.co.paywith.pw.data.repository.mbs.prpayIssu.PrpayIssu;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -41,7 +40,7 @@ public class Prpay {
 	 * 선불카드 번호
 	 */
 	private String prpayNo;
-	// prpayGoodsN
+
 	/**
 	 * 선불카드 이름
 	 */
@@ -52,39 +51,16 @@ public class Prpay {
 	 */
 	private String pinNum;
 
+
 	/**
-	 * 생성 일시
-	 */
-	@CreationTimestamp
-	private ZonedDateTime regDttm;
-	/**
-	 * 등록 일시
-	 */
-	private ZonedDateTime registDttm; // 회원이 등록한 일시
-	/**
-	 * 사용 일시
+	 * 최초 사용 일시
 	 */
 	private ZonedDateTime useDttm;
+
 	/**
 	 * 유효 일시
 	 */
 	private ZonedDateTime validDttm;
-	/**
-	 * 정지 일시
-	 */
-	private ZonedDateTime stopDttm;
-
-	/**
-	 * 수정 일시
-	 */
-	@UpdateTimestamp
-	private ZonedDateTime updtDttm;
-//  /**
-//   * 선불카드 제공(구분) 코드
-//   */
-//  @Column(length = 10)
-//  @Enumerated(EnumType.STRING)
-//  private PrpayOperCd prpayOperCd;
 
 	/**
 	 * 선불카드 상태 코드
@@ -92,34 +68,16 @@ public class Prpay {
 	@Enumerated(EnumType.STRING)
 	private PrpaySttsCd prpaySttsCd = PrpaySttsCd.AVAIL;
 
-//	/**
-//	 * 병합한 부모 선불카드 일련번호
-//	 */
-//	private Long joinPrpaySn;
-//
-//	/**
-//	 * 병합한 자식 선불카드 목록
-//	 */
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "joinPrpaySn", nullable = true, updatable = false, insertable = false)
-//	@org.hibernate.annotations.ForeignKey(name = "none")
-//	private List<Prpay> subPrpayList;
-
 	/**
 	 * 사용 가능 금액
 	 */
 	private Integer usePosblAmt = 0;
-	/**
-	 * 사용 가능 금액 중 포인트 금액
-	 *
-	 * 선불카드 잔액 중 포인트 부분 금액(usePosblAmt - pointAmt = 현금)
-	 */
-	private Integer pointAmt = 0;
 
 	/**
 	 * 최대 충전 가능 금액
 	 */
 	private Integer chrgMaxAmt = 99999999;
+
 	/**
 	 * 총 충전 금액
 	 */
@@ -135,7 +93,6 @@ public class Prpay {
 	@ManyToOne
 	private UserInfo userInfo;
 
-
 	/**
 	 * 정렬순서
 	 */
@@ -144,21 +101,31 @@ public class Prpay {
 	/**
 	 * 선불카드 종류
 	 */
-	@ManyToOne
+	@OneToOne
 	private PrpayGoods prpayGoods;
 
+  /**
+   * 정지 일시
+   */
+  private ZonedDateTime stopDttm;
 
-	/**
-	 * 선불카드 발급 이력
-	 */
-	@ManyToOne
-	private PrpayIssu prpayIssu;
+  /**
+   * 유저에게 카드 발급 일시
+   */
+  private ZonedDateTime registDttm;
 
-	// kms: 빌링 통해서 충전하는 건 KICC 제약이 있어서 불가
-//	/**
-//	 * 빌링
-//	 */
-//	@ManyToOne
-//	private Billing billing;
+  /**
+   * 수정 일시
+   */
+  @UpdateTimestamp
+  private ZonedDateTime updtDttm;
+
+
+  /**
+   * 생성 일시
+   */
+  @CreationTimestamp
+  private ZonedDateTime regDttm;
+
 
 }

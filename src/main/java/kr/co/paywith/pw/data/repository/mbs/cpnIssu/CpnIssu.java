@@ -62,11 +62,6 @@ public class CpnIssu {
      */
     private Integer issuCnt;
 
-    /**
-     * 쿠폰 종류
-     */
-    @ManyToOne
-    private CpnMaster cpnMaster;
 
     /**
      * 발급 쿠폰 목록
