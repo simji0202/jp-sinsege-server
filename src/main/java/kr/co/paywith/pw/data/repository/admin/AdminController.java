@@ -35,9 +35,6 @@ public class AdminController {
     AdminRepository adminRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
     AdminService adminService;
 
     @Autowired
@@ -66,7 +63,6 @@ public class AdminController {
             admin.setCreateBy(currentUser.getAccountId());
         }
 
-        admin.setAdminPw(this.passwordEncoder.encode(adminDto.getAdminPw()));
         Admin newAdmin = this.adminService.create(admin);
 
         ControllerLinkBuilder selfLinkBuilder = linkTo(AdminController.class).slash(newAdmin.getId());
@@ -222,8 +218,6 @@ public class AdminController {
         Admin existAdmin = adminOptional.get();
 
 
-        // 패스워드 설정
-        existAdmin.setAdminPw(this.passwordEncoder.encode(adminPwUpdateDto.getAdminPw()));
 
         //  변경자 정보 설정
         if (currentUser != null) {

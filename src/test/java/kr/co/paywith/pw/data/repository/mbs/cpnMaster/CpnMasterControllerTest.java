@@ -45,38 +45,18 @@ public class CpnMasterControllerTest extends BaseControllerTest {
     public void createCpnMaster() throws Exception {
 
         CpnMaster cpnMaster = new CpnMaster();
-        cpnMaster.setCpnNm("커피베이  쿠폰  ");
-        cpnMaster.setCpnCd("1234567890123456");
-        cpnMaster.setCpnAmt(50000);
-        cpnMaster.setValidDay(20210101);
+        cpnMaster.setCpnNm("1+1 쿠폰");
 
+        // 쿠폰 코드 (POS연동)
+        cpnMaster.setCpnCd("쿠폰코드(POS연동)");
+        cpnMaster.setCpnAmt(50000);
+        cpnMaster.setValidDay(20220101);
 
         // 브랜드 셋팅
-        Brand  brand = new Brand();
+        Brand brand = new Brand();
         brand.setId(1);
         // 브랜든 설정
         cpnMaster.setBrand(brand);
-
-
-        Goods goods1 = new Goods();
-        goods1.setId(1);
-
-        Goods goods2 = new Goods();
-        goods2.setId(2);
-
-
-        // kms: CpnMaster.cpnMasterGoodsList 대신 CpnMaster.goods 하나로 변경. 정책적으로 제한해서 하나만 써도 될 듯 함
-      //  cpnMaster.setGoods(goods1);
-//        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
-//        cpnMasterGoods.setGoods(goods1);
-//
-//        CpnMasterGoods cpnMasterGoods2 = new CpnMasterGoods();
-//        cpnMasterGoods2.setGoods(goods2);
-
-
-        //
-//        cpnMaster.setCpnMasterGoodsList(List.of(cpnMasterGoods, cpnMasterGoods2));
-
 
         mockMvc.perform(post("/api/cpnMaster/")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
@@ -90,7 +70,6 @@ public class CpnMasterControllerTest extends BaseControllerTest {
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
         ;
-
     }
 
 

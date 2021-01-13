@@ -46,7 +46,7 @@ public class ScenarioTest extends BaseControllerTest {
     // 1. 관리자 등록
     AdminDto admin = new AdminDto();
 
-    admin.setAdminId("won1");;
+    admin.setAdminId("won2");;
     admin.setAdminPw("1234");
     admin.setAdminNm("페이위드 ");
     admin.setAuthCd(AuthCd.B_MST);
@@ -68,7 +68,7 @@ public class ScenarioTest extends BaseControllerTest {
 
     // 2. 고객 등록
     UserInfoDto userInfo = new UserInfoDto();
-    userInfo.setUserId("che");
+    userInfo.setUserId("che2");
     userInfo.setUserPw("1234");
     userInfo.setUserNm("원이");
     userInfo.setActiveFl(true);
