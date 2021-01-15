@@ -46,7 +46,6 @@ public class DelngDto {
     @Enumerated(EnumType.STRING)
     private DelngTypeCd delngTypeCd;
 
-
     /**
      * 거래 일시. 현장에서 실제 거래가 발생한 시각
      */
@@ -57,14 +56,6 @@ public class DelngDto {
      * 회원이 저장한다면, 조작을 막기 위해 검증을 함.
      */
     private int delngAmt;
-
-
-    // kms: 구매 목록을 같이 저장하고, 구매 이력 조회 시 상품 정보도 보여야 하므로 활성
-    /**
-     * 거래 상품 목록
-     */
-    @Column(columnDefinition = "json")
-    private String  delngGoodsListJson;
 
 
     // 선불카드 / 쿠폰 / 스템프 번호 ////
@@ -120,7 +111,7 @@ public class DelngDto {
     /**
      * 거래 상세(물품) 목록
      */
-    private List<DelingGoodsDto> delngGoodsList = new ArrayList<>();
+    private List<DelngGoods> delngGoodsList = new ArrayList<>();
 
     /**
      * 결제 정보

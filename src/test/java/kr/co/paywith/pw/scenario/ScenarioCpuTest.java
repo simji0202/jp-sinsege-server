@@ -106,6 +106,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
     // 쿠폰 코드 (POS연동)
     cpnMaster.setCpnCd("쿠폰코드(POS연동)");
     cpnMaster.setCpnAmt(500);
+    cpnMaster.setCpnRatio(0);       //    * 쿠폰 할인 비율. 1이상이면 비율로 할인 처리( 0 - 100 까지 )
 
     cpnMaster.setValidDay(20220101);   // 유효기간
     cpnMaster.setMinUseStdAmt(10000);

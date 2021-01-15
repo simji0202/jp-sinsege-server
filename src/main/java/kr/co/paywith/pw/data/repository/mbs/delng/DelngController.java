@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import com.google.gson.Gson;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
 import java.net.URI;
@@ -50,6 +51,9 @@ public class DelngController extends CommonController {
     @Autowired
     DelngService delngService;
 
+    @Autowired
+    Gson gson;
+
     /**
      * 정보 등록
      */
@@ -62,13 +66,6 @@ public class DelngController extends CommonController {
             return badRequest(errors);
         }
 
-
-        if (DelngTypeCd.APP.equals(delngDto.getDelngTypeCd())) {
-            // 앱 주문일 때는 currentUser.userInfo를 dto 에 설정
-            delngDto.setUserInfo(currentUser.getUserInfo());
-        }
-
-
         // 입력값 체크
         delngValidator.validate(delngDto, errors);
         if (errors.hasErrors()) {
@@ -77,6 +74,15 @@ public class DelngController extends CommonController {
 
         // 입력값을 브랜드 객채에 대입
         Delng delng = modelMapper.map(delngDto, Delng.class);
+
+        // 로그인 한 유저 정보
+        if (DelngTypeCd.APP.equals(delngDto.getDelngTypeCd())) {
+            // 앱 주문일 때는 currentUser.userInfo를 dto 에 설정
+            delng.setUserInfo(currentUser.getUserInfo());
+        }
+
+        // 결제 상품 정보를  Json 데이터로 확보
+        delng.setDelngGoodsListJson(gson.toJson(delngDto.getDelngGoodsList()));
 
         // 레코드 등록
         Delng newDelng = delngService.create(delng);
