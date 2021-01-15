@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
+package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
 
 import com.querydsl.core.BooleanBuilder;

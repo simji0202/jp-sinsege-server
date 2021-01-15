@@ -2,8 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
+import kr.co.paywith.pw.data.repository.mbs.goodsGrp.GoodsGrp;
 import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -81,10 +81,10 @@ public class Goods {
 
 
   /**
-   * 상품 그룹(카테고리)
+   * 상품 옵션
    */
   @OneToMany (cascade = CascadeType.ALL)
-  private List<GoodsOpt> goodsOpts;
+  private List<GoodsOpt> goodsOptList;
 
   /**
    * 상품 이미지 웹 경로

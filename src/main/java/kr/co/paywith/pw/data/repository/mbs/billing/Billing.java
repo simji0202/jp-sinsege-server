@@ -4,6 +4,7 @@ import kr.co.paywith.pw.data.repository.enumeration.PwCorpType;
 import kr.co.paywith.pw.data.repository.mbs.brandPg.BrandPg;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -42,9 +43,10 @@ public class Billing {
     private String billNm;
 
     /**
-     * 빌키 암호(Optional)
+     * 빌키 암호(Optional). 서버에서 검증하는 방식으로 사용하며 보안을 위해 클라이언트에 응답하지 않음
      */
     @Column(length = 10)
+    @JsonIgnore
     private String billPw;
 
     /**

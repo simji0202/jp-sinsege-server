@@ -132,11 +132,11 @@ public class Delng {
     @Column(columnDefinition = "json")
     private String  delngGoodsList;
 
-    /**
-     * 결제
-     */
-    @OneToMany(mappedBy = "delng", cascade = {CascadeType.ALL}, targetEntity = DelngPayment.class)
-    private List<DelngPayment> delngPaymentList = new ArrayList<>();
+//    /**
+//     * 결제
+//     */
+//    @OneToMany(mappedBy = "delng", cascade = {CascadeType.ALL}, targetEntity = DelngPayment.class)
+//    private List<DelngPayment> delngPaymentList = new ArrayList<>();
 
 
     /////// 쿠폰 사용에 대한 관련 항목 start/////

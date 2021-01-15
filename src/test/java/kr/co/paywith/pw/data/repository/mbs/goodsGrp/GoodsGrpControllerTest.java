@@ -3,8 +3,6 @@ package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrpDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,11 +119,10 @@ public class GoodsGrpControllerTest extends BaseControllerTest {
 
 		  // Given
 		  GoodsGrpDto goodsGrp = new GoodsGrpDto();
-		  goodsGrp.setId(1);
 		  goodsGrp.setGoodsGrpNm("변경된 정보이름");
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/goodsGrp/{id}", goodsGrp.getId())
+		  this.mockMvc.perform(put("/api/goodsGrp/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 

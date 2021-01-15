@@ -109,10 +109,9 @@ public class BillingControllerTest extends BaseControllerTest {
 
 		  // Given
 		  BillingDto billing = new BillingDto();
-		  billing.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/billing/{id}", billing.getId())
+		  this.mockMvc.perform(put("/api/billing/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 

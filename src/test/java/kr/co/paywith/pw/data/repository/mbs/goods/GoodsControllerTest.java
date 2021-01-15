@@ -3,10 +3,9 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 import java.util.List;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
+import kr.co.paywith.pw.data.repository.mbs.goodsGrp.GoodsGrp;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +73,7 @@ public class GoodsControllerTest extends BaseControllerTest {
 
      goodsOpt.setGoodsOptMasters(List.of(goodsOptMaster, goodsOptMaster2));
 
-     goods.setGoodsOpts(List.of(goodsOpt));
+     goods.setGoodsOptList(List.of(goodsOpt));
 
 
 		  mockMvc.perform(post("/api/goods/")

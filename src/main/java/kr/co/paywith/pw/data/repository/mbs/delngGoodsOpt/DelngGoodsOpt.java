@@ -6,14 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
-import kr.co.paywith.pw.data.repository.mbs.gcct.Gcct;
-import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -79,11 +72,13 @@ public class DelngGoodsOpt {
     private DelngGoods delngGoods;
 
     // che2 : 필요여부 체크 (20210111)
+    // kms: delngGoodsList 없애면 패키지 전체 삭제 예정
 //    /**
 //     * 사용한 상품(옵션) 쿠폰
 //     */
 //    @OneToOne
 //    private Cpn cpn;
+
 
 //    /**
 //     * 상품권
