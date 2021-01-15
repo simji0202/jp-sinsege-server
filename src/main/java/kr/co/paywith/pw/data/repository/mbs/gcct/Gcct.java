@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.common.NameDescription;
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -49,12 +50,16 @@ public class Gcct {
      */
     private String gcctNo;
 
-    // kms: TODO od.MobileGoods 만들면 연결. 패키지 옮길지도 그 때 고민
-//    /**
-//     * 상품
-//     */
-//    @ManyToOne
-//    private MobileGoods mobileGoods;
+    /**
+     * 상품권 명. 구매 당시 MobileGoods.mobileGoodsNm
+     */
+    private String gcctNm;
+
+    /**
+     * 상품
+     */
+    @ManyToOne
+    private Goods goods;
 
     /**
      * 보낸 회원.

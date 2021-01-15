@@ -1,5 +1,6 @@
-package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
+package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
+import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
 
 /**
@@ -18,6 +19,7 @@ public class GoodsGrpUpdateDto {
      */
     private String goodsGrpCd;
 
+    // kms: 2차 3차 그룹이 있다면 필드를 어떻게 관리할지 확인 필요
     /**
      * 부모 상품 그룹 일련번호
      */
@@ -31,6 +33,7 @@ public class GoodsGrpUpdateDto {
     /**
      * 사용 여부
      */
-    private Boolean activeFl = true;
+    private Boolean activeFl = false;
 
+    private Brand brand;
 }

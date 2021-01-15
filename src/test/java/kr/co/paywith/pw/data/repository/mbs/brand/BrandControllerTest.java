@@ -40,7 +40,7 @@ public class BrandControllerTest extends BaseControllerTest {
 
 
     @Test
-    @TestDescription("고객을 등록하는 테스트")
+    @TestDescription("브랜드를 등록하는 테스트")
     public void createBrand() throws Exception {
 
 

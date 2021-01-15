@@ -13,11 +13,6 @@ import lombok.Data;
 public class BillingDto {
 
     /**
-     * 빌링 일련번호
-     */
-    private Integer id;
-
-    /**
      * 빌키(정기결제에서 카드번호 대용)
      */
     private String billKey;

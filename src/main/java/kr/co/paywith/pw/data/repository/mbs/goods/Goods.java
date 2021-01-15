@@ -2,9 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
+import kr.co.paywith.pw.data.repository.mbs.goodsGrp.GoodsGrp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

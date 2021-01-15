@@ -1,6 +1,10 @@
 package kr.co.paywith.pw.data.repository.od.ordrGoodsOptEtc;
 
 import javax.persistence.Id;
+
+import kr.co.paywith.pw.data.repository.od.goodsOptEtc.GoodsOptEtc;
+import kr.co.paywith.pw.data.repository.od.ordrGoodsOpt.OrdrGoodsOpt;
+import kr.co.paywith.pw.data.repository.od.ordrOptEtcCpn.OrdrOptEtcCpn;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -24,5 +28,19 @@ public class OrdrGoodsOptEtc {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NameDescription("식별번호")
 	private Integer id;
+
+	private Integer goodsOptEtcAmt;
+
+	private Integer goodsOptEtcCnt;
+
+	@ManyToOne
+	private OrdrGoodsOpt ordrGoodsOpt;
+
+	@ManyToOne
+	private GoodsOptEtc goodsOptEtc;
+
+	@OneToOne
+	private OrdrOptEtcCpn ordrOptEtcCpn;
+
 
 }

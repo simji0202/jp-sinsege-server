@@ -30,7 +30,6 @@ public class CateDto {
 
 	private Integer sort;
 
-	@ManyToOne
 	private Brand brand;
 
 	private Long parentId;

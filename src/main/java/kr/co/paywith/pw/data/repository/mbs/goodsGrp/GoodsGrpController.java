@@ -7,7 +7,7 @@ import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.*;
+import kr.co.paywith.pw.data.repository.mbs.goodsGrp.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

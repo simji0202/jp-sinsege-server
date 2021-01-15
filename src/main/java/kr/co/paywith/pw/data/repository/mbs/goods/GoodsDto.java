@@ -1,15 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
 import com.opencsv.bean.CsvBindByName;
-import javax.persistence.CascadeType;
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goodsApply.GoodsApply;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
+import kr.co.paywith.pw.data.repository.mbs.goodsGrp.GoodsGrp;
 import lombok.Data;
 
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -60,7 +56,6 @@ public class GoodsDto {
     /**
      * 상품 그룹(카테고리)
      */
-    @ManyToOne
     private GoodsGrp goodsGrp;
 
     /**

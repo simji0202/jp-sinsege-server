@@ -1,6 +1,8 @@
 package kr.co.paywith.pw.data.repository.od.userGoodsOptEtc;
 
 import kr.co.paywith.pw.common.NameDescription;
+import kr.co.paywith.pw.data.repository.od.goodsOptEtc.GoodsOptEtc;
+import kr.co.paywith.pw.data.repository.od.userGoodsOpt.UserGoodsOpt;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,5 +23,13 @@ public class UserGoodsOptEtc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NameDescription("식별번호")
     private Integer id;
+
+    private Integer goodsOptEtcCnt = 1;
+
+    @ManyToOne
+    private UserGoodsOpt userGoodsOpt;
+
+    @ManyToOne
+    private GoodsOptEtc goodsOptEtc;
 
 }

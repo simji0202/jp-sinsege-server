@@ -47,16 +47,13 @@ public class Cate {
 	// kms: 셀프조인은 맞는데, GoodsGrp 를 사용하도록 변경 예정.
 	// kms: mbs.GoodsGrp -> 시스템 내부에서 관리하던 상품 분류 그룹. od.Cate -> 앱에서 주문할 때 사용자가 확인하는 카테고리.
 	// kms: 둘 구조는 같고, mbs.GoodsGrp의 쓸모가 적어서 하나로 통합 예정
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "parent_id", nullable = true)
-	private List<Cate> subCateList;
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "parent_id", nullable = true)
+//	private List<Cate> subCateList;
 
-	@Column(name = "parent_id")
 	private Integer parentId;
 
-	@Column(name = "use_fl")
 	private Boolean useFl;
-
 
 	/**
 	 * 등록 일시

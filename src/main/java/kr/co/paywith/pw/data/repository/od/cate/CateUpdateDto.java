@@ -18,7 +18,6 @@ public class CateUpdateDto {
 
     private Integer sort;
 
-    @ManyToOne
     private Brand brand;
 
     private Long parentId;

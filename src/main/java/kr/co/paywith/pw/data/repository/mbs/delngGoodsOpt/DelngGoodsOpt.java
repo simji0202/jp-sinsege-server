@@ -13,7 +13,6 @@ import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
 import kr.co.paywith.pw.data.repository.mbs.gcct.Gcct;
-import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -54,11 +53,11 @@ public class DelngGoodsOpt {
      */
     private Integer cpnAmt;
 
-    /**
-     * 거래 상품(옵션)
-     */
-    @ManyToOne
-    private Goods goods;
+//    /**
+//     * 거래 상품(옵션)
+//     */
+//    @ManyToOne
+//    private Goods goods;
 
     /**
      * 거래 상품(옵션) 수량

@@ -1,7 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsApply;
 
 
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
