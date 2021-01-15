@@ -1,27 +1,16 @@
 package kr.co.paywith.pw.data.repository.mbs.delngPayment;
 
 import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.PaymentChnlCd;
-import kr.co.paywith.pw.data.repository.enumeration.PaymentMthdCd;
-import kr.co.paywith.pw.data.repository.enumeration.PaymentSttsCd;
-import kr.co.paywith.pw.data.repository.mbs.brandPg.BrandPg;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DelngPaymentDto {
-
 
 
     private Integer id;
@@ -37,39 +26,15 @@ public class DelngPaymentDto {
      */
     private Integer amt = 0;
 
-    // kms: TODO 선불카드 작성하면 연결
     /**
      * 선불카드
      */
-//  @OneToOne
-//  private Prpay prpay;
-
-    // kms: TODO PgPay 작성하면 연결
-//  /**
-//   * PG 결제
-//   */
-//  @OneToOne
-//  private Pay pay;
-
-//  /**
-//   * (금액) 쿠폰
-//   */
-//  @OneToOne
-//  private Cpn cpn;
-
+    private Integer prpayId;
 
     /**
-     * 등록 일시
+     * PG 결제
      */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
-
+    private Integer payId;
 
 
 }

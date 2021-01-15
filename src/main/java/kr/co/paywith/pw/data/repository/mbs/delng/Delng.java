@@ -1,27 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import java.time.ZonedDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 /**
  * 거래. 클라이언트에서 받는 주문 한 건
@@ -51,7 +39,6 @@ public class Delng {
     private String confmNo;
 
     /**
-     *
      * 단말기에서 받는 영수증 번호 (POS 사용시만 사용 )
      */
     private String trmnlDelngNo;
@@ -60,7 +47,6 @@ public class Delng {
      * 거래 구분 코드
      * POS : confmNo, trmnlDelngNo, mrhstTrmnl
      * APP :
-     *
      */
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
@@ -75,7 +61,7 @@ public class Delng {
     /**
      * 거래 금액. 상품에 적용한 쿠폰이 있다면 그 할인금액을 제외한 상품금액의 합.
      * delngPaymentList의 합과 같아야 한다
-     *
+     * <p>
      * 결재 금액 ( +- 총합 )
      * 회원이 저장한다면, 조작을 막기 위해 검증을 함.
      */
@@ -110,14 +96,12 @@ public class Delng {
 //
 
 
-
-
     // kms: 구매 목록을 같이 저장하고, 구매 이력 조회 시 상품 정보도 보여야 하므로 활성
     /**
      * 거래 상품 목록
      */
     @Column(columnDefinition = "json")
-    private String  delngGoodsListJson;
+    private String delngGoodsListJson;
 
     /**
      * 결제
@@ -132,7 +116,7 @@ public class Delng {
     /**
      * 사용한 금액 쿠폰
      */
-    private Integer cpnId ;
+    private Integer cpnId;
 
     /**
      * 쿠폰으로 인해서 실직적으로 할인이 적용된 금액
@@ -151,25 +135,22 @@ public class Delng {
      * 거래 회원 아이디
      */
     @OneToOne
-    private UserInfo  userInfo;
+    private UserInfo userInfo;
 
     /**
      * 가맹점 단말기. 매장에서 저장한 거래라면 단말기 정보가 있음 (POS, PW)
      */
-    private String  mrhstTrmnlId;
+    private String mrhstTrmnlId;
 
     /**
      * 거래 매장 아이디
      */
-    private String  mrhstId;
+    private String mrhstId;
 
     /**
      * 거래 매장 이름
      */
-    private String  mrhstNm;
-
-
-
+    private String mrhstNm;
 
 
     /////////////////// 검증을 위한 정보  end  //////////////////////

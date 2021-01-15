@@ -117,7 +117,6 @@ public class DelngController extends CommonController {
             booleanBuilder.and(qDelng.id.eq(searchForm.getId()));
         }
 
-
         Page<Delng> page = this.delngRepository.findAll(booleanBuilder, pageable);
         var pagedResources = assembler.toResource(page, e -> new DelngResource(e));
         pagedResources.add(new Link("/docs/index.html#resources-delngs-list").withRel("profile"));

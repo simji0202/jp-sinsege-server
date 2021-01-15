@@ -26,7 +26,7 @@ public class DelngValidator {
       // 팔수값 확인
       ValidatorUtils.checkObjectNull(delngDto.getDelngAmt(), "거래 금액", errors);
       ValidatorUtils.checkObjectNull(delngDto.getDelngTypeCd(), "거래 종류", errors);
-      ValidatorUtils.checkObjectNull(delngDto.getMrhst(), "매장", errors);
+  //    ValidatorUtils.checkObjectNull(delngDto.getMrhst(), "매장", errors);
       ValidatorUtils.checkObjectNull(delngDto.getUserInfo(), "회원", errors);
 
       boolean isReqFromUser = false; // 회원이 한 요청은 금액 조작 여부를 검증해야 한다
