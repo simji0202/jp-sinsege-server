@@ -94,7 +94,7 @@ public class DelngService {
 //          gcct.setUsedDttm(ZonedDateTime.now());
 //          gcctRepository.save(gcct);
 //        }
-
+//
 //        if (delngGoods.getDelngGoodsOptList() != null) {
 //          for (DelngGoodsOpt delngGoodsOpt : delngGoods.getDelngGoodsOptList()) {
 //            // 스코어 가산

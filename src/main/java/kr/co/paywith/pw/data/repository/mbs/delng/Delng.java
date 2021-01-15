@@ -130,21 +130,22 @@ public class Delng {
      * 거래 상품 목록
      */
     @Column(columnDefinition = "json")
-    private String  delngGoodsList;
+    private String  delngGoodsListJson;
 
     /**
      * 결제
      */
-    @OneToMany(mappedBy = "delng", cascade = {CascadeType.ALL}, targetEntity = DelngPayment.class)
-    private List<DelngPayment> delngPaymentList = new ArrayList<>();
+//    @OneToMany
+//    private List<DelngPayment> delngPaymentList = new ArrayList<>();
+    @Column(columnDefinition = "json")
+    private String delngPaymentJson;
 
 
     /////// 쿠폰 사용에 대한 관련 항목 start/////
     /**
      * 사용한 금액 쿠폰
      */
-    @OneToOne
-    private Cpn cpn ;
+    private Integer cpnId ;
 
     /**
      * 쿠폰으로 인해서 실직적으로 할인이 적용된 금액
@@ -180,7 +181,24 @@ public class Delng {
      */
     private String  mrhstNm;
 
+
+
+
+
     /////////////////// 검증을 위한 정보  end  //////////////////////
+
+
+    /**
+     * 취소한 user
+     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
+     */
+    private String cancelBy;
+
+    /**
+     * 취소 일시
+     */
+    private ZonedDateTime cancelRegDttm;
+
 
     /**
      * 등록 일시
@@ -204,18 +222,5 @@ public class Delng {
      * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
      */
     private String updateBy;
-
-    /**
-     * 취소한 user
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String cancelBy;
-
-    /**
-     * 취소 일시
-     */
-    private ZonedDateTime cancelRegDttm;
-
-
 
 }
