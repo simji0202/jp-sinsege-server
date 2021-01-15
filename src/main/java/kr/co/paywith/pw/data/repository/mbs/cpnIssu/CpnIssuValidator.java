@@ -28,12 +28,14 @@ public class CpnIssuValidator {
           errors.reject("쿠폰 발급 회원 정보 누락", "발급할 회원정보가 필요합니다");
           break;
         }
+        // 쿠폰 마스터 설정 확인
+        if (cpn.getCpnMaster() == null || cpn.getCpnMaster().getId() == null) {
+          errors.reject("쿠폰 정보 없음", "발급할 쿠폰 종류가 없습니다");
+        }
       }
     }
 
-    if (cpnIssuDto.getCpnMaster() == null || cpnIssuDto.getCpnMaster().getId() == null) {
-        errors.reject("쿠폰 정보 없음", "발급할 쿠폰 종류가 없습니다");
-    }
+    
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
