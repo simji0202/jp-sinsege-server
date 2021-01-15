@@ -167,7 +167,6 @@ public class ScenarioCpuTest extends BaseControllerTest {
             .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
     ;
 
-
     // 시나리오 데이터 등록 완료
 
 

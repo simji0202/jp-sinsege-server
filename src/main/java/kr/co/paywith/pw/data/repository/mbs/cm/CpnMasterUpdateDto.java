@@ -59,7 +59,7 @@ public class CpnMasterUpdateDto {
   /**
    * 1+1 대상 상품 (적용상품)
    */
-  private String goodsId;
+  private Integer goodsId;
 
   /////// 1+ 1 쿠폰 관련 항목 end/////
 

@@ -65,8 +65,6 @@ public class DelngPayment {
 //   */
 //  @OneToOne
 //  private Cpn cpn;
-
-
   /**
    * 등록 일시
    */

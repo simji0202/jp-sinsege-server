@@ -3,15 +3,8 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
-import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
-import kr.co.paywith.pw.data.repository.mbs.delngGoodsOpt.DelngGoodsOpt;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
-import kr.co.paywith.pw.data.repository.mbs.gcct.Gcct;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRuleRepository;
@@ -20,12 +13,9 @@ import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistService;
 import kr.co.paywith.pw.data.repository.user.grade.GradeRepository;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -94,7 +84,7 @@ public class DelngService {
 //          gcct.setUsedDttm(ZonedDateTime.now());
 //          gcctRepository.save(gcct);
 //        }
-
+//
 //        if (delngGoods.getDelngGoodsOptList() != null) {
 //          for (DelngGoodsOpt delngGoodsOpt : delngGoods.getDelngGoodsOptList()) {
 //            // 스코어 가산
