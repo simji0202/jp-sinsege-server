@@ -63,12 +63,6 @@ public class DelngGoods {
     private List<DelngGoodsOpt> delngGoodsOptList = new ArrayList<>();
 
     /**
-     * 거래 상품
-     */
-    @ManyToOne
-    private Goods goods;
-
-    /**
      * 거래 상품 수량
      */
     private Integer goodsCnt;

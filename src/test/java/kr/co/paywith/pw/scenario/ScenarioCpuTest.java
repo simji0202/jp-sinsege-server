@@ -41,7 +41,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
 
     // 쿠폰 코드 (POS연동)
     cpnMaster.setCpnCd("쿠폰코드(POS연동)");
-    cpnMaster.setGoodsId("1");
+    cpnMaster.setGoodsId(1);
     cpnMaster.setMinUseStdAmt(10000);
 
     cpnMaster.setValidDay(20220101);
@@ -154,10 +154,21 @@ public class ScenarioCpuTest extends BaseControllerTest {
     cpnIssu.setIssuCnt(List.of(cpn, cpn2).size());
     cpnIssu.setCpnList(List.of(cpn, cpn2));
 
+    mockMvc.perform(post("/api/cpnIssu/")
+            .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+            .header("Origin", "*")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .accept(MediaTypes.HAL_JSON)
+            .content(objectMapper.writeValueAsString(cpnIssu)))
+            .andDo(print())
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("id").exists())
+            .andExpect(header().exists(HttpHeaders.LOCATION))
+            .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
+    ;
+
 
     // 시나리오 데이터 등록 완료
-
-
 
 
 

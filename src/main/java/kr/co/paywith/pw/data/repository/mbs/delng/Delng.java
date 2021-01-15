@@ -65,7 +65,7 @@ public class Delng {
 
     /**
      *
-     * 단말기에서 받는 영수증 번호 (POS)
+     * 단말기에서 받는 영수증 번호 (POS 사용시만 사용 )
      */
     private String trmnlDelngNo;
 
@@ -81,19 +81,6 @@ public class Delng {
 
 
     /**
-     * 가맹점 단말기. 매장에서 저장한 거래라면 단말기 정보가 있음 (POS, PW)
-     */
-    @ManyToOne
-    private MrhstTrmnl mrhstTrmnl;
-
-//
-//
-//    /**
-//     * 취소 클라이언트 IP
-//     */
-//    private String cancelClientIp;
-
-    /**
      * 거래 일시. 현장에서 실제 거래가 발생한 시각
      */
     private ZonedDateTime delngDttm;
@@ -105,13 +92,8 @@ public class Delng {
      * 결재 금액 ( +- 총합 )
      * 회원이 저장한다면, 조작을 막기 위해 검증을 함.
      */
-    private Integer delngAmt;
+    private int delngAmt;
 
-    // kms: delngPayment로 이동
-//    /**
-//     * 쿠폰으로 할인 받는 금액. cpnAmt, cpnRatio 중 주문에 사용된 실제 금액
-//     */
-//    private Integer cpnAmt;
 
 //    /**
 //     * 사용한 금액 쿠폰
@@ -150,15 +132,11 @@ public class Delng {
     @Column(columnDefinition = "json")
     private String  delngGoodsList;
 
-
-
     /**
      * 결제
      */
-
-//    @OneToMany(mappedBy = "delng", cascade = {CascadeType.ALL}, targetEntity = DelngPayment.class)
-//    private List<DelngPayment> delngPaymentList = new ArrayList<>();
-
+    @OneToMany(mappedBy = "delng", cascade = {CascadeType.ALL}, targetEntity = DelngPayment.class)
+    private List<DelngPayment> delngPaymentList = new ArrayList<>();
 
 
     /////// 쿠폰 사용에 대한 관련 항목 start/////
@@ -166,24 +144,43 @@ public class Delng {
      * 사용한 금액 쿠폰
      */
     @OneToOne
-    private Cpn cpn;
+    private Cpn cpn ;
 
     /**
      * 쿠폰으로 인해서 실직적으로 할인이 적용된 금액
      * 금액 쿠폰 :  할인 금액
-     * 1 + 1   :  상품 금액
+     * 1 + 1   :  상품 금액 ( 0 or 상품가격 )
      * 할인 쿠폰 :  할인 금액
      */
-    private int delngCpnAmt;
+
+    private int cpnAmt;
     /////// 쿠폰 사용에 대한 관련 항목 end /////
 
 
+    /////////////////// 거래 검증 및 리스트 표시를  위한 정보  start //////////////////////
 
     /**
-     * 회원
+     * 거래 회원 아이디
      */
-    @ManyToOne
-    private UserInfo userInfo;
+    @OneToOne
+    private UserInfo  userInfo;
+
+    /**
+     * 가맹점 단말기. 매장에서 저장한 거래라면 단말기 정보가 있음 (POS, PW)
+     */
+    private String  mrhstTrmnlId;
+
+    /**
+     * 거래 매장 아이디
+     */
+    private String  mrhstId;
+
+    /**
+     * 거래 매장 이름
+     */
+    private String  mrhstNm;
+
+    /////////////////// 검증을 위한 정보  end  //////////////////////
 
     /**
      * 등록 일시

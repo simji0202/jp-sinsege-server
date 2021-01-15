@@ -76,7 +76,7 @@ public class CpnIssuController extends CommonController {
         // userIdList 길이만큼 user와 연결한 cpn 생성
 
         // 레코드 등록
-        CpnIssu newCpnIssu = cpnIssuService.create(cpnIssu);
+        CpnIssu newCpnIssu = cpnIssuService.create(cpnIssu, currentUser);
 
         ControllerLinkBuilder selfLinkBuilder = linkTo(CpnIssuController.class).slash(newCpnIssu.getId());
 

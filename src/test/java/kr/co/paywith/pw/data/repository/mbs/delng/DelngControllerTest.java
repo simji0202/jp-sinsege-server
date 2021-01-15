@@ -2,7 +2,10 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +41,28 @@ public class DelngControllerTest extends BaseControllerTest {
     @TestDescription("고객을 등록하는 테스트")
     public void createDelng() throws Exception {
 
+
+        // 유저가 핸드폰을 통해 상품 하나를  쿠폰을 이용하여 거래
+        // 상품코드 : 1   쿠폰 : 금액 쿠폰 500
+
         Delng delng = new Delng();
 
-        //
         delng.setConfmNo("20210111000001");
-  //      delng.setTrmnlNo("11313131");
         delng.setDelngTypeCd(DelngTypeCd.APP);
 
+        delng.setDelngAmt(45000);    // 결제 금액  지불해야 할 합계(정산 )  거래 금액
+
+
+        Cpn cpn = new Cpn();
+        cpn.setId(1);
+
+        delng.setCpn(cpn);               // 사용할 쿠폰 설정
+        delng.setCpnAmt(1000);           // 쿠폰으로 인해서 할인된 금액
+
+
+        DelngPayment delngPayment = new DelngPayment();
+        delngPayment.setDelngPaymentTypeCd(DelngPaymentTypeCd.PG_PAY);
+        delngPayment.setAmt(44000);
 
 
 

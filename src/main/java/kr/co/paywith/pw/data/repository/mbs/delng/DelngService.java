@@ -63,10 +63,12 @@ public class DelngService {
     // 데이터베이스 값 갱신
     Delng newDelng = this.delngrRepository.save(delng);
 
-    if (!newDelng.getUserInfo().getCertTypeCd().equals(CertTypeCd.GUEST)) {
-      // 비회원이 아니면 현재 등급 저장
-//      delng.setGrade(delng.getUserInfo());
-    }
+//    if (!newDelng.getUserInfo().getCertTypeCd().equals(CertTypeCd.GUEST)) {
+//      // 비회원이 아니면 현재 등급 저장
+////      delng.setGrade(delng.getUserInfo());
+//    }
+
+
 
     int score = 0;
     int stamp = 0;

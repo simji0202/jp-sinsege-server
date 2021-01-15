@@ -4,6 +4,9 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 import java.time.ZonedDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
+
+import kr.co.paywith.pw.data.repository.account.Account;
+import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnService;
@@ -34,7 +37,7 @@ public class CpnIssuService {
      * 정보 등록
      */
     @Transactional
-    public CpnIssu create(CpnIssu cpnIssu) {
+    public CpnIssu create(CpnIssu cpnIssu, Account account) {
 
         // 데이터베이스 값 갱신
         CpnIssu newCpnIssu = this.cpnIssuRepository.save(cpnIssu);
@@ -47,6 +50,12 @@ public class CpnIssuService {
             // che2 부모 클라스 설정
             cpn.setCpnIssu(newCpnIssu);
             cpn.setCreateBy(cpnIssu.getCreateBy());
+
+            // 발행 주체 설정
+            if ( account != null ) {
+                cpn.setCreateBy(account.getAccountNm());
+                cpn.setUpdateBy(account.getAccountNm());
+            }
             cpnRepository.save(cpn);
         }
 
