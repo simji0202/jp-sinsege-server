@@ -47,7 +47,7 @@ AdminTest extends BaseControllerTest {
     private Admin generateAdmin(int i) {
 
         Admin admin = Admin.builder()
-                .adminId("che")
+                .adminId("simji")
                 .adminPw("1234")
                 .adminNm("paywith")
                 .roles(Set.of(AdminRole.ADMIN_MASTER))

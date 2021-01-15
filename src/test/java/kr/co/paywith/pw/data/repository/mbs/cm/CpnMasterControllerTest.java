@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
+package kr.co.paywith.pw.data.repository.mbs.cm;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,9 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import org.junit.Before;
@@ -45,12 +45,16 @@ public class CpnMasterControllerTest extends BaseControllerTest {
     public void createCpnMaster() throws Exception {
 
         CpnMaster cpnMaster = new CpnMaster();
-        cpnMaster.setCpnNm("1+1 쿠폰");
+        cpnMaster.setCpnNm("1000 금액 쿠폰");
+        cpnMaster.setCpnMasterTypeCd(CpnMasterTypeCd.AMT);
+
 
         // 쿠폰 코드 (POS연동)
         cpnMaster.setCpnCd("쿠폰코드(POS연동)");
-        cpnMaster.setCpnAmt(50000);
-        cpnMaster.setValidDay(20220101);
+        cpnMaster.setCpnAmt(1000);
+
+        cpnMaster.setValidDay(20220101);   // 유효기간
+        cpnMaster.setMinUseStdAmt(10000);
 
         // 브랜드 셋팅
         Brand brand = new Brand();
@@ -135,7 +139,7 @@ public class CpnMasterControllerTest extends BaseControllerTest {
         Goods goods1 = new Goods();
         goods1.setId(4);
 
-        cpnMaster.setGoods(goods1);
+    //    cpnMaster.setGoods(goods1);
 
 //        CpnMasterGoods cpnMasterGoods = new CpnMasterGoods();
 //        cpnMasterGoods.setGoods(goods1);

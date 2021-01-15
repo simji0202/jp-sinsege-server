@@ -29,6 +29,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Api(value = "CpnIssuController", description = "쿠폰 발행 API", basePath = "/api/cpnIssu")
 public class CpnIssuController extends CommonController {
 
+
+    /**
+     * 발급 규칙에 대한 정의 예정
+     *
+     *  1. 쿠폰의 발급은 반드시 cpnIssu 을 통해서 <---   o. x
+     *  2. 쿠폰 발급과 동시에 쿠폰 번호 부여 여부  <---   o. x
+     *
+     */
+
     @Autowired
     CpnIssuRepository cpnIssuRepository;
 

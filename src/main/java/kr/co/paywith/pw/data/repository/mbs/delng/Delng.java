@@ -130,11 +130,6 @@ public class Delng {
 //    @OneToOne
 //    private Gcct gcct;
 
-    /**
-     * 회원
-     */
-    @ManyToOne
-    private UserInfo userInfo;
 
 //
 //    /**
@@ -155,9 +150,7 @@ public class Delng {
     @Column(columnDefinition = "json")
     private String  delngGoodsList;
 
-//    goods
-//       goodsOpt
-//       수량
+
 
     /**
      * 결제
@@ -165,6 +158,32 @@ public class Delng {
 
 //    @OneToMany(mappedBy = "delng", cascade = {CascadeType.ALL}, targetEntity = DelngPayment.class)
 //    private List<DelngPayment> delngPaymentList = new ArrayList<>();
+
+
+
+    /////// 쿠폰 사용에 대한 관련 항목 start/////
+    /**
+     * 사용한 금액 쿠폰
+     */
+    @OneToOne
+    private Cpn cpn;
+
+    /**
+     * 쿠폰으로 인해서 실직적으로 할인이 적용된 금액
+     * 금액 쿠폰 :  할인 금액
+     * 1 + 1   :  상품 금액
+     * 할인 쿠폰 :  할인 금액
+     */
+    private int delngCpnAmt;
+    /////// 쿠폰 사용에 대한 관련 항목 end /////
+
+
+
+    /**
+     * 회원
+     */
+    @ManyToOne
+    private UserInfo userInfo;
 
     /**
      * 등록 일시

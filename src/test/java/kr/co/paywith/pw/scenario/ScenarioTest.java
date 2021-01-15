@@ -250,7 +250,6 @@ public class ScenarioTest extends BaseControllerTest {
     ;
 
     //6 상품2   등록
-
     Goods goods2 = new Goods();
 
     goods2.setGoodsCd("1234567890");

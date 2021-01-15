@@ -29,19 +29,31 @@ public class CpnService {
   @Autowired
   private UserInfoRepository userInfoRepository;
 
-//  /**
-//   * 정보 등록
-//   */
-//  @Transactional
-//  public Cpn create(Cpn cpn) {
-//    // 데이터베이스 값 갱신
-//
-//
-//    // 쿠폰 번호는 처음 저장할 때 생성하면 사용하지 않고 만료되는 번호가 많이 남게 되므로, 최초 상세 조회시에 번호를 만든다
-//
-//
-//    return newCpn;
-//  }
+  /**
+   * 정보 등록
+   */
+  @Transactional
+  public Cpn create(Cpn cpn) {
+    // 데이터베이스 값 갱신
+    Cpn newCpn = this.cpnRepository.save(cpn);
+
+    // 쿠폰 번호 생성. 중복 방지를 위해 cpnIssu를 활용한다
+    boolean isEndMakeNo = false;
+    do {
+      String noRule = "3";
+      noRule += StringUtils.leftPad("" + cpn.getCpnIssu().getId(), 8, "0"); //90000000
+      noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
+      String cpnNo = StringUtil.makeNo(noRule);
+      if (cpnRepository.findByCpnNo(cpnNo).isEmpty()) {
+        isEndMakeNo = true;
+        cpn.setCpnNo(cpnNo);
+      }
+    } while (!isEndMakeNo);
+    // 쿠폰 번호는 처음 저장할 때 생성하면 사용하지 않고 만료되는 번호가 많이 남게 되므로, 최초 상세 조회시에 번호를 만든다
+
+
+    return newCpn;
+  }
 
 
   /**

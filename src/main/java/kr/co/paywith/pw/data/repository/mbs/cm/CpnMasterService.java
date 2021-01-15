@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
+package kr.co.paywith.pw.data.repository.mbs.cm;
 
 
 import javax.transaction.Transactional;

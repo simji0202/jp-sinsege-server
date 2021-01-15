@@ -1,7 +1,6 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
+package kr.co.paywith.pw.data.repository.mbs.cm;
 
 
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

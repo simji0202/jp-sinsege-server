@@ -1,18 +1,10 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
+package kr.co.paywith.pw.data.repository.mbs.cm;
 
 import java.time.ZonedDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -53,6 +45,7 @@ public class CpnMaster {
      *
      * 사용 이력 연결에서 위치가 다르기 때문에
      */
+    @Enumerated(EnumType.STRING)
     private CpnMasterTypeCd cpnMasterTypeCd;
 
     /**
@@ -72,31 +65,33 @@ public class CpnMaster {
      */
     private String imgUrl;
 
-//    /**
-//     * 1+1 대상 상품 (적용상품)
-//     */
-//    @OneToOne
-//    private Goods goods;
 
+    /////// 1+ 1 쿠폰 관련 항목 start/////
     /**
-     * 상품 개수
+     * 1+1 대상 상품 (적용상품)
      */
-    private Integer goodsCnt;
+    private String goodsId;
+
+    /////// 1+ 1 쿠폰 관련 항목 end/////
+
+
+    /////// 금액 쿠폰 관련 항목 start/////
 
     /**
-     * 쿠폰 금액. 비율과 같이 사용하면 최대 할인 금액. 실제 상품 금액보다 작다면 이 금액만큼만 할인한다.
+     * 금액 쿠폰 ( 금액 할인 적용)
      */
     private Integer cpnAmt;
+    /////// 금액  쿠폰 관련 항목 end/////
 
-    /**
-     * 쿠폰 할인 비율. 0이상이면 비율로 할인 처리(1이면 전액)
-     */
-    private Float cpnRatio = 0f;
 
+    /////// 할인  쿠폰 관련 항목 start/////
     /**
-     * 쿠폰 발급 제한 최대 수량. 음수는 무제한
+     * 쿠폰 할인 비율. 0이상이면 비율로 할인 처리( 0 - 100 까지 )
      */
-    private Integer issuMaxCnt;
+    private int cpnRatio = 0;
+
+    /////// 할인  쿠폰 관련 항목 end/////
+
 
     /**
      * 쿠폰 발급 유효기간. 필수
@@ -108,6 +103,12 @@ public class CpnMaster {
      * 설정 금액 이상 사용할 때에만 쿠폰 사용가능
      */
     private Integer minUseStdAmt = 0;
+
+    /**
+     * 쿠폰 최소 사용 기준 금액.
+     * 설정 금액 이상 사용할 때에만 쿠폰 사용가능
+     */
+    private Integer maxUseStdAmt = 0;
 
 
     @ManyToOne

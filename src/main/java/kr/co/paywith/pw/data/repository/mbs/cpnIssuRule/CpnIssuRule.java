@@ -1,7 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssuRule;
 
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.mbs.cpnMaster.CpnMaster;
+import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import lombok.*;

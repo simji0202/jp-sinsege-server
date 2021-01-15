@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpn;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
@@ -41,11 +42,16 @@ public class CpnControllerTest extends BaseControllerTest {
     public void createCpn() throws Exception {
 
         UserInfo userInfo = new UserInfo();
-        userInfo.setId(2);
+        userInfo.setId(1);
 
         Cpn cpn = new Cpn();
         cpn.setUserInfo(userInfo);
-        cpn.setCpnNo("12233242");
+
+        CpnMaster cpnMaster = new CpnMaster();
+        cpnMaster.setId(1);   // 할인 쿠폰 적용
+
+        cpn.setCpnMaster(cpnMaster);
+
 
 
         mockMvc.perform(post("/api/cpn/")

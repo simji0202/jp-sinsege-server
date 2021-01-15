@@ -7,8 +7,9 @@ import lombok.Getter;
  */
 @Getter
 public enum CpnMasterTypeCd implements EnumMapperType {
-  AMT("금액 쿠폰"),
-  GOODS("상품 쿠폰"),
+  AMT("금액"),
+  GOODS("1+1"),
+  RATIO("할인율"),
   ;
 
   private String title;

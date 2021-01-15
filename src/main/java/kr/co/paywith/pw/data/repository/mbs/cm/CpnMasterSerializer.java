@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
+package kr.co.paywith.pw.data.repository.mbs.cm;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.cpnMaster;
+package kr.co.paywith.pw.data.repository.mbs.cm;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -19,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import kr.co.paywith.pw.data.repository.mbs.cpnMaster.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +41,7 @@ public class CpnMasterController extends CommonController {
   ModelMapper modelMapper;
 
   @Autowired
-  CpnMasterValidator cpnMasterValidator;
+  private CpnMasterValidator cpnMasterValidator;
 
   @Autowired
   CpnMasterService cpnMasterService;
@@ -60,7 +59,7 @@ public class CpnMasterController extends CommonController {
     }
 
     // 입력값 체크
-    cpnMasterValidator.validate(cpnMasterDto, errors);
+    this.cpnMasterValidator.validate(cpnMasterDto, errors);
     if (errors.hasErrors()) {
       return badRequest(errors);
     }

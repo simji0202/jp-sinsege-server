@@ -47,43 +47,43 @@ public class CpnController extends CommonController  {
     @Autowired
     CpnService cpnService;
 
-//    /**
-//     * 정보 등록
-//     */
-//    @PostMapping
-//    public ResponseEntity createCpn(
-//            @RequestBody @Valid CpnDto cpnDto,
-//            Errors errors,
-//            @CurrentUser Account currentUser) {
-//        if (errors.hasErrors()) {
-//            return badRequest(errors);
-//        }
-//
-//
-//        // 입력값 체크
-//        cpnValidator.validate(cpnDto, errors);
-//        if (errors.hasErrors()) {
-//            return badRequest(errors);
-//        }
-//
-//
-//        // 입력값을 브랜드 객채에 대입
-//        Cpn cpn = modelMapper.map(cpnDto, Cpn.class);
-//
-//        // 레코드 등록
-//        Cpn newCpn = cpnService.create(cpn);
-//
-//        ControllerLinkBuilder selfLinkBuilder = linkTo(CpnController.class).slash(newCpn.getId());
-//
-//        URI createdUri = selfLinkBuilder.toUri();
-//        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-//        CpnResource cpnResource = new CpnResource(newCpn);
-//        cpnResource.add(linkTo(CpnController.class).withRel("query-cpn"));
-//        cpnResource.add(selfLinkBuilder.withRel("update-cpn"));
-//        cpnResource.add(new Link("/docs/index.html#resources-cpn-create").withRel("profile"));
-//
-//        return ResponseEntity.created(createdUri).body(cpnResource);
-//    }
+    /**
+     * 정보 등록
+     */
+    @PostMapping
+    public ResponseEntity createCpn(
+            @RequestBody @Valid CpnDto cpnDto,
+            Errors errors,
+            @CurrentUser Account currentUser) {
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+
+        // 입력값 체크
+        cpnValidator.validate(cpnDto, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+
+        // 입력값을 브랜드 객채에 대입
+        Cpn cpn = modelMapper.map(cpnDto, Cpn.class);
+
+        // 레코드 등록
+        Cpn newCpn = cpnService.create(cpn);
+
+        ControllerLinkBuilder selfLinkBuilder = linkTo(CpnController.class).slash(newCpn.getId());
+
+        URI createdUri = selfLinkBuilder.toUri();
+        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+        CpnResource cpnResource = new CpnResource(newCpn);
+        cpnResource.add(linkTo(CpnController.class).withRel("query-cpn"));
+        cpnResource.add(selfLinkBuilder.withRel("update-cpn"));
+        cpnResource.add(new Link("/docs/index.html#resources-cpn-create").withRel("profile"));
+
+        return ResponseEntity.created(createdUri).body(cpnResource);
+    }
 
 
     /**
