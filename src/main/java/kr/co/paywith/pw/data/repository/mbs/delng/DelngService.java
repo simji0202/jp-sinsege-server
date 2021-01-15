@@ -1,8 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.ZonedDateTime;
+import javax.transaction.Transactional;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
@@ -24,9 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.time.ZonedDateTime;
 
 @Service
 public class DelngService {
@@ -58,9 +55,6 @@ public class DelngService {
   @Autowired
   private GoodsRepository goodsRepository;
 
-//  @Autowired
-//  private ObjectMapper objectMapper;
-
   @Autowired
   private StampHistRepository stampHistRepository;
 
@@ -71,10 +65,7 @@ public class DelngService {
    * 정보 등록
    */
   @Transactional
-  public Delng create(Delng delng) throws JsonProcessingException {
-
-    ObjectMapper objectMapper = new ObjectMapper();
-    delng.setDelngGoodsListJson(objectMapper.writeValueAsString(delng.getDelngGoodsList()));
+  public Delng create(Delng delng) {
 
     if (delng.getUserInfo().getId() != null) {
       delng.setUserInfo(userInfoRepository.findById(delng.getUserInfo().getId()).get());

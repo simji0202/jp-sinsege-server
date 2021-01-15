@@ -4,7 +4,6 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
@@ -30,8 +29,8 @@ public class DelngValidator {
     // 팔수값 확인
     ValidatorUtils.checkObjectNull(delngDto.getDelngAmt(), "거래 금액", errors);
     ValidatorUtils.checkObjectNull(delngDto.getDelngTypeCd(), "거래 종류", errors);
-    //    ValidatorUtils.checkObjectNull(delngDto.getMrhst(), "매장", errors);
-    ValidatorUtils.checkObjectNull(delngDto.getUserInfo(), "회원", errors);
+//    ValidatorUtils.checkObjectNull(delngDto.getMrhst(), "매장", errors);
+//    ValidatorUtils.checkObjectNull(delngDto.getUserInfo(), "회원", errors);
 
     boolean isReqFromUser = false; // 회원이 한 요청은 금액 조작 여부를 검증해야 한다
     switch (delngDto.getDelngTypeCd()) {// 거래 종류에 따라 구분 처리

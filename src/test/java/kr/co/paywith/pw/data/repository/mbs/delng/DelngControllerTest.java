@@ -3,6 +3,7 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -41,6 +44,61 @@ public class DelngControllerTest extends BaseControllerTest {
         // 유저가 핸드폰을 통해 상품 하나를  쿠폰을 이용하여 거래
         // 상품코드 : 1   쿠폰 : 금액 쿠폰 500
 
+
+        DelngGoodsOptMaster delngGoodsOptMaster1 = new DelngGoodsOptMaster();
+        delngGoodsOptMaster1.setGoodsOptNm("소 (550g)");
+        delngGoodsOptMaster1.setGoodsOptAmt(0);
+
+        DelngGoodsOptMaster delngGoodsOptMaster2 = new DelngGoodsOptMaster();
+        delngGoodsOptMaster2.setGoodsOptNm("중 (750g)");
+        delngGoodsOptMaster2.setGoodsOptAmt(5000);
+
+        DelngGoodsOptMaster delngGoodsOptMaster3 = new DelngGoodsOptMaster();
+        delngGoodsOptMaster3.setGoodsOptNm("대 (950g)");
+        delngGoodsOptMaster3.setGoodsOptAmt(10000);
+
+
+
+        DelngGoodsOptMaster delngGoodsOptMaster4 = new DelngGoodsOptMaster();
+        delngGoodsOptMaster4.setGoodsOptNm("삼겹");
+        delngGoodsOptMaster4.setGoodsOptAmt(0);
+
+        DelngGoodsOptMaster delngGoodsOptMaster5 = new DelngGoodsOptMaster();
+        delngGoodsOptMaster5.setGoodsOptNm("목살");
+        delngGoodsOptMaster5.setGoodsOptAmt(0);
+
+        DelngGoodsOptMaster delngGoodsOptMaster6 = new DelngGoodsOptMaster();
+        delngGoodsOptMaster6.setGoodsOptNm("직갈비");
+        delngGoodsOptMaster6.setGoodsOptAmt(0);
+
+
+        // 사이즈 옵션 선택
+        DelngGoodsOpt delngGoodsOpt = new DelngGoodsOpt();
+        delngGoodsOpt.setOptTitle("사이즈 선택");
+        delngGoodsOpt.setMultiChoiceFl(false);
+        delngGoodsOpt.setNeedFl(true);
+
+        delngGoodsOpt.setGoodsOptMasterList(List.of(delngGoodsOptMaster1, delngGoodsOptMaster2, delngGoodsOptMaster3));
+
+
+        DelngGoodsOpt delngGoodsOpt2 = new DelngGoodsOpt();
+        delngGoodsOpt2.setOptTitle("고기 선택");
+        delngGoodsOpt2.setMultiChoiceFl(false);
+        delngGoodsOpt2.setNeedFl(false);
+
+        delngGoodsOpt2.setGoodsOptMasterList(List.of(delngGoodsOptMaster4, delngGoodsOptMaster5, delngGoodsOptMaster6));
+
+
+
+        DelngGoods delngGoods = new DelngGoods();
+
+        delngGoods.setGoodsId(1);
+        delngGoods.setGoodsNm("구매 상품1");
+        delngGoods.setGoodsCnt(1);
+        delngGoods.setGoodsAmt(10000);
+        delngGoods.setDelngGoodsOptList(List.of(delngGoodsOpt, delngGoodsOpt2 ));
+
+
         DelngDto delng = new DelngDto();
 
         delng.setConfmNo("20210111000001");
@@ -50,6 +108,14 @@ public class DelngControllerTest extends BaseControllerTest {
 
         delng.setCpnId(1);               // 사용할 쿠폰 설정
         delng.setCpnAmt(1000);           // 쿠폰으로 인해서 할인된 금액
+
+        delng.setDelngGoodsList(List.of(delngGoods));
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(1);
+
+        delng.setUserInfo(userInfo);
+
 
         mockMvc.perform(post("/api/delng/")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))

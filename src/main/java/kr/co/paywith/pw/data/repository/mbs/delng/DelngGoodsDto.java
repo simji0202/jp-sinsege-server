@@ -1,7 +1,5 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -34,33 +32,4 @@ public class DelngGoodsDto {
    */
   private List<DelngGoodsOpt> delngGoodsOptList = new ArrayList<>();
 
-}
-
-@Data
-class DelngGoodsOpt {
-
-  /**
-   * 옵션 이름
-   */
-  private String optTitle;
-
-  /**
-   * 다중 선택 여부 ( 라디오버튼 : false , 체크박스 : true )
-   */
-  private Boolean multiChoiceFl = false;
-
-}
-
-@Data
-class GoodsOptMaster {
-
-  /**
-   * 옵션 이름
-   */
-  private String GoodsOptNm;
-
-  /**
-   * 옵션 가격
-   */
-  private Integer goodsOptAmt;
 }

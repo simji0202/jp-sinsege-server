@@ -15,6 +15,7 @@ import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.admin.AdminDto;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
+import kr.co.paywith.pw.data.repository.admin.AdminService;
 import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
 import kr.co.paywith.pw.data.repository.enumeration.AvailBrandFnCd;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
@@ -36,12 +37,30 @@ import org.springframework.web.context.WebApplicationContext;
 
 public class ScenarioTest extends BaseControllerTest {
 
+
+  @Autowired
+  AdminService adminService;
+
+
   @Autowired
   private WebApplicationContext webApplicationContext;
 
   @Test
   @TestDescription("업체을 등록하는 테스트")
   public void createScenarioData() throws Exception {
+
+
+//
+//    Admin admin1 = Admin.builder()
+//            .adminId("simji")
+//            .adminPw("1234")
+//            .adminNm("paywith")
+//            .roles(Set.of(AdminRole.ADMIN_MASTER))
+//            .build();
+//
+//    this.adminService.create(admin1);
+
+
 
     // 1. 관리자 등록
     AdminDto admin = new AdminDto();

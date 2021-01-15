@@ -138,7 +138,7 @@ public class Delng {
     /**
      * 거래 회원 아이디
      */
-    @OneToOne(cascade = {CascadeType.ALL}, optional=false)
+    @ManyToOne
     private UserInfo userInfo;
 
     /**

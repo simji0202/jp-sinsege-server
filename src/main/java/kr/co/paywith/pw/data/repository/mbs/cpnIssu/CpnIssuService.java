@@ -55,8 +55,8 @@ public class CpnIssuService {
 
             // 발행 주체 설정
             if ( account != null ) {
-                cpn.setCreateBy(account.getAccountNm());
-                cpn.setUpdateBy(account.getAccountNm());
+                cpn.setCreateBy(account.getAccountId());
+                cpn.setUpdateBy(account.getAccountId());
             }
             cpnRepository.save(cpn);
         }

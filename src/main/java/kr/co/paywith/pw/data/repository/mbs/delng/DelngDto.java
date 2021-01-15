@@ -103,24 +103,16 @@ public class DelngDto {
   private String mrhstNm;
 
   /////////////////// 검증을 위한 정보  end  //////////////////////
-  /**
-   * 취소한 user 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-   */
-  private String cancelBy;
-
-  /**
-   * 취소 일시
-   */
-  private ZonedDateTime cancelRegDttm;
 
   /**
    * 거래 상세(물품) 목록
    */
-  private List<DelngGoodsDto> delngGoodsList = new ArrayList<>();
+  private List<DelngGoods> delngGoodsList = new ArrayList<>();
 
   /**
    * 결제 정보
    */
   private List<DelngPaymentDto> delngPaymentList = new ArrayList<>();
+
 
 }

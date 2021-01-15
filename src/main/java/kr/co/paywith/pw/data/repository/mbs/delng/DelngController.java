@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
 import java.net.URI;
@@ -14,8 +14,6 @@ import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
-import kr.co.paywith.pw.data.repository.mbs.delng.DelngDeleteDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +27,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +51,9 @@ public class DelngController extends CommonController {
     @Autowired
     DelngService delngService;
 
+    @Autowired
+    Gson gson;
+
     /**
      * 정보 등록
      */
@@ -66,13 +66,6 @@ public class DelngController extends CommonController {
             return badRequest(errors);
         }
 
-
-        if (DelngTypeCd.APP.equals(delngDto.getDelngTypeCd())) {
-            // 앱 주문일 때는 currentUser.userInfo를 dto 에 설정
-            delngDto.setUserInfo(currentUser.getUserInfo());
-        }
-
-
         // 입력값 체크
         delngValidator.validate(delngDto, errors);
         if (errors.hasErrors()) {
@@ -82,15 +75,17 @@ public class DelngController extends CommonController {
         // 입력값을 브랜드 객채에 대입
         Delng delng = modelMapper.map(delngDto, Delng.class);
 
-        // 레코드 등록
-        Delng newDelng = null;
-        try {
-            newDelng = delngService.create(delng);
-        } catch (JsonProcessingException e) {
-            // json 직렬화 오류
-            e.printStackTrace();
-            return badRequest(errors);
+        // 로그인 한 유저 정보
+        if (DelngTypeCd.APP.equals(delngDto.getDelngTypeCd())) {
+            // 앱 주문일 때는 currentUser.userInfo를 dto 에 설정
+            delng.setUserInfo(currentUser.getUserInfo());
         }
+
+        // 결제 상품 정보를  Json 데이터로 확보
+        delng.setDelngGoodsListJson(gson.toJson(delngDto.getDelngGoodsList()));
+
+        // 레코드 등록
+        Delng newDelng = delngService.create(delng);
 
         ControllerLinkBuilder selfLinkBuilder = linkTo(DelngController.class).slash(newDelng.getId());
 
