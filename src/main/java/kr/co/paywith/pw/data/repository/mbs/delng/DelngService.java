@@ -7,21 +7,19 @@ import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
-import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRuleRepository;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHist;
+import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistRepository;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistService;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistRepository;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistService;
-import kr.co.paywith.pw.data.repository.user.grade.GradeRepository;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +28,6 @@ public class DelngService {
 
   @Autowired
   private DelngRepository delngrRepository;
-
-  @Autowired
-  private GradeRepository gradeRepository;
-
-  @Autowired
-  private ModelMapper modelMapper;
 
   @Autowired
   private CpnRepository cpnRepository;
@@ -50,13 +42,13 @@ public class DelngService {
   private PointRuleRepository pointRuleRepository;
 
   @Autowired
-  private GcctRepository gcctRepository;
-
-  @Autowired
   private GoodsRepository goodsRepository;
 
   @Autowired
   private StampHistRepository stampHistRepository;
+
+  @Autowired
+  private ScoreHistRepository scoreHistRepository;
 
   @Autowired
   private ScoreHistService scoreHistService;
@@ -193,7 +185,6 @@ public class DelngService {
         // 유효기간이 남아있지 않다면. 지난 거래 정정할 가능성도 있으므로 사용가능 상태 복원
         cpn.setCpnSttsCd(CpnSttsCd.AVAIL);
       }
-
     }
 
     // 상품권 상태 복원
@@ -206,7 +197,8 @@ public class DelngService {
     stampHistService.delete(stampHist);
 
     // 스코어 차감
-    // kms: TODO 이 거래로 스코어 몇 쌓였는지 기록 필요?
+    ScoreHist scoreHist = scoreHistRepository.findByDelng_Id(delng.getId());
+    scoreHistService.delete(scoreHist);
 
     // 포인트 차감
 
