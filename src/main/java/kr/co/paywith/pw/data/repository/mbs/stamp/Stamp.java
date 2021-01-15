@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -53,11 +54,11 @@ public class Stamp {
 	@ManyToOne
 	private Cpn cpn;
 
-//	/**
-//	 * 스탬프를 사용했을 때 해당 사용 이력
-//	 */
-//	@ManyToOne
-//	private DelngPayment delngPayment;
+	/**
+	 * 스탬프를 사용했을 때 해당 사용 이력
+	 */
+	@ManyToOne
+	private DelngPayment delngPayment;
 
 	// stampHist.UserInfo
 //	/**

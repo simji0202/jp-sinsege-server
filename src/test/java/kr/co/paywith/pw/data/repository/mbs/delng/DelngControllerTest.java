@@ -2,10 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,6 @@ public class DelngControllerTest extends BaseControllerTest {
 
         //       this.delngRepository.deleteAll();
         //       this.adminRepository.deleteAll();
-
     }
 
 
@@ -54,12 +50,6 @@ public class DelngControllerTest extends BaseControllerTest {
 
         delng.setCpnId(1);               // 사용할 쿠폰 설정
         delng.setCpnAmt(1000);           // 쿠폰으로 인해서 할인된 금액
-
-        DelngPayment delngPayment = new DelngPayment();
-        delngPayment.setDelngPaymentTypeCd(DelngPaymentTypeCd.PG_PAY);
-        delngPayment.setAmt(44000);
-
-
 
         mockMvc.perform(post("/api/delng/")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))

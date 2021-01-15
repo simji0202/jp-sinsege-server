@@ -4,12 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -130,6 +125,6 @@ public class DelngDto {
     /**
      * 결제 정보
      */
-    private List<DelngPayment>  delngPaymentList = new ArrayList<>();
+    private List<DelngPaymentDto>  delngPaymentList = new ArrayList<>();
 
 }

@@ -16,7 +16,6 @@ public class RefundDto {
     @NameDescription("식별번호")
     private Integer id;
 
-
     /**
      * 결제
      */

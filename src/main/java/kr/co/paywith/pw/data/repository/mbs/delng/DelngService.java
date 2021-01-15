@@ -1,17 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
 
-import java.time.ZonedDateTime;
-import javax.transaction.Transactional;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
-import kr.co.paywith.pw.data.repository.mbs.delngGoods.DelngGoods;
-import kr.co.paywith.pw.data.repository.mbs.delngGoodsOpt.DelngGoodsOpt;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
-import kr.co.paywith.pw.data.repository.mbs.gcct.Gcct;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
 import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRuleRepository;
@@ -20,48 +11,48 @@ import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistService;
 import kr.co.paywith.pw.data.repository.user.grade.GradeRepository;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.ZonedDateTime;
 
 @Service
 public class DelngService {
 
-  @Autowired
-  private DelngRepository delngrRepository;
+    @Autowired
+    private DelngRepository delngrRepository;
 
-  @Autowired
-  private GradeRepository gradeRepository;
+    @Autowired
+    private GradeRepository gradeRepository;
 
-  @Autowired
-  private ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-  @Autowired
-  private CpnRepository cpnRepository;
+    @Autowired
+    private CpnRepository cpnRepository;
 
-  @Autowired
-  private UserInfoRepository userInfoRepository;
+    @Autowired
+    private UserInfoRepository userInfoRepository;
 
-  @Autowired
-  private StampHistService stampHistService;
+    @Autowired
+    private StampHistService stampHistService;
 
-  @Autowired
-  private PointRuleRepository pointRuleRepository;
+    @Autowired
+    private PointRuleRepository pointRuleRepository;
 
-  @Autowired
-  private GcctRepository gcctRepository;
+    @Autowired
+    private GcctRepository gcctRepository;
 
-  /**
-   * 정보 등록
-   */
-  @Transactional
-  public Delng create(Delng delng) {
-    // 데이터베이스 값 갱신
-    Delng newDelng = this.delngrRepository.save(delng);
+    /**
+     * 정보 등록
+     */
+    @Transactional
+    public Delng create(Delng delng) {
+        // 데이터베이스 값 갱신
+        Delng newDelng = this.delngrRepository.save(delng);
 
 //    if (!newDelng.getUserInfo().getCertTypeCd().equals(CertTypeCd.GUEST)) {
 //      // 비회원이 아니면 현재 등급 저장
@@ -69,9 +60,8 @@ public class DelngService {
 //    }
 
 
-
-    int score = 0;
-    int stamp = 0;
+        int score = 0;
+        int stamp = 0;
 
 //    if (newDelng.getDelngGoodsList() != null) {
 //      for (DelngGoods delngGoods : newDelng.getDelngGoodsList()) {
@@ -121,33 +111,33 @@ public class DelngService {
 //      }
 //    }
 
-    // 회원 정보 갱신
-    UserInfo userInfo = newDelng.getUserInfo();
+        // 회원 정보 갱신
+        UserInfo userInfo = newDelng.getUserInfo();
 
-    // 스코어
-    userInfo.setScoreCnt(userInfo.getScoreCnt() + score);
+        // 스코어
+        userInfo.setScoreCnt(userInfo.getScoreCnt() + score);
 
-    // 스탬프
-    if (stamp > 0) {
-      StampHist stampHist = new StampHist();
-      stampHist.setUserInfo(userInfo);
-      stampHist.setStampHistTypeCd(StampHistTypeCd.RSRV);
-      stampHist.setSetleDttm(ZonedDateTime.now());
-      stampHist.setCnt(stamp);
-   //   stampHist.setMrhst(delng.getMrhst());
-      stampHist.setDelng(newDelng);
-      stampHistService.create(stampHist);
-    }
+        // 스탬프
+        if (stamp > 0) {
+            StampHist stampHist = new StampHist();
+            stampHist.setUserInfo(userInfo);
+            stampHist.setStampHistTypeCd(StampHistTypeCd.RSRV);
+            stampHist.setSetleDttm(ZonedDateTime.now());
+            stampHist.setCnt(stamp);
+            //   stampHist.setMrhst(delng.getMrhst());
+            stampHist.setDelng(newDelng);
+            stampHistService.create(stampHist);
+        }
 
-    // 변경 회원 정보 저장
-    userInfoRepository.save(userInfo);
+        // 변경 회원 정보 저장
+        userInfoRepository.save(userInfo);
 
-    // 거래 시 포인트 적립규칙 있는지 확인
-    for (PointRule pointRule:
-        pointRuleRepository.findByMinAmtGreaterThanEqualAndActiveFlIsTrue(delng.getDelngAmt())) {
-      // 적립 규칙 있으면 적립
-      // kms: TODO 멤버십 포인트 관련 정책 확인 후 구조 정해지면 개발
-    }
+        // 거래 시 포인트 적립규칙 있는지 확인
+        for (PointRule pointRule :
+                pointRuleRepository.findByMinAmtGreaterThanEqualAndActiveFlIsTrue(delng.getDelngAmt())) {
+            // 적립 규칙 있으면 적립
+            // kms: TODO 멤버십 포인트 관련 정책 확인 후 구조 정해지면 개발
+        }
 
 //    // 결제 정보 처리
 //    if (newDelng.getDelngPaymentList() != null) {
@@ -168,11 +158,11 @@ public class DelngService {
 //      }
 //    }
 
-    // 운영 중 거래 식별을 위해 서버에서 생성하는 거래 번호
-    newDelng.setConfmNo("D" + StringUtils.leftPad("" + delng.getId(), 11, "0"));
+        // 운영 중 거래 식별을 위해 서버에서 생성하는 거래 번호
+        newDelng.setConfmNo("D" + StringUtils.leftPad("" + delng.getId(), 11, "0"));
 
-    return delngrRepository.save(newDelng);
-  }
+        return delngrRepository.save(newDelng);
+    }
 
 
 //  /**

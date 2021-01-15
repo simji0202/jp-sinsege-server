@@ -46,9 +46,9 @@ public class PrpayHist {
 	@ManyToOne
 	private Chrg chrg;
 
-	/**
-	 * 선불카드 결제 이력
-	 */
+//	/**
+//	 * 선불카드 결제 이력
+//	 */
 	@ManyToOne
 	private DelngPayment delngPayment;
 
