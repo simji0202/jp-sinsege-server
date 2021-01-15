@@ -2,6 +2,10 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 
 import kr.co.paywith.pw.component.ValidatorUtils;
+import kr.co.paywith.pw.data.repository.account.Account;
+import kr.co.paywith.pw.data.repository.admin.AdminRole;
+import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
@@ -12,34 +16,46 @@ import org.springframework.validation.Errors;
 @Component
 public class DelngValidator {
 
-    @Autowired
-    private CpnRepository cpnRepository;
+  @Autowired
+  private CpnRepository cpnRepository;
 
-    @Autowired
-    private GoodsRepository goodsRepository;
+  @Autowired
+  private GoodsRepository goodsRepository;
 
-    @Autowired
-    private GcctRepository gcctRepository;
+  @Autowired
+  private GcctRepository gcctRepository;
 
-    public void validate(DelngDto delngDto, Errors errors) {
+  public void validate(DelngDto delngDto, Errors errors) {
 
-      // 팔수값 확인
-      ValidatorUtils.checkObjectNull(delngDto.getDelngAmt(), "거래 금액", errors);
-      ValidatorUtils.checkObjectNull(delngDto.getDelngTypeCd(), "거래 종류", errors);
-  //    ValidatorUtils.checkObjectNull(delngDto.getMrhst(), "매장", errors);
-      ValidatorUtils.checkObjectNull(delngDto.getUserInfo(), "회원", errors);
+    // 팔수값 확인
+    ValidatorUtils.checkObjectNull(delngDto.getDelngAmt(), "거래 금액", errors);
+    ValidatorUtils.checkObjectNull(delngDto.getDelngTypeCd(), "거래 종류", errors);
+    //    ValidatorUtils.checkObjectNull(delngDto.getMrhst(), "매장", errors);
+    ValidatorUtils.checkObjectNull(delngDto.getUserInfo(), "회원", errors);
 
-      boolean isReqFromUser = false; // 회원이 한 요청은 금액 조작 여부를 검증해야 한다
-      switch (delngDto.getDelngTypeCd()) {// 거래 종류에 따라 구분 처리
-        case POS:
-        case PW:
-          // 매장 요청이면
-          isReqFromUser = false;
-          break;
-        case APP:
-          isReqFromUser = true;
-          break;
+    boolean isReqFromUser = false; // 회원이 한 요청은 금액 조작 여부를 검증해야 한다
+    switch (delngDto.getDelngTypeCd()) {// 거래 종류에 따라 구분 처리
+      case POS:
+      case PW:
+        // 매장 요청이면
+        isReqFromUser = false;
+        break;
+      case APP:
+        isReqFromUser = true;
+        break;
+    }
+
+    // 쿠폰 유효성 검증
+    if (delngDto.getCpnAmt() > 0) {
+      if (delngDto.getCpnId() == null) {
+        errors.reject("쿠폰 검증 오류", "쿠폰 정보가 없습니다");
+      } else {
+        Cpn cpn = cpnRepository.findById(delngDto.getCpnId()).get();
+        if (!cpn.isAvail()) { // 사용가능하지 않은 상태라면..
+          errors.reject("쿠폰 검증 오류", "쿠폰이 유효하지 않습니다");
+        }
       }
+    }
 
 //    int goodsDelngAmt = 0; // 상품 목록에서 쿠폰 금액 제외한 합
 //    // 상품 확인
@@ -218,5 +234,22 @@ public class DelngValidator {
 //    // TODO CloseEnrollmentDateTime
 //  }
 
+  }
+
+  public void validate(Account currentUser, Delng delng, Errors errors) {
+    ValidatorUtils.checkObjectNull(currentUser, "인증", errors);
+    if (currentUser.getAdmin() != null && currentUser.getAdmin().getRoles()
+        .contains(AdminRole.ADMIN_MASTER) // 전체 관리자
+    ) {
+
+    } else {
+      // 적절한 권한이 없으면 오류
+      errors.reject("권한 없음", "삭제 권한이 없습니다");
     }
+
+    // 이미 취소한 거래면 오류
+    if (delng.getCancelRegDttm() != null) {
+      errors.reject("취소 오류", "이미 취소한 거래");
+    }
+  }
 }

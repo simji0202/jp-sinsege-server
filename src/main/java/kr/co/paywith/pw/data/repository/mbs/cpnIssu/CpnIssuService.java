@@ -44,12 +44,14 @@ public class CpnIssuService {
 
         // 쿠폰 번호 생성
         for (Cpn cpn : newCpnIssu.getCpnList()) {
-            // TODO persist 상태가 되어 cpn.cpnIssu 가 들어가있는지 확인
         //    cpn.setCpnMaster(cpnIssu.getCpnMaster());
 
-            // che2 부모 클라스 설정
+            // 부모 클라스 설정
             cpn.setCpnIssu(newCpnIssu);
             cpn.setCreateBy(cpnIssu.getCreateBy());
+
+            // cpn.cpnIssu를 사용해서 cpnNo 설정
+            cpn.setCpnNo(cpnService.getCpnNo(cpn));
 
             // 발행 주체 설정
             if ( account != null ) {

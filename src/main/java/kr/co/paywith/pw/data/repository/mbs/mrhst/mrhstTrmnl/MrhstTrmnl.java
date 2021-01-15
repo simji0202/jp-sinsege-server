@@ -49,19 +49,16 @@ public class MrhstTrmnl {
     /**
      * 단말기 번호. 외부 시스템 연동에 사용
      */
-    @CsvBindByName(column = "DeviceNumber")
     private String trmnlNo;
 
     /**
      * 단말기 명
      */
-    @CsvBindByName(column = "DeviceName")
     private String trmnlNm;
 
     /**
      * 사용 여부
      */
-    @CsvBindByName(column = "Active")
     private Boolean activeFl = true;
 
     /**

@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
 import java.net.URI;
@@ -13,6 +14,8 @@ import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
+import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
+import kr.co.paywith.pw.data.repository.mbs.delng.DelngDeleteDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,7 +83,14 @@ public class DelngController extends CommonController {
         Delng delng = modelMapper.map(delngDto, Delng.class);
 
         // 레코드 등록
-        Delng newDelng = delngService.create(delng);
+        Delng newDelng = null;
+        try {
+            newDelng = delngService.create(delng);
+        } catch (JsonProcessingException e) {
+            // json 직렬화 오류
+            e.printStackTrace();
+            return badRequest(errors);
+        }
 
         ControllerLinkBuilder selfLinkBuilder = linkTo(DelngController.class).slash(newDelng.getId());
 
@@ -196,8 +207,38 @@ public class DelngController extends CommonController {
 //        // 정상적 처리
 //        return ResponseEntity.ok(delngResource);
 //    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeDelng(@PathVariable Integer id,
+        @RequestBody(required = false) DelngDeleteDto delngDeleteDto,
+        Errors errors,
+        @CurrentUser Account currentUser) {
+        // 입력체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
 
+        Optional<Delng> delngOptional = this.delngRepository.findById(id);
 
+        if (delngOptional.isEmpty()) {
+            // 404 Error return
+            return ResponseEntity.notFound().build();
+        }
+
+        Delng delng = delngOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.delngValidator.validate(currentUser, delng, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        delng.setCancelBy(currentUser.getAccountId());
+        delngService.delete(delng);
+
+        // 정상적 처리
+        return ResponseEntity.ok().build();
+    }
 
 
 

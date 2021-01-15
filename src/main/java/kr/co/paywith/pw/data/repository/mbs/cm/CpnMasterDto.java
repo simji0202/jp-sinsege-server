@@ -15,7 +15,7 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
- * 쿠폰 종류 ( 무료쿠폰, 활인쿠폰, 상품쿠폰, 금액 쿠폰  등 )
+ * 쿠폰 종류 ( 무료쿠폰, 할인쿠폰, 상품쿠폰, 금액 쿠폰  등 )
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,8 +24,6 @@ import java.time.ZonedDateTime;
 @Setter
 public class CpnMasterDto {
 
-
-  private Integer id;
 
   /**
    * 쿠폰 명
@@ -96,10 +94,13 @@ public class CpnMasterDto {
   private Integer minUseStdAmt = 0;
 
   /**
-   * 쿠폰 최소 사용 기준 금액.
-   * 설정 금액 이상 사용할 때에만 쿠폰 사용가능
+   * 쿠폰 금액 상한.
+   *
+   * cpnMasterTypeCd.RATIO 일 때, 할인할 수 있는 최대 금액을 설정한다.
+   *
+   * ex> 50% 쿠폰(cpnRatio=50)은 1000원 결제 시 500원을 할인하지만, 여러 결제를 대신하면서 100만원 결제 시 사용하면 50만원을 받을 수 있어 부정 사용이 가능하다
    */
-  private Integer maxUseStdAmt = 0;
+  private int maxCpnAmt = 0;
 
   private Brand brand;
 

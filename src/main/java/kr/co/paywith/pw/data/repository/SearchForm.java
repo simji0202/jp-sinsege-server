@@ -7,6 +7,7 @@ import javax.persistence.*;
 import kr.co.paywith.pw.common.NameDescription;
 
 
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,6 +38,12 @@ public class SearchForm {
   // 게시판
 
   private String bbsSj;
+
+  // 쿠폰
+  /**
+   * 쿠폰 상태 코드. 특정 상태 쿠폰 조회
+   */
+  private CpnSttsCd cpnSttsCd;
 
 
 }

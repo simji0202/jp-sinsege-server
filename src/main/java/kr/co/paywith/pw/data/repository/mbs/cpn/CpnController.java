@@ -108,6 +108,11 @@ public class CpnController extends CommonController  {
         // 무효(발급 취소) 된 쿠폰 비표시
         booleanBuilder.and(qCpn.cpnSttsCd.ne(CpnSttsCd.INVALID));
 
+        // 검색조건 쿠폰 상태
+        if (searchForm.getCpnSttsCd() != null) {
+            booleanBuilder.and(qCpn.cpnSttsCd.eq(searchForm.getCpnSttsCd()));
+        }
+
         // 검색조건 아이디(키)
         if (searchForm.getId() != null) {
             booleanBuilder.and(qCpn.id.eq(searchForm.getId()));

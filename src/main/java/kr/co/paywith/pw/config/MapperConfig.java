@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.paywith.pw.data.repository.enumeration.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -69,4 +70,10 @@ public class MapperConfig {
 
         return enumMapper;
     }
+
+//    @Bean
+//    public ObjectMapper objectMapper() {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        return objectMapper;
+//    }
 }

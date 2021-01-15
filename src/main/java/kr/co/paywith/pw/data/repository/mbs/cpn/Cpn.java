@@ -92,4 +92,19 @@ public class Cpn {
 
     @NameDescription("등록담당자")
     private String createBy;
+
+    /**
+     * 쿠폰이 사용가능한 상태인지 여부. 사용처가 많아서 pojo에 필드화
+     *
+     * @return 사용 가능하면 true
+     */
+    @Transient
+    public boolean isAvail() {
+        if (this.cpnSttsCd.equals(CpnSttsCd.AVAIL)) {
+            if (this.cpnIssu != null && this.cpnIssu.getValidEndDttm().isAfter(ZonedDateTime.now())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

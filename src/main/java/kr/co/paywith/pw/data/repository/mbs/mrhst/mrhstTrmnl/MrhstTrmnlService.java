@@ -28,8 +28,9 @@ public class MrhstTrmnlService {
     public MrhstTrmnl create(MrhstTrmnl mrhstTrmnl) {
 
         // 데이터베이스 값 갱신
-        mrhstTrmnl.setUserPw(this.passwordEncoder.encode(mrhstTrmnl.getUserPw()));
-
+        if (mrhstTrmnl.getUserPw() != null) {
+            mrhstTrmnl.setUserPw(this.passwordEncoder.encode(mrhstTrmnl.getUserPw()));
+        }
         MrhstTrmnl newMrhstTrmnl = this.mrhstTrmnlRepository.save(mrhstTrmnl);
 
         return newMrhstTrmnl;
@@ -45,6 +46,10 @@ public class MrhstTrmnlService {
         // 입력값 대입
         this.modelMapper.map(mrhstTrmnlUpdateDto, existMrhstTrmnl);
 
+        // 데이터베이스 값 갱신
+        if (mrhstTrmnlUpdateDto.getUserPw() != null) {
+            mrhstTrmnlUpdateDto.setUserPw(this.passwordEncoder.encode(mrhstTrmnlUpdateDto.getUserPw()));
+        }
         // 데이터베이스 값 갱신
         this.mrhstTrmnlRepository.save(existMrhstTrmnl);
 

@@ -1,6 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
+import java.util.ArrayList;
+import java.util.List;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -115,6 +118,7 @@ public class Delng {
     /////// 쿠폰 사용에 대한 관련 항목 start/////
     /**
      * 사용한 금액 쿠폰
+     * kms: 상품 금액도 여기에 설정하는지 다시 한번 확인
      */
     private Integer cpnId;
 
@@ -134,13 +138,13 @@ public class Delng {
     /**
      * 거래 회원 아이디
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL}, optional=false)
     private UserInfo userInfo;
 
     /**
      * 가맹점 단말기. 매장에서 저장한 거래라면 단말기 정보가 있음 (POS, PW)
      */
-    private String mrhstTrmnlId;
+    private Integer mrhstTrmnlId;
 
     /**
      * 거래 매장 아이디
@@ -151,6 +155,12 @@ public class Delng {
      * 거래 매장 이름
      */
     private String mrhstNm;
+
+    @Transient
+    private List<DelngGoodsDto> delngGoodsList = new ArrayList<>();
+
+    @Transient
+    private List<DelngPaymentDto>  delngPaymentList = new ArrayList<>();
 
 
     /////////////////// 검증을 위한 정보  end  //////////////////////
