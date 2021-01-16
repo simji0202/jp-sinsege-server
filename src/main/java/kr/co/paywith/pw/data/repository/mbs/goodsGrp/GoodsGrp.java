@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
+package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.*;
@@ -55,7 +55,6 @@ public class GoodsGrp {
      * 사용 여부
      */
     private Boolean activeFl = false;
-
 
     @ManyToOne
     private Brand brand;

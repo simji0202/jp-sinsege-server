@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum PosTypeCd implements EnumMapperType {
-  STR("매장(일반)"),
   OKPOS("OKPOS"),
   SMTR("Smatro"),
   KIOSK("KIOSK"),

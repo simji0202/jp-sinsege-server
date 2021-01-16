@@ -24,6 +24,8 @@ public class MrhstTrmnlUpdateDto {
 
     /**
      * 가맹점 단말기 일련번호
+     * DTO에서 일반적으로 id를 없앴지만, validator 에서 중복 체크를 위해 둠
+     * kms: TODO validator 변경 후 삭제
      */
     private Integer Id;
 
@@ -58,8 +60,7 @@ public class MrhstTrmnlUpdateDto {
      * 결제 시 ChrgSetleChnlCd가 STR 일 경우 이 타입으로 변경
      * null일 경우에는 STR 상태로 유지
      */
-    @Enumerated(EnumType.STRING)
-    private PosTypeCd posTypeCd = PosTypeCd.STR;
+    private PosTypeCd posTypeCd = PosTypeCd.PW;
 
     /**
      * 웹포스 로그인 아이디
@@ -84,7 +85,6 @@ public class MrhstTrmnlUpdateDto {
     /**
      * POS에서 사용가능한 기능
      */
-    @Enumerated(EnumType.STRING)
     private List<PosAvailFnCd> posAvailFnCdList;
 
 }

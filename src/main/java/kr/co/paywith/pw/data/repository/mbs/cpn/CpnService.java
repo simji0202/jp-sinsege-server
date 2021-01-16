@@ -5,6 +5,7 @@ import kr.co.paywith.pw.component.StringUtil;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -84,12 +85,13 @@ public class CpnService {
     if (cpn.getCpnIssu().getCpnIssuRule() != null &&
         cpn.getCpnIssu().getCpnIssuRule().getCpnIssuRuleCd().equals(CpnIssuRuleCd.S) // 스탬프 쿠폰이면
     ) {
+      int stampMaxCnt = cpn.getCpnMaster().getBrand().getBrandSetting().getStampMaxCnt(); // 쿠폰 발급에 필요한 스탬프 개수
       // 회원의 스탬프 개수 복원
-      // kms TODO 쿠폰 마스터와 동일한 회원의 브랜드 정보에서 스탬프 차감 필요
-//      cpn.getUserInfo().getUserStamp().
+      UserStamp userStamp = cpn.getUserInfo().getUserStamp();
+      userStamp.setStampCnt(userStamp.getStampCnt() - stampMaxCnt);
+      userStamp.setStampTotalGet(userStamp.getStampTotalGet() - stampMaxCnt);
       // userInfo 저장
-      // kms: 이 save는 repository? userInfoService? 어디서 해야 하는지
-//      userInfoRepository.
+      userInfoRepository.save(cpn.getUserInfo());
     }
     cpnRepository.save(cpn);
   }

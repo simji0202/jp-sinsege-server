@@ -26,7 +26,6 @@ import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
 import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.userInfo.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -315,28 +314,6 @@ public class ScenarioTest extends BaseControllerTest {
         .andExpect(jsonPath("id").exists())
         .andExpect(header().exists(HttpHeaders.LOCATION))
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
-    ;
-
-
-    // 매장 정보 등록
-
-    Mrhst mrhst = new Mrhst();
-    mrhst.setMrhstNm("세종시중구점");
-    mrhst.setMrhstCd("12233242");
-    mrhst.setAddress("서울시 중구  ");
-
-
-    mockMvc.perform(post("/api/mrhst/")
-            .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-            .header("Origin", "*")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .accept(MediaTypes.HAL_JSON)
-            .content(objectMapper.writeValueAsString(mrhst)))
-            .andDo(print())
-            .andExpect(status().isCreated())
-            .andExpect(jsonPath("id").exists())
-            .andExpect(header().exists(HttpHeaders.LOCATION))
-            .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
     ;
 
     // 시나리오 데이터 등록 완료

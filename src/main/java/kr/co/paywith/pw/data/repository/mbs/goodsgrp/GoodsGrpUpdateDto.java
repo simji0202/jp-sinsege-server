@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
+package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
@@ -35,6 +35,5 @@ public class GoodsGrpUpdateDto {
      */
     private Boolean activeFl = false;
 
-   // che2 : 추가
     private Brand brand;
 }

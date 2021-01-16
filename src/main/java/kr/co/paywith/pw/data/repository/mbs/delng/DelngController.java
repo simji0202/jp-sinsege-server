@@ -23,10 +23,10 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -204,8 +204,38 @@ public class DelngController extends CommonController {
 //        // 정상적 처리
 //        return ResponseEntity.ok(delngResource);
 //    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeDelng(@PathVariable Integer id,
+        @RequestBody(required = false) DelngDeleteDto delngDeleteDto,
+        Errors errors,
+        @CurrentUser Account currentUser) {
+        // 입력체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
 
+        Optional<Delng> delngOptional = this.delngRepository.findById(id);
 
+        if (delngOptional.isEmpty()) {
+            // 404 Error return
+            return ResponseEntity.notFound().build();
+        }
+
+        Delng delng = delngOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.delngValidator.validate(currentUser, delng, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        delng.setCancelBy(currentUser.getAccountId());
+        delngService.delete(delng);
+
+        // 정상적 처리
+        return ResponseEntity.ok().build();
+    }
 
 
 

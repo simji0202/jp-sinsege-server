@@ -1,26 +1,14 @@
-package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
+package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
+import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.time.ZonedDateTime;
 
 /**
  * 상품 그룹(카테고리)
  */
 @Data
 public class GoodsGrpDto {
-
-    /**
-     * 상품 그룹 일련번호
-     */
-    private Integer id;
 
     /**
      * 상품 그룹 명
@@ -48,7 +36,6 @@ public class GoodsGrpDto {
      */
     private Boolean activeFl = false;
 
-    // che2 : 추가
     private Brand brand;
 
 }

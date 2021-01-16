@@ -129,7 +129,6 @@ public class CpnMasterControllerTest extends BaseControllerTest {
 
         // Given
         CpnMasterDto cpnMaster = new CpnMasterDto();
-        cpnMaster.setId(1);
         cpnMaster.setCpnNm("커피베이 할인권 ");
         cpnMaster.setCpnCd("1234567890123456");
         cpnMaster.setCpnAmt(50000);

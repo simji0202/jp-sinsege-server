@@ -5,4 +5,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface ScoreHistRepository extends JpaRepository<ScoreHist, Integer>, QuerydslPredicateExecutor<ScoreHist> {
 
+  ScoreHist findByDelng_Id(Integer delngId);
 }

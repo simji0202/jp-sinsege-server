@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import java.util.List;
 import javax.persistence.Lob;
 import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
-import kr.co.paywith.pw.data.repository.mbs.goodsgrp.GoodsGrp;
+import kr.co.paywith.pw.data.repository.mbs.goodsGrp.GoodsGrp;
 import lombok.Data;
 
 /**
@@ -60,9 +60,9 @@ public class GoodsDto {
 
   // ch2 : 옵션 추가 ( 20210112)
   /**
-   * 상품 그룹(카테고리)
+   * 상품 옵션
    */
-  private List<GoodsOpt> goodsOpts;
+  private List<GoodsOpt> goodsOptList;
 
   /**
    * 상품 이미지 웹 경로

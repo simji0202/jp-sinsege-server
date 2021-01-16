@@ -102,6 +102,7 @@ public class StampHistService {
     UserInfo userInfo = stampHist.getUserInfo();
     UserStamp userStamp = userInfo.getUserStamp();
     userStamp.setStampCnt(userStamp.getStampCnt() + stampHist.getCnt());
+    userStamp.setStampTotalGet(userStamp.getStampTotalGet() + stampHist.getCnt());
     userInfoRepository.save(userInfo);
 
 //    UserInfo userInfo =stampHist.getUserInfo();
@@ -132,7 +133,7 @@ public class StampHistService {
 
 
   /**
-   * 스탬프 이력 취소 처리
+   * 스탬프 이력 취소 처리. 이력 취소 후 회원 정보 반영
    */
   @Transactional
   public void delete(StampHist stampHist) {
@@ -141,6 +142,7 @@ public class StampHistService {
     stampHistRepository.save(stampHist);
 
     // 회원 스탬프 개수 복원
+    int cancelStampCnt = 0; // 취소한 스탬프 개수
     switch (stampHist.getStampHistTypeCd()) {
       case RSRV:
       case D_RSRV:
@@ -162,6 +164,7 @@ public class StampHistService {
 //            cpnService.delete(cpn);
 //            int stampMaxCnt = cpn.getCpnMaster().getBrand().getBrandSetting().getStampMaxCnt();
 //            reqCnt -= stampMaxCnt;
+//            cancelStampCnt += stampMaxCnt;
 //            // reqCnt 만큼 취소하면 종료
 //            if (reqCnt <= 0) {
 //              break;
@@ -174,8 +177,12 @@ public class StampHistService {
         break;
     }
 
-    // TODO 개수가 충분하게 되면 userInfo의 stamp 정보 변경
+    // stampHist 스탬프 개수 만큼 회원정보에서 차감
     // cnt 만큼 회원 스탬프에서 -(스탬프가 사용되었다면 cnt는 -이므로 -1*-1 로 가산이 된다)
+    UserStamp userStamp = stampHist.getUserInfo().getUserStamp();
+    userStamp.setStampCnt(userStamp.getStampCnt() - stampHist.getCnt());
+    userStamp.setStampTotalGet(userStamp.getStampTotalGet() - stampHist.getCnt());
+    userInfoRepository.save(stampHist.getUserInfo());
 
     if (stampHist.getCpnIssu() != null) { // 스탬프 적립하자마자 발급한 쿠폰이 있다면
       // 발급한 쿠폰 취소 처리

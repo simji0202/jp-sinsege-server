@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.goodsgrp;
+package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
