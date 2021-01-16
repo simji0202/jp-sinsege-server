@@ -1,38 +1,24 @@
 package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
 import com.opencsv.bean.CsvBindByName;
-import java.time.ZonedDateTime;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
+import java.time.ZonedDateTime;
+
 
 /**
- * 스템프 직인
- *
+ * 스템프 생성 및 쿠폰전환시 이력
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -50,11 +36,31 @@ public class StampHist {
     private Integer id;
 
     // kms: 브랜드별 멤버십 정보 분리하면 userInfo 대신 해당 entity 연결
-    /**
-     * 회원
-     */
+//    /**
+//     * 회원  ( 누구에게 발행했니 ? )
+//     */
+//    private String userId;
+//
+//    @ManyToOne
+//    //  private UserInfo userInfo;
+//    private UserStamp userStamp;
+
+
+
+//    9
+//
+//    + 1
+//
+//    + 1 hist
+//
+//    10
+//
+//    같은 로직 및 스케줄러 (정기쿠폰)
+
+
     @ManyToOne
     private UserInfo userInfo;
+
 
     /**
      * 스탬프 이력 구분 코드
@@ -72,10 +78,12 @@ public class StampHist {
      */
     private Integer cnt = 0;
 
-    /**
-     * 요청 단말기 번호
-     */
-    private String trmnlNo;
+
+     // che2 : Delng 객체에서 참조
+//    /**
+//     * 요청 단말기 번호
+//     */
+//    private String trmnlNo;
 
     /**
      * 단말기 영수증 번호
@@ -88,17 +96,20 @@ public class StampHist {
      */
     private ZonedDateTime cancelRegDttm;
 
-    /**
-     * 가맹점
-     */
-    @ManyToOne
-    private Mrhst mrhst;
 
-    /**
-     * 등급. 통계위한 거래 당시 회원의 등급
-     */
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    private Grade grade;
+
+    // che2 : Delng 객체에서 참조
+//    /**
+//     * 가맹점
+//     */
+//    @ManyToOne
+//    private Mrhst mrhst;
+
+//    /**
+//     * 등급. 통계위한 거래 당시 회원의 등급
+//     */
+//    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+//    private Grade grade;
 
     /**
      * 거래 이력
@@ -115,7 +126,7 @@ public class StampHist {
      * stampHistTypeCd.CPN 일 때 연결.
      * CpnIssu.stampHist 와 직접적으로 연결되는 게 아니므로 주의.
      * CpnIssu 저장 후 StampHist 저장
-     *
+     * <p>
      * ex> 스탬프가 사용되었는데, 언제 어떤 쿠폰이 발급되었는지 확인
      */
     @OneToOne

@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum StampHistTypeCd implements EnumMapperType {
   D_RSRV("직접 적립"),
   RSRV("적립"),
-  USE("사용"),
+  // USE("사용"),
   CPN("쿠폰발급"),
   EXPR("만료");
 

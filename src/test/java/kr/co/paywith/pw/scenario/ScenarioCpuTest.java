@@ -10,10 +10,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
+import kr.co.paywith.pw.data.repository.mbs.delng.DelngDto;
+import kr.co.paywith.pw.data.repository.mbs.delng.DelngGoods;
+import kr.co.paywith.pw.data.repository.mbs.delng.DelngGoodsOpt;
+import kr.co.paywith.pw.data.repository.mbs.delng.DelngGoodsOptMaster;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,7 +137,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
     ;
 
 
-    // 2. 사용 가능한 쿠폰 발급  상품쿠폰, 할인쿠폰, 금액쿠폰  등  )  - 특정상품에만
+    // 2. 사용 가능한 쿠폰 발급  ( 상품쿠폰, 할인쿠폰, 금액쿠폰등) - 특정상품에만
     // 쿠폰 발행 준비
     // 유저를 설정
     UserInfo userInfo = new UserInfo();
@@ -170,8 +177,89 @@ public class ScenarioCpuTest extends BaseControllerTest {
 
     // 시나리오 데이터 등록 완료
 
+    // 4. 결재 처리
+    DelngGoodsOptMaster delngGoodsOptMaster2 = new DelngGoodsOptMaster();
+    delngGoodsOptMaster2.setGoodsOptNm("중 (750g)");
+    delngGoodsOptMaster2.setGoodsOptAmt(5000);
 
 
+
+    DelngGoodsOptMaster delngGoodsOptMaster4 = new DelngGoodsOptMaster();
+    delngGoodsOptMaster4.setGoodsOptNm("삼겹");
+    delngGoodsOptMaster4.setGoodsOptAmt(0);
+
+    DelngGoodsOptMaster delngGoodsOptMaster5 = new DelngGoodsOptMaster();
+    delngGoodsOptMaster5.setGoodsOptNm("목살");
+    delngGoodsOptMaster5.setGoodsOptAmt(0);
+
+    DelngGoodsOptMaster delngGoodsOptMaster6 = new DelngGoodsOptMaster();
+    delngGoodsOptMaster6.setGoodsOptNm("직갈비");
+    delngGoodsOptMaster6.setGoodsOptAmt(0);
+
+
+    // 사이즈 옵션 선택
+    DelngGoodsOpt delngGoodsOpt = new DelngGoodsOpt();
+    delngGoodsOpt.setOptTitle("사이즈 선택");
+    delngGoodsOpt.setMultiChoiceFl(false);
+    delngGoodsOpt.setNeedFl(true);
+
+    delngGoodsOpt.setGoodsOptMasterList(List.of(delngGoodsOptMaster2));
+
+
+    DelngGoodsOpt delngGoodsOpt2 = new DelngGoodsOpt();
+    delngGoodsOpt2.setOptTitle("고기 선택");
+    delngGoodsOpt2.setMultiChoiceFl(true);
+    delngGoodsOpt2.setNeedFl(false);
+
+    delngGoodsOpt2.setGoodsOptMasterList(List.of(delngGoodsOptMaster4, delngGoodsOptMaster5, delngGoodsOptMaster6));
+
+
+
+    DelngGoods delngGoods = new DelngGoods();
+
+    delngGoods.setGoodsId(1);
+    delngGoods.setGoodsNm("구매 상품1");
+    delngGoods.setGoodsCnt(1);
+    delngGoods.setGoodsAmt(10000);
+    delngGoods.setDelngGoodsOptList(List.of(delngGoodsOpt, delngGoodsOpt2 ));
+
+
+    DelngDto delng = new DelngDto();
+
+    delng.setConfmNo("20210111000001");
+    delng.setDelngTypeCd(DelngTypeCd.APP);
+
+    delng.setDelngAmt(45000);    // 결제 금액  지불해야 할 합계(정산 )  거래 금액
+
+    delng.setCpnId(1);               // 사용할 쿠폰 설정
+    delng.setCpnAmt(1000);           // 쿠폰으로 인해서 할인된 금액
+
+    delng.setDelngGoodsList(List.of(delngGoods));
+
+    userInfo.setId(1);
+
+    delng.setUserInfo(userInfo);
+
+    /// 결제
+    DelngPaymentDto delngPaymentDto = new DelngPaymentDto();
+    delngPaymentDto.setAmt(44000);
+    delngPaymentDto.setDelngPaymentTypeCd(DelngPaymentTypeCd.PG_PAY);
+    delngPaymentDto.setPayId(3);
+
+    delng.setDelngPaymentList(List.of(delngPaymentDto));
+
+    mockMvc.perform(post("/api/delng/")
+            .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+            .header("Origin", "*")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .accept(MediaTypes.HAL_JSON)
+            .content(objectMapper.writeValueAsString(delng)))
+            .andDo(print())
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("id").exists())
+            .andExpect(header().exists(HttpHeaders.LOCATION))
+            .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
+    ;
 
     // end
   }

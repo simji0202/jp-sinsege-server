@@ -67,27 +67,26 @@ public class BrandSetting {
    */
   private Integer prpayValidPeriod;
 
-  /**
-   * 스탬프 유효기간 단위 코드
-   */
-  @Enumerated(EnumType.STRING)
-  private DtTypeCd stampValidPeriodCd;
+//
+//  /**
+//   * 스탬프 유효기간 단위 코드
+//   */
+//  @Enumerated(EnumType.STRING)
+//  private DtTypeCd stampValidPeriodCd;
 
   /**
-   * 스탬프 유효기간
+   * 스탬프 유효기간 (일수)
    */
   private Integer stampValidPeriod;
 
   /**
-   * 스탬프 보상을 할 기준 개수
-   *
+   * 스탬프 보상을 할 기준 개수 ( 8, 10, 12)
    * ex> stampMaxCnt 수만큼 소지 시 쿠폰 발행
    */
   private Integer stampMaxCnt;
 
   /**
-   * 선불-스탬프 번호 교차 조회
-   *
+   * 선불-스탬프 번호 교차 조회  ( 전화번호 )
    * 선불카드 번호 ←→ 스탬프 번호로 착오 조회 시 서버에서 다른 번호 조회할 지 여부
    */
   private Boolean exactCardNoFl = false;
@@ -134,17 +133,19 @@ public class BrandSetting {
    */
   private String newPrpayNo;
 
-//  /**
-//   * 자동으로 발급할 선불카드 종류
-//   */
-//  @ManyToOne
-//  @JoinColumn(name = "prpayGoodsSn", insertable = false, updatable = false)
-//  private PrpayGoods prpayGoods;
 
   /**
    * 스탬프 적립할 선불카드 사용 / 결제 구매 금액 단위. 0 이상일 경우 단위 금액마다 스탬프를 적립한다
    */
   private Integer stampStdAmt;
+
+//
+//  che2 : EnumType 으로 추가
+//  스탬프 적립  방법 :  거래별_적립
+//                   상품별_적립
+//                   금액별
+//                   복합
+
 
   /**
    * 포인트 사용 가능한 최소 금액

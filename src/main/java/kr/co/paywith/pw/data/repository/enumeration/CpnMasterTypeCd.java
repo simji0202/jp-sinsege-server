@@ -10,6 +10,7 @@ public enum CpnMasterTypeCd implements EnumMapperType {
   AMT("금액"),
   GOODS("1+1"),
   RATIO("할인율"),
+  STAMP("스탬프"),
   ;
 
   private String title;

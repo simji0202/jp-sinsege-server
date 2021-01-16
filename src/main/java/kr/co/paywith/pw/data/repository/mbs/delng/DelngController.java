@@ -83,6 +83,8 @@ public class DelngController extends CommonController {
 
         // 결제 상품 정보를  Json 데이터로 확보
         delng.setDelngGoodsListJson(gson.toJson(delngDto.getDelngGoodsList()));
+        // 복합 결제 정보를  Json 데이터로 확보
+        delng.setDelngPaymentJson(gson.toJson(delngDto.getDelngPaymentList()));
 
         // 레코드 등록
         Delng newDelng = delngService.create(delng);

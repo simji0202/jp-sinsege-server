@@ -39,9 +39,9 @@ public class MrhstControllerTest extends BaseControllerTest {
     public void createMrhst() throws Exception {
 
         Mrhst mrhst = new Mrhst();
-        mrhst.setMrhstNm("user3");
+        mrhst.setMrhstNm("세종시중구점");
         mrhst.setMrhstCd("12233242");
-        mrhst.setAddress("서울시 중구 ");
+        mrhst.setAddress("서울시 중구  ");
 
 
         mockMvc.perform(post("/api/mrhst/")

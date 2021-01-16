@@ -2,7 +2,9 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,23 +42,12 @@ public class DelngControllerTest extends BaseControllerTest {
     @TestDescription("고객을 등록하는 테스트")
     public void createDelng() throws Exception {
 
-
         // 유저가 핸드폰을 통해 상품 하나를  쿠폰을 이용하여 거래
         // 상품코드 : 1   쿠폰 : 금액 쿠폰 500
-
 
         DelngGoodsOptMaster delngGoodsOptMaster1 = new DelngGoodsOptMaster();
         delngGoodsOptMaster1.setGoodsOptNm("소 (550g)");
         delngGoodsOptMaster1.setGoodsOptAmt(0);
-
-        DelngGoodsOptMaster delngGoodsOptMaster2 = new DelngGoodsOptMaster();
-        delngGoodsOptMaster2.setGoodsOptNm("중 (750g)");
-        delngGoodsOptMaster2.setGoodsOptAmt(5000);
-
-        DelngGoodsOptMaster delngGoodsOptMaster3 = new DelngGoodsOptMaster();
-        delngGoodsOptMaster3.setGoodsOptNm("대 (950g)");
-        delngGoodsOptMaster3.setGoodsOptAmt(10000);
-
 
 
         DelngGoodsOptMaster delngGoodsOptMaster4 = new DelngGoodsOptMaster();
@@ -78,12 +69,12 @@ public class DelngControllerTest extends BaseControllerTest {
         delngGoodsOpt.setMultiChoiceFl(false);
         delngGoodsOpt.setNeedFl(true);
 
-        delngGoodsOpt.setGoodsOptMasterList(List.of(delngGoodsOptMaster1, delngGoodsOptMaster2, delngGoodsOptMaster3));
+        delngGoodsOpt.setGoodsOptMasterList(List.of(delngGoodsOptMaster1));
 
 
         DelngGoodsOpt delngGoodsOpt2 = new DelngGoodsOpt();
         delngGoodsOpt2.setOptTitle("고기 선택");
-        delngGoodsOpt2.setMultiChoiceFl(false);
+        delngGoodsOpt2.setMultiChoiceFl(true);
         delngGoodsOpt2.setNeedFl(false);
 
         delngGoodsOpt2.setGoodsOptMasterList(List.of(delngGoodsOptMaster4, delngGoodsOptMaster5, delngGoodsOptMaster6));
@@ -115,6 +106,15 @@ public class DelngControllerTest extends BaseControllerTest {
         userInfo.setId(1);
 
         delng.setUserInfo(userInfo);
+
+
+        DelngPaymentDto delngPaymentDto = new DelngPaymentDto();
+        delngPaymentDto.setAmt(44000);
+        delngPaymentDto.setDelngPaymentTypeCd(DelngPaymentTypeCd.PG_PAY);
+        delngPaymentDto.setPayId(3);
+
+        delng.setDelngPaymentList(List.of(delngPaymentDto));
+
 
 
         mockMvc.perform(post("/api/delng/")

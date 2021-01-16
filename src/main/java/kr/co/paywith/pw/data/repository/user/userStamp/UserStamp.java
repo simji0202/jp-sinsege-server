@@ -24,7 +24,7 @@ public class UserStamp {
   private Integer id;
 
   /**
-   * 회원 소지 스탬프 개수
+   * 회원 소지 스탬프 갯수
    */
   private Integer stampCnt = 0;
 
