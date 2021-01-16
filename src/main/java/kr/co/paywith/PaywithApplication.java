@@ -79,7 +79,7 @@ public class PaywithApplication implements ApplicationRunner {
         brandSetting.setPrpayValidPeriod(5);
         brandSetting.setPrpayValidPeriodCd(DtTypeCd.Y);
         brandSetting.setStampValidPeriod(180);
-        brandSetting.setStampValidPeriodCd(DtTypeCd.D);
+     //   brandSetting.setStampValidPeriodCd(DtTypeCd.D);
 
         brandRepository.save(brand);
     }

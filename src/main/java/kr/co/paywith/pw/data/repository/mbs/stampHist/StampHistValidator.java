@@ -67,17 +67,18 @@ public class StampHistValidator {
         errors.reject("취소 오류", "취소할 수 없는 이력");
     }
 
-    if (
-        (currentUser.getAdmin() != null &&
-            !brandService.hasAuthorization(
-                currentUser.getAdmin().getBrand(), stampHist.getMrhst().getBrand())) || //
-            (currentUser.getMrhstTrmnl() != null &&
-                !stampHist.getMrhst().getId()
-                    .equals(currentUser.getMrhstTrmnl().getMrhst().getId())) || // 거래 매장일 경우
-            currentUser.getUserInfo() != null
-    ){
-      errors.reject("권한 오류", "권한이 없습니다");
-    }
+    // che2 : 동작을 위해서 일단 커맨드 처리
+//    if (
+//        (currentUser.getAdmin() != null &&
+//            !brandService.hasAuthorization(
+//                currentUser.getAdmin().getBrand(), stampHist.getMrhst().getBrand())) || //
+//            (currentUser.getMrhstTrmnl() != null &&
+//                !stampHist.getMrhst().getId()
+//                    .equals(currentUser.getMrhstTrmnl().getMrhst().getId())) || // 거래 매장일 경우
+//            currentUser.getUserInfo() != null
+//    ){
+//      errors.reject("권한 오류", "권한이 없습니다");
+//    }
 
 
     // TODO BeginEventDateTime
