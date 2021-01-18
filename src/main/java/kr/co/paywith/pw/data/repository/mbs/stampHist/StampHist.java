@@ -39,28 +39,11 @@ public class StampHist {
 //    /**
 //     * 회원  ( 누구에게 발행했니 ? )
 //     */
-//    private String userId;
-//
-//    @ManyToOne
-//    //  private UserInfo userInfo;
-//    private UserStamp userStamp;
 
-
-
-//    9
-//
-//    + 1
-//
-//    + 1 hist
-//
-//    10
-//
 //    같은 로직 및 스케줄러 (정기쿠폰)
-
-
     @ManyToOne
     private UserInfo userInfo;
-
+//    private UserCard userCard;
 
     /**
      * 스탬프 이력 구분 코드
@@ -98,12 +81,15 @@ public class StampHist {
 
 
 
-    // che2 : Delng 객체에서 참조
-//    /**
-//     * 가맹점
-//     */
-//    @ManyToOne
-//    private Mrhst mrhst;
+    //////////////////// start ///////////////////
+    // che2 : 1) 거래에 위해서 발생한 경우 Delng 객체에서 참조 ///////////
+    //        2) 수동 처리 경우  mrhst 참조
+
+    @OneToOne
+    private Mrhst mrhst ;
+
+    ///////////////////// end  /////////////////////
+
 
 //    /**
 //     * 등급. 통계위한 거래 당시 회원의 등급

@@ -156,12 +156,6 @@ public class Delng {
      */
     private String mrhstNm;
 
-    @Transient
-    private List<DelngGoodsDto> delngGoodsList = new ArrayList<>();
-
-    @Transient
-    private List<DelngPaymentDto>  delngPaymentList = new ArrayList<>();
-
 
     /////////////////// 검증을 위한 정보  end  //////////////////////
 

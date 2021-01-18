@@ -51,8 +51,8 @@ public class CashReceipt {
      */
 //      @OneToOne
 //      private DelngPayment delngPayment;
-    @OneToOne
-    private Delng delng;
+//    @OneToOne
+//    private Delng delng;
 
 //  /**
 //   * 사용이력 일련번호

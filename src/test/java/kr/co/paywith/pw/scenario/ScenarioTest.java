@@ -228,6 +228,7 @@ public class ScenarioTest extends BaseControllerTest {
     goods.setGoodsCn("상품옵션을 테스트");
     goods.setGoodsAmt(1000);
     goods.setActiveFl(false);
+    goods.setStampPlusCnt(1);
 
 
     GoodsGrp goodsGrp4  = new  GoodsGrp();
@@ -277,7 +278,7 @@ public class ScenarioTest extends BaseControllerTest {
     goods2.setGoodsCn("상품옵션을 테스트");
     goods2.setGoodsAmt(1000);
     goods2.setActiveFl(false);
-
+    goods2.setStampPlusCnt(1);
 
     GoodsGrp goodsGrp41  = new  GoodsGrp();
     goodsGrp41.setId(1);

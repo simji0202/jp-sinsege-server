@@ -4,32 +4,23 @@ import com.querydsl.core.BooleanBuilder;
 import java.time.ZonedDateTime;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
-import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnService;
-import kr.co.paywith.pw.data.repository.mbs.cpn.CpnValidator;
 import kr.co.paywith.pw.data.repository.mbs.cpn.QCpn;
-import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuService;
-import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuValidator;
 import kr.co.paywith.pw.data.repository.mbs.stamp.Stamp;
 import kr.co.paywith.pw.data.repository.mbs.stamp.StampRepository;
 import kr.co.paywith.pw.data.repository.mbs.stamp.StampService;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class StampHistService {
@@ -100,9 +91,9 @@ public class StampHistService {
 
     // kms: TODO 회원정보 스탬프 갱신. 멤버십 구조 변경 후 개발
     UserInfo userInfo = stampHist.getUserInfo();
-    UserStamp userStamp = userInfo.getUserStamp();
-    userStamp.setStampCnt(userStamp.getStampCnt() + stampHist.getCnt());
-    userStamp.setStampTotalGet(userStamp.getStampTotalGet() + stampHist.getCnt());
+    UserCard userCard = userInfo.getUserCard();
+    userCard.setStampCnt(userCard.getStampCnt() + stampHist.getCnt());
+    userCard.setStampTotalGet(userCard.getStampTotalGet() + stampHist.getCnt());
     userInfoRepository.save(userInfo);
 
 //    UserInfo userInfo =stampHist.getUserInfo();
@@ -146,10 +137,10 @@ public class StampHistService {
     switch (stampHist.getStampHistTypeCd()) {
       case RSRV:
       case D_RSRV:
-        if (stampHist.getCnt() > stampHist.getUserInfo().getUserStamp().getStampCnt()) {
+        if (stampHist.getCnt() > stampHist.getUserInfo().getUserCard().getStampCnt()) {
           // TODO 취소할 스탬프보다 현재 가진 스탬프가 적다면 쿠폰 발급 취소
           int reqCnt = stampHist.getCnt() -
-              stampHist.getUserInfo().getUserStamp().getStampCnt(); // 취소에 모자란 스탬프 개수
+              stampHist.getUserInfo().getUserCard().getStampCnt(); // 취소에 모자란 스탬프 개수
           QCpn qCpn = QCpn.cpn;
           BooleanBuilder booleanBuilder = new BooleanBuilder();
           booleanBuilder.and(qCpn.userInfo.id.eq(stampHist.getUserInfo().getId())); // 본인
@@ -179,9 +170,9 @@ public class StampHistService {
 
     // stampHist 스탬프 개수 만큼 회원정보에서 차감
     // cnt 만큼 회원 스탬프에서 -(스탬프가 사용되었다면 cnt는 -이므로 -1*-1 로 가산이 된다)
-    UserStamp userStamp = stampHist.getUserInfo().getUserStamp();
-    userStamp.setStampCnt(userStamp.getStampCnt() - stampHist.getCnt());
-    userStamp.setStampTotalGet(userStamp.getStampTotalGet() - stampHist.getCnt());
+    UserCard userCard = stampHist.getUserInfo().getUserCard();
+    userCard.setStampCnt(userCard.getStampCnt() - stampHist.getCnt());
+    userCard.setStampTotalGet(userCard.getStampTotalGet() - stampHist.getCnt());
     userInfoRepository.save(stampHist.getUserInfo());
 
     if (stampHist.getCpnIssu() != null) { // 스탬프 적립하자마자 발급한 쿠폰이 있다면

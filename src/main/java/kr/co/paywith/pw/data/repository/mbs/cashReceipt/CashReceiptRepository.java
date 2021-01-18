@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 
 @Repository
 public interface CashReceiptRepository extends CrudRepository<CashReceipt, Integer> , QuerydslPredicateExecutor<CashReceipt> {
-
-  CashReceipt findByDelngPayment_IdAndCancelRegDttmIsNull(Integer delngPaymentId);
-  Iterable<CashReceipt> findByCancelSendRsrvFlAndCancelRegDttmBefore(Boolean b, ZonedDateTime dttm);
+//
+//  CashReceipt findByDelngPayment_IdAndCancelRegDttmIsNull(Integer delngPaymentId);
+//  Iterable<CashReceipt> findByCancelSendRsrvFlAndCancelRegDttmBefore(Boolean b, ZonedDateTime dttm);
 }

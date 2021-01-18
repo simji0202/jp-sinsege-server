@@ -1,25 +1,18 @@
 package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 
 @NoArgsConstructor
@@ -147,7 +140,7 @@ public class UserInfoUpdateDto {
     private ZonedDateTime outDttm;
 
 
-    private UserStamp userStamp;
+    private UserCard userCard;
 
     /**
      * 회원 인증 키

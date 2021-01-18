@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +31,7 @@ public class GiftUpdateDto {
 	/**
 	 * 선불카드
 	 */
-	private Prpay prpay;
+	// private Prpay prpay;
 	/**
 	 * 선불카드 일련번호
 	 */

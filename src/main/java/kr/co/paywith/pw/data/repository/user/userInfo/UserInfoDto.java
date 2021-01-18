@@ -6,7 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import lombok.Data;
 
 /**
@@ -128,7 +128,7 @@ public class UserInfoDto {
   private ZonedDateTime outDttm;
 
 
-  private UserStamp userStamp;
+  private UserCard userCard;
 
   /**
    * 회원 인증 키

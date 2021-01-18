@@ -10,7 +10,8 @@ import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
-import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
+import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -39,7 +40,6 @@ public class Chrg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NameDescription("식별번호")
     private Integer id;
-
 
     /**
      * 서버 승인번호
@@ -132,12 +132,14 @@ public class Chrg {
     @CsvBindByName(column = "PayMethod")
     private ChrgSetleMthdCd chrgSetleMthdCd;
 
-    /**
-     * 선불카드
-     */
-    @ManyToOne
-    private Prpay prpay;
-
+//    /**
+//     * 선불카드
+//     */
+//    @ManyToOne
+//    private Prpay prpay;
+     @ManyToOne
+     private UserInfo userInfo;
+ //    private UserCard userCard;
 
     /**
      * pw-proxy 연동에서 사용하는 거래 ID

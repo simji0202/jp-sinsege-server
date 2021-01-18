@@ -1,12 +1,9 @@
 package kr.co.paywith.pw.data.repository.user.userInfo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -17,20 +14,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import kr.co.paywith.pw.common.NameDescription;
+
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,7 +26,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
@@ -227,7 +214,8 @@ public class UserInfo {
     // kms: TODO 브랜드 별 멤버십 정보 관리 필요
  //   @OneToOne (cascade = CascadeType.ALL)
     @OneToOne
-    private UserStamp userStamp;
+    private UserCard userCard;
+
 
     /**
      * 회원 인증 키
@@ -241,7 +229,6 @@ public class UserInfo {
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
     private CertTypeCd certTypeCd;
-
 
     // kms: TODO userInfo 테이블에 브랜드 별 회원 정보 만드는 대신 멤버십 관리 필요
 //    /**
@@ -263,7 +250,6 @@ public class UserInfo {
     @Enumerated(EnumType.STRING)
     private Set<AdminRole> roles;
 
-
     /**
      * 등록 일시
      */
@@ -274,7 +260,6 @@ public class UserInfo {
      */
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
-
 
     /**
      * 추가한 관리자
@@ -287,7 +272,4 @@ public class UserInfo {
      * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
      */
     private String updateBy;
-
-
-
 }

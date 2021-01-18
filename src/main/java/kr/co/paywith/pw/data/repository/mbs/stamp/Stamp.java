@@ -9,10 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.user.userStamp.QUserStamp;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,7 +30,7 @@ public class Stamp {
 	/**
 	 *
 
-	 UserStamp
+	 UserCard
 	    회원 스탬프 갯수    2
 	    현재 스탬프 적립 시작 일시
 	    스탬프 적립 시작 일시
@@ -103,7 +100,7 @@ public class Stamp {
 	        거래이력        =  delng
 
 
-	   UserStamp.회원스탬프갯수  + 1
+	   UserCard.회원스탬프갯수  + 1
 
 
 	  # 스탬프 10개 적립 후, 쿠폰 발행  ( 취소 )

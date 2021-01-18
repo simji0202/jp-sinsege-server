@@ -11,7 +11,6 @@ import kr.co.paywith.pw.data.repository.mbs.chrgMass.ChrgMass;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
-import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -106,7 +105,7 @@ public class ChrgDto {
     /**
      * 선불카드
      */
-    private Prpay prpay;
+   //  private Prpay prpay;
 
 
     /**

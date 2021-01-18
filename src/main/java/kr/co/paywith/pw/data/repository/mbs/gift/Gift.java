@@ -4,7 +4,6 @@ import javax.persistence.Id;
 
 import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.prpay.Prpay;
 import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,6 +25,16 @@ import java.time.ZonedDateTime;
 public class Gift {
 
 	/**
+	 *
+	 *
+	 *  선물카드 (쿠폰)
+	 *  금액 -->  추가
+	 */
+
+
+
+
+	/**
 	 * 선물 일련번호
 	 */
 	@Id
@@ -40,11 +49,12 @@ public class Gift {
 	@Column(nullable = false)
 	private Boolean reserveFl;
 
-	/**
-	 * 선불카드
-	 */
-	@ManyToOne
-	private Prpay prpay;
+//	/**
+//	 * 선불카드
+//	 */
+//	@ManyToOne
+//	private Prpay prpay;
+
 	/**
 	 * 선불카드 일련번호
 	 */

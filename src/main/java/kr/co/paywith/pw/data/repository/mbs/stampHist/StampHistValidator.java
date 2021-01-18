@@ -6,8 +6,6 @@ import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandService;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
@@ -52,7 +50,7 @@ public class StampHistValidator {
     switch (stampHist.getStampHistTypeCd()) {
       case RSRV:
       case D_RSRV:
-        if (stampHist.getCnt() > stampHist.getUserInfo().getUserStamp().getStampCnt()) {
+        if (stampHist.getCnt() > stampHist.getUserInfo().getUserCard().getStampCnt()) {
           // TODO 취소할 스탬프보다 현재 가진 스탬프가 적다면 발급 취소할 수 있는 쿠폰 확인
         }
         break;

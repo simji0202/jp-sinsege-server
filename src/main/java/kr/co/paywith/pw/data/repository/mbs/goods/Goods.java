@@ -53,7 +53,7 @@ public class Goods {
    * 상품 금액
    */
   @CsvBindByName(column = "Price")
-  private Integer goodsAmt;
+  private int goodsAmt;
 
   /**
    * 사용 여부
@@ -65,13 +65,13 @@ public class Goods {
    * 구매시 스탬프 추가 개수
    */
   @CsvBindByName(column = "Stamp")
-  private Integer stampPlusCnt;
+  private int stampPlusCnt;
 
   /**
    * 구매시 점수 추가 양
    */
   @CsvBindByName(column = "Score")
-  private Integer scorePlusCnt = 1;
+  private int scorePlusCnt = 1;
 
   /**
    * 상품 그룹(카테고리)

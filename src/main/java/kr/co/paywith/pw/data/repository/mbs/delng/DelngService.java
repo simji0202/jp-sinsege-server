@@ -3,6 +3,8 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;
+
+import com.google.gson.Gson;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
@@ -57,19 +59,20 @@ public class DelngService {
    * 정보 등록
    */
   @Transactional
-  public Delng create(Delng delng) {
+  public Delng create(Delng delng, DelngDto delngDto) {
 
     if (delng.getUserInfo().getId() != null) {
       delng.setUserInfo(userInfoRepository.findById(delng.getUserInfo().getId()).get());
     }
+
     // 데이터베이스 값 갱신
     Delng newDelng = this.delngrRepository.save(delng);
 
     int score = 0;
     int stamp = 0;
 
-    if (newDelng.getDelngGoodsList() != null) {
-      for (DelngGoodsDto delngGoods : newDelng.getDelngGoodsList()) {
+    if (delngDto.getDelngGoodsList() != null) {
+      for (DelngGoods delngGoods : delngDto.getDelngGoodsList()) {
         // 상품 정보 조회
         Goods goods = goodsRepository.findById(delngGoods.getGoodsId()).get();
 
@@ -129,6 +132,10 @@ public class DelngService {
       stampHist.setDelng(newDelng);
       stampHistService.create(stampHist);
     }
+
+
+
+
 
     // 변경 회원 정보 저장
     userInfoRepository.save(userInfo);

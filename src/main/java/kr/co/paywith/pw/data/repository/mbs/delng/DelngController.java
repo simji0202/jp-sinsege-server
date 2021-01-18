@@ -54,6 +54,8 @@ public class DelngController extends CommonController {
     @Autowired
     Gson gson;
 
+
+
     /**
      * 정보 등록
      */
@@ -81,13 +83,15 @@ public class DelngController extends CommonController {
             delng.setUserInfo(currentUser.getUserInfo());
         }
 
+
         // 결제 상품 정보를  Json 데이터로 확보
         delng.setDelngGoodsListJson(gson.toJson(delngDto.getDelngGoodsList()));
         // 복합 결제 정보를  Json 데이터로 확보
         delng.setDelngPaymentJson(gson.toJson(delngDto.getDelngPaymentList()));
 
+
         // 레코드 등록
-        Delng newDelng = delngService.create(delng);
+        Delng newDelng = delngService.create(delng, delngDto);
 
         ControllerLinkBuilder selfLinkBuilder = linkTo(DelngController.class).slash(newDelng.getId());
 

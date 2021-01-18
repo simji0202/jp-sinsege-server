@@ -3,15 +3,14 @@ package kr.co.paywith.pw.data.repository.user.userInfo;
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.component.StringUtil;
-import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
 import kr.co.paywith.pw.data.repository.user.grade.GradeService;
 import kr.co.paywith.pw.data.repository.user.userDel.UserDel;
 import kr.co.paywith.pw.data.repository.user.userDel.UserDelService;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStamp;
-import kr.co.paywith.pw.data.repository.user.userStamp.UserStampRepository;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCardRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -40,7 +39,7 @@ public class UserInfoService {
   MrhstTrmnlRepository mrhstTrmnlRepository;
 
   @Autowired
-  UserStampRepository userStampRepository;
+  UserCardRepository userCardRepository;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -69,19 +68,19 @@ public class UserInfoService {
       noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
       String stampNo = StringUtil.makeNo(noRule);
 
-      if (userStampRepository.findByStampNo(stampNo).isEmpty()) {
+      if (userCardRepository.findByStampNo(stampNo).isEmpty()) {
         isEndMakeNo = true;
-   //     userInfo.getUserStamp().setStampNo(stampNo);
+   //     userInfo.getUserCard().setStampNo(stampNo);
 
         // 스탬프 객체 생성
-        UserStamp userStamp = new UserStamp();
-        userStamp.setStampNo(stampNo);
+        UserCard userCard = new UserCard();
+        userCard.setStampNo(stampNo);
 
         // 스탬프 번호 생성
-        userStampRepository.save(userStamp);
+        userCardRepository.save(userCard);
 
         // 유저에 스템프 번호 적요
-        userInfo.setUserStamp(userStamp);
+        userInfo.setUserCard(userCard);
 
       }
     } while (!isEndMakeNo);
