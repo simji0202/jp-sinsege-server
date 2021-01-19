@@ -1,9 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.notifUser;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.notif.Notif;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

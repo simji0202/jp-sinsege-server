@@ -1,17 +1,11 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
-import kr.co.paywith.pw.data.repository.admin.Admin;
-import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
-import kr.co.paywith.pw.data.repository.file.File;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 /**
  * 게시판(게시물)

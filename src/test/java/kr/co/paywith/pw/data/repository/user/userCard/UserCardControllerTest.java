@@ -1,12 +1,7 @@
-package kr.co.paywith.pw.data.repository.user.userInfo;
+package kr.co.paywith.pw.data.repository.user.userCard;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.UserAppOsCd;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
-import kr.co.paywith.pw.data.repository.user.userApp.UserApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +10,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
-import java.util.Set;
-
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class
-UserInfoControllerTest extends BaseControllerTest {
+public class UserCardControllerTest extends BaseControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -36,35 +27,30 @@ UserInfoControllerTest extends BaseControllerTest {
 //                .webAppContextSetup(webApplicationContext)
 //                .build();
 
-        //       this.userInfoRepository.deleteAll();
+        //       this.userCardRepository.deleteAll();
         //       this.adminRepository.deleteAll();
-
     }
-
 
 
     @Test
     @TestDescription("고객을 등록하는 테스트")
-    public void createUserInfo() throws Exception {
+    public void createUserCard() throws Exception {
 
-        UserInfoDto userInfo = new UserInfoDto();
-        userInfo.setUserId("che02");
-        userInfo.setUserPw("1234");
-        userInfo.setUserNm("원이");
-        userInfo.setActiveFl(true);
-        userInfo.setMobileNum("01046940301");
-        userInfo.setCertTypeCd(CertTypeCd.CI);
-
-        // 롤 설정
-        userInfo.setRoles(Set.of(AdminRole.USER));
+        // 유저가 핸드폰을 통해 상품 하나를  쿠폰을 이용하여 거래
+        // 상품코드 : 1   쿠폰 : 금액 쿠폰 500
 
 
-        mockMvc.perform(post("/api/userInfo/")
+        UserCard userCard = new UserCard();
+        userCard.setPrpayNm("커피베이 카드");
+        userCard.setPrpayNo("1234123412341234");
+
+
+        mockMvc.perform(post("/api/userCard/")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaTypes.HAL_JSON)
-                .content(objectMapper.writeValueAsString(userInfo)))
+                .content(objectMapper.writeValueAsString(userCard)))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists())
@@ -75,57 +61,14 @@ UserInfoControllerTest extends BaseControllerTest {
     }
 
 
-
-
-
-//
-//
-//    @Test
-//    @TestDescription("고객을 등록하는 테스트")
-//    public void createUserInfo2() throws Exception {
-//
-//
-//
-//        UserInfo userInfo = new UserInfo();
-//        userInfo.setUserId("che12");
-//        userInfo.setUserPw("1234");
-//        userInfo.setUserNm("원이");
-//        userInfo.setActiveFl(true);
-//        userInfo.setCertTypeCd(CertTypeCd.CI);
-//
-//
-//
-//
-//        // userInfo.setUserAppList(List.of(userApp, userApp2));
-//
-//        // 브랜드 설정
-//        userInfo.setRoles(Set.of(AdminRole.USER));
-//
-//
-//        mockMvc.perform(post("/api/userInfo/")
-//                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-//                .header("Origin", "*")
-//                .contentType(MediaType.APPLICATION_JSON_UTF8)
-//                .accept(MediaTypes.HAL_JSON)
-//                .content(objectMapper.writeValueAsString(userInfo)))
-//                .andDo(print())
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("id").exists())
-//                .andExpect(header().exists(HttpHeaders.LOCATION))
-//                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
-//        ;
-//
-//    }
-
-
     @Test
     @TestDescription("30개의 고객정보를 10개씩 두번째 페이지 조회하기")
-    public void getUserInfos() throws Exception {
+    public void getUserCards() throws Exception {
         // Given
-        //  IntStream.range(0, 30).forEach(this::generateUserInfo);
+        //  IntStream.range(0, 30).forEach(this::generateUserCard);
 
         // When & Then
-        this.mockMvc.perform(get("/api/userInfo")
+        this.mockMvc.perform(get("/api/userCard")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
                 .param("page", "0")
@@ -135,22 +78,22 @@ UserInfoControllerTest extends BaseControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("page").exists())
-                .andExpect(jsonPath("_embedded.userInfoList[0]._links.self").exists())
+                .andExpect(jsonPath("_embedded.userCardList[0]._links.self").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
-                .andDo(document("query-userInfos"))
+                .andDo(document("query-userCards"))
         ;
     }
 
 
     @Test
     @TestDescription("기존의 고객를 하나 조죄하기")
-    public void getUserInfo() throws Exception {
+    public void getUserCard() throws Exception {
         // Given
-        //  UserInfo userInfo = this.generateUserInfo(100);
+        //  UserCard userCard = this.generateUserCard(100);
 
         // When & Then
-        this.mockMvc.perform(get("/api/userInfo/{id}", 1)
+        this.mockMvc.perform(get("/api/userCard/{id}", 1)
                 .header("Origin", "*")
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
         )
@@ -159,32 +102,31 @@ UserInfoControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("id").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
-                .andDo(document("get-an-userInfo"))
+                .andDo(document("get-an-userCard"))
         ;
     }
 
 
     @Test
     @TestDescription("고객정보를 정상적으로 수정하기")
-    public void updateUserInfo() throws Exception {
+    public void updateUserCard() throws Exception {
 
         // Given
-        UserInfo userInfo = new UserInfo();
-        userInfo.setId(1);
-        userInfo.setUserNm(" 변경유정정보 ");
-        userInfo.setCertTypeCd(CertTypeCd.CI);
+        UserCard userCard = new UserCard();
+        userCard.setId(1);
 
 
         // When & Then
-        this.mockMvc.perform(put("/api/userInfo/{id}", userInfo.getId())
+        this.mockMvc.perform(put("/api/userCard/{id}", userCard.getId())
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
+
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(this.objectMapper.writeValueAsString(userInfo)))
+                .content(this.objectMapper.writeValueAsString(userCard)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_links.self").exists())
-                .andDo(document("update-userInfo"))
+                .andDo(document("update-userCard"))
         ;
     }
 

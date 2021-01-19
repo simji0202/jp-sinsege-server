@@ -21,7 +21,7 @@ import kr.co.paywith.pw.data.repository.mbs.delng.DelngGoods;
 import kr.co.paywith.pw.data.repository.mbs.delng.DelngGoodsOpt;
 import kr.co.paywith.pw.data.repository.mbs.delng.DelngGoodsOptMaster;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;

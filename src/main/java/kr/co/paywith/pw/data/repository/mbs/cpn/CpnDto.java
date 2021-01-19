@@ -4,7 +4,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
 /**

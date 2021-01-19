@@ -1,16 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.scoreHist;
 
 import java.time.ZonedDateTime;
-import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class ScoreHistService {

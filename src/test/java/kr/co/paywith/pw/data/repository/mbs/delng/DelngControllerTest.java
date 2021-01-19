@@ -5,7 +5,7 @@ import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

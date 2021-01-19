@@ -1,8 +1,8 @@
-package kr.co.paywith.pw.data.repository.user.userInfo;
+package kr.co.paywith.pw.data.repository.user.user;
 
 
 import java.util.Optional;
-import javax.validation.constraints.NotNull;
+
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;

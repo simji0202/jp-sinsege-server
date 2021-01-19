@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.user.userApp;
 
 import kr.co.paywith.pw.data.repository.enumeration.UserAppOsCd;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoDto;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

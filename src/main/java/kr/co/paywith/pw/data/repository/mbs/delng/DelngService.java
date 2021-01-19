@@ -4,7 +4,6 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;
 
-import com.google.gson.Gson;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
@@ -19,8 +18,8 @@ import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistService;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistRepository;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistService;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

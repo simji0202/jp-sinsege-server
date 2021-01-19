@@ -3,12 +3,7 @@ package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
 import java.util.Optional;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.MrhstDto;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.MrhstPwUpdateDto;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.MrhstUpdateDto;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

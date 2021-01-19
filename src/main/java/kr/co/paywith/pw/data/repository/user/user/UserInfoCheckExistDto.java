@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.user.userInfo;
+package kr.co.paywith.pw.data.repository.user.user;
 
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
 import lombok.Data;

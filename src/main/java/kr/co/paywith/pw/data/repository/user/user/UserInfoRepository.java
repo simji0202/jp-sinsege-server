@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.user.userInfo;
+package kr.co.paywith.pw.data.repository.user.user;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

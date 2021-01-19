@@ -11,6 +11,8 @@ public enum CpnMasterTypeCd implements EnumMapperType {
   GOODS("1+1"),
   RATIO("할인율"),
   STAMP("스탬프"),
+
+  OPT("옵션쿠폰"),
   ;
 
   private String title;

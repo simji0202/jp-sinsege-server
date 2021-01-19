@@ -1,10 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import java.util.ArrayList;
-import java.util.List;
 import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;

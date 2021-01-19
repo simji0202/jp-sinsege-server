@@ -1,18 +1,10 @@
 package kr.co.paywith.pw.data.repository.mbs.delngPayment;
 
-import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.PaymentChnlCd;
-import kr.co.paywith.pw.data.repository.enumeration.PaymentMthdCd;
-import kr.co.paywith.pw.data.repository.enumeration.PaymentSttsCd;
-import kr.co.paywith.pw.data.repository.mbs.brandPg.BrandPg;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.ZonedDateTime;
 
 @Data

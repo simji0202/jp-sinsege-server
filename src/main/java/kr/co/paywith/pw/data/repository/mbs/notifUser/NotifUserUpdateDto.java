@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.notifUser;
 
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.notif.Notif;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
 import javax.persistence.ManyToOne;

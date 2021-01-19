@@ -3,7 +3,7 @@ package kr.co.paywith.pw.data.repository.admin;
 import java.util.Optional;
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

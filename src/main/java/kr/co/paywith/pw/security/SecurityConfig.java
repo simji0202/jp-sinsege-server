@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.security;
 
 import kr.co.paywith.pw.data.repository.account.AccountService;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoService;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

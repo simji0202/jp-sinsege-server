@@ -14,7 +14,7 @@ public class DelngGoods {
     private Integer goodsId;
 
     /**
-     * 상품명
+     * 상품명 (쿠폰명)
      */
     private String goodsNm;
 
@@ -24,7 +24,7 @@ public class DelngGoods {
     private int goodsCnt;
 
     /**
-     * 상품 금액
+     * 상품 금액 ( 가격 )
      */
     private int goodsAmt;
 

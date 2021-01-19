@@ -1,20 +1,9 @@
-package kr.co.paywith.pw.data.repository.user.userInfo;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package kr.co.paywith.pw.data.repository.user.user;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
@@ -24,9 +13,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @NoArgsConstructor
@@ -34,60 +20,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-public class UserInfo {
-
-//
-//    등급,  점수,  스템프
-//
-//    브랜드 정산
-//
-//    user ---  a브랜드별 ,  b브랜드별
-//
-//
-//      -------------------
-//
-//    미장원  (브랜드)
-//
-//        A 점   vvip vip gold
-//
-//        B 정   vip  gold
-//
-//        C 점   cvip cgold
-//
-//      -------------------
-//
-//               1     :     N                  N      :       1  (브랜)
-//    userInfo ---      userInfo-Grade  +  포인트,   ----    Grade  (종류)
-//            q
-//    userInfo    --          b.g            b.g   브랜드   ---  123        (1--- N종류  )
-//
-//
-//    Grade 등급 마스터 : 1 ---- 10
-//    Grade OPtion1  : a,b,c,d,
-//    Grade OPtion2  : ㅁㅁ,ㅠ,
-//
-//
-//    Grade_Use (브랜드별 등급 조절 로직 ) : 1 a,b,  2-c,d, 3-a.c
-//
-//
-//            브랜드  -- Grade_Use1,2,3
-//
-//a브랜드  :  1,2,3
-//b브랜드  :  1,2,4,5
-//c브랜드  :  1,2,3,5
-//         1        :   n
-//       userInfo       Brand_use : 브랜드 ,  포인트,        +          Brand_Grade
-//                                  c브랜드,  점수  ,        +
-
+public class UserInfoUpdateDto {
 
 
     /**
-     * 회원 일련번호
+     * 회원 정보 일련번호.
+     * updateDto에 id를 안 넣는게 맞으나, validator에서 추가와 수정을 구분하며 아이디 중복 확인하기 위해 추가
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -99,7 +38,6 @@ public class UserInfo {
     /**
      * 회원 암호
      */
-    @JsonIgnore
     private String userPw;
 
     /**
@@ -130,12 +68,10 @@ public class UserInfo {
     /**
      * 휴대폰 번호
      */
-    @Column(length = 20)
     private String mobileNum;
     /**
      * 통신사 코드
      */
-    @Column(length = 10)
     private String userPhoneCd;
 
     /** 문자(메시지) 수신 동의 */
@@ -164,14 +100,6 @@ public class UserInfo {
      * 등급 변동 일시
      */
     private ZonedDateTime gradeUpdtDttm;
-
-//    /**
-//     * 회원 등급. TODO GUEST는 grade가 없어도 될지 검토
-//     * */
-//    @ManyToOne
-//    private Grade grade;
-//
-//    // 승급관련 항목 end
 
     /**
      * 회원 누적 사용 점수
@@ -211,17 +139,13 @@ public class UserInfo {
      */
     private ZonedDateTime outDttm;
 
-    // kms: TODO 브랜드 별 멤버십 정보 관리 필요
- //   @OneToOne (cascade = CascadeType.ALL)
-    @OneToOne
-    private UserCard userCard;
 
+    private UserCard userCard;
 
     /**
      * 회원 인증 키
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
-    @JsonIgnore
     private String certKey;
 
     /**
@@ -230,11 +154,7 @@ public class UserInfo {
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
     private CertTypeCd certTypeCd;
 
-    // kms: TODO userInfo 테이블에 브랜드 별 회원 정보 만드는 대신 멤버십 관리 필요
-//    /**
-//     * 원본 회원 아이디(기본 정보를 가지고 있을 회원 아이디) 일련번호
-//     */
-//    private Integer parentUserSn;
+
 
     /**
      * 테스터 여부1100000111
@@ -246,30 +166,8 @@ public class UserInfo {
     /**
      * 관리자타입
      */
-    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<AdminRole> roles;
 
-    /**
-     * 등록 일시
-     */
-    @CreationTimestamp
-    private ZonedDateTime regDttm;
-    /**
-     * 수정 일시
-     */
-    @UpdateTimestamp
-    private ZonedDateTime updtDttm;
 
-    /**
-     * 추가한 관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String createBy;
-
-    /**
-     * 변경한  관리자
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String updateBy;
 }

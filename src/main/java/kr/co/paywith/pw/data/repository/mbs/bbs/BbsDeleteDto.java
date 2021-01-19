@@ -1,9 +1,5 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
-import java.time.ZonedDateTime;
-import javax.persistence.Lob;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
 import lombok.Data;
 
 /**

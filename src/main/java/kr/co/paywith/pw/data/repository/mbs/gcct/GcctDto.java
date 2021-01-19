@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.gcct;
 
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
 /**

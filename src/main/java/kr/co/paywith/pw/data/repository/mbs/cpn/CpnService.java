@@ -4,7 +4,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpn;
 import kr.co.paywith.pw.component.StringUtil;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;

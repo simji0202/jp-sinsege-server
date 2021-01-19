@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.user.userDel;
 
 import java.io.Serializable;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
 /**

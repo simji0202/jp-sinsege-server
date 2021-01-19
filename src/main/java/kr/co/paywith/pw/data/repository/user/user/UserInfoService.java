@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.user.userInfo;
+package kr.co.paywith.pw.data.repository.user.user;
 
 import java.time.ZonedDateTime;
 import javax.transaction.Transactional;

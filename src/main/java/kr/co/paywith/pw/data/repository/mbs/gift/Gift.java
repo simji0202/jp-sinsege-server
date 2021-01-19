@@ -4,7 +4,7 @@ import javax.persistence.Id;
 
 import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
 import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;

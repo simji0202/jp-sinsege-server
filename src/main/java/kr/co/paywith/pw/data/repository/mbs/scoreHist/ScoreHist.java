@@ -15,7 +15,7 @@ import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import kr.co.paywith.pw.data.repository.mbs.scoreRule.ScoreRule;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
-import kr.co.paywith.pw.data.repository.user.userInfo.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
