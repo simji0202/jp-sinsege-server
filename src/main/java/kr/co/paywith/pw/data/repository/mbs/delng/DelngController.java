@@ -54,8 +54,6 @@ public class DelngController extends CommonController {
     @Autowired
     Gson gson;
 
-
-
     /**
      * 정보 등록
      */

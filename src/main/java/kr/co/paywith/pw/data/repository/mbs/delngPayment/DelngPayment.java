@@ -60,11 +60,6 @@ public class DelngPayment {
 //  @OneToOne
 //  private Pay pay;
 
-//  /**
-//   * (금액) 쿠폰
-//   */
-//  @OneToOne
-//  private Cpn cpn;
   /**
    * 등록 일시
    */

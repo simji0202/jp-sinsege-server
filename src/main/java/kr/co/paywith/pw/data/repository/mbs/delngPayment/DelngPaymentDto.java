@@ -29,7 +29,7 @@ public class DelngPaymentDto {
     /**
      * 선불카드
      */
-    private Integer prpayId;
+    private Integer userCardId;
 
     /**
      * PG 결제

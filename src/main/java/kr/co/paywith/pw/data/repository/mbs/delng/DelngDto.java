@@ -40,7 +40,6 @@ public class DelngDto {
   @Enumerated(EnumType.STRING)
   private DelngTypeCd delngTypeCd;
 
-
   /**
    * 거래 일시.
    *
@@ -48,12 +47,12 @@ public class DelngDto {
    *
    * 클라이언트에서 받은 값이 없다면 요청 시간을 거래 시간으로 한다
    */
-  private ZonedDateTime delngDttm = ZonedDateTime.now();
+  private ZonedDateTime delngDttm;
 
   /**
    * 결재 금액 ( +- 총합 ) 회원이 저장한다면, 조작을 막기 위해 검증을 함.
    */
-  private int delngAmt;
+  private int totalAmt;
 
 //    // kms: 구매 목록을 같이 저장하고, 구매 이력 조회 시 상품 정보도 보여야 하므로 활성
 //    /**

@@ -89,7 +89,7 @@ public class CpnService {
       // 회원의 스탬프 개수 복원
       UserCard userCard = cpn.getUserInfo().getUserCard();
       userCard.setStampCnt(userCard.getStampCnt() - stampMaxCnt);
-      userCard.setStampTotalGet(userCard.getStampTotalGet() - stampMaxCnt);
+      userCard.setStampTotalCnt(userCard.getStampTotalCnt() - stampMaxCnt);
       // userInfo 저장
       userInfoRepository.save(cpn.getUserInfo());
     }

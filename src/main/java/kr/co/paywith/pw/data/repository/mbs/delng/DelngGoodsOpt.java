@@ -1,10 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 
 @Data

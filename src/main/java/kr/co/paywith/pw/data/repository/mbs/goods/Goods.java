@@ -71,7 +71,7 @@ public class Goods {
    * 구매시 점수 추가 양
    */
   @CsvBindByName(column = "Score")
-  private int scorePlusCnt = 1;
+  private int scorePlus = 1;
 
   /**
    * 상품 그룹(카테고리)

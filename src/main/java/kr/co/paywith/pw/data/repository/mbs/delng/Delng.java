@@ -56,16 +56,18 @@ public class Delng {
     /**
      * 거래 일시. 현장에서 실제 거래가 발생한 시각
      */
-    private ZonedDateTime delngDttm;
+    private ZonedDateTime delngDttm = ZonedDateTime.now();
 
     /**
-     * 거래 금액. 상품에 적용한 쿠폰이 있다면 그 할인금액을 제외한 상품금액의 합.
-     * delngPaymentList의 합과 같아야 한다
+     * 전체 거래 금액. 쿠폰할인 받은 상품은 할인 전 금액을 더한다.
+     *
+     * 상품 목록의 금액 합과 일치하거나 높아야 하고,
+     * totalAmt - cpnAmt = 결제할 금액(delngPaymentAmt 합)
      * <p>
      * 결재 금액 ( +- 총합 )
      * 회원이 저장한다면, 조작을 막기 위해 검증을 함.
      */
-    private int delngAmt;
+    private int totalAmt;
 
 
 //    /**

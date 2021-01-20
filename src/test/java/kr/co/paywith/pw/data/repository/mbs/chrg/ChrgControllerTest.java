@@ -109,10 +109,9 @@ public class ChrgControllerTest extends BaseControllerTest {
 
 		  // Given
 		  ChrgDto chrg = new ChrgDto();
-		  chrg.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/chrg/{id}", chrg.getId())
+		  this.mockMvc.perform(put("/api/chrg/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 

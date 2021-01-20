@@ -34,8 +34,8 @@ public class ScoreHistService {
 
     int score = scoreHist.getScoreAmt();
     UserInfo userInfo = scoreHist.getUserInfo();
-    userInfo.setScoreCnt(userInfo.getScoreCnt() + score);
-    userInfo.setScorePlus(userInfo.getScorePlus() + score);
+    userInfo.setScore(userInfo.getScore() + score);
+    userInfo.setTotalScore(userInfo.getTotalScore() + score);
 
     // 데이터베이스 값 갱신
     ScoreHist newScoreHist = this.scoreHistRepository.save(scoreHist);
@@ -72,8 +72,8 @@ public class ScoreHistService {
 
     int score = scoreHist.getScoreAmt();
     UserInfo userInfo = scoreHist.getUserInfo();
-    userInfo.setScoreCnt(userInfo.getScoreCnt() - score);
-    userInfo.setScorePlus(userInfo.getScorePlus() - score);
+    userInfo.setScore(userInfo.getScore() - score);
+    userInfo.setTotalScore(userInfo.getTotalScore() - score);
 
     userInfoRepository.save(userInfo);
   }

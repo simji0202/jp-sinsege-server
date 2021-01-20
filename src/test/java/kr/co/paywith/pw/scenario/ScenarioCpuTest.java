@@ -229,7 +229,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
     delng.setConfmNo("20210111000001");
     delng.setDelngTypeCd(DelngTypeCd.APP);
 
-    delng.setDelngAmt(45000);    // 결제 금액  지불해야 할 합계(정산 )  거래 금액
+    delng.setTotalAmt(45000);    // 결제 금액  지불해야 할 합계(정산 )  거래 금액
 
     delng.setCpnId(1);               // 사용할 쿠폰 설정
     delng.setCpnAmt(1000);           // 쿠폰으로 인해서 할인된 금액

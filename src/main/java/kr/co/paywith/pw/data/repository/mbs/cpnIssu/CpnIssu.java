@@ -61,7 +61,6 @@ public class CpnIssu {
      */
     private Integer issuCnt;
 
-
     /**
      * 발급 쿠폰 목록
      */

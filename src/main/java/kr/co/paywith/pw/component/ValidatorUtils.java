@@ -55,6 +55,24 @@ public class ValidatorUtils {
     }
   }
 
+  /**
+   * null인지, 최소, 최대 값 검증
+   */
+  public static void checkInt(
+      int fieldValue, String fieldNm, Errors errors,
+      Integer minValue, Integer maxValue) {
+    if (minValue != null) {
+      if (fieldValue < minValue) {
+        errors.reject(fieldNm + " 오류", "값이 " + minValue + "보다 작습니다");
+      }
+    }
+    if (maxValue != null) {
+      if (fieldValue > maxValue) {
+        errors.reject(fieldNm + " 오류", "값이 " + maxValue + "를 큽니다");
+      }
+    }
+  }
+
 
   /**
    * Object null 체크

@@ -11,9 +11,9 @@ public class GoodsValidator {
 
   public void validate(GoodsDto goodsDto, Errors errors) {
 
-    ValidatorUtils.checkInteger(goodsDto.getScorePlusCnt(), "상품 점수", errors, false, 0, null);
+    ValidatorUtils.checkInt(goodsDto.getPlusScore(), "상품 점수", errors, 0, null);
 
-    ValidatorUtils.checkInteger(goodsDto.getScorePlusCnt(), "스탬프 개수", errors, false, 0, null);
+    ValidatorUtils.checkInt(goodsDto.getPlusStampCnt(), "스탬프 개수", errors, 0, null);
 
     ValidatorUtils.checkObjectNull(goodsDto.getGoodsGrp(), "상품 그룹", errors);
 
@@ -23,9 +23,9 @@ public class GoodsValidator {
 
   public void validate(GoodsUpdateDto goodsUpdateDto, Errors errors) {
 
-    ValidatorUtils.checkInteger(goodsUpdateDto.getScorePlusCnt(), "상품 점수", errors, false, 0, null);
+    ValidatorUtils.checkInt(goodsUpdateDto.getPlusScore(), "상품 점수", errors, 0, null);
 
-    ValidatorUtils.checkInteger(goodsUpdateDto.getScorePlusCnt(), "스탬프 개수", errors, false, 0, null);
+    ValidatorUtils.checkInt(goodsUpdateDto.getPlusStampCnt(), "스탬프 개수", errors, 0, null);
 
     ValidatorUtils.checkObjectNull(goodsUpdateDto.getGoodsGrp(), "상품 그룹", errors);
 

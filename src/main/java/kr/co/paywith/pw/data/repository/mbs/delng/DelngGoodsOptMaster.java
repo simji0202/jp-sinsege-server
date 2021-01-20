@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class DelngGoodsOptMaster {
 
+    private Integer id;
+
     /**
      * 옵션 이름
      */

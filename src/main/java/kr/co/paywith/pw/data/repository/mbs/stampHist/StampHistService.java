@@ -93,11 +93,11 @@ public class StampHistService {
     UserInfo userInfo = stampHist.getUserInfo();
     UserCard userCard = userInfo.getUserCard();
     userCard.setStampCnt(userCard.getStampCnt() + stampHist.getCnt());
-    userCard.setStampTotalGet(userCard.getStampTotalGet() + stampHist.getCnt());
+    userCard.setStampTotalCnt(userCard.getStampTotalCnt() + stampHist.getCnt());
     userInfoRepository.save(userInfo);
 
 //    UserInfo userInfo =stampHist.getUserInfo();
-//    userInfo.setScoreCnt(userInfo.stamp);
+//    userInfo.setScore(userInfo.stamp);
 
     // 쿠폰 개수가 충분하면 cpnIssu 추가
 //    CpnIssu cpnIssu = new CpnIssu();
@@ -172,7 +172,7 @@ public class StampHistService {
     // cnt 만큼 회원 스탬프에서 -(스탬프가 사용되었다면 cnt는 -이므로 -1*-1 로 가산이 된다)
     UserCard userCard = stampHist.getUserInfo().getUserCard();
     userCard.setStampCnt(userCard.getStampCnt() - stampHist.getCnt());
-    userCard.setStampTotalGet(userCard.getStampTotalGet() - stampHist.getCnt());
+    userCard.setStampTotalCnt(userCard.getStampTotalCnt() - stampHist.getCnt());
     userInfoRepository.save(stampHist.getUserInfo());
 
     if (stampHist.getCpnIssu() != null) { // 스탬프 적립하자마자 발급한 쿠폰이 있다면

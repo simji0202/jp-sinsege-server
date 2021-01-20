@@ -7,6 +7,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 public interface UserCardRepository extends JpaRepository<UserCard, Integer>,
     QuerydslPredicateExecutor<UserCard> {
 
-  Optional<UserCard> findByStampNo(String stampNo);
+  Optional<UserCard> findByCardNo(String stampNo);
 
 }

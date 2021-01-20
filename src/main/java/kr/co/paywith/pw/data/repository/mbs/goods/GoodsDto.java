@@ -42,12 +42,12 @@ public class GoodsDto {
   /**
    * 구매시 스탬프 추가 개수
    */
-  private int stampPlusCnt;
+  private int plusStampCnt;
 
   /**
    * 구매시 점수 추가 양
    */
-  private int scorePlusCnt = 1;
+  private int plusScore = 1;
 
   /**
    * 상품 그룹(카테고리)

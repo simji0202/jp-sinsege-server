@@ -41,8 +41,8 @@ public class UserCardControllerTest extends BaseControllerTest {
 
 
         UserCard userCard = new UserCard();
-        userCard.setPrpayNm("커피베이 카드");
-        userCard.setPrpayNo("1234123412341234");
+//        userCard.setPrpayNm("커피베이 카드");
+        userCard.setCardNo("1234123412341234");
 
 
         mockMvc.perform(post("/api/userCard/")

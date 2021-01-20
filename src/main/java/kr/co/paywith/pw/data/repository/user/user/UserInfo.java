@@ -120,12 +120,10 @@ public class UserInfo {
     /**
      * 휴대폰 번호
      */
-    @Column(length = 20)
     private String mobileNum;
     /**
      * 통신사 코드
      */
-    @Column(length = 10)
     private String userPhoneCd;
 
     /** 문자(메시지) 수신 동의 */
@@ -144,11 +142,11 @@ public class UserInfo {
     /**
      * 누적 획득 점수
      */
-    private Integer scorePlus = 0;
+    private int totalScore = 0;
     /**
      * 현재 점수
      */
-    private Integer scoreCnt = 0;
+    private int score = 0;
 
     /**
      * 등급 변동 일시
@@ -164,18 +162,9 @@ public class UserInfo {
 //    // 승급관련 항목 end
 
     /**
-     * 회원 누적 사용 점수
-     */
-    private Integer pointUsed = 0;
-    /**
-     * 회원 누적 적립 점수
-     */
-    private Integer pointChrged = 0;
-
-    /**
      * 활성 여부(실제 사용이 가능한 상태)
      */
-    private Boolean activeFl = true;
+    private boolean activeFl = true;
 
     /**
      * 최근 로그인 일시
@@ -201,7 +190,6 @@ public class UserInfo {
      */
     private ZonedDateTime outDttm;
 
-    // kms: TODO 브랜드 별 멤버십 정보 관리 필요
     @OneToOne (cascade = CascadeType.ALL)
     private UserCard userCard;
 

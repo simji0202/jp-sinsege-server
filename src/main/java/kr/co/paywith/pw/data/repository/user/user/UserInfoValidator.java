@@ -44,6 +44,8 @@ public class UserInfoValidator {
     if (isMobileNumInvalid(userInfoDto.getMobileNum())) {
       errors.reject("전화번호 오류", "전화번호 형식이 맞지 않습니다");
     }
+    ValidatorUtils.checkString(userInfoDto.getMobileNum(), "전화번호", errors, false, 0, 20);
+    ValidatorUtils.checkString(userInfoDto.getUserPhoneCd(), "통신사코드", errors, false, 0, 10);
 
     // 생년 오류 검증
     if (isBrthYInvalid(userInfoDto.getBrthY())) {

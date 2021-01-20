@@ -1,7 +1,6 @@
 package kr.co.paywith.pw.config;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.paywith.pw.data.repository.enumeration.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -37,7 +36,7 @@ public class MapperConfig {
         enumMapper.put("authCd", AuthCd.class);
         enumMapper.put("availServiceCd", AvailServiceCd.class);
         enumMapper.put("bbsTypeCd", BbsTypeCd.class);
-        enumMapper.put("chrgSetleChnlCd", ChrgSetleChnlCd.class);
+        enumMapper.put("chrgSetleChnlCd", ChrgTypeCd.class);
         enumMapper.put("chrgSetleMthdCd", ChrgSetleMthdCd.class);
         enumMapper.put("chrgSetleSttsCd", ChrgSetleSttsCd.class);
         enumMapper.put("cpnIssuRuleCd", CpnIssuRuleCd.class);

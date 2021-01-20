@@ -2,10 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.chrg;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleChnlCd;
+import kr.co.paywith.pw.data.repository.enumeration.ChrgTypeCd;
 import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleSttsCd;
-import kr.co.paywith.pw.data.repository.mbs.chrgMass.ChrgMass;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
@@ -44,22 +42,89 @@ public class Chrg {
      */
     @CsvBindByName(column = "ConfirmationNo")
     private String confmNo;
+
     /**
-     * 입력받은 선불카드 번호(기록용)
-     */
-    @CsvBindByName(column = "CardNo")
-    private String prpayNo;
-    /**
-     * 발신 단말기 번호(기록용)
-     */
-    @CsvBindByName(column = "POSNo")
-    private String trmnlNo;
-    /**
-     * 단말기 영수증 번호
+     * 단말기 영수증 번호 (POS 사용시만 사용 )
      */
     @CsvBindByName(column = "POSMessageNo")
     private String trmnlDelngNo;
 
+    /**
+     * 결제 장소(채널)
+     */
+    @Column(length = 10)
+    @Enumerated(EnumType.STRING)
+    @CsvBindByName(column = "PayPlace")
+    private ChrgTypeCd chrgTypeCd; // 매장 / PG 구분
+
+    /**
+     * 충전일시. 매장 거래 시간 등 실제 거래시간.
+     *
+     * 무통장 결제 등 결제 결과를 나중에 받는다면 chrgDttm POST 타이밍에 없을 수 있다
+     *
+     * regDttm만 일단 입력되며 우선 저장, 무통장입금 결과 수신 시 chrgDttm 저장하며 후속처리(잔액 충전, 쿠폰 발급 등)를 한다
+     */
+    @CsvBindByName(column = "PayDatetime")
+    private ZonedDateTime chrgDttm; // 매장 거래 시간
+
+    /**
+     * 충전 금액
+     */
+    @CsvBindByName(column = "LoadAmount")
+    private int chrgAmt;
+
+    /**
+     * 실제 결제 금액. 이벤트 등으로 실제 결제한 금액보다 더 충전해 줄 수 있으므로, 별도로 필드 관리
+     */
+    @CsvBindByName(column = "PayAmount")
+    private int payAmt;
+
+    /**
+     * 결제 승인번호(POS, PG 업체 쪽에서 받는 번호)
+     */
+    @CsvBindByName(column = "PayNo")
+    private String setleConfmNo;
+
+    /**
+     * 충전 회원(금액 가산되는 회원)
+     */
+     @ManyToOne
+     private UserInfo userInfo;
+
+    /**
+     * 가맹점 단말기. 매장에서 저장한 충전이라면 단말기 정보가 있음 (POS, PW)
+     */
+    private Integer mrhstTrmnlId;
+
+    /**
+     * 충전 매장 아이디
+     */
+    private String mrhstId;
+
+    /**
+     * 충전 매장 이름
+     */
+    private String mrhstNm;
+
+//    /**
+//     * PG 결제
+//     */
+//    private Pay pay;
+
+//    /**
+//     * 쿠폰 발급 목록. 충전으로 쿠폰이 발급될 때 연결
+//     */
+//    @OneToMany
+//    private List<Cpn> cpns;
+
+
+    // 공통 항목
+
+    /**
+     * 취소한 user
+     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
+     */
+    private String cancelBy;
 
     /**
      * 취소 일시. not null 이면 취소
@@ -68,118 +133,11 @@ public class Chrg {
     private ZonedDateTime cancelRegDttm;
 
     /**
-     * 충전 금액
-     */
-    @CsvBindByName(column = "LoadAmount")
-    private Integer chrgAmt;
-
-    /**
-     * 충전 이전 유효 기간. 취소 시 유효기간 복원에 사용
-     */
-    private ZonedDateTime chrgOldValidDttm;
-
-    /**
-     * 충전 이벤트 후 선불카드 잔액
-     * <p>
-     * TODO 충전 이전 금액이라면 해당 로직 수정해야 함
-     */
-    private Integer usePosblAmt;
-
-    /**
-     * 실제 결제 금액(충전금액과의 차이는 포인트)
-     */
-    @CsvBindByName(column = "PayAmount")
-    private Integer setleAmt;
-    /**
-     * 결제 승인번호(PG 쪽에서 받는 번호)
-     */
-    @CsvBindByName(column = "PayNo")
-    private String setleConfmNo;
-    /**
-     * 승인일시. 매장 거래 시간 등 실제 거래시간
-     */
-    @CsvBindByName(column = "PayDatetime")
-    private ZonedDateTime confmDttm = ZonedDateTime.now(); // 매장 거래 시간
-    /**
-     * 업체 코드. 현금과 각 카드사를 구분하는 코드. PG업체마다 다를 수 있음
-     */
-    @CsvBindByName(column = "PayType")
-    private String chrgSetleInsttCd; // 현금 / 카드사 구분
-
-    /**
-     * 결제 장소(채널)
-     */
-    @Column(length = 10)
-    @Enumerated(EnumType.STRING)
-    @CsvBindByName(column = "PayPlace")
-    private ChrgSetleChnlCd chrgSetleChnlCd; // 매장 / PG 구분
-
-    /**
-     * 결제 진행 상태. PG는 결제 이전 PRE 상태로 먼저 추가
-     */
-    @Column(length = 10)
-    @Enumerated(EnumType.STRING)
-    @CsvBindByName(column = "PayStatus")
-    private ChrgSetleSttsCd chrgSetleSttsCd; // 결제 상태
-
-    /**
-     * 결제 방법
-     */
-    @Column(length = 10)
-    @Enumerated(EnumType.STRING)
-    @CsvBindByName(column = "PayMethod")
-    private ChrgSetleMthdCd chrgSetleMthdCd;
-
-//    /**
-//     * 선불카드
-//     */
-//    @ManyToOne
-//    private Prpay prpay;
-     @ManyToOne
-     private UserInfo userInfo;
- //    private UserCard userCard;
-
-    /**
-     * pw-proxy 연동에서 사용하는 거래 ID
-     */
-    // @Column(length = 100, table = "CHRG_HIST_PROXY")
-    // kms: TODO 통합 후 같은 값 연결할지 검토 필요
-    private String proxyTid;
-
-
-    /**
-     * 매장
-     */
-    @ManyToOne
-    private Mrhst mrhst;
-
-    /**
-     * 매장 단말기
-     */
-    @ManyToOne
-    private MrhstTrmnl mrhstTrmnl;
-
-
-    /**
-     * 일괄 충전
-     */
-    @ManyToOne
-    private ChrgMass chrgMass;
-
-
-    /**
-     * 쿠폰 발급 목록. 충전으로 쿠폰이 발급될 때 연결
-     */
-    @OneToMany
-    private List<Cpn> cpns;
-
-
-    // 공통 항목
-    /**
      * 등록 일시
      */
     @CreationTimestamp
     private ZonedDateTime regDttm;
+
     /**
      * 수정 일시
      */
@@ -192,10 +150,5 @@ public class Chrg {
     @NameDescription("등록담당자")
     private String createBy;
 
-    /**
-     * 취소한 user
-     * 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장
-     */
-    private String cancelBy;
 
 }

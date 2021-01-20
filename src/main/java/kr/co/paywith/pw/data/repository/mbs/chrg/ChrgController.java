@@ -7,6 +7,8 @@ import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
+import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
+import kr.co.paywith.pw.data.repository.mbs.chrg.ChrgDeleteDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -140,46 +142,79 @@ public class ChrgController extends CommonController {
 	 }
 
 
-	 /**
-	  * 정보 변경
-	  */
-	 @PutMapping("/{id}")
-	 public ResponseEntity putChrg(@PathVariable Integer id,
-											  @RequestBody @Valid ChrgUpdateDto chrgUpdateDto,
-											  Errors errors,
-											  @CurrentUser Account currentUser) {
-		  // 입력체크
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
+//	 /**
+//	  * 정보 변경
+//	  */
+//	 @PutMapping("/{id}")
+//	 public ResponseEntity putChrg(@PathVariable Integer id,
+//											  @RequestBody @Valid ChrgUpdateDto chrgUpdateDto,
+//											  Errors errors,
+//											  @CurrentUser Account currentUser) {
+//		  // 입력체크
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 논리적 오류 (제약조건) 체크
+//		  this.chrgValidator.validate(chrgUpdateDto, errors);
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 기존 테이블에서 관련 정보 취득
+//		  Optional<Chrg> chrgOptional = this.chrgRepository.findById(id);
+//
+//		  // 기존 정보 유무 체크
+//		  if (chrgOptional.isEmpty()) {
+//				// 404 Error return
+//				return ResponseEntity.notFound().build();
+//		  }
+//
+//		  // 기존 정보 취득
+//		  Chrg existChrg = chrgOptional.get();
+//
+//		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
+//		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
+//		  Chrg saveChrg = this.chrgService.update(chrgUpdateDto, existChrg);
+//
+//		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//		  ChrgResource chrgResource = new ChrgResource(saveChrg);
+//		  chrgResource.add(new Link("/docs/index.html#resources-chrg-update").withRel("profile"));
+//
+//		  // 정상적 처리
+//		  return ResponseEntity.ok(chrgResource);
+//	 }
 
-		  // 논리적 오류 (제약조건) 체크
-		  this.chrgValidator.validate(chrgUpdateDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
 
-		  // 기존 테이블에서 관련 정보 취득
-		  Optional<Chrg> chrgOptional = this.chrgRepository.findById(id);
+	@DeleteMapping("/{id}")
+	public ResponseEntity removeChrg(@PathVariable Integer id,
+			@RequestBody(required = false) ChrgDeleteDto chrgDeleteDto,
+			Errors errors,
+			@CurrentUser Account currentUser) {
+		// 입력체크
+		if (errors.hasErrors()) {
+			return badRequest(errors);
+		}
 
-		  // 기존 정보 유무 체크
-		  if (chrgOptional.isEmpty()) {
-				// 404 Error return
-				return ResponseEntity.notFound().build();
-		  }
+		Optional<Chrg> chrgOptional = this.chrgRepository.findById(id);
 
-		  // 기존 정보 취득
-		  Chrg existChrg = chrgOptional.get();
+		if (chrgOptional.isEmpty()) {
+			// 404 Error return
+			return ResponseEntity.notFound().build();
+		}
 
-		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
-		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
-		  Chrg saveChrg = this.chrgService.update(chrgUpdateDto, existChrg);
+		Chrg chrg = chrgOptional.get();
 
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  ChrgResource chrgResource = new ChrgResource(saveChrg);
-		  chrgResource.add(new Link("/docs/index.html#resources-chrg-update").withRel("profile"));
+		// 논리적 오류 (제약조건) 체크
+		this.chrgValidator.validate(currentUser, chrgDeleteDto, chrg, errors);
+		if (errors.hasErrors()) {
+			return badRequest(errors);
+		}
 
-		  // 정상적 처리
-		  return ResponseEntity.ok(chrgResource);
-	 }
+		chrg.setCancelBy(currentUser.getAccountId());
+		chrgService.delete(chrg);
+
+		// 정상적 처리
+		return ResponseEntity.ok().build();
+	}
 }

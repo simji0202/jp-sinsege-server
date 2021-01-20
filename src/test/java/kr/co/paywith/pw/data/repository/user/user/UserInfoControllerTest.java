@@ -58,8 +58,8 @@ UserInfoControllerTest extends BaseControllerTest {
 
 
         UserCard userCard = new UserCard();
-        userCard.setPrpayNm("밸류카드3");
-        userCard.setPrpayNo("1234123412341234");
+//        userCard.setPrpayNm("밸류카드3");
+        userCard.setCardNo("1234123412341234");
 
         userInfo.setUserCard(userCard);
 

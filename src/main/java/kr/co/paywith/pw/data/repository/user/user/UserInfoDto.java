@@ -79,11 +79,11 @@ public class UserInfoDto {
   /**
    * 누적 획득 점수
    */
-  private Integer scorePlus = 0;
+  private int scorePlus = 0;
   /**
    * 현재 점수
    */
-  private Integer scoreCnt = 0;
+  private int scoreCnt = 0;
 
   /**
    * 등급 변동 일시
@@ -93,11 +93,11 @@ public class UserInfoDto {
   /**
    * 회원 누적 사용 점수
    */
-  private Integer pointUsed = 0;
+  private int pointUsed = 0;
   /**
    * 회원 누적 적립 점수
    */
-  private Integer pointChrged = 0;
+  private int pointChrged = 0;
 
   /**
    * 활성 여부(실제 사용이 가능한 상태)

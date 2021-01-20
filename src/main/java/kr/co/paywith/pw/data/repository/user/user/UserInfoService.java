@@ -60,7 +60,7 @@ public class UserInfoService {
 
     this.userInfoRepository.save(userInfo);
 
-    // 스탬프 번호 생성. 중복 방지를 위해 db 저장 후 ID를 활용한다
+    // 카드 번호 생성. 중복 방지를 위해 db 저장 후 ID를 활용한다
     boolean isEndMakeNo = false;
     do {
       String noRule = "2";
@@ -68,18 +68,18 @@ public class UserInfoService {
       noRule = StringUtils.rightPad(noRule, 15, RandomStringUtils.randomNumeric(12));
       String stampNo = StringUtil.makeNo(noRule);
 
-      if (userCardRepository.findByStampNo(stampNo).isEmpty()) {
+      if (userCardRepository.findByCardNo(stampNo).isEmpty()) {
         isEndMakeNo = true;
    //     userInfo.getUserCard().setStampNo(stampNo);
 
-        // 스탬프 객체 생성
+        // 카드 객체 생성
         UserCard userCard = new UserCard();
-        userCard.setStampNo(stampNo);
+        userCard.setCardNo(stampNo);
 
-        // 스탬프 번호 생성
+        // 카드 저장
         userCardRepository.save(userCard);
 
-        // 유저에 스템프 번호 적요
+        // 유저에 카드 번호 적용
         userInfo.setUserCard(userCard);
 
       }
@@ -117,7 +117,7 @@ public class UserInfoService {
     }
 
     // 활설 - 비활성 상태 바꿀 때 outDttm 변경
-    if (!userInfoUpdateDto.getActiveFl().equals(userInfo.getActiveFl())) {
+    if (!userInfoUpdateDto.getActiveFl().equals(userInfo.isActiveFl())) {
       if (!userInfoUpdateDto.getActiveFl()) { // 활성 -> 비활성
         userInfo.setOutDttm(ZonedDateTime.now());
       } else {
