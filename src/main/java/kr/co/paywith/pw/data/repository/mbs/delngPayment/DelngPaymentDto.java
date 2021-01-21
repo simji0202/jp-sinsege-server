@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.delngPayment;
 
-import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class DelngPaymentDto {
      * 금액 지불 방법.
      * 선불카드, PG 결제, 쿠폰
      */
-    private DelngPaymentTypeCd delngPaymentTypeCd;
+    private DelngPaymentType delngPaymentType;
 
     /**
      * 결제 금액
@@ -27,9 +27,9 @@ public class DelngPaymentDto {
     private Integer amt = 0;
 
     /**
-     * 선불카드
+     * 선불, 포인트 사용하는 회원 일련번호
      */
-    private Integer userCardId;
+    private Integer userInfoId;
 
     /**
      * PG 결제

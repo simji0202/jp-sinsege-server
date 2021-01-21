@@ -1,8 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.scoreRule;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.PointCutTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.ScoreRuleTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PointCutType;
+import kr.co.paywith.pw.data.repository.enumeration.ScoreRuleType;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,13 +23,13 @@ public class ScoreRuleUpdateDto {
      */
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
-    private ScoreRuleTypeCd scoreRuleTypeCd;
+    private ScoreRuleType scoreRuleType;
     /**
      * 소수점 처리 규칙 코드
      */
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
-    private PointCutTypeCd pointCutTypeCd;
+    private PointCutType pointCutType;
     /**
      * 전환 비율
      */

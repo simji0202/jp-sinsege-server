@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
-import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.BbsType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class BbsDto {
     /**
      * 게시물 구분코드
      */
-    private BbsTypeCd bbsTypeCd;
+    private BbsType bbsType;
 
     /**
      * 부모 게시물 일련번호

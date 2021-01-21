@@ -2,8 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.brand;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.AvailBrandFnCd;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
+import kr.co.paywith.pw.data.repository.enumeration.BrandFnType;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +46,14 @@ public class BrandControllerTest extends BaseControllerTest {
         brand.setBrandNm("샐러디");
         brand.setActiveFl(true);
         brand.setBrandCd("1234567890123456");
-        brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.CALCU, AvailBrandFnCd.CPN));
-        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
+        brand.setBrandFnTypeList(List.of(BrandFnType.CALCU, BrandFnType.CPN));
+//        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
 
         BrandSetting brandSetting = new BrandSetting();
 //        brandSetting.setBillingMinAmt(3000);
         brandSetting.setBizClass("bizClass");
         brandSetting.setBizType("bizType");
         brandSetting.setFcmKey("FcmKey");
-        // kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
         brandSetting.setDanalCpid("simji0202");
         brandSetting.setDanalCppwd("0202");
 
@@ -88,15 +86,14 @@ public class BrandControllerTest extends BaseControllerTest {
         brand.setBrandNm("커피베이");
         brand.setActiveFl(true);
         brand.setBrandCd("1234567890123456");
-        brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.CALCU, AvailBrandFnCd.CPN));
-        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
+        brand.setBrandFnTypeList(List.of(BrandFnType.CALCU, BrandFnType.CPN));
+//        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
 
         BrandSetting brandSetting = new BrandSetting();
         brandSetting.setBizClass("bizClass");
         brandSetting.setBizType("bizType");
         brandSetting.setFcmKey("FcmKey");
 
-        // kms: 외부 업체 연동 정보로서 BrandSetting과 기능적으로 겹침
         brandSetting.setDanalCpid("simji0202");
         brandSetting.setDanalCppwd("0202");
 
@@ -177,8 +174,8 @@ public class BrandControllerTest extends BaseControllerTest {
         brand.setBrandNm("테스트 브랜드 1");
         brand.setActiveFl(true);
         brand.setBrandCd("1234567890123456");
-        brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.MRHST_IMG));
-        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
+        brand.setBrandFnTypeList(List.of(BrandFnType.MRHST_IMG));
+//        brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
 
 
         // When & Then

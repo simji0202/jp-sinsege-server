@@ -1,7 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.chrg;
 
+import java.util.Set;
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.account.Account;
+import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
@@ -15,11 +17,12 @@ public class ChrgValidator {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public void validate(ChrgDto chrgDto, Errors errors) {
+    public void validate(ChrgDto chrgDto,
+        Account currentUser, Errors errors) {
 
         // 데이터 형식 검증
         ValidatorUtils.checkInt(chrgDto.getChrgAmt(), "충전 금액", errors, 1, 99999999);
-        ValidatorUtils.checkObjectNull(chrgDto.getChrgTypeCd(), "충전 종류", errors);
+        ValidatorUtils.checkObjectNull(chrgDto.getChrgType(), "충전 종류", errors);
 
         ValidatorUtils.checkObjectNull(chrgDto.getUserInfo(), "회원 정보", errors);
 
@@ -31,7 +34,7 @@ public class ChrgValidator {
         }
 
         // 로직 검증
-        switch (chrgDto.getChrgTypeCd()) {
+        switch (chrgDto.getChrgType()) {
             case PW:
             case POS:
                 // 단말기에서 온 요청이면 매장 정보가 있어야 한다
@@ -41,8 +44,14 @@ public class ChrgValidator {
                 ValidatorUtils.checkObjectNull(chrgDto.getSetleConfmNo(), "결제 승인 번호", errors);
                 break;
             case SYS:
-                // 시스템에 직접 충전한다면 권한이 있어야 한다
-                // kms: TODO 이 메소드 파라미터로 currentUser 받아야 한다
+                // 시스템에 직접 충전한다면 권한이 있어야 한다.
+                // kms: TODO 권한 확인
+                if (currentUser.getAdmin() != null && currentUser.getAdmin().getRoles().contains(
+                    AdminRole.ADMIN_MASTER)) { // 관리자
+
+                } else {
+                    // 적절한 권한이 없으면 오류
+                }
                 break;
             case APP:
                 // 앱에서는 PG 충전밖에 없으므로, 유효한 PG 결제를 했어야 한다

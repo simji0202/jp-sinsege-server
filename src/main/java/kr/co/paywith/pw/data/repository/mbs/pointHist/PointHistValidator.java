@@ -7,18 +7,9 @@ import org.springframework.validation.Errors;
 public class PointHistValidator {
 
 
-    public void validate(PointHistDto pointHistDto, Errors errors) {
+  public void validate(PointHistDto pointHistDto, Errors errors) {
 
-
-        // TODO BeginEventDateTime
-        // TODO CloseEnrollmentDateTime
-    }
-
-    public void validate(PointHistUpdateDto pointHistUpdateDto, Errors errors) {
-
-
-        // TODO BeginEventDateTime
-        // TODO CloseEnrollmentDateTime
-    }
-
+    // TODO BeginEventDateTime
+    // TODO CloseEnrollmentDateTime
+  }
 }

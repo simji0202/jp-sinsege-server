@@ -59,8 +59,8 @@ public class GoodsOpt {
   private String optTitle;
 
 
-  @OneToMany (cascade = CascadeType.ALL)
-  private List<GoodsOptMaster> goodsOptMasters = new ArrayList<GoodsOptMaster>();
+  @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+  private List<GoodsOptMaster> goodsOptMasterList = new ArrayList<GoodsOptMaster>();
 
   /**
    * 다중 선택 여부 ( 라디오버튼 : false , 체크박스 : true )

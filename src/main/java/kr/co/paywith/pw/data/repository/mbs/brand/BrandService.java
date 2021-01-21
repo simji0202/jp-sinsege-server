@@ -24,8 +24,8 @@ public class BrandService {
     public Brand update(BrandUpdateDto brandUpdateDto, Brand existBrand) {
 
         // 기존 List 항목 초기 설정
-        existBrand.getAvailBrandFnCdList().clear();
-        existBrand.getAvailServiceCdList().clear();
+        existBrand.getBrandFnTypeList().clear();
+        existBrand.getAvailServiceTypeList().clear();
 
         // 입력값 대입
         this.modelMapper.map(brandUpdateDto, existBrand);

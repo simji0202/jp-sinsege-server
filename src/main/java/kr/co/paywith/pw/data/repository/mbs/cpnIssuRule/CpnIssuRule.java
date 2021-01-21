@@ -1,8 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssuRule;
 
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
 import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
-import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -32,19 +31,12 @@ public class CpnIssuRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // kms: TODO 브랜드별 등급 만들면 해당 entity로 변경
-    /**
-     * 발급 대상 회원 등급
-     */
-    @OneToOne
-    private Grade grade;
-
     /**
      * 쿠폰 발급 규칙 코드
      */
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
-    private CpnIssuRuleCd cpnIssuRuleCd;
+    private CpnIssuRuleType cpnIssuRuleType;
 
     /**
      * 쿠폰 발급 규칙 명
@@ -54,14 +46,17 @@ public class CpnIssuRule {
     /**
      * 쿠폰 발급 규칙 기준 값
      *
-     * cpnIssuRuleCd에 따라 다르게 사용
+     * cpnIssuRuleType에 따라 다르게 사용
      *
-     * AC, AU, C, U : 기준 금액
+     * CHRG, PAYMENT : 기준 금액. stdValue 이상이면 발급
      *
-     * J, BD, S, GU : 대상회원에게 발급할 시간(0~23)
+     * SCORE : 기준 점수. stdValue 이상이면 발급
+     *
+     * BD : 생일 stdValue 일 이전
+     *
+     * STAMP, JOIN : 미사용
      */
-    private Integer ruleValue;
-
+    private Integer stdValue;
 
     /**
      * 쿠폰 발급 시 메시지 전송 여부
@@ -69,25 +64,20 @@ public class CpnIssuRule {
     private Boolean msgSendFl = false;
 
     /**
-     * 이메일, 푸시 등 발급시 전송할 메시지 본문
-     */
-    private String msgCn;
-
-    /**
      * 쿠폰 발급 전송 메시지 제목
      */
     private String msgSj;
+
+    /**
+     * 이메일, 푸시 등 발급시 전송할 메시지 본문
+     */
+    private String msgCn;
 
     /**
      * 발급할 쿠폰 종류
      */
     @ManyToOne
     private CpnMaster cpnMaster;
-
-    /**
-     * 발급 후 회원 노출까지 지연시킬 시간(부하 대비 미리 발급)
-     */
-    private Integer delayHr = 0;
 
     /**
      * 발급 후 메시지 전송 지연 시간
@@ -97,12 +87,13 @@ public class CpnIssuRule {
     /**
      * 활성 여부
      */
-    private Boolean activeFl;
+    private Boolean activeFl = false;
 
     /**
      * 발급 규칙 매칭 월
      */
     private Integer ruleMonth;
+
     /**
      * 발급 규칙 매칭 일
      */
@@ -112,27 +103,18 @@ public class CpnIssuRule {
      */
     private Integer ruleWeekOfMonth;
     /**
-     * 발급 규칙 매칭 요일
+     * 발급 규칙 매칭 요일. 1(월) ~ 7(일)
      */
     private Integer ruleDayOfWeek;
     /**
-     * 발급 규칙 매칭 시간
+     * 발급 규칙 매칭 시 0 ~ 23
      */
     private Integer ruleHour;
 
     /**
-     * 발급 규칙 매칭 분
+     * 발급 규칙 매칭 분 0 ~ 59
      */
     private Integer ruleMinute;
-
-    /**
-     * 생일 이전 발급 일
-     */
-    private Integer dayBeforeBrth;
-
-    // che2 : cpnMaster 에 선언된  Brand 참조
-//    @ManyToOne
-//    private Brand brand;
 
     /**
      * 등록 일시

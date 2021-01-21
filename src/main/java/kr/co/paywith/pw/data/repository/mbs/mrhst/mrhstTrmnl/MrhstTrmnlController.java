@@ -154,12 +154,6 @@ public class MrhstTrmnlController extends CommonController {
             return badRequest(errors);
         }
 
-        // 논리적 오류 (제약조건) 체크
-        this.mrhstTrmnlValidator.validate(mrhstTrmnlUpdateDto, errors);
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
         // 기존 테이블에서 관련 정보 취득
         Optional<MrhstTrmnl> mrhstTrmnlOptional = this.mrhstTrmnlRepository.findById(id);
 
@@ -171,6 +165,12 @@ public class MrhstTrmnlController extends CommonController {
 
         // 기존 정보 취득
         MrhstTrmnl existMrhstTrmnl = mrhstTrmnlOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.mrhstTrmnlValidator.validate(mrhstTrmnlUpdateDto, existMrhstTrmnl, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
 
         if (currentUser != null) {
             // 변경자 정보 저장

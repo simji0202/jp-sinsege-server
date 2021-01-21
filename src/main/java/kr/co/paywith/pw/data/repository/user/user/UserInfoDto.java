@@ -5,7 +5,7 @@ import java.util.Set;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import lombok.Data;
 
@@ -15,10 +15,8 @@ import lombok.Data;
 @Data
 public class UserInfoDto {
 
-  private Integer id;
-
   /**
-   * 회원 아이디.
+   * 회원 아이디
    */
   private String userId;
 
@@ -140,7 +138,7 @@ public class UserInfoDto {
    * 회원 인증 구분
    */
   // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
-  private CertTypeCd certTypeCd;
+  private CertType certType;
 
 
   /**

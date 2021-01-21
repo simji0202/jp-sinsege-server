@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -204,7 +204,7 @@ public class UserInfo {
      * 회원 인증 구분
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
-    private CertTypeCd certTypeCd;
+    private CertType certType;
 
     // kms: TODO userInfo 테이블에 브랜드 별 회원 정보 만드는 대신 멤버십 관리 필요
 //    /**

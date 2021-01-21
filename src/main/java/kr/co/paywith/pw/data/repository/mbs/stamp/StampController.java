@@ -1,48 +1,43 @@
 package kr.co.paywith.pw.data.repository.mbs.stamp;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
+import com.querydsl.core.BooleanBuilder;
+import io.swagger.annotations.Api;
+import java.util.Optional;
+import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import com.querydsl.core.BooleanBuilder;
-import io.swagger.annotations.Api;
-import kr.co.paywith.pw.common.ErrorsResource;import org.modelmapper.ModelMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.Optional;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/stamp")
 @Api(value = "StampController", description = "쿠폰 API", basePath = "/api/stamp")
 public class StampController extends CommonController {
 
-	 @Autowired
-	 StampRepository stampRepository;
+  @Autowired
+  StampRepository stampRepository;
 
-	 @Autowired
-	 ModelMapper modelMapper;
+  @Autowired
+  ModelMapper modelMapper;
 
-	 @Autowired
-	 StampValidator stampValidator;
+  @Autowired
+  StampService stampService;
 
-	 @Autowired
-	 StampService stampService;
-
-	 // stamp 등록은 issu 통해서나 다른 내부 로직 통해서 저장
+  // stamp 등록은 issu 통해서나 다른 내부 로직 통해서 저장
 //	 /**
 //	  * 정보 등록
 //	  */
@@ -82,68 +77,67 @@ public class StampController extends CommonController {
 //	 }
 
 
-	 /**
-	  * 정보취득 (조건별 page )
-	  */
-	 @GetMapping
-	 public ResponseEntity getStamps(SearchForm searchForm,
-												Pageable pageable,
-												PagedResourcesAssembler<Stamp> assembler
-				, @CurrentUser Account currentUser) {
+  /**
+   * 정보취득 (조건별 page )
+   */
+  @GetMapping
+  public ResponseEntity getStamps(SearchForm searchForm,
+      Pageable pageable,
+      PagedResourcesAssembler<Stamp> assembler
+      , @CurrentUser Account currentUser) {
 
-		 // kms: currentUser 와 차이는??
-		  // 인증상태의 유저 정보 확인
+    // kms: currentUser 와 차이는??
+    // 인증상태의 유저 정보 확인
 //		  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		  User princpal = (User) authentication.getPrincipal();
 
-		  QStamp qStamp = QStamp.stamp;
+    QStamp qStamp = QStamp.stamp;
 
-		  //
-		  BooleanBuilder booleanBuilder = new BooleanBuilder();
+    //
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-		  // 검색조건 아이디(키)
-		  if (searchForm.getId() != null) {
-				booleanBuilder.and(qStamp.id.eq(searchForm.getId()));
-		  }
+    // 검색조건 아이디(키)
+    if (searchForm.getId() != null) {
+      booleanBuilder.and(qStamp.id.eq(searchForm.getId()));
+    }
 
-		  // 검색조건 회원
-			booleanBuilder.and(qStamp.stampHist.userInfo.id.eq(currentUser.getUserInfo().getId()));
+    // 검색조건 회원
+    booleanBuilder.and(qStamp.stampHist.userInfo.id.eq(currentUser.getUserInfo().getId()));
+
+    Page<Stamp> page = this.stampRepository.findAll(booleanBuilder, pageable);
+    var pagedResources = assembler.toResource(page, e -> new StampResource(e));
+    pagedResources.add(new Link("/docs/index.html#resources-stamps-list").withRel("profile"));
+    pagedResources.add(linkTo(StampController.class).withRel("create-stamp"));
+    return ResponseEntity.ok(pagedResources);
+  }
+
+  private ResponseEntity badRequest(Errors errors) {
+    return ResponseEntity.badRequest().body(new ErrorsResource(errors));
+  }
 
 
-		  Page<Stamp> page = this.stampRepository.findAll(booleanBuilder, pageable);
-		  var pagedResources = assembler.toResource(page, e -> new StampResource(e));
-		  pagedResources.add(new Link("/docs/index.html#resources-stamps-list").withRel("profile"));
-		  pagedResources.add(linkTo(StampController.class).withRel("create-stamp"));
-		  return ResponseEntity.ok(pagedResources);
-	 }
+  /**
+   * 정보취득 (1건 )
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity getStamp(@PathVariable Integer id,
+      @CurrentUser Account currentUser) {
 
-	 private ResponseEntity badRequest(Errors errors) {
-		  return ResponseEntity.badRequest().body(new ErrorsResource(errors));
-	 }
+    Optional<Stamp> stampOptional = this.stampRepository.findById(id);
 
+    // 고객 정보 체크
+    if (stampOptional.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
 
-	 /**
-	  * 정보취득 (1건 )
-	  */
-	 @GetMapping("/{id}")
-	 public ResponseEntity getStamp(@PathVariable Integer id,
-											  @CurrentUser Account currentUser) {
+    Stamp stamp = stampOptional.get();
 
-		  Optional<Stamp> stampOptional = this.stampRepository.findById(id);
+    // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+    StampResource stampResource = new StampResource(stamp);
+    stampResource.add(new Link("/docs/index.html#resources-stamp-get").withRel("profile"));
 
-		  // 고객 정보 체크
-		  if (stampOptional.isEmpty()) {
-				return ResponseEntity.notFound().build();
-		  }
-
-		  Stamp stamp = stampOptional.get();
-
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  StampResource stampResource = new StampResource(stamp);
-		  stampResource.add(new Link("/docs/index.html#resources-stamp-get").withRel("profile"));
-
-		  return ResponseEntity.ok(stampResource);
-	 }
+    return ResponseEntity.ok(stampResource);
+  }
 
 // stamp 변경은 다른 내부 로직 통해서 저장
 //	 /**

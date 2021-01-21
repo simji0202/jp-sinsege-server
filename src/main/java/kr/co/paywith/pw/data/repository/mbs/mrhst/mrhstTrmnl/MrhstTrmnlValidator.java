@@ -24,7 +24,7 @@ public class MrhstTrmnlValidator {
   public void validate(MrhstTrmnlDto mrhstTrmnlDto, Errors errors) {
 
     // 아이디 중복 확인
-    if (isIdDuplicated(mrhstTrmnlDto.getUserId(), mrhstTrmnlDto.getId())) {
+    if (isIdDuplicated(mrhstTrmnlDto.getUserId(), null)) {
       errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
     };
 
@@ -32,8 +32,12 @@ public class MrhstTrmnlValidator {
     // TODO CloseEnrollmentDateTime
   }
 
-  public void validate(MrhstTrmnlUpdateDto mrhstTrmnlUpdateDto, Errors errors) {
+  public void validate(MrhstTrmnlUpdateDto mrhstTrmnlUpdateDto, MrhstTrmnl mrhstTrmnl,  Errors errors) {
 
+    // 아이디 중복 확인
+    if (isIdDuplicated(mrhstTrmnlUpdateDto.getUserId(), mrhstTrmnl.getId())) {
+      errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
+    };
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime

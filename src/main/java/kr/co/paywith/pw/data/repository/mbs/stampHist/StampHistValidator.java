@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.account.Account;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandService;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class StampHistValidator {
     ValidatorUtils.checkString(stampHistDto.getTrmnlNo(), "단말기 번호", errors, false, 1, 30);
     ValidatorUtils.checkObjectNull(stampHistDto.getUserInfo(), "회원 정보", errors);
     ValidatorUtils.checkObjectNull(stampHistDto.getUserInfo().getId(), "회원 정보", errors);
-    ValidatorUtils.checkObjectNull(stampHistDto.getStampHistTypeCd(), "스탬프 구분", errors);
+    ValidatorUtils.checkObjectNull(stampHistDto.getStampHistType(), "스탬프 구분", errors);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
@@ -47,7 +47,7 @@ public class StampHistValidator {
       errors.reject("취소 오류", "이미 취소된 스탬프 오류");
     }
 
-    switch (stampHist.getStampHistTypeCd()) {
+    switch (stampHist.getStampHistType()) {
       case RSRV:
       case D_RSRV:
         if (stampHist.getCnt() > stampHist.getUserInfo().getUserCard().getStampCnt()) {
@@ -57,7 +57,7 @@ public class StampHistValidator {
       case CPN:
         // 쿠폰발급한 이력인데, 쿠폰이 사용되었는지 확인
         for (Cpn cpn : stampHist.getCpnIssu().getCpnList()){
-          if (!cpn.getCpnSttsCd().equals(CpnSttsCd.AVAIL)) {
+          if (!cpn.getCpnSttsType().equals(CpnSttsType.AVAIL)) {
             errors.reject("취소 오류", "취소할 수 없는 쿠폰이 있습니다");
           }
         }

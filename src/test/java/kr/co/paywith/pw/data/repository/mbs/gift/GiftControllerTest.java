@@ -2,8 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.gift;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
-import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.MsgType;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +42,8 @@ public class GiftControllerTest extends BaseControllerTest {
 		  Gift gift = new Gift();
 		  gift.setRcvUserNm("TEST");
 		  gift.setReserveFl(true);
-		  gift.setMsgTypeCd(MsgTypeCd.EMAIL);
-		  gift.setMsgHistSttsCd(MsgHistSttsCd.FL);
+		  gift.setMsgType(MsgType.EMAIL);
+		  gift.setMsgHistSttsType(MsgHistSttsType.FL);
 		  gift.setRcvMobileNum("DD");
 		  gift.setSetleAmt(100000);
 

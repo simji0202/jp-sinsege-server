@@ -3,7 +3,7 @@ package kr.co.paywith.pw.data.repository.mbs.stampHist;
 import java.time.ZonedDateTime;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class StampHistDto {
    * 스탬프 이력 구분 코드
    */
   @Enumerated(EnumType.STRING)
-  private StampHistTypeCd stampHistTypeCd;
+  private StampHistType stampHistType;
 
   /**
    * 처리 일시

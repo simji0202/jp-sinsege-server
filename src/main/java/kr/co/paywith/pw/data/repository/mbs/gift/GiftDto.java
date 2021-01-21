@@ -1,8 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.gift;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
-import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.MsgType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,14 +61,14 @@ public class GiftDto {
 	 */
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private MsgTypeCd msgTypeCd;
+	private MsgType msgType;
 
 	/**
 	 * 선물 상태 코드
 	 */
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private MsgHistSttsCd msgHistSttsCd;
+	private MsgHistSttsType msgHistSttsType;
 
 
 	/**

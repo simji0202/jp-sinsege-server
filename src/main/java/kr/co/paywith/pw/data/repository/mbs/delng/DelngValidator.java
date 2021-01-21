@@ -1,24 +1,20 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
 
-import java.time.ZonedDateTime;
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
-import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPayment;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
-import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
-import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOptRepository;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMasterRepository;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
-import kr.co.paywith.pw.data.repository.user.userCard.UserCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -36,7 +32,7 @@ public class DelngValidator {
   private GoodsOptMasterRepository goodsOptMasterRepository;
 
   @Autowired
-  private UserCardRepository userCardRepository;
+  private UserInfoRepository userInfoRepository;
 
   @Autowired
   private GcctRepository gcctRepository;
@@ -45,13 +41,13 @@ public class DelngValidator {
 
     // 팔수값 확인
     ValidatorUtils.checkInt(delngDto.getTotalAmt(), "거래 금액", errors, 0, 99999999);
-    ValidatorUtils.checkObjectNull(delngDto.getDelngTypeCd(), "거래 종류", errors);
+    ValidatorUtils.checkObjectNull(delngDto.getDelngType(), "거래 종류", errors);
     ValidatorUtils.checkObjectNull(delngDto.getMrhstId(), "매장ID", errors);
     ValidatorUtils.checkObjectNull(delngDto.getMrhstNm(), "매장명", errors);
 //    ValidatorUtils.checkObjectNull(delngDto.getUserInfo(), "회원", errors);
 
     boolean isReqFromUser = false; // 회원이 한 요청은 금액 조작 여부를 검증해야 한다
-    switch (delngDto.getDelngTypeCd()) {// 거래 종류에 따라 구분 처리
+    switch (delngDto.getDelngType()) {// 거래 종류에 따라 구분 처리
       case POS:
       case PW:
         // 매장 요청이면
@@ -160,7 +156,7 @@ public class DelngValidator {
 
       if (clientCpnGoodsAmt > 0) {
         // 쿠폰 검증해야 할 금액 있음
-        switch (cpn.getCpnMaster().getCpnMasterTypeCd()) {
+        switch (cpn.getCpnMaster().getCpnMasterType()) {
           case RATIO: // 비율 쿠폰
             // 상한 확인
             if (cpn.getCpnMaster().getMaxCpnAmt()
@@ -189,10 +185,11 @@ public class DelngValidator {
               errors.reject("결제 검증 오류", "결제 금액 값이 없습니다");
             } else {
               paymentAmt += delngPaymentDto.getAmt();
-              switch (delngPaymentDto.getDelngPaymentTypeCd()) {
+              switch (delngPaymentDto.getDelngPaymentType()) {
                 case PRPAY: // 선불카드
+                  UserInfo userInfo = userInfoRepository.findById(delngPaymentDto.getUserInfoId()).get();
                   // 선불카드 유효기간과 잔액 확인
-                  UserCard userCard = userCardRepository.findById(delngPaymentDto.getUserCardId()).get();
+                  UserCard userCard = userInfo.getUserCard();
                   if (userCard.getPrpayAmt() < delngDto.getTotalAmt() - delngDto.getCpnAmt()) {
                     // 잔액이 부족하면
                     errors.reject("선불카드 검증 오류", "선불카드 잔액이 부족합니다");

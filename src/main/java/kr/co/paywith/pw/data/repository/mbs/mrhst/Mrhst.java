@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2;
-import kr.co.paywith.pw.data.repository.enumeration.AvailServiceCd;
+import kr.co.paywith.pw.data.repository.enumeration.AvailServiceType;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr3.CdAddr3;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -103,7 +103,7 @@ public class Mrhst {
   @Column
   @Enumerated(EnumType.STRING)
   @ElementCollection(fetch = FetchType.LAZY)
-  private List<AvailServiceCd> availServiceCdList = new ArrayList<>();
+  private List<AvailServiceType> availServiceTypeList = new ArrayList<>();
 
   @Column(columnDefinition = "json")
   private String envValueMap;

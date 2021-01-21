@@ -37,11 +37,10 @@ public class CpnIssuUpdateDto {
 //    private ZonedDateTime validStartDttm = ZonedDateTime.now();
 
   // che2 : 쿠폰 목록 추가 (20.01.07)
-  /**
-   * 발급 쿠폰 목록
-   */
-  private List<Cpn> cpnList = new ArrayList<>();
-
+//  /**
+//   * 발급 쿠폰 목록
+//   */
+//  private List<Cpn> cpnList = new ArrayList<>();
 
   /**
    * 쿠폰 유효 종료 일시

@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpn;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
@@ -28,7 +28,7 @@ public class CpnDto {
    * 쿠폰 상태 코드
    */
   @Enumerated(EnumType.STRING)
-  private CpnSttsCd cpnSttsCd = CpnSttsCd.AVAIL;
+  private CpnSttsType cpnSttsType = CpnSttsType.AVAIL;
 
   /**
    * 회원 ( 쿠폰 소유자 )

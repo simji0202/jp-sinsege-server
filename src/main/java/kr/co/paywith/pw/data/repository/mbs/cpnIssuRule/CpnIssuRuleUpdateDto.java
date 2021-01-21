@@ -1,9 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssuRule;
 
-import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
-import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
-import kr.co.paywith.pw.data.repository.user.grade.Grade;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
 import lombok.*;
 
 import javax.persistence.EnumType;
@@ -20,17 +18,10 @@ import javax.persistence.Enumerated;
 public class CpnIssuRuleUpdateDto {
 
     /**
-     * 발급 대상 회원 등급
-     */
-    private Grade grade;
-    /**
-     * 발급 대상 회원 등급 일련번호
-     */
-    /**
      * 쿠폰 발급 규칙 코드
      */
     @Enumerated(EnumType.STRING)
-    private CpnIssuRuleCd cpnIssuRuleCd;
+    private CpnIssuRuleType cpnIssuRuleType;
     /**
      * 쿠폰 발급 규칙 명
      */
@@ -38,13 +29,13 @@ public class CpnIssuRuleUpdateDto {
     /**
      * 쿠폰 발급 규칙 기준 값
      *
-     * cpnIssuRuleCd에 따라 다르게 사용
+     * cpnIssuRuleType에 따라 다르게 사용
      *
      * AC, AU, C, U : 기준 금액
      *
      * J, BD, S, GU : 대상회원에게 발급할 시간(0~23)
      */
-    private Integer ruleValue;
+    private Integer stdValue;
 
     /**
      * 쿠폰 발급 시 메시지 전송 여부
@@ -52,28 +43,19 @@ public class CpnIssuRuleUpdateDto {
     private Boolean msgSendFl = false;
 
     /**
-     * 이메일, 푸시 등 발급시 전송할 메시지 본문
-     */
-    private String msgCn;
-
-    /**
      * 쿠폰 발급 전송 메시지 제목
      */
     private String msgSj;
 
     /**
+     * 이메일, 푸시 등 발급시 전송할 메시지 본문
+     */
+    private String msgCn;
+
+    /**
      * 발급할 쿠폰 종류
      */
     private CpnMaster cpnMaster;
-    /**
-     * 발급할 쿠폰 종류 일련번호
-     */
-    private Integer cpnMasterSn;
-
-    /**
-     * 발급 후 회원 노출까지 지연시킬 시간(부하 대비 미리 발급)
-     */
-    private Integer delayHr = 0;
 
     /**
      * 발급 후 메시지 전송 지연 시간
@@ -110,11 +92,4 @@ public class CpnIssuRuleUpdateDto {
      * 발급 규칙 매칭 분
      */
     private Integer ruleMinute;
-
-    /**
-     * 생일 이전 발급 일
-     */
-    private Integer dayBeforeBrth;
-
-    private Brand brand;
 }

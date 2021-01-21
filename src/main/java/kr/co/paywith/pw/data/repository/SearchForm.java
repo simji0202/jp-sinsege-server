@@ -1,19 +1,12 @@
 package kr.co.paywith.pw.data.repository;
 
 
-import java.util.List;
-import javax.persistence.*;
-
 import kr.co.paywith.pw.common.NameDescription;
 
 
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
-
-
-import java.time.LocalDateTime;
 
 
 @Data
@@ -43,7 +36,7 @@ public class SearchForm {
   /**
    * 쿠폰 상태 코드. 특정 상태 쿠폰 조회
    */
-  private CpnSttsCd cpnSttsCd;
+  private CpnSttsType cpnSttsType;
 
 
 }

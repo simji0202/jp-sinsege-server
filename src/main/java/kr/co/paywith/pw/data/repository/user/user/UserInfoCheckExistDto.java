@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.user;
 
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import lombok.Data;
 
 
@@ -12,7 +12,7 @@ import lombok.Data;
  *
  * 사용 예>
  * userId는 전체 서버에서 중복이 불가능 하므로 요청시에 userId 확인
- * certTypeCd + certKey를 같이 입력하면 같은 인증방식으로 이미 인증한 회원이 있는지 확인. 네이버, 카카오가 같은 certKey를 줄 수 있기 때문
+ * certType + certKey를 같이 입력하면 같은 인증방식으로 이미 인증한 회원이 있는지 확인. 네이버, 카카오가 같은 certKey를 줄 수 있기 때문
  *
  */
 @Data
@@ -23,7 +23,7 @@ public class UserInfoCheckExistDto {
     private String mobileNum;
     private String nickNm;
     private String certKey;
-    private CertTypeCd certTypeCd;
+    private CertType certType;
 
 
 }

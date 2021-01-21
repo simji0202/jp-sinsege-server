@@ -52,23 +52,14 @@ public class ScoreHist {
   /**
    * 회원
    */
-  @ManyToOne(optional = true, fetch = FetchType.LAZY)
+  @ManyToOne
   private UserInfo userInfo;
-
-  /**
-   * 취소 일시
-   */
-  private ZonedDateTime cancelRegDttm;
 
   /**
    * 점수 획득 규칙
    */
   @ManyToOne
   private ScoreRule scoreRule;
-  /**
-   * 점수 획득 규칙 일련번호
-   */
-  private Integer scoreRuleSn;
 
   /**
    * 충전 이력
@@ -111,6 +102,11 @@ public class ScoreHist {
    */
   @UpdateTimestamp
   private ZonedDateTime updtDttm;
+
+  /**
+   * 취소 일시
+   */
+  private ZonedDateTime cancelRegDttm;
 
   @NameDescription("갱신담당자")
   private String updateBy;

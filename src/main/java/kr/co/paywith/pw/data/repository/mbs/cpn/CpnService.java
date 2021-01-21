@@ -2,14 +2,15 @@ package kr.co.paywith.pw.data.repository.mbs.cpn;
 
 
 import kr.co.paywith.pw.component.StringUtil;
-import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,10 @@ import javax.transaction.Transactional;
 
 @Service
 public class CpnService {
+
+  @Value("${cpn-stamp-cnt}")
+  private Integer cpnStampCnt = 10;
+
 
   @Autowired
   private CpnRepository cpnRepository;
@@ -52,7 +57,6 @@ public class CpnService {
     } while (!isEndMakeNo);
     // 쿠폰 번호는 처음 저장할 때 생성하면 사용하지 않고 만료되는 번호가 많이 남게 되므로, 최초 상세 조회시에 번호를 만든다
 
-
     return newCpn;
   }
 
@@ -80,16 +84,15 @@ public class CpnService {
    */
   @Transactional
   public void delete(Cpn cpn) {
-    cpn.setCpnSttsCd(CpnSttsCd.INVALID);
+    cpn.setCpnSttsType(CpnSttsType.INVALID);
 
     if (cpn.getCpnIssu().getCpnIssuRule() != null &&
-        cpn.getCpnIssu().getCpnIssuRule().getCpnIssuRuleCd().equals(CpnIssuRuleCd.S) // 스탬프 쿠폰이면
+        cpn.getCpnIssu().getCpnIssuRule().getCpnIssuRuleType()
+            .equals(CpnIssuRuleType.STAMP) // 스탬프 쿠폰이면
     ) {
-      int stampMaxCnt = cpn.getCpnMaster().getBrand().getBrandSetting().getStampMaxCnt(); // 쿠폰 발급에 필요한 스탬프 개수
       // 회원의 스탬프 개수 복원
       UserCard userCard = cpn.getUserInfo().getUserCard();
-      userCard.setStampCnt(userCard.getStampCnt() - stampMaxCnt);
-      userCard.setStampTotalCnt(userCard.getStampTotalCnt() - stampMaxCnt);
+      userCard.setStampCnt(userCard.getStampCnt() + cpnStampCnt);
       // userInfo 저장
       userInfoRepository.save(cpn.getUserInfo());
     }
@@ -97,8 +100,8 @@ public class CpnService {
   }
 
   /**
-   * 쿠폰 번호를 생성한다. 쿠폰 번호는 중복을 방지하기 위해 cpnIssu 생성 이후에 진행하며,
-   * 사용하지 않고 만료되는 쿠폰에 할당되는 번호 낭비를 줄이기 위해, 회원이 쿠폰 최초 열람시에 생성
+   * 쿠폰 번호를 생성한다. 쿠폰 번호는 중복을 방지하기 위해 cpnIssu 생성 이후에 진행하며, 사용하지 않고 만료되는 쿠폰에 할당되는 번호 낭비를 줄이기 위해, 회원이
+   * 쿠폰 최초 열람시에 생성
    *
    * @param cpn 번호발급이 되지 않은 쿠폰. cpnIssu가 있어야 한다. cpnNo가 없어야 하지만, 혹시 있다면 cpnNo를 그대로 리턴한다.
    * @return 새로 생성, 혹은 기존 cpn에 있던 쿠폰 번호

@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.user.userCard;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.PrpaySttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.PrpaySttsType;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -81,7 +81,7 @@ public class UserCard {
    * 선불카드 상태 코드
    */
   @Enumerated(EnumType.STRING)
-  private PrpaySttsCd prpaySttsCd = PrpaySttsCd.AVAIL;
+  private PrpaySttsType prpaySttsType = PrpaySttsType.AVAIL;
 
   /**
    * 선불 사용 가능 금액

@@ -1,5 +1,10 @@
 package kr.co.paywith.pw.data.repository.mbs.pointHist;
 
+import java.time.ZonedDateTime;
+import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHist;
+import kr.co.paywith.pw.data.repository.user.user.UserInfo;
+import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
+import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,42 +16,52 @@ import java.util.List;
 @Service
 public class PointHistService {
 
-	@Autowired
-	PointHistRepository pointHistRepository;
+  @Autowired
+  PointHistRepository pointHistRepository;
 
-	@Autowired
-	ModelMapper modelMapper;
+  @Autowired
+  ModelMapper modelMapper;
 
-	@Autowired
-	PasswordEncoder passwordEncoder;
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
-
-	 /**
-	  * 정보 등록
-	  */
-	 @Transactional
-	 public PointHist create(PointHist pointHist) {
-
-		  // 데이터베이스 값 갱신
-		  PointHist newPointHist = this.pointHistRepository.save(pointHist);
-
-		  return newPointHist;
-	 }
+  @Autowired
+  private UserInfoRepository userInfoRepository;
 
 
-	 /**
-	  * 정보 갱신
-	  */
-	 @Transactional
-	 public PointHist update(PointHistUpdateDto pointHistUpdateDto, PointHist existPointHist) {
+  /**
+   * 정보 등록
+   */
+  @Transactional
+  public PointHist create(PointHist pointHist) {
 
-		  // 입력값 대입
-		  this.modelMapper.map(pointHistUpdateDto, existPointHist);
+    int point = pointHist.getPointAmt();
+    UserCard userCard = pointHist.getUserInfo().getUserCard();
+    userCard.setPointAmt(userCard.getPointAmt() + point);
+    userCard.setPointTotalAmt(userCard.getPointTotalAmt() + point);
 
-		  // 데이터베이스 값 갱신
-		  this.pointHistRepository.save(existPointHist);
+    // 데이터베이스 값 갱신
+    PointHist newPointHist = this.pointHistRepository.save(pointHist);
 
-		  return existPointHist;
-	 }
+    return newPointHist;
+  }
 
+  /**
+   * 포인트 이력 취소 처리. 이력 취소 후 회원 카드 정보 반영
+   */
+  @Transactional
+  public void delete(PointHist pointHist) {
+    // 스코어 이력 취소
+    pointHist.setCancelRegDttm(ZonedDateTime.now());
+
+    // 데이터베이스 값 갱신
+    this.pointHistRepository.save(pointHist);
+
+    int point = pointHist.getPointAmt();
+    UserCard userCard = pointHist.getUserInfo().getUserCard();
+    userCard.setPointAmt(userCard.getPointAmt() - point);
+    userCard.setPointTotalAmt(userCard.getPointTotalAmt() - point);
+
+    userInfoRepository.save(pointHist.getUserInfo());
+  }
 }

@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.msgRule;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.enumeration.MsgRuleCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgRuleType;
 import kr.co.paywith.pw.data.repository.mbs.msgTemplate.MsgTemplate;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -59,7 +59,7 @@ public class MsgRule {
    * 메시지 규칙 종류 코드
    */
   @Enumerated(EnumType.STRING)
-  private MsgRuleCd msgRuleCd;
+  private MsgRuleType msgRuleType;
 
   /**
    * 메시지 양식

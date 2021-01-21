@@ -4,7 +4,7 @@ package kr.co.paywith.pw.data.repository.admin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,7 +12,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
@@ -53,7 +52,7 @@ public class Admin {
     @NameDescription("권한 코드")
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
-    private AuthCd authCd;
+    private AuthType authType;
 
     /**
      * 관리 가능한 브랜드

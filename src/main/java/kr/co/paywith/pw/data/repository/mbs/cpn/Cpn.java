@@ -5,7 +5,7 @@ import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuSerializer;
 import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,7 +46,7 @@ public class Cpn {
      */
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
-    private CpnSttsCd cpnSttsCd = CpnSttsCd.AVAIL;
+    private CpnSttsType cpnSttsType = CpnSttsType.AVAIL;
 
 
     /**
@@ -100,7 +100,7 @@ public class Cpn {
      */
     @Transient
     public boolean isAvail() {
-        if (this.cpnSttsCd.equals(CpnSttsCd.AVAIL)) {
+        if (this.cpnSttsType.equals(CpnSttsType.AVAIL)) {
             if (this.cpnIssu != null && this.cpnIssu.getValidEndDttm().isAfter(ZonedDateTime.now())) {
                 return true;
             }

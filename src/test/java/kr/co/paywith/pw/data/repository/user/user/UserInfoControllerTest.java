@@ -3,7 +3,7 @@ package kr.co.paywith.pw.data.repository.user.user;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +50,7 @@ UserInfoControllerTest extends BaseControllerTest {
         userInfo.setUserNm("원이");
         userInfo.setActiveFl(true);
         userInfo.setMobileNum("01046940301");
-        userInfo.setCertTypeCd(CertTypeCd.CI);
+        userInfo.setCertType(CertType.CI);
 
 
         // 롤 설정
@@ -96,7 +96,7 @@ UserInfoControllerTest extends BaseControllerTest {
 //        userInfo.setUserPw("1234");
 //        userInfo.setUserNm("원이");
 //        userInfo.setActiveFl(true);
-//        userInfo.setCertTypeCd(CertTypeCd.CI);
+//        userInfo.setCertType(CertType.CI);
 //
 //
 //
@@ -177,7 +177,7 @@ UserInfoControllerTest extends BaseControllerTest {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(2);
         userInfo.setUserNm(" 변경유정정보 ");
-        userInfo.setCertTypeCd(CertTypeCd.CI);
+        userInfo.setCertType(CertType.CI);
 
         UserCard userCard = new UserCard();
         userCard.setId(1);

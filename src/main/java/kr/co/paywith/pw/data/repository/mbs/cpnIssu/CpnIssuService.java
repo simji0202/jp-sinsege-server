@@ -2,21 +2,28 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 
 import java.time.ZonedDateTime;
-import java.util.List;
 import javax.transaction.Transactional;
 
 import kr.co.paywith.pw.data.repository.account.Account;
-import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
+import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
+import kr.co.paywith.pw.data.repository.mbs.brand.BrandSetting;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnService;
+import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
+import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CpnIssuService {
+
+    @Value("${cpn-stamp-cnt}")
+    private Integer cpnStampCnt = 10;
 
     @Autowired
     private CpnIssuRepository cpnIssuRepository;
@@ -33,8 +40,13 @@ public class CpnIssuService {
     @Autowired
     private CpnRepository cpnRepository;
 
+    @Autowired
+    private StampHistService stampHistService;
+
     /**
-     * 정보 등록
+     * 정보 등록.
+     *
+     * 스탬프 쿠폰을 발급한다면 이 메소드 수행 전 회원 정보 변경이 선행되어야 한다.
      */
     @Transactional
     public CpnIssu create(CpnIssu cpnIssu, Account account) {
@@ -62,17 +74,21 @@ public class CpnIssuService {
         }
 
         newCpnIssu.setIssuCnt(newCpnIssu.getCpnList().size());
+        if (cpnIssu.getCpnIssuRule() != null &&
+            cpnIssu.getCpnIssuRule().getCpnIssuRuleType().equals(CpnIssuRuleType.STAMP)) {
 
-//        if (cpnIssu.getStampHist() != null) {
-//            // kms: TODO 멤버십 구조 변경 후 생성
-////            // 스탬프 달성한 순간 발급하는 쿠폰이므로 stampHist도 생성해야 한다.
-////            StampHist stampHist = new StampHist();
-////            stampHist.setCnt(cpnIssu.getCpnList() * ); // 정책의 달성해야 할 스탬프 개수 곱
-////            stampHist.setCpnIssu(cpnIssu);
-////            stampHist.setStampHistTypeCd(StampHistTypeCd.CPN);
-////            stampHist.setUserInfo(cpnIssu.getStampHist().getUserInfo());
-////            stampHistService.create(stampHist)
-//        }
+            BrandSetting brandSetting = cpnIssu.getCpnIssuRule().getCpnMaster().getBrand().getBrandSetting();
+            // 스탬프 달성한 순간 발급하는 쿠폰이므로 stampHist도 생성해야 한다.
+            for (Cpn cpn : newCpnIssu.getCpnList()) {
+                StampHist stampHist = new StampHist();
+                stampHist.setCnt(1 * cpnStampCnt); // 정책의 달성해야 할 스탬프 개수 곱
+                stampHist.setCpnIssu(cpnIssu);
+                stampHist.setStampHistType(StampHistType.CPN);
+                stampHist.setUserInfo(cpn.getUserInfo());
+                stampHistService.create(stampHist);
+            }
+        }
+
         return newCpnIssu;
     }
 
@@ -85,23 +101,6 @@ public class CpnIssuService {
 
         // 입력값 대입
         this.modelMapper.map(cpnIssuUpdateDto, existCpnIssu);
-
-        // 기존 관련 리스트 초기화
-        if (existCpnIssu.getCpnList() != null) {
-            existCpnIssu.getCpnList().clear();
-            existCpnIssu.getCpnList().addAll(cpnIssuUpdateDto.getCpnList());
-        }
-        // 변경된 리스트 취득
-        List<Cpn> cpnList = cpnIssuUpdateDto.getCpnList();
-
-        // 쿠폰 관련상품들 등록
-        if (cpnList != null && cpnList.size() > 0) {
-
-            cpnList.forEach( cpn -> {
-                cpn.setCpnIssu(existCpnIssu);
-                this.cpnRepository.save(cpn);
-            });
-        }
 
         // 데이터베이스 값 갱신
         this.cpnIssuRepository.save(existCpnIssu);
@@ -121,5 +120,6 @@ public class CpnIssuService {
             cpnService.delete(cpn);
         }
         cpnIssu.setValidEndDttm(ZonedDateTime.now());
+
     }
 }

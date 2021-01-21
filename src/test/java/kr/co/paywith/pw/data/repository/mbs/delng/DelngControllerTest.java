@@ -2,8 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentType;
+import kr.co.paywith.pw.data.repository.enumeration.DelngType;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import org.junit.Before;
@@ -93,7 +93,7 @@ public class DelngControllerTest extends BaseControllerTest {
         DelngDto delng = new DelngDto();
 
         delng.setConfmNo("20210111000001");
-        delng.setDelngTypeCd(DelngTypeCd.APP);
+        delng.setDelngType(DelngType.APP);
 
         delng.setTotalAmt(45000);    // 결제 금액  지불해야 할 합계(정산 )  거래 금액
 
@@ -110,7 +110,7 @@ public class DelngControllerTest extends BaseControllerTest {
 
         DelngPaymentDto delngPaymentDto = new DelngPaymentDto();
         delngPaymentDto.setAmt(44000);
-        delngPaymentDto.setDelngPaymentTypeCd(DelngPaymentTypeCd.PG_PAY);
+        delngPaymentDto.setDelngPaymentType(DelngPaymentType.PG_PAY);
         delngPaymentDto.setPayId(3);
 
         delng.setDelngPaymentList(List.of(delngPaymentDto));

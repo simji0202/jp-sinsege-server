@@ -165,14 +165,6 @@ public class UserInfoController extends CommonController {
       return badRequest(errors);
     }
 
-    userInfoUpdateDto.setId(id);
-
-    // 논리적 오류 (제약조건) 체크
-    this.userInfoValidator.validate(userInfoUpdateDto, errors);
-    if (errors.hasErrors()) {
-      return badRequest(errors);
-    }
-
     // 기존 테이블에서 관련 정보 취득
     Optional<UserInfo> userInfoOptional = this.userInfoRepository.findById(id);
 
@@ -184,6 +176,12 @@ public class UserInfoController extends CommonController {
 
     // 기존 정보 취득
     UserInfo existUserInfo = userInfoOptional.get();
+
+    // 논리적 오류 (제약조건) 체크
+    this.userInfoValidator.validate(userInfoUpdateDto, existUserInfo, errors);
+    if (errors.hasErrors()) {
+      return badRequest(errors);
+    }
 
     if (currentUser != null) {
       // 변경자 정보 저장
@@ -290,8 +288,8 @@ public class UserInfoController extends CommonController {
     if (userInfoCheckExistDto.getUserId() != null) {
       booleanBuilder.and(qUserInfo.userId.eq(userInfoCheckExistDto.getUserId()));
     }
-    if (userInfoCheckExistDto.getCertTypeCd() != null) {
-      booleanBuilder.and(qUserInfo.certTypeCd.eq(userInfoCheckExistDto.getCertTypeCd()));
+    if (userInfoCheckExistDto.getCertType() != null) {
+      booleanBuilder.and(qUserInfo.certType.eq(userInfoCheckExistDto.getCertType()));
     }
     if (userInfoCheckExistDto.getCertKey() != null) {
       booleanBuilder.and(qUserInfo.certKey.eq(userInfoCheckExistDto.getCertKey()));

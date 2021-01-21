@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class UserInfoValidator {
     ValidatorUtils.checkObjectNull(userInfoDto.getUserPw(), "비밀번호", errors);
 
     // 아이디 중복 확인
-    if (isIdDuplicated(userInfoDto.getUserId(), userInfoDto.getCertTypeCd(), null)) {
+    if (isIdDuplicated(userInfoDto.getUserId(), userInfoDto.getCertType(), null)) {
       errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
     }
 
@@ -73,7 +73,7 @@ public class UserInfoValidator {
     }
 
     // 인증 구분 오류 검증
-    if (isCertTypeCdInvalid(userInfoDto.getCertTypeCd())) {
+    if (isCertTypeCdInvalid(userInfoDto.getCertType())) {
       errors.reject("인증 구분 오류", "인증 구분 값이 없습니다");
     }
 
@@ -83,10 +83,10 @@ public class UserInfoValidator {
 
 
   // 변경 (수정)
-  public void validate(UserInfoUpdateDto userInfoUpdateDto, Errors errors) {
+  public void validate(UserInfoUpdateDto userInfoUpdateDto, UserInfo userInfo, Errors errors) {
     // 아이디 중복 확인
-    if (isIdDuplicated(userInfoUpdateDto.getUserId(), userInfoUpdateDto.getCertTypeCd(),
-        userInfoUpdateDto.getId())) {
+    if (isIdDuplicated(userInfoUpdateDto.getUserId(), userInfoUpdateDto.getCertType(),
+        userInfo.getId())) {
       errors.reject("아이디 중복", "중복되는 아이디가 있습니다");
     }
 
@@ -121,7 +121,7 @@ public class UserInfoValidator {
     }
 
     // 인증 구분 오류 검증
-    if (isCertTypeCdInvalid(userInfoUpdateDto.getCertTypeCd())) {
+    if (isCertTypeCdInvalid(userInfoUpdateDto.getCertType())) {
       errors.reject("인증 구분 오류", "인증 구분 값이 없습니다");
     }
 
@@ -141,8 +141,8 @@ public class UserInfoValidator {
    *
    * @return 중복이 존재하면 true
    */
-  private boolean isIdDuplicated(String userId, CertTypeCd certTypeCd, Integer id) {
-    if (CertTypeCd.GUEST.equals(certTypeCd)) { // GUEST는 서버에서 아이디를 만들어 주므로 중복확인 통과 (GUEST#id 형식)
+  private boolean isIdDuplicated(String userId, CertType certType, Integer id) {
+    if (CertType.GUEST.equals(certType)) { // GUEST는 서버에서 아이디를 만들어 주므로 중복확인 통과 (GUEST#id 형식)
       return false;
     }
     // TODO 카카오 등 외부서비스도 필요시 통과
@@ -264,8 +264,8 @@ public class UserInfoValidator {
    *
    * @return 오류가 존재하면 true
    */
-  private boolean isCertTypeCdInvalid(CertTypeCd certTypeCd) {
-    if (certTypeCd != null) {
+  private boolean isCertTypeCdInvalid(CertType certType) {
+    if (certType != null) {
       return false;
     }
 

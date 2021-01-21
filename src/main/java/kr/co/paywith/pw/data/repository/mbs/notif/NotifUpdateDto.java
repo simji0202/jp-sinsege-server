@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.notif;
 
-import kr.co.paywith.pw.data.repository.enumeration.NotifTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.SendSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.NotifType;
+import kr.co.paywith.pw.data.repository.enumeration.SendSttsType;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -17,7 +17,7 @@ public class NotifUpdateDto {
     /**
      * 푸시 메시지 구분
      */
-    private NotifTypeCd notifTypeCd = NotifTypeCd.USER;
+    private NotifType notifType = NotifType.USER;
 
     /**
      * 푸시 메시지 제목
@@ -44,7 +44,7 @@ public class NotifUpdateDto {
      * 전송 상태
      */
     @Enumerated(EnumType.STRING)
-    private SendSttsCd sendSttsCd = SendSttsCd.RDY;
+    private SendSttsType sendSttsType = SendSttsType.RDY;
 
     /**
      * 전송 수량

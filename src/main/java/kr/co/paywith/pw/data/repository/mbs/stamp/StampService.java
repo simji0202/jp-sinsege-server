@@ -1,17 +1,18 @@
 package kr.co.paywith.pw.data.repository.mbs.stamp;
 
 import java.time.ZonedDateTime;
-import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
+import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.transaction.Transactional;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class StampService {
+
+  @Value("${stamp-valid-day}")
+  private Integer stampValidDay = 180;
 
   @Autowired
   StampRepository stampRepository;
@@ -28,27 +29,11 @@ public class StampService {
    */
   @Transactional
   public Stamp create(Stamp stamp) {
+    stamp.setExpiredDttm(ZonedDateTime.now().plusDays(stampValidDay));
 
     // 데이터베이스 값 갱신
     Stamp newStamp = this.stampRepository.save(stamp);
-
     return newStamp;
-  }
-
-
-  /**
-   * 정보 갱신
-   */
-  @Transactional
-  public Stamp update(StampUpdateDto stampUpdateDto, Stamp existStamp) {
-
-    // 입력값 대입
-    this.modelMapper.map(stampUpdateDto, existStamp);
-
-    // 데이터베이스 값 갱신
-    this.stampRepository.save(existStamp);
-
-    return existStamp;
   }
 
   /**

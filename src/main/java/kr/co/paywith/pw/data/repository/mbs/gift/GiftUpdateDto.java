@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.gift;
 
-import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
-import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.MsgType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
@@ -45,13 +45,13 @@ public class GiftUpdateDto {
 	 * 선물 메시지 구분 코드
 	 */
 	@Enumerated(EnumType.STRING)
-	private MsgTypeCd msgTypeCd;
+	private MsgType msgType;
 
 	/**
 	 * 선물 상태 코드
 	 */
 	@Enumerated(EnumType.STRING)
-	private MsgHistSttsCd msgHistSttsCd;
+	private MsgHistSttsType msgHistSttsType;
 
 
 	/**

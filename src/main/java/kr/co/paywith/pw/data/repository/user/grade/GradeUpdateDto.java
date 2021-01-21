@@ -1,10 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.grade;
 
-import kr.co.paywith.pw.data.repository.enumeration.GradeUpRuleCd;
 import lombok.Data;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 
 @Data

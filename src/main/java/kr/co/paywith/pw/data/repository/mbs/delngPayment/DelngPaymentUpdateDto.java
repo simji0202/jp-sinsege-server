@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.delngPayment;
 
-import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentType;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,7 +14,7 @@ public class DelngPaymentUpdateDto {
      * 금액 지불 방법.
      * 선불카드, PG 결제, 쿠폰
      */
-    private DelngPaymentTypeCd delngPaymentTypeCd;
+    private DelngPaymentType delngPaymentType;
 
     /**
      * 결제 금액

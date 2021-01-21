@@ -2,8 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.scoreRule;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.enumeration.PointCutTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.ScoreRuleTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PointCutType;
+import kr.co.paywith.pw.data.repository.enumeration.ScoreRuleType;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -13,6 +13,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.ZonedDateTime;
+
+// kms: TODO scoreRule 필요성 확인
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -31,19 +33,18 @@ public class ScoreRule {
 	@NameDescription("식별번호")
 	private Integer id;
 
-
 	/**
 	 * 점수 획득 규칙 구분 코드
 	 */
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
-	private ScoreRuleTypeCd scoreRuleTypeCd;
+	private ScoreRuleType scoreRuleType;
 	/**
 	 * 소수점 처리 규칙 코드
 	 */
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
-	private PointCutTypeCd pointCutTypeCd;
+	private PointCutType pointCutType;
 	/**
 	 * 전환 비율
 	 */

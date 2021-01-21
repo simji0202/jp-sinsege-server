@@ -9,9 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnMasterType;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentType;
+import kr.co.paywith.pw.data.repository.enumeration.DelngType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cm.CpnMaster;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
@@ -44,7 +44,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
     //   1-1  1+1 쿠폰 등록
     CpnMaster cpnMaster = new CpnMaster();
     cpnMaster.setCpnNm("1+1 쿠폰");
-    cpnMaster.setCpnMasterTypeCd(CpnMasterTypeCd.GOODS);
+    cpnMaster.setCpnMasterType(CpnMasterType.GOODS);
 
     // 쿠폰 코드 (POS연동)
     cpnMaster.setCpnCd("쿠폰코드(POS연동)");
@@ -76,7 +76,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
 
     //   1-2  할인쿠폰 등록
       cpnMaster.setCpnNm("할인 쿠폰(%)");
-      cpnMaster.setCpnMasterTypeCd(CpnMasterTypeCd.RATIO);
+      cpnMaster.setCpnMasterType(CpnMasterType.RATIO);
 
       // 쿠폰 코드 (POS연동)
       cpnMaster.setCpnCd("쿠폰코드(POS연동)");
@@ -107,7 +107,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
 
     //   1-3  금액쿠폰 등록
     cpnMaster.setCpnNm("금액 쿠폰");
-    cpnMaster.setCpnMasterTypeCd(CpnMasterTypeCd.AMT);
+    cpnMaster.setCpnMasterType(CpnMasterType.AMT);
 
 
     // 쿠폰 코드 (POS연동)
@@ -227,7 +227,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
     DelngDto delng = new DelngDto();
 
     delng.setConfmNo("20210111000001");
-    delng.setDelngTypeCd(DelngTypeCd.APP);
+    delng.setDelngType(DelngType.APP);
 
     delng.setTotalAmt(45000);    // 결제 금액  지불해야 할 합계(정산 )  거래 금액
 
@@ -243,7 +243,7 @@ public class ScenarioCpuTest extends BaseControllerTest {
     /// 결제
     DelngPaymentDto delngPaymentDto = new DelngPaymentDto();
     delngPaymentDto.setAmt(44000);
-    delngPaymentDto.setDelngPaymentTypeCd(DelngPaymentTypeCd.PG_PAY);
+    delngPaymentDto.setDelngPaymentType(DelngPaymentType.PG_PAY);
     delngPaymentDto.setPayId(3);
 
     delng.setDelngPaymentList(List.of(delngPaymentDto));

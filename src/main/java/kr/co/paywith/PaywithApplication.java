@@ -5,8 +5,8 @@ import java.util.Set;
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
-import kr.co.paywith.pw.data.repository.enumeration.DtTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthType;
+import kr.co.paywith.pw.data.repository.enumeration.DtType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandRepository;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandSetting;
@@ -61,7 +61,7 @@ public class PaywithApplication implements ApplicationRunner {
       admin.setAdminId("admin");
       admin.setAdminPw(bcr.encode("1234"));
       admin.setAdminNm("관리자");
-      admin.setAuthCd(AuthCd.MST);
+      admin.setAuthType(AuthType.MST);
       admin.setRoles(Set.of(AdminRole.ADMIN_MASTER));
       adminRepository.save(admin);
 
@@ -75,10 +75,11 @@ public class PaywithApplication implements ApplicationRunner {
 
         BrandSetting brandSetting = new BrandSetting();
         brandSetting.setMinUsePointAmt(1000);
-        brandSetting.setStampMaxCnt(10);
+        // kms: 스탬프 관련 설정 properties 에서 관리
+//        brandSetting.setStampMaxCnt(10);
         brandSetting.setPrpayValidPeriod(5);
-        brandSetting.setPrpayValidPeriodCd(DtTypeCd.Y);
-        brandSetting.setStampValidPeriod(180);
+        brandSetting.setPrpayValidPeriodCd(DtType.Y);
+//        brandSetting.setStampValidPeriod(180);
      //   brandSetting.setStampValidPeriodCd(DtTypeCd.D);
 
         brandRepository.save(brand);

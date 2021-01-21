@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,7 +50,7 @@ public class Delng {
      */
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
-    private DelngTypeCd delngTypeCd;
+    private DelngType delngType;
 
 
     /**
@@ -68,6 +68,17 @@ public class Delng {
      * 회원이 저장한다면, 조작을 막기 위해 검증을 함.
      */
     private int totalAmt;
+
+    /**
+     * 결제 금액. 전체 상품 금액에서 쿠폰, 상품권 등의 금액을 제외한 금액.
+     * paymentList의 금액 합과 일치해야 한다
+     *
+     * @return 결제 금액
+     */
+    @Transient
+    public int getPaymentAmt() {
+        return this.totalAmt - this.cpnAmt;
+    }
 
 
 //    /**

@@ -2,9 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.delngPayment;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
+import kr.co.paywith.pw.data.repository.enumeration.DelngPaymentType;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -39,7 +37,7 @@ public class DelngPayment {
    * 금액 지불 방법.
    * 선불카드, PG 결제, 쿠폰
    */
-  private DelngPaymentTypeCd delngPaymentTypeCd;
+  private DelngPaymentType delngPaymentType;
 
   /**
    * 결제 금액

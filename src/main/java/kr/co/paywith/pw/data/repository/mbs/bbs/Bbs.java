@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.BbsTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.BbsType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
@@ -39,7 +39,7 @@ public class Bbs {
      */
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
-    private BbsTypeCd bbsTypeCd;
+    private BbsType bbsType;
 
     /**
      * 부모 게시물 일련번호

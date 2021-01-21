@@ -1,9 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.brand;
 
 import java.util.List;
-import kr.co.paywith.pw.data.repository.enumeration.AvailBrandFnCd;
-import kr.co.paywith.pw.data.repository.enumeration.AvailServiceCd;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
+import kr.co.paywith.pw.data.repository.enumeration.AvailServiceType;
+import kr.co.paywith.pw.data.repository.enumeration.BrandFnType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,24 +48,24 @@ public class BrandDto {
    * <p>
    * TODO 관리자와 그 외 사용이 없어진다면 offGoodsFl, useOrdrFl 필드 삭제
    */
-  private List<AvailBrandFnCd> availBrandFnCdList;
+  private List<BrandFnType> brandFnTypeList;
 
-  /**
-   * 앱(PG)에서 결제 가능한 수단
-   */
-  private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList;
-
-  /**
-   * 매장에서 결제 가능한 수단
-   */
-  private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList;
+//  /**
+//   * 앱(PG)에서 결제 가능한 수단
+//   */
+//  private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList;
+//
+//  /**
+//   * 매장에서 결제 가능한 수단
+//   */
+//  private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList;
 
   /**
    * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
    * <p>
    * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
    */
-  private List<AvailServiceCd> availServiceCdList;
+  private List<AvailServiceType> availServiceTypeList;
 
   /**
    * 기본적인 브랜드 옵션 설정

@@ -53,19 +53,19 @@ public class BrandUpdateDto {
      * TODO 관리자와 그 외 사용이 없어진다면 offGoodsFl, useOrdrFl 필드 삭제
      */
     @Enumerated(EnumType.STRING)
-    private List<AvailBrandFnCd> availBrandFnCdList = new ArrayList<>();
+    private List<BrandFnType> brandFnTypeList = new ArrayList<>();
 
-    /**
-     * 앱(PG)에서 결제 가능한 수단
-     */
-    @Enumerated(EnumType.STRING)
-    private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList = new ArrayList<>();
-
-    /**
-     * 매장에서 결제 가능한 수단
-     */
-    @Enumerated(EnumType.STRING)
-    private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList = new ArrayList<>();
+//    /**
+//     * 앱(PG)에서 결제 가능한 수단
+//     */
+//    @Enumerated(EnumType.STRING)
+//    private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList = new ArrayList<>();
+//
+//    /**
+//     * 매장에서 결제 가능한 수단
+//     */
+//    @Enumerated(EnumType.STRING)
+//    private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList = new ArrayList<>();
 
     /**
      * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
@@ -73,7 +73,7 @@ public class BrandUpdateDto {
      * 매장마다 서비스 가능한 목록을 설정할 때 사용한다
      */
     @Enumerated(EnumType.STRING)
-    private List<AvailServiceCd> availServiceCdList = new ArrayList<>();
+    private List<AvailServiceType> availServiceTypeList = new ArrayList<>();
 
     /**
      * 기본적인 브랜드 옵션 설정

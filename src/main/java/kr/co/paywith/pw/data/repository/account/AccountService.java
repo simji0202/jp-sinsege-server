@@ -88,7 +88,7 @@ public class AccountService implements  UserDetailsService {
     account.setAccountId(admin.getAdminId());
     account.setAccountPw(admin.getAdminPw());
     account.setAccountNm(admin.getAdminNm());
-    account.setAuthCd(admin.getAuthCd());
+    account.setAuthType(admin.getAuthType());
     account.setRoles(admin.getRoles());
     account.setAdmin(admin);
 

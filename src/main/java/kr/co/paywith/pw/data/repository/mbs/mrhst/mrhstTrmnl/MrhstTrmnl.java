@@ -1,13 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.opencsv.bean.CsvBindByName;
 import java.util.ArrayList;
-import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
-import kr.co.paywith.pw.data.repository.enumeration.PosAvailFnCd;
-import kr.co.paywith.pw.data.repository.enumeration.PosTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosFnType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -93,7 +89,7 @@ public class MrhstTrmnl {
     @Column(length = 10)
     @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
-    private List<PosAvailFnCd> posAvailFnCdList = new ArrayList<>();
+    private List<PosFnType> posFnTypeList = new ArrayList<>();
 
     /**
      * 최근 로그인 일시

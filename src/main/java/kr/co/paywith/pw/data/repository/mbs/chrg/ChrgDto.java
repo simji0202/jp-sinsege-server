@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.chrg;
 
 import java.time.ZonedDateTime;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.ChrgType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +27,7 @@ public class ChrgDto {
     /**
      * 결제 장소(채널)
      */
-    private ChrgTypeCd chrgTypeCd; // 매장 / PG 구분
+    private ChrgType chrgType; // 매장 / PG 구분
 
     /**
      * 충전일시. 매장 거래 시간 등 실제 거래시간.

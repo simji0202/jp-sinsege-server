@@ -1,9 +1,19 @@
 package kr.co.paywith.pw.data.repository.mbs.chrg;
 
 import java.time.ZonedDateTime;
-import kr.co.paywith.pw.data.repository.enumeration.PointRuleTypeCd;
-import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
-import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRuleRepository;
+import java.util.List;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
+import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
+import kr.co.paywith.pw.data.repository.enumeration.PointRsrvRuleType;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuService;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssuRule.CpnIssuRule;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssuRule.CpnIssuRuleRepository;
+import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHist;
+import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHistService;
+import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRule;
+import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRuleRepository;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class ChrgService {
@@ -31,7 +40,16 @@ public class ChrgService {
   private UserInfoRepository userInfoRepository;
 
   @Autowired
-  private PointRuleRepository pointRuleRepository;
+  private PointRsrvRuleRepository pointRsrvRuleRepository;
+
+  @Autowired
+  private PointHistService pointHistService;
+
+  @Autowired
+  private CpnIssuRuleRepository cpnIssuRuleRepository;
+
+  @Autowired
+  private CpnIssuService cpnIssuService;
 
   /**
    * 정보 등록
@@ -104,16 +122,61 @@ public class ChrgService {
     userInfo.getUserCard().setPrpayTotalAmt(userInfo.getUserCard().getPrpayTotalAmt() + newChrg.getChrgAmt());
     userInfoRepository.save(userInfo);
 
-    // 충전 시 포인트 적립규칙 있는지 확인
-    for (PointRule pointRule :
-        pointRuleRepository.findByPointRuleTypeCdAndMinAmtGreaterThanEqualAndActiveFlIsTrue(
-            PointRuleTypeCd.C,
-            newChrg.getChrgAmt())) {
-      // 적립 규칙 있으면 적립
-      // kms: TODO 멤버십 포인트 관련 정책 확인 후 구조 정해지면 개발
-    }
+    // 포인트 적립 규칙 있으면 포인트 적립
+    this.makePointRsrvChrg(newChrg);
+
+    // 충전 쿠폰 발급
+    this.makePointRsrvChrg(newChrg);
 
     // TODO PgPay 관련 처리
+  }
+
+  /**
+   * 선불카드 충전에 따른 포인트 충전
+   * @param newChrg
+   */
+  private void makePointRsrvChrg(Chrg newChrg) {
+    // 충전 시 포인트 적립규칙 있는지 확인
+    for (PointRsrvRule pointRsrvRule :
+        pointRsrvRuleRepository.findByPointRsrvRuleTypeAndStdValueGreaterThanEqualAndActiveFlIsTrue(
+            PointRsrvRuleType.CHRG,
+            newChrg.getChrgAmt())) {
+      PointHist pointHist = new PointHist();
+      pointHist.setPointAmt(pointRsrvRule.getRsrvRatio() * newChrg.getPayAmt() / 100);
+      pointHist.setPointHistType(PointHistType.RSRV);
+      pointHist.setPointRsrvRule(pointRsrvRule);
+      pointHist.setUserInfo(newChrg.getUserInfo());
+      pointHist.setCreateBy(newChrg.getCreateBy());
+
+      pointHistService.create(pointHist);
+    }
+  }
+
+  /**
+   * 충전 쿠폰 발급
+   * @param newChrg
+   */
+  private void makeCpnIssuChrg(Chrg newChrg) {
+    for (CpnIssuRule cpnIssuRule: cpnIssuRuleRepository.findByCpnIssuRuleTypeAndStdValueGreaterThanEqual(
+        CpnIssuRuleType.CHRG, newChrg.getPayAmt())) {
+      CpnIssu cpnIssu = new CpnIssu();
+      cpnIssu.setCpnIssuRule(cpnIssuRule);
+      cpnIssu.setCpnIssuNm(cpnIssuRule.getRuleNm());
+      cpnIssu.setValidEndDttm(ZonedDateTime.now().plusDays(cpnIssuRule.getCpnMaster().getValidDay()));
+      cpnIssu.setCreateBy(newChrg.getCreateBy());
+      cpnIssu.setUpdateBy(newChrg.getCreateBy());
+
+      Cpn cpn = new Cpn();
+      cpn.setUserInfo(newChrg.getUserInfo());
+      cpnIssu.setCpnList(List.of(cpn));
+
+      cpnIssuService.create(cpnIssu, null);
+
+      if (StringUtils.isNotEmpty(cpnIssuRule.getMsgCn())) {
+        // TODO 메시지 설정했다면 메시지 발송
+
+      }
+    }
   }
 
 }

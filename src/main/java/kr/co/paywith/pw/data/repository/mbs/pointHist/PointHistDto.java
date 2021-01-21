@@ -3,11 +3,10 @@ package kr.co.paywith.pw.data.repository.mbs.pointHist;
 import java.time.ZonedDateTime;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.PointHistCd;
+import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
 import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
-import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
+import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRule;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,9 +19,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PointHistDto {
 
-	@NameDescription("식별번호")
-	private Integer id;
-
 	/**
 	 * 포인트 양
 	 */
@@ -32,7 +28,7 @@ public class PointHistDto {
 	 * 포인트 이력 구분 코드
 	 */
 	@Enumerated(EnumType.STRING)
-	private PointHistCd pointHistCd;
+	private PointHistType pointHistType;
 
 	/**
 	 * 등록 일시
@@ -42,7 +38,7 @@ public class PointHistDto {
 	/**
 	 * 포인트 적립 규칙
 	 */
-	private PointRule pointRule;
+	private PointRsrvRule pointRsrvRule;
 	/**
 	 * 포인트 적립 규칙 일련번호
 	 */

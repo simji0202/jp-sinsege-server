@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.brandPg;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.PgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PgType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +40,6 @@ public class BrandPgDto {
      * PG 구분. pw-server 내에서 PG 구분을 위해 사용하고 pw-proxy 에 식별 위해 전달(KICC / NICE)
      */
     @Enumerated(EnumType.STRING)
-    private PgTypeCd pgTypeCd;
+    private PgType pgType;
 
 }

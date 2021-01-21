@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import kr.co.paywith.pw.data.repository.enumeration.DelngTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DelngType;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
@@ -38,7 +38,7 @@ public class DelngDto {
    * 거래 구분 코드 POS : confmNo, trmnlDelngNo, mrhstTrmnl APP :
    */
   @Enumerated(EnumType.STRING)
-  private DelngTypeCd delngTypeCd;
+  private DelngType delngType;
 
   /**
    * 거래 일시.

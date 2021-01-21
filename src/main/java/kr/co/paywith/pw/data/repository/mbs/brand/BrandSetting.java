@@ -1,8 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.brand;
 
 
-import kr.co.paywith.pw.data.repository.enumeration.DtTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.PgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.DtType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -44,10 +43,10 @@ public class BrandSetting {
    */
   private String posFcmKey;
 
-  /**
-   * 최대 소지 가능 선불카드 매수. 0은 무제한
-   */
-  private Integer prpayMaxCnt = 0;
+//  /**
+//   * 최대 소지 가능 선불카드 매수. 0은 무제한
+//   */
+//  private Integer prpayMaxCnt = 0;
 
   /**
    * 최대 소지가능 선불카드 매수 이상 등록할 때, 병합 방법에 관한 규칙
@@ -60,7 +59,7 @@ public class BrandSetting {
    * 선불카드 유효기간 단위 코드
    */
   @Enumerated(EnumType.STRING)
-  private DtTypeCd prpayValidPeriodCd;
+  private DtType prpayValidPeriodCd;
 
   /**
    * 선불카드 충전 시점 기준 선불카드의 유효기간
@@ -73,17 +72,18 @@ public class BrandSetting {
 //   */
 //  @Enumerated(EnumType.STRING)
 //  private DtTypeCd stampValidPeriodCd;
+//
+//  /**
+//   * 스탬프 유효기간 (일수)
+//   */
+//  private Integer stampValidPeriodDay;
 
-  /**
-   * 스탬프 유효기간 (일수)
-   */
-  private Integer stampValidPeriod;
-
-  /**
-   * 스탬프 보상을 할 기준 개수 ( 8, 10, 12)
-   * ex> stampMaxCnt 수만큼 소지 시 쿠폰 발행
-   */
-  private Integer stampMaxCnt;
+  // kms: stamp 소지를 브랜드 별로 하지 않기 때문에 cpnIssuRule에서 관리
+//  /**
+//   * 스탬프 보상을 할 기준 개수 ( 8, 10, 12)
+//   * ex> stampMaxCnt 수만큼 소지 시 쿠폰 발행
+//   */
+//  private Integer stampMaxCnt;
 
   /**
    * 선불-스탬프 번호 교차 조회  ( 전화번호 )
@@ -126,13 +126,13 @@ public class BrandSetting {
    */
   private String danalCppwd;
 
-  /**
-   * 남은 선불카드가 없을 때 자동으로 발급할 번호 규칙.
-   *
-   * 없으면 발급하지 않는다
-   */
-  private String newPrpayNo;
 
+//  /**
+//   * 남은 선불카드가 없을 때 자동으로 발급할 번호 규칙.
+//   *
+//   * 없으면 발급하지 않는다
+//   */
+//  private String newPrpayNo;
 
   /**
    * 스탬프 적립할 선불카드 사용 / 결제 구매 금액 단위. 0 이상일 경우 단위 금액마다 스탬프를 적립한다

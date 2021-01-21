@@ -4,19 +4,18 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
-import kr.co.paywith.pw.data.repository.enumeration.PointRuleTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.PointRsrvRuleType;
+import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
-import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
-import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRuleRepository;
+import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRule;
+import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRuleRepository;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHist;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistRepository;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistService;
@@ -45,7 +44,7 @@ public class DelngService {
   private StampHistService stampHistService;
 
   @Autowired
-  private PointRuleRepository pointRuleRepository;
+  private PointRsrvRuleRepository pointRsrvRuleRepository;
 
   @Autowired
   private GoodsRepository goodsRepository;
@@ -107,7 +106,7 @@ public class DelngService {
     if (stamp > 0) {
       StampHist stampHist = new StampHist();
       stampHist.setUserInfo(userInfo);
-      stampHist.setStampHistTypeCd(StampHistTypeCd.RSRV);
+      stampHist.setStampHistType(StampHistType.RSRV);
       stampHist.setSetleDttm(ZonedDateTime.now());
       stampHist.setCnt(stamp);
 //         stampHist.setMrhst(delng.getmr());
@@ -117,7 +116,7 @@ public class DelngService {
 
     if (delngDto.getDelngPaymentList() != null) {
       for (DelngPaymentDto delngPayment : delngDto.getDelngPaymentList()) {
-        switch (delngPayment.getDelngPaymentTypeCd()) {
+        switch (delngPayment.getDelngPaymentType()) {
           case PRPAY:
             // 선불카드 잔액 차감
             userInfo.getUserCard()
@@ -135,9 +134,9 @@ public class DelngService {
     userInfoRepository.save(userInfo);
 
     // 거래 시 포인트 적립규칙 있는지 확인
-    for (PointRule pointRule :
-        pointRuleRepository.findByPointRuleTypeCdAndMinAmtGreaterThanEqualAndActiveFlIsTrue(
-            PointRuleTypeCd.D, delng.getTotalAmt())) {
+    for (PointRsrvRule pointRsrvRule :
+        pointRsrvRuleRepository.findByPointRsrvRuleTypeAndStdValueGreaterThanEqualAndActiveFlIsTrue(
+            PointRsrvRuleType.PAYMENT, delng.getPaymentAmt())) {
       // 적립 규칙 있으면 적립
       // kms: TODO 멤버십 포인트 관련 정책 확인 후 구조 정해지면 개발
     }
@@ -146,7 +145,7 @@ public class DelngService {
     // 쿠폰 정보 처리
     if (delng.getCpnId() != null) {
       Cpn cpn = cpnRepository.findById(delng.getCpnId()).get();
-      cpn.setCpnSttsCd(CpnSttsCd.USED);
+      cpn.setCpnSttsType(CpnSttsType.USED);
     }
 
     // TODO 상품권 사용 처리
@@ -167,10 +166,10 @@ public class DelngService {
       Cpn cpn = cpnRepository.findById(delng.getCpnId()).get();
       if (cpn.getCpnIssu().getValidEndDttm().isAfter(ZonedDateTime.now())) {
         // 유효기간이 남아있다면
-        cpn.setCpnSttsCd(CpnSttsCd.AVAIL);
+        cpn.setCpnSttsType(CpnSttsType.AVAIL);
       } else {
         // 유효기간이 남아있지 않다면. 지난 거래 정정할 가능성도 있으므로 사용가능 상태 복원
-        cpn.setCpnSttsCd(CpnSttsCd.AVAIL);
+        cpn.setCpnSttsType(CpnSttsType.AVAIL);
       }
     }
 
@@ -193,7 +192,7 @@ public class DelngService {
           gson.fromJson(delng.getDelngPaymentJson(), new TypeToken<List<DelngPaymentDto>>(){}.getType());
 
       for (DelngPaymentDto delngPaymentDto : delngPaymentDtos) {
-        switch (delngPaymentDto.getDelngPaymentTypeCd()) {
+        switch (delngPaymentDto.getDelngPaymentType()) {
           case PRPAY:
             UserInfo userInfo = delng.getUserInfo();
             // 선불카드 상태 복원(환불)

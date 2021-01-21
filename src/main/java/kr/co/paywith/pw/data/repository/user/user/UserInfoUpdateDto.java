@@ -6,7 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,13 +21,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserInfoUpdateDto {
-
-
-    /**
-     * 회원 정보 일련번호.
-     * updateDto에 id를 안 넣는게 맞으나, validator에서 추가와 수정을 구분하며 아이디 중복 확인하기 위해 추가
-     */
-    private Integer id;
 
     /**
      * 회원 아이디.
@@ -152,7 +145,7 @@ public class UserInfoUpdateDto {
      * 회원 인증 구분
      */
     // kms: 서버-클라이언트 통신 관련한 Authorization 과 헷갈릴 여지가 있어 cert로 이름 변경
-    private CertTypeCd certTypeCd;
+    private CertType certType;
 
 
 

@@ -1,7 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.notifUser;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.notif.Notif;
+import kr.co.paywith.pw.data.repository.mbs.notif.NotifSerializer;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -20,42 +22,31 @@ import java.time.ZonedDateTime;
 @DynamicUpdate
 public class NotifUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NameDescription("식별번호")
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @NameDescription("식별번호")
+  private Integer id;
 
-	/**
-	 * 회원
-	 */
-	@ManyToOne
-	private UserInfo userInfo;
+  /**
+   * 회원
+   */
+  @ManyToOne
+  private UserInfo userInfo;
 
-	/**
-	 * 푸시 메시지
-	 */
-	@ManyToOne
-//	@JsonSerialize(using = NotifSerializer.class)
-	private Notif notif;
+  /**
+   * 푸시 메시지
+   */
+  @ManyToOne
+  @JsonSerialize(using = NotifSerializer.class)
+  private Notif notif;
 
-	// kms: 삭제. notif.id 사용
-//	/**
-//	 * 푸시 일련번호
-//	 */
-//	private Integer notifSn;
+  /**
+   * 전송 수. fcm 요청 시의 단말기 등록 & 푸시 체크 기기 대수
+   */
+  private int sendCnt = 0;
 
-	/**
-	 * 푸시 전송 이력 일련번호
-	 */
-	private Integer notifHistSn;
-
-	/**
-	 * 전송 여부
-	 */
-	private Boolean sendFl;
-
-	/**
-	 * 전송 일시
-	 */
-	private ZonedDateTime sendDttm;
+  /**
+   * 전송 일시
+   */
+  private ZonedDateTime sendDttm;
 }

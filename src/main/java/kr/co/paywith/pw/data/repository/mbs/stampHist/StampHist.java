@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.StampHistTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
 import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
 import kr.co.paywith.pw.data.repository.mbs.delng.Delng;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
@@ -18,7 +18,7 @@ import java.time.ZonedDateTime;
 
 
 /**
- * 스템프 생성 및 쿠폰전환시 이력
+ * 스템프 생성(발급) / 쿠폰 전환(발급) / 만료 시 이력
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +35,11 @@ public class StampHist {
     @NameDescription("식별번호")
     private Integer id;
 
+    /**
+     * 스탬프 개수. 사용되었다면 음수가 들어간다
+     */
+    private Integer cnt = 0;
+
     // kms: 브랜드별 멤버십 정보 분리하면 userInfo 대신 해당 entity 연결
 //    /**
 //     * 회원  ( 누구에게 발행했니 ? )
@@ -49,17 +54,12 @@ public class StampHist {
      * 스탬프 이력 구분 코드
      */
     @Enumerated(EnumType.STRING)
-    private StampHistTypeCd stampHistTypeCd;
+    private StampHistType stampHistType;
 
     /**
      * 처리 일시
      */
     private ZonedDateTime setleDttm;
-
-    /**
-     * 스탬프 개수. 사용되었다면 음수가 들어간다
-     */
-    private Integer cnt = 0;
 
 
      // che2 : Delng 객체에서 참조
@@ -73,13 +73,6 @@ public class StampHist {
      */
     @CsvBindByName(column = "POSMessageNo")
     private String trmnlDelngNo;
-
-    /**
-     * 취소 일시
-     */
-    private ZonedDateTime cancelRegDttm;
-
-
 
     //////////////////// start ///////////////////
     // che2 : 1) 거래에 위해서 발생한 경우 Delng 객체에서 참조 ///////////
@@ -109,10 +102,17 @@ public class StampHist {
 
     /**
      * 쿠폰 발급.
-     * stampHistTypeCd.CPN 일 때 연결.
+     *
+     * stampHistType.CPN 일 때 연결.
+     *
      * CpnIssu.stampHist 와 직접적으로 연결되는 게 아니므로 주의.
-     * CpnIssu 저장 후 StampHist 저장
-     * <p>
+     *
+     * CpnIssu 저장 후 StampHist 저장.
+     *
+     * 정책 개수의 두배가 모여 쿠폰이 두장 발급되면 stampHist는 두 레코드 생성되며 cpnIssu안의 cpn 개수는 각각 한개만 설정한다.
+     *
+     * 스탬프 적립 취소 시 쿠폰을 무효화 시켜야 하는 경우가 있는데, 일부 쿠폰만 무효화를 시켜야 하기 때문
+     *
      * ex> 스탬프가 사용되었는데, 언제 어떤 쿠폰이 발급되었는지 확인
      */
     @OneToOne
@@ -129,5 +129,10 @@ public class StampHist {
      */
     @UpdateTimestamp
     private ZonedDateTime updtDttm;
+
+    /**
+     * 취소 일시
+     */
+    private ZonedDateTime cancelRegDttm;
 
 }

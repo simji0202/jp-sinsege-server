@@ -6,9 +6,8 @@ import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
-import kr.co.paywith.pw.data.repository.enumeration.CpnSttsCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.cpn.*;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,7 +44,9 @@ public class CpnController extends CommonController  {
     CpnService cpnService;
 
     /**
-     * 정보 등록
+     * 정보 등록. 기존 쿠폰 발행 로직에선 사용하지 않으며, 회원 동작에 의해 쿠폰 발행할 때 사용 예정
+     *
+     * TODO 검증 및 로직 구현
      */
     @PostMapping
     public ResponseEntity createCpn(
@@ -106,11 +104,11 @@ public class CpnController extends CommonController  {
 
 
         // 무효(발급 취소) 된 쿠폰 비표시
-        booleanBuilder.and(qCpn.cpnSttsCd.ne(CpnSttsCd.INVALID));
+        booleanBuilder.and(qCpn.cpnSttsType.ne(CpnSttsType.INVALID));
 
         // 검색조건 쿠폰 상태
-        if (searchForm.getCpnSttsCd() != null) {
-            booleanBuilder.and(qCpn.cpnSttsCd.eq(searchForm.getCpnSttsCd()));
+        if (searchForm.getCpnSttsType() != null) {
+            booleanBuilder.and(qCpn.cpnSttsType.eq(searchForm.getCpnSttsType()));
         }
 
         // 검색조건 아이디(키)

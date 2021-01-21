@@ -1,13 +1,12 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
-import kr.co.paywith.pw.data.repository.enumeration.PosAvailFnCd;
-import kr.co.paywith.pw.data.repository.enumeration.PosTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosFnType;
+import kr.co.paywith.pw.data.repository.enumeration.PosType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -18,13 +17,6 @@ import java.util.List;
 @Getter
 @Setter
 public class MrhstTrmnlDto {
-
-    /**
-     * 가맹점 단말기 일련번호.
-     * DTO에서 일반적으로 id를 없앴지만, validator 에서 중복 체크를 위해 둠
-     * kms: TODO validator 변경 후 삭제
-     */
-    private Integer Id;
 
     /**
      * 가맹점
@@ -52,7 +44,7 @@ public class MrhstTrmnlDto {
      * null일 경우에는 STR 상태로 유지
      */
     @Enumerated(EnumType.STRING)
-    private PosTypeCd posTypeCd = PosTypeCd.PW;
+    private PosType posType = PosType.PW;
 
     /**
      * 웹포스 로그인 아이디
@@ -82,7 +74,7 @@ public class MrhstTrmnlDto {
     /**
      * POS에서 사용가능한 기능
      */
-    private List<PosAvailFnCd> posAvailFnCdList;
+    private List<PosFnType> posFnTypeList;
 
 
 }

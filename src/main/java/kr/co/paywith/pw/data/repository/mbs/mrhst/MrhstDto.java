@@ -1,10 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst;
 
 import java.util.List;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import kr.co.paywith.pw.data.repository.enumeration.AvailServiceCd;
+import kr.co.paywith.pw.data.repository.enumeration.AvailServiceType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2;
@@ -71,7 +68,7 @@ public class MrhstDto {
     /**
      * 가맹점 서비스 가능 목록
      */
-    private List<AvailServiceCd> availServiceCdList;
+    private List<AvailServiceType> availServiceTypeList;
 
     /**
      * 기타 내용

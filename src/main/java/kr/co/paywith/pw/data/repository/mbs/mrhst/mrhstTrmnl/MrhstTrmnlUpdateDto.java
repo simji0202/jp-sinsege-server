@@ -1,16 +1,13 @@
 package kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl;
 
-import kr.co.paywith.pw.data.repository.enumeration.PosAvailFnCd;
-import kr.co.paywith.pw.data.repository.enumeration.PosTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.PosFnType;
+import kr.co.paywith.pw.data.repository.enumeration.PosType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -60,7 +57,7 @@ public class MrhstTrmnlUpdateDto {
      * 결제 시 ChrgSetleChnlCd가 STR 일 경우 이 타입으로 변경
      * null일 경우에는 STR 상태로 유지
      */
-    private PosTypeCd posTypeCd = PosTypeCd.PW;
+    private PosType posType = PosType.PW;
 
     /**
      * 웹포스 로그인 아이디
@@ -85,6 +82,6 @@ public class MrhstTrmnlUpdateDto {
     /**
      * POS에서 사용가능한 기능
      */
-    private List<PosAvailFnCd> posAvailFnCdList;
+    private List<PosFnType> posFnTypeList;
 
 }

@@ -71,7 +71,7 @@ public class GoodsControllerTest extends BaseControllerTest {
      goodsOptMaster2.setGoodsOptNm("ice");
      goodsOptMaster2.setGoodsOptAmt(500);
 
-     goodsOpt.setGoodsOptMasters(List.of(goodsOptMaster, goodsOptMaster2));
+     goodsOpt.setGoodsOptMasterList(List.of(goodsOptMaster, goodsOptMaster2));
 
      goods.setGoodsOptList(List.of(goodsOpt));
 

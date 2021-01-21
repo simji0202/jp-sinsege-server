@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.StampSttsTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.StampSttsType;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -139,13 +139,13 @@ public class Stamp {
 	/**
 	 * 스탬프 상태 코드
 	 */
-	private StampSttsTypeCd stampSttsTypeCd = StampSttsTypeCd.RSRV;
+	private StampSttsType stampSttsType = StampSttsType.RSRV;
 //
 	/**
 	 * 스탬프를 적립하여 발급한 쿠폰
 	 */
 	// @ManyToOne
-	private String cpnId;
+	private Integer cpnId;
 
 //	/**
 //	 * 스탬프를 사용했을 때 해당 사용 이력

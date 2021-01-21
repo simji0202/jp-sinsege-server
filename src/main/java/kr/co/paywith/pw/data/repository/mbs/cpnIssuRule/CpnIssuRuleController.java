@@ -154,12 +154,6 @@ public class CpnIssuRuleController extends CommonController {
             return badRequest(errors);
         }
 
-        // 논리적 오류 (제약조건) 체크
-        this.cpnIssuRuleValidator.validate(cpnIssuRuleUpdateDto, errors);
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
         // 기존 테이블에서 관련 정보 취득
         Optional<CpnIssuRule> cpnIssuRuleOptional = this.cpnIssuRuleRepository.findById(id);
 
@@ -169,9 +163,16 @@ public class CpnIssuRuleController extends CommonController {
             return ResponseEntity.notFound().build();
         }
 
+        CpnIssuRule cpnIssuRule = cpnIssuRuleOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.cpnIssuRuleValidator.validate(cpnIssuRuleUpdateDto, cpnIssuRule, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
         // 기존 정보 취득
         CpnIssuRule existCpnIssuRule = cpnIssuRuleOptional.get();
-
 
         // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
         // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음

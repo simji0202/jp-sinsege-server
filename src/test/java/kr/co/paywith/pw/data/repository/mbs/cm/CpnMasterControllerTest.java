@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnMasterType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import org.junit.Before;
@@ -46,7 +46,7 @@ public class CpnMasterControllerTest extends BaseControllerTest {
 
         CpnMaster cpnMaster = new CpnMaster();
         cpnMaster.setCpnNm("1000 금액 쿠폰");
-        cpnMaster.setCpnMasterTypeCd(CpnMasterTypeCd.AMT);
+        cpnMaster.setCpnMasterType(CpnMasterType.AMT);
 
 
         // 쿠폰 코드 (POS연동)

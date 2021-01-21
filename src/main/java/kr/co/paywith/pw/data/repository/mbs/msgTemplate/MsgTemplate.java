@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.msgTemplate;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgType;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import kr.co.paywith.pw.common.NameDescription;
@@ -45,7 +45,7 @@ public class MsgTemplate {
 	 * 메시지 종류 코드
 	 */
 	@Enumerated(EnumType.STRING)
-	private MsgTypeCd msgTypeCd;
+	private MsgType msgType;
 
 	/**
 	 * 메시지 제목

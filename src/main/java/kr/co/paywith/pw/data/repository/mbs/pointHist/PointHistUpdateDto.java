@@ -1,9 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.pointHist;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.PointHistCd;
+import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
 import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
-import kr.co.paywith.pw.data.repository.mbs.pointRule.PointRule;
+import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRule;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
@@ -14,9 +14,6 @@ import java.time.ZonedDateTime;
 @Data
 public class PointHistUpdateDto {
 
-    @NameDescription("식별번호")
-    private Integer id;
-
     /**
      * 포인트 양
      */
@@ -26,7 +23,7 @@ public class PointHistUpdateDto {
      * 포인트 이력 구분 코드
      */
     @Enumerated(EnumType.STRING)
-    private PointHistCd pointHistCd;
+    private PointHistType pointHistType;
 
     /**
      * 등록 일시
@@ -36,7 +33,7 @@ public class PointHistUpdateDto {
     /**
      * 포인트 적립 규칙
      */
-    private PointRule pointRule;
+    private PointRsrvRule pointRsrvRule;
     /**
      * 포인트 적립 규칙 일련번호
      */

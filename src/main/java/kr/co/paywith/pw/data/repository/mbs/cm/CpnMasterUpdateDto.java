@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cm;
 
-import kr.co.paywith.pw.data.repository.enumeration.CpnMasterTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnMasterType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,7 +32,7 @@ public class CpnMasterUpdateDto {
    * 사용 이력 연결에서 위치가 다르기 때문에
    */
   @Enumerated(EnumType.STRING)
-  private CpnMasterTypeCd cpnMasterTypeCd;
+  private CpnMasterType cpnMasterType;
 
   /**
    * 쿠폰코드(POS연동)
@@ -91,7 +91,7 @@ public class CpnMasterUpdateDto {
 
   /**
    * 쿠폰 금액 상한.
-   * cpnMasterTypeCd.RATIO 일 때, 할인할 수 있는 최대 금액을 설정한다.
+   * cpnMasterType.RATIO 일 때, 할인할 수 있는 최대 금액을 설정한다.
    * ex> 50% 쿠폰(cpnRatio=50)은 1000원 결제 시 500원을 할인하지만, 여러 결제를 대신하면서 100만원 결제 시 사용하면 50만원을 받을 수 있어 부정 사용이 가능하다
    */
   private int maxCpnAmt = 0;

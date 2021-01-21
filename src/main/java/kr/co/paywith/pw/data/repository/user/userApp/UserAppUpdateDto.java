@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.userApp;
 
-import kr.co.paywith.pw.data.repository.enumeration.UserAppOsCd;
+import kr.co.paywith.pw.data.repository.enumeration.UserAppOsType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ public class UserAppUpdateDto {
     /**
      * 회원 앱 구분 코드
      */
-    private UserAppOsCd userAppOsCd;
+    private UserAppOsType userAppOsType;
 
     /**
      * 단말기 아이디(식별 고유 키)

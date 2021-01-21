@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.admin;
 
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +40,7 @@ public class AdminUpdateDto {
 
   @NameDescription("권한 코드")
   @Enumerated(EnumType.STRING)
-  private AuthCd authCd;
+  private AuthType authType;
 
   @NameDescription("브랜드정보")
   private Brand brand;

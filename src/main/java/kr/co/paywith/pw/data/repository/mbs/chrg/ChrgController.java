@@ -7,8 +7,6 @@ import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.chrg.Chrg;
-import kr.co.paywith.pw.data.repository.mbs.chrg.ChrgDeleteDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,7 +55,7 @@ public class ChrgController extends CommonController {
 
 
 		  // 입력값 체크
-		  chrgValidator.validate(chrgDto, errors);
+		  chrgValidator.validate(chrgDto, currentUser, errors);
 		  if (errors.hasErrors()) {
 				return badRequest(errors);
 		  }

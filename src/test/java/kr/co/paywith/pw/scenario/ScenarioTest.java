@@ -15,10 +15,9 @@ import kr.co.paywith.pw.common.TestDescription;
 import kr.co.paywith.pw.data.repository.admin.AdminDto;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
 import kr.co.paywith.pw.data.repository.admin.AdminService;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
-import kr.co.paywith.pw.data.repository.enumeration.AvailBrandFnCd;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthType;
+import kr.co.paywith.pw.data.repository.enumeration.BrandFnType;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandSetting;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
@@ -66,7 +65,7 @@ public class ScenarioTest extends BaseControllerTest {
     admin.setAdminId("won2");;
     admin.setAdminPw("1234");
     admin.setAdminNm("페이위드 ");
-    admin.setAuthCd(AuthCd.B_MST);
+    admin.setAuthType(AuthType.B_MST);
     admin.setRoles(Set.of(AdminRole.ADMIN_MASTER));
 
     mockMvc.perform(post("/api/admin/")
@@ -90,7 +89,7 @@ public class ScenarioTest extends BaseControllerTest {
     userInfo.setUserNm("원이");
     userInfo.setActiveFl(true);
     userInfo.setMobileNum("01046940301");
-    userInfo.setCertTypeCd(CertTypeCd.CI);
+    userInfo.setCertType(CertType.CI);
 
     userInfo.setRoles(Set.of(AdminRole.USER));
 
@@ -113,8 +112,8 @@ public class ScenarioTest extends BaseControllerTest {
     brand.setBrandNm("채원의식탁");
     brand.setActiveFl(true);
     brand.setBrandCd("1234567890123456");
-    brand.setAvailBrandFnCdList(List.of(AvailBrandFnCd.CALCU, AvailBrandFnCd.CPN));
-    brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
+    brand.setBrandFnTypeList(List.of(BrandFnType.CALCU, BrandFnType.CPN));
+//    brand.setAvailAppChrgSetleMthdCdList(List.of(ChrgSetleMthdCd.PHONE, ChrgSetleMthdCd.CARD));
 
     BrandSetting brandSetting = new BrandSetting();
     brandSetting.setBizClass("bizClass");
@@ -249,7 +248,7 @@ public class ScenarioTest extends BaseControllerTest {
     goodsOptMaster2.setGoodsOptNm("ice");
     goodsOptMaster2.setGoodsOptAmt(500);
 
-    goodsOpt.setGoodsOptMasters(List.of(goodsOptMaster, goodsOptMaster2));
+    goodsOpt.setGoodsOptMasterList(List.of(goodsOptMaster, goodsOptMaster2));
 
     goods.setGoodsOptList(List.of(goodsOpt));
 
@@ -297,7 +296,7 @@ public class ScenarioTest extends BaseControllerTest {
     goodsOptMaster4.setGoodsOptNm("ice");
     goodsOptMaster4.setGoodsOptAmt(500);
 
-    goodsOpt2.setGoodsOptMasters(List.of(goodsOptMaster3, goodsOptMaster4));
+    goodsOpt2.setGoodsOptMasterList(List.of(goodsOptMaster3, goodsOptMaster4));
 
     goods2.setGoodsOptList(List.of(goodsOpt2));
 

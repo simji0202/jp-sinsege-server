@@ -45,21 +45,6 @@ public class ScoreHistService {
 
 
   /**
-   * 정보 갱신
-   */
-  @Transactional
-  public ScoreHist update(ScoreHistUpdateDto scoreHistUpdateDto, ScoreHist existScoreHist) {
-
-    // 입력값 대입
-    this.modelMapper.map(scoreHistUpdateDto, existScoreHist);
-
-    // 데이터베이스 값 갱신
-    this.scoreHistRepository.save(existScoreHist);
-
-    return existScoreHist;
-  }
-
-  /**
    * 스코어 이력 취소 처리. 이력 취소 후 회원 정보 반영
    */
   @Transactional

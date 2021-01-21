@@ -2,8 +2,8 @@ package kr.co.paywith.pw.data.repository.mbs.gift;
 
 import javax.persistence.Id;
 
-import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsCd;
-import kr.co.paywith.pw.data.repository.enumeration.MsgTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgHistSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.MsgType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -82,14 +82,14 @@ public class Gift {
 	 */
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private MsgTypeCd msgTypeCd;
+	private MsgType msgType;
 
 	/**
 	 * 선물 상태 코드
 	 */
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private MsgHistSttsCd msgHistSttsCd;
+	private MsgHistSttsType msgHistSttsType;
 
 
 	/**

@@ -115,12 +115,11 @@ public class MrhstTrmnlControllerTest extends BaseControllerTest {
 
         // Given
         MrhstTrmnlDto mrhstTrmnl = new MrhstTrmnlDto();
-        mrhstTrmnl.setId(1);
         mrhstTrmnl.setTrmnlNm("  정보 ");
 
 
         // When & Then
-        this.mockMvc.perform(put("/api/mrhstTrmnl/{id}", mrhstTrmnl.getId())
+        this.mockMvc.perform(put("/api/mrhstTrmnl/{id}", 1)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

@@ -4,7 +4,7 @@ package kr.co.paywith.pw.data.repository.admin;
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
 
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthType;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class AdminControllerTest extends BaseControllerTest {
                 .adminId("paywith22")
                 .adminPw("1234")
                 .adminNm("페이위드 ")
-                .authCd(AuthCd.B_MST)
+                .authType(AuthType.B_MST)
                 .roles(Set.of(AdminRole.ADMIN_MASTER))
                 .build();
 

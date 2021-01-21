@@ -1,18 +1,15 @@
 package kr.co.paywith.pw.data.repository.mbs.msgRule;
 
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.MsgRuleCd;
+import kr.co.paywith.pw.data.repository.enumeration.MsgRuleType;
 import kr.co.paywith.pw.data.repository.mbs.msgTemplate.MsgTemplate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.ZonedDateTime;
 
 @Data
 @Builder
@@ -38,7 +35,7 @@ public class MsgRuleDto {
      * 메시지 규칙 종류 코드
      */
     @Enumerated(EnumType.STRING)
-    private MsgRuleCd msgRuleCd;
+    private MsgRuleType msgRuleType;
 
     /**
      * 메시지 양식

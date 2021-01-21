@@ -1,10 +1,17 @@
 package kr.co.paywith.pw.data.repository.user.user;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.component.StringUtil;
 import kr.co.paywith.pw.data.repository.admin.AdminRepository;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
+import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssu;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssu.CpnIssuService;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssuRule.CpnIssuRule;
+import kr.co.paywith.pw.data.repository.mbs.cpnIssuRule.CpnIssuRuleRepository;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnlRepository;
 import kr.co.paywith.pw.data.repository.user.grade.GradeService;
 import kr.co.paywith.pw.data.repository.user.userDel.UserDel;
@@ -50,6 +57,12 @@ public class UserInfoService {
   @Autowired
   private UserDelService userDelService;
 
+  @Autowired
+  private CpnIssuRuleRepository cpnIssuRuleRepository;
+
+  @Autowired
+  private CpnIssuService cpnIssuService;
+
   /**
    * 일반 유저 정보 신규 등록
    */
@@ -85,12 +98,8 @@ public class UserInfoService {
       }
     } while (!isEndMakeNo);
 
-
-    // che2 : TODO 최초 등급 설정 (21.01.05)
-    // 최초 등급 설정
-   // userInfo.setGrade(gradeService.findFirstGrade());
-
-    // TODO 신규 회원 쿠폰 발급
+    // 신규 회원 쿠폰 발급
+    this.makeCpnIssuJoin(userInfo);
 
     return userInfoRepository.save(userInfo);
   }
@@ -106,11 +115,11 @@ public class UserInfoService {
 //        // 기존 List 항목 초기 설정
 //        userInfo.getUserAppList().clear();
 
-    if (!userInfoUpdateDto.getCertTypeCd().equals(userInfo.getCertTypeCd())) {
+    if (!userInfoUpdateDto.getCertType().equals(userInfo.getCertType())) {
       // GUEST에서 일반 회원이 될 경우 최초 가입 쿠폰 발급. 반대의 경우는 오류 처리
-      if (userInfo.getCertTypeCd().equals(CertTypeCd.GUEST)) {
+      if (userInfo.getCertType().equals(CertType.GUEST)) {
         // TODO 신규 회원 쿠폰 발급
-      } else if (userInfoUpdateDto.getCertTypeCd().equals(CertTypeCd.GUEST)) {
+      } else if (userInfoUpdateDto.getCertType().equals(CertType.GUEST)) {
         // TODO kms: Exception 확인
         throw new RuntimeException();
       }
@@ -129,15 +138,46 @@ public class UserInfoService {
       // 새 암호가 있을 때에만 암호 변경
       userInfoUpdateDto.setUserPw(this.passwordEncoder.encode(userInfoUpdateDto.getUserPw()));
     }
+
+    if (
+        userInfo.getCertType().equals(CertType.GUEST) &&
+            !userInfoUpdateDto.getCertType().equals(CertType.GUEST)) {
+      // GUEST 회원이 정식으로 가입한 경우
+      // 신규 회원 쿠폰 지급
+      this.makeCpnIssuJoin(userInfo);
+    }
+
     // 입력값 대입
     this.modelMapper.map(userInfoUpdateDto, userInfo);
     userInfo = this.userInfoRepository.save(userInfo);
 
-    // kms: TODO stamp 정보 변경 맞춰서 쿠폰 발급
-//    if (stampCnt > maxCnt) {
-//      cpnIssuService.create()
-//    }
     return userInfo;
+  }
+
+  /**
+   * 회원 신규 가입 쿠폰 발급
+   * @param userInfo 신규 가입한 회원
+   */
+  private void makeCpnIssuJoin(UserInfo userInfo) {
+    for (CpnIssuRule cpnIssuRule: cpnIssuRuleRepository.findByCpnIssuRuleType(CpnIssuRuleType.JOIN)) {
+      CpnIssu cpnIssu = new CpnIssu();
+      cpnIssu.setCpnIssuRule(cpnIssuRule);
+      cpnIssu.setCpnIssuNm(cpnIssuRule.getRuleNm());
+      cpnIssu.setValidEndDttm(ZonedDateTime.now().plusDays(cpnIssuRule.getCpnMaster().getValidDay()));
+      cpnIssu.setCreateBy(userInfo.getCreateBy());
+      cpnIssu.setUpdateBy(userInfo.getCreateBy());
+
+      Cpn cpn = new Cpn();
+      cpn.setUserInfo(userInfo);
+      cpnIssu.setCpnList(List.of(cpn));
+
+      cpnIssuService.create(cpnIssu, null);
+
+      if (StringUtils.isNotEmpty(cpnIssuRule.getMsgCn())) {
+        // TODO 메시지 설정했다면 메시지 발송
+
+      }
+    }
   }
 
   /**
@@ -178,8 +218,8 @@ public class UserInfoService {
     userInfo.setUserId(null);
     userDel.setCertKey(userInfo.getCertKey());
     userInfo.setCertKey(null);
-    userDel.setCertTypeCd(userInfo.getCertTypeCd());
-    userInfo.setCertTypeCd(null);
+    userDel.setCertType(userInfo.getCertType());
+    userInfo.setCertType(null);
     userDel.setUserNm(userInfo.getUserNm());
     userInfo.setUserNm(null);
     userDel.setNickNm(userInfo.getNickNm());

@@ -2,11 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.chrg;
 
 import com.opencsv.bean.CsvBindByName;
 import kr.co.paywith.pw.common.NameDescription;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgTypeCd;
-import kr.co.paywith.pw.data.repository.enumeration.ChrgSetleMthdCd;
-import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
-import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
+import kr.co.paywith.pw.data.repository.enumeration.ChrgType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,7 +12,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -55,7 +50,7 @@ public class Chrg {
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
     @CsvBindByName(column = "PayPlace")
-    private ChrgTypeCd chrgTypeCd; // 매장 / PG 구분
+    private ChrgType chrgType; // 매장 / PG 구분
 
     /**
      * 충전일시. 매장 거래 시간 등 실제 거래시간.

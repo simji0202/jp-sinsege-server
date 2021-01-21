@@ -71,23 +71,23 @@ public class Brand implements Serializable {
   @Column(length = 10)
   @ElementCollection(fetch = FetchType.LAZY)
   @Enumerated(EnumType.STRING)
-  private List<AvailBrandFnCd> availBrandFnCdList  = new ArrayList<>();
+  private List<BrandFnType> brandFnTypeList = new ArrayList<>();
 
-  /**
-   * 앱(PG)에서 결제 가능한 수단
-   */
-  @Column(length = 10)
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Enumerated(EnumType.STRING)
-  private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList  = new ArrayList<>();
-
-  /**
-   * 매장에서 결제 가능한 수단
-   */
-  @Column(length = 10)
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Enumerated(EnumType.STRING)
-  private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList  = new ArrayList<>();
+//  /**
+//   * 앱(PG)에서 결제 가능한 수단
+//   */
+//  @Column(length = 10)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Enumerated(EnumType.STRING)
+//  private List<ChrgSetleMthdCd> availAppChrgSetleMthdCdList  = new ArrayList<>();
+//
+//  /**
+//   * 매장에서 결제 가능한 수단
+//   */
+//  @Column(length = 10)
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Enumerated(EnumType.STRING)
+//  private List<ChrgSetleMthdCd> availPosChrgSetleMthdCdList  = new ArrayList<>();
 
   /**
    * 브랜드 내 매장에서 사용가능한 전체 서비스 목록
@@ -97,7 +97,7 @@ public class Brand implements Serializable {
   @Column(length = 10)
   @Enumerated(EnumType.STRING)
   @ElementCollection(fetch = FetchType.LAZY)
-  private List<AvailServiceCd> availServiceCdList  = new ArrayList<>();
+  private List<AvailServiceType> availServiceTypeList = new ArrayList<>();
 
   /**
    *  기본적인 브랜드 옵션 설정

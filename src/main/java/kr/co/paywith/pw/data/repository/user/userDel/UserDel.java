@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import kr.co.paywith.pw.data.repository.enumeration.CertTypeCd;
+import kr.co.paywith.pw.data.repository.enumeration.CertType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -65,7 +65,7 @@ public class UserDel implements Serializable {
     /**
      * 회원 인증 구분
      */
-    private CertTypeCd certTypeCd;
+    private CertType certType;
 
     /**
      * 회원 이름

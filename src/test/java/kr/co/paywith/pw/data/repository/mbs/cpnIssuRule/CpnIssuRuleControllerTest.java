@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssuRule;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
-import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleCd;
+import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class CpnIssuRuleControllerTest extends BaseControllerTest {
 
         CpnIssuRule cpnIssuRule = new CpnIssuRule();
         cpnIssuRule.setRuleNm("RuleNm");
-        cpnIssuRule.setCpnIssuRuleCd(CpnIssuRuleCd.C);
+        cpnIssuRule.setCpnIssuRuleType(CpnIssuRuleType.CHRG);
 
 
         mockMvc.perform(post("/api/cpnIssuRule/")
@@ -112,11 +112,10 @@ public class CpnIssuRuleControllerTest extends BaseControllerTest {
 
         // Given
         CpnIssuRuleDto cpnIssuRule = new CpnIssuRuleDto();
-        cpnIssuRule.setId(1);
         cpnIssuRule.setRuleNm("정보변경");
 
         // When & Then
-        this.mockMvc.perform(put("/api/cpnIssuRule/{id}", cpnIssuRule.getId())
+        this.mockMvc.perform(put("/api/cpnIssuRule/{id}", 1)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

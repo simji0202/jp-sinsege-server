@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.account;
 
 import kr.co.paywith.pw.data.repository.admin.Admin;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
-import kr.co.paywith.pw.data.repository.enumeration.AuthCd;
+import kr.co.paywith.pw.data.repository.enumeration.AuthType;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.mrhstTrmnl.MrhstTrmnl;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
@@ -60,7 +60,7 @@ public  class Account {
 
   /**  권한 코드  */
   @Enumerated(EnumType.STRING)
-  private AuthCd authCd;
+  private AuthType authType;
 
   /**
    * 유저 권한
