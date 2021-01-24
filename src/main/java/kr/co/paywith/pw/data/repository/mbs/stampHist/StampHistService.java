@@ -77,6 +77,7 @@ public class StampHistService {
 
     // 데이터베이스 값 갱신
     StampHist newStampHist = this.stampHistRepository.save(stampHist);
+    newStampHist.setUserInfo(userInfoRepository.findById(stampHist.getUserInfo().getId()).get());
 
     switch (newStampHist.getStampHistType()) {
       case RSRV:
@@ -114,8 +115,7 @@ public class StampHistService {
         break;
     }
 
-    UserInfo userInfo = stampHist.getUserInfo();
-    UserCard userCard = userInfo.getUserCard();
+    UserCard userCard = stampHist.getUserInfo().getUserCard();
     switch (stampHist.getStampHistType()) {
       case RSRV:
       case D_RSRV:
@@ -125,7 +125,7 @@ public class StampHistService {
         break;
     }
     userCard.setStampCnt(userCard.getStampCnt() + stampHist.getCnt());
-    userInfoRepository.save(userInfo);
+    userInfoRepository.save(stampHist.getUserInfo());
 
     return newStampHist;
   }
