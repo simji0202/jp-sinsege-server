@@ -61,7 +61,7 @@ public class StampHistService {
   private CpnIssuRepository cpnIssuRepository;
 
   @Autowired
-  private BrandRepository  brandRepository;
+  private BrandRepository brandRepository;
 
   /**
    * 스탬프 적립 / 쿠폰 발급 / 스탬프 만료에 대한 이력 등록
@@ -93,9 +93,10 @@ public class StampHistService {
         for (Cpn cpn : stampHist.getCpnIssu().getCpnList()) {
           int stampCntForCpn = cpnStampCnt;
           for (int i = 0; i < stampCntForCpn; i++) {
-            Stamp stamp = stampRepository.findTopByStampHist_UserInfo_IdAndStampSttsTypeOrderByExpiredDttmAsc(
-                stampHist.getUserInfo().getId(), StampSttsType.RSRV
-            );
+            Stamp stamp = stampRepository
+                .findTopByStampHist_UserInfo_IdAndStampSttsTypeOrderByExpiredDttmAsc(
+                    stampHist.getUserInfo().getId(), StampSttsType.RSRV
+                );
             stamp.setStampSttsType(StampSttsType.CPN);
             stamp.setCpnId(cpn.getId());
             stampRepository.save(stamp);
@@ -113,13 +114,15 @@ public class StampHistService {
         break;
     }
 
-    // kms: TODO 회원정보 스탬프 갱신. 멤버십 구조 변경 후 개발
     UserInfo userInfo = stampHist.getUserInfo();
     UserCard userCard = userInfo.getUserCard();
-    if (stampHist.getCnt() > 0) {
-      // 신규 저장일 때만 총 개수 변경
-      // 만료, 쿠폰발급일 때는 현재 개수만 변경한다
-      userCard.setStampTotalCnt(userCard.getStampTotalCnt() + stampHist.getCnt());
+    switch (stampHist.getStampHistType()) {
+      case RSRV:
+      case D_RSRV:
+        // 신규 저장일 때만 총 개수 변경
+        // 만료, 쿠폰발급일 때는 현재 개수만 변경한다
+        userCard.setStampTotalCnt(userCard.getStampTotalCnt() + stampHist.getCnt());
+        break;
     }
     userCard.setStampCnt(userCard.getStampCnt() + stampHist.getCnt());
     userInfoRepository.save(userInfo);
@@ -170,11 +173,12 @@ public class StampHistService {
 
           // 본인 쿠폰 중 사용가능한 스탬프 쿠폰을 무효화 시키면서 스탬프 배수 복원
           // 다시 활성
-            // che2 : 일단 커맨드 처리
+          // che2 : 일단 커맨드 처리
           for (Cpn cpn :
-              cpnRepository.findByUserInfo_IdAndCpnSttsTypeAndCpnIssu_CpnIssuRule_CpnIssuRuleTypeOrderByRegDttm(
-                  stampHist.getUserInfo().getId(), CpnSttsType.AVAIL, CpnIssuRuleType.STAMP
-              )) {
+              cpnRepository
+                  .findByUserInfo_IdAndCpnSttsTypeAndCpnIssu_CpnIssuRule_CpnIssuRuleTypeOrderByRegDttm(
+                      stampHist.getUserInfo().getId(), CpnSttsType.AVAIL, CpnIssuRuleType.STAMP
+                  )) {
             cpnIssuService.delete(cpn.getCpnIssu());
             // 쿠폰 발급과 연결된 스탬프 이력 취소(스탬프 복원 표시)
             this.delete(stampHistRepository.findByCpnIssu_Id(cpn.getCpnIssu().getId()));
@@ -195,7 +199,7 @@ public class StampHistService {
 
         break;
       case CPN:
-        for (Cpn cpn: stampHist.getCpnIssu().getCpnList()) { // 스탬프 이력과 관계된 쿠폰
+        for (Cpn cpn : stampHist.getCpnIssu().getCpnList()) { // 스탬프 이력과 관계된 쿠폰
           cancelStampCnt += cpnStampCnt; // 다시 복원된 스탬프 개수
 
           for (Stamp stamp : stampRepository.findByCpnId(cpn.getId())) { // 쿠폰과 관계된 스탬프
@@ -216,7 +220,15 @@ public class StampHistService {
     // cnt 만큼 회원 스탬프에서 -(스탬프가 사용되었다면 cnt는 -이므로 -1*-1 로 가산이 된다)
     UserCard userCard = stampHist.getUserInfo().getUserCard();
     userCard.setStampCnt(userCard.getStampCnt() - stampHist.getCnt());
-    userCard.setStampTotalCnt(userCard.getStampTotalCnt() - stampHist.getCnt());
+    switch (stampHist.getStampHistType()) {
+      case RSRV:
+      case D_RSRV:
+        // 신규 적립일 때만 총 개수 변경하므로 다시 원복
+        // 만료, 쿠폰발급일 때는 현재 개수만 변경한다
+        userCard.setStampTotalCnt(userCard.getStampTotalCnt() - stampHist.getCnt());
+        break;
+    }
+
     userInfoRepository.save(stampHist.getUserInfo());
   }
 

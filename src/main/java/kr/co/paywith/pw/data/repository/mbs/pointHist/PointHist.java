@@ -65,11 +65,11 @@ public class PointHist {
   @ManyToOne
   private UserInfo userInfo;
 
-  // 포인트 → 충전 및 충전 → 포인트
+  // 충전 → 포인트
   /**
    * 관계있는 충전 이력
    *
-   * 포인트로 충전한 경우, 충전하여 포인트 적립되는 경우 모두 사용
+   * 충전하여 포인트 적립되는 경우
    */
   @OneToOne
   private Chrg chrg;

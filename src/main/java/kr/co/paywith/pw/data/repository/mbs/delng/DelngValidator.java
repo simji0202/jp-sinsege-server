@@ -185,18 +185,25 @@ public class DelngValidator {
               errors.reject("결제 검증 오류", "결제 금액 값이 없습니다");
             } else {
               paymentAmt += delngPaymentDto.getAmt();
+              UserInfo userInfo;
               switch (delngPaymentDto.getDelngPaymentType()) {
                 case PRPAY: // 선불카드
-                  UserInfo userInfo = userInfoRepository.findById(delngPaymentDto.getUserInfoId()).get();
+                  userInfo = userInfoRepository.findById(delngPaymentDto.getUserInfoId()).get();
                   // 선불카드 유효기간과 잔액 확인
-                  UserCard userCard = userInfo.getUserCard();
-                  if (userCard.getPrpayAmt() < delngDto.getTotalAmt() - delngDto.getCpnAmt()) {
+                  if (userInfo.getUserCard().getPrpayAmt() < delngDto.getTotalAmt() - delngDto.getCpnAmt()) {
                     // 잔액이 부족하면
                     errors.reject("선불카드 검증 오류", "선불카드 잔액이 부족합니다");
                   }
                   break;
                 case PG_PAY: // PG 결제
                   // TODO PG 결제 사용 여부. 금액 확인
+                  break;
+                case POINT: // 포인트
+                  // 현재 포인트가 충분해야 한다
+                  userInfo = userInfoRepository.findById(delngPaymentDto.getUserInfoId()).get();
+                  if (userInfo.getUserCard().getPointAmt() < delngPaymentDto.getAmt()) {
+                    errors.reject("포인트 검증 오류", "포인트 잔액이 부족합니다");
+                  }
                   break;
               }
             }

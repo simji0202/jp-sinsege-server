@@ -7,6 +7,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.PointCutType;
+import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
 import kr.co.paywith.pw.data.repository.enumeration.PointRsrvRuleType;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
@@ -14,6 +16,8 @@ import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
+import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHist;
+import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHistService;
 import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRule;
 import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRuleRepository;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHist;
@@ -57,6 +61,9 @@ public class DelngService {
 
   @Autowired
   private ScoreHistService scoreHistService;
+
+  @Autowired
+  private PointHistService pointHistService;
 
   @Autowired
   private Gson gson;
@@ -109,7 +116,6 @@ public class DelngService {
       stampHist.setStampHistType(StampHistType.RSRV);
       stampHist.setSetleDttm(ZonedDateTime.now());
       stampHist.setCnt(stamp);
-//         stampHist.setMrhst(delng.getmr());
       stampHist.setDelng(newDelng);
       stampHistService.create(stampHist);
     }
@@ -121,6 +127,18 @@ public class DelngService {
             // 선불카드 잔액 차감
             userInfo.getUserCard()
                 .setPrpayAmt(userInfo.getUserCard().getPrpayAmt() - delngPayment.getAmt());
+            break;
+          case POINT:
+            // 포인트 잔액 차감
+            PointHist pointHist = new PointHist();
+            pointHist.setUserInfo(userInfo);
+            pointHist.setPointHistType(PointHistType.PAYMENT);
+            pointHist.setPointAmt(-1 * delngPayment.getAmt()); // 포인트 사용은 음수
+            pointHist.setDelng(newDelng);
+            pointHistService.create(pointHist);
+
+            userInfo.getUserCard()
+                .setPointAmt(userInfo.getUserCard().getPointAmt() - delngPayment.getAmt());
             break;
           case PG_PAY:
             // TODO PG 결제 처리
@@ -139,6 +157,28 @@ public class DelngService {
             PointRsrvRuleType.PAYMENT, delng.getPaymentAmt())) {
       // 적립 규칙 있으면 적립
       // kms: TODO 멤버십 포인트 관련 정책 확인 후 구조 정해지면 개발
+      int point = 0;
+      switch (pointRsrvRule.getPointCutType()) {
+        case F:
+          point = (int) Math.floor(pointRsrvRule.getRsrvRatio() * delng.getPaymentAmt());
+          break;
+        case C:
+          point = (int) Math.ceil(pointRsrvRule.getRsrvRatio() * delng.getPaymentAmt());
+          break;
+        default:
+          point = (int) Math.round(pointRsrvRule.getRsrvRatio() * delng.getPaymentAmt());
+          break;
+      }
+
+      if (point > 0) {
+        PointHist pointHist = new PointHist();
+        pointHist.setUserInfo(userInfo);
+        pointHist.setPointHistType(PointHistType.RSRV);
+        pointHist.setPointAmt(point);
+        pointHist.setDelng(newDelng);
+        pointHistService.create(pointHist);
+      }
+
     }
 
     // 결제 정보 처리
@@ -189,12 +229,13 @@ public class DelngService {
     // 결제 상품 정보를  Json 데이터에서 객체화
     if (delng.getDelngPaymentJson() != null) {
       List<DelngPaymentDto> delngPaymentDtos =
-          gson.fromJson(delng.getDelngPaymentJson(), new TypeToken<List<DelngPaymentDto>>(){}.getType());
+          gson.fromJson(delng.getDelngPaymentJson(), new TypeToken<List<DelngPaymentDto>>() {
+          }.getType());
 
       for (DelngPaymentDto delngPaymentDto : delngPaymentDtos) {
+        UserInfo userInfo = delng.getUserInfo();
         switch (delngPaymentDto.getDelngPaymentType()) {
           case PRPAY:
-            UserInfo userInfo = delng.getUserInfo();
             // 선불카드 상태 복원(환불)
             userInfo.getUserCard()
                 .setPrpayAmt(userInfo.getUserCard().getPrpayAmt() + delngPaymentDto.getAmt());
@@ -206,14 +247,16 @@ public class DelngService {
             // TODO PG 환불
             break;
           case POINT:
-            // TODO 포인트 차감
+            // 포인트 상태 복원(환불)
+            userInfo.getUserCard()
+                .setPointAmt(userInfo.getUserCard().getPointAmt() + delngPaymentDto.getAmt());
+            userInfoRepository.save(userInfo);
             break;
         }
       }
     }
 
     // TODO 상품권 상태 복원
-
 
     delngrRepository.save(delng);
   }

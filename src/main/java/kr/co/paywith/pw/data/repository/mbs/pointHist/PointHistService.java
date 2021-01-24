@@ -38,7 +38,11 @@ public class PointHistService {
     int point = pointHist.getPointAmt();
     UserCard userCard = pointHist.getUserInfo().getUserCard();
     userCard.setPointAmt(userCard.getPointAmt() + point);
-    userCard.setPointTotalAmt(userCard.getPointTotalAmt() + point);
+    switch (pointHist.getPointHistType()) {
+      case RSRV:
+        userCard.setPointTotalAmt(userCard.getPointTotalAmt() + point);
+        break;
+    }
 
     // 데이터베이스 값 갱신
     PointHist newPointHist = this.pointHistRepository.save(pointHist);
@@ -60,7 +64,12 @@ public class PointHistService {
     int point = pointHist.getPointAmt();
     UserCard userCard = pointHist.getUserInfo().getUserCard();
     userCard.setPointAmt(userCard.getPointAmt() - point);
-    userCard.setPointTotalAmt(userCard.getPointTotalAmt() - point);
+
+    switch (pointHist.getPointHistType()) {
+      case RSRV:
+        userCard.setPointTotalAmt(userCard.getPointTotalAmt() - point);
+        break;
+    }
 
     userInfoRepository.save(pointHist.getUserInfo());
   }
