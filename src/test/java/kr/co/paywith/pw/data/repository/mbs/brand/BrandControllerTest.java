@@ -170,7 +170,6 @@ public class BrandControllerTest extends BaseControllerTest {
 
         // Given
         BrandDto brand = new BrandDto();
-        brand.setId(2);
         brand.setBrandNm("테스트 브랜드 1");
         brand.setActiveFl(true);
         brand.setBrandCd("1234567890123456");
@@ -179,7 +178,7 @@ public class BrandControllerTest extends BaseControllerTest {
 
 
         // When & Then
-        this.mockMvc.perform(put("/api/brand/{id}", brand.getId())
+        this.mockMvc.perform(put("/api/brand/{id}", 2)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .header("Origin", "*")
 

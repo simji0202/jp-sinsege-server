@@ -40,43 +40,43 @@ public class NotifUserController extends CommonController {
 	 @Autowired
 	 NotifUserService notifUserService;
 
-	 /**
-	  * 정보 등록
-	  */
-	 @PostMapping
-	 public ResponseEntity createNotifUser(
-				@RequestBody @Valid NotifUserDto notifUserDto,
-				Errors errors,
-				@CurrentUser Account currentUser) {
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-
-		  // 입력값 체크
-		  notifUserValidator.validate(notifUserDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-
-		  // 입력값을 브랜드 객채에 대입
-		  NotifUser notifUser = modelMapper.map(notifUserDto, NotifUser.class);
-
-		  // 레코드 등록
-		  NotifUser newNotifUser = notifUserService.create(notifUser);
-
-		  ControllerLinkBuilder selfLinkBuilder = linkTo(NotifUserController.class).slash(newNotifUser.getId());
-
-		  URI createdUri = selfLinkBuilder.toUri();
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  NotifUserResource notifUserResource = new NotifUserResource(newNotifUser);
-		  notifUserResource.add(linkTo(NotifUserController.class).withRel("query-notifUser"));
-		  notifUserResource.add(selfLinkBuilder.withRel("update-notifUser"));
-		  notifUserResource.add(new Link("/docs/index.html#resources-notifUser-create").withRel("profile"));
-
-		  return ResponseEntity.created(createdUri).body(notifUserResource);
-	 }
+//	 /**
+//	  * 정보 등록
+//	  */
+//	 @PostMapping
+//	 public ResponseEntity createNotifUser(
+//				@RequestBody @Valid NotifUserDto notifUserDto,
+//				Errors errors,
+//				@CurrentUser Account currentUser) {
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//
+//		  // 입력값 체크
+//		  notifUserValidator.validate(notifUserDto, errors);
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//
+//		  // 입력값을 브랜드 객채에 대입
+//		  NotifUser notifUser = modelMapper.map(notifUserDto, NotifUser.class);
+//
+//		  // 레코드 등록
+//		  NotifUser newNotifUser = notifUserService.create(notifUser);
+//
+//		  ControllerLinkBuilder selfLinkBuilder = linkTo(NotifUserController.class).slash(newNotifUser.getId());
+//
+//		  URI createdUri = selfLinkBuilder.toUri();
+//		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//		  NotifUserResource notifUserResource = new NotifUserResource(newNotifUser);
+//		  notifUserResource.add(linkTo(NotifUserController.class).withRel("query-notifUser"));
+//		  notifUserResource.add(selfLinkBuilder.withRel("update-notifUser"));
+//		  notifUserResource.add(new Link("/docs/index.html#resources-notifUser-create").withRel("profile"));
+//
+//		  return ResponseEntity.created(createdUri).body(notifUserResource);
+//	 }
 
 
 	 /**
@@ -139,46 +139,46 @@ public class NotifUserController extends CommonController {
 	 }
 
 
-	 /**
-	  * 정보 변경
-	  */
-	 @PutMapping("/{id}")
-	 public ResponseEntity putNotifUser(@PathVariable Integer id,
-											  @RequestBody @Valid NotifUserUpdateDto notifUserUpdateDto,
-											  Errors errors,
-											  @CurrentUser Account currentUser) {
-		  // 입력체크
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-		  // 논리적 오류 (제약조건) 체크
-		  this.notifUserValidator.validate(notifUserUpdateDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-		  // 기존 테이블에서 관련 정보 취득
-		  Optional<NotifUser> notifUserOptional = this.notifUserRepository.findById(id);
-
-		  // 기존 정보 유무 체크
-		  if (notifUserOptional.isEmpty()) {
-				// 404 Error return
-				return ResponseEntity.notFound().build();
-		  }
-
-		  // 기존 정보 취득
-		  NotifUser existNotifUser = notifUserOptional.get();
-
-		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
-		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
-		  NotifUser saveNotifUser = this.notifUserService.update(notifUserUpdateDto, existNotifUser);
-
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  NotifUserResource notifUserResource = new NotifUserResource(saveNotifUser);
-		  notifUserResource.add(new Link("/docs/index.html#resources-notifUser-update").withRel("profile"));
-
-		  // 정상적 처리
-		  return ResponseEntity.ok(notifUserResource);
-	 }
+//	 /**
+//	  * 정보 변경
+//	  */
+//	 @PutMapping("/{id}")
+//	 public ResponseEntity putNotifUser(@PathVariable Integer id,
+//											  @RequestBody @Valid NotifUserUpdateDto notifUserUpdateDto,
+//											  Errors errors,
+//											  @CurrentUser Account currentUser) {
+//		  // 입력체크
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 논리적 오류 (제약조건) 체크
+//		  this.notifUserValidator.validate(notifUserUpdateDto, errors);
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 기존 테이블에서 관련 정보 취득
+//		  Optional<NotifUser> notifUserOptional = this.notifUserRepository.findById(id);
+//
+//		  // 기존 정보 유무 체크
+//		  if (notifUserOptional.isEmpty()) {
+//				// 404 Error return
+//				return ResponseEntity.notFound().build();
+//		  }
+//
+//		  // 기존 정보 취득
+//		  NotifUser existNotifUser = notifUserOptional.get();
+//
+//		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
+//		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
+//		  NotifUser saveNotifUser = this.notifUserService.update(notifUserUpdateDto, existNotifUser);
+//
+//		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//		  NotifUserResource notifUserResource = new NotifUserResource(saveNotifUser);
+//		  notifUserResource.add(new Link("/docs/index.html#resources-notifUser-update").withRel("profile"));
+//
+//		  // 정상적 처리
+//		  return ResponseEntity.ok(notifUserResource);
+//	 }
 }

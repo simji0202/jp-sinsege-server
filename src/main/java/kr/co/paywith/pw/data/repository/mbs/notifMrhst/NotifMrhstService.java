@@ -34,19 +34,19 @@ public class NotifMrhstService {
 	 }
 
 
-	 /**
-	  * 정보 갱신
-	  */
-	 @Transactional
-	 public NotifMrhst update(NotifMrhstUpdateDto notifMrhstUpdateDto, NotifMrhst existNotifMrhst) {
-
-		  // 입력값 대입
-		  this.modelMapper.map(notifMrhstUpdateDto, existNotifMrhst);
-
-		  // 데이터베이스 값 갱신
-		  this.notifMrhstRepository.save(existNotifMrhst);
-
-		  return existNotifMrhst;
-	 }
+//	 /**
+//	  * 정보 갱신
+//	  */
+//	 @Transactional
+//	 public NotifMrhst update(NotifMrhstUpdateDto notifMrhstUpdateDto, NotifMrhst existNotifMrhst) {
+//
+//		  // 입력값 대입
+//		  this.modelMapper.map(notifMrhstUpdateDto, existNotifMrhst);
+//
+//		  // 데이터베이스 값 갱신
+//		  this.notifMrhstRepository.save(existNotifMrhst);
+//
+//		  return existNotifMrhst;
+//	 }
 
 }

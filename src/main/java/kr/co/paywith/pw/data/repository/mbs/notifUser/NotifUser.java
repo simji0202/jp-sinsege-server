@@ -27,11 +27,16 @@ public class NotifUser {
   @NameDescription("식별번호")
   private Integer id;
 
+//  /**
+//   * 회원
+//   */
+//  @ManyToOne
+//  private UserInfo userInfo;
+
   /**
-   * 회원
+   * 회원 식별번호.
    */
-  @ManyToOne
-  private UserInfo userInfo;
+  private Integer userId;
 
   /**
    * 푸시 메시지
@@ -46,7 +51,7 @@ public class NotifUser {
   private int sendCnt = 0;
 
   /**
-   * 전송 일시
+   * 전송 일시. FCM 에 요청한 일시. null : 미전송 상태
    */
-  private ZonedDateTime sendDttm;
+  private ZonedDateTime sendDttm = null;
 }

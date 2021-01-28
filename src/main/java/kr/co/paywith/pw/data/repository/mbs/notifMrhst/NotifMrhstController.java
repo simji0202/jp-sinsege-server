@@ -40,44 +40,6 @@ public class NotifMrhstController extends CommonController {
 	 @Autowired
 	 NotifMrhstService notifMrhstService;
 
-	 /**
-	  * 정보 등록
-	  */
-	 @PostMapping
-	 public ResponseEntity createNotifMrhst(
-				@RequestBody @Valid NotifMrhstDto notifMrhstDto,
-				Errors errors,
-				@CurrentUser Account currentUser) {
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-
-		  // 입력값 체크
-		  notifMrhstValidator.validate(notifMrhstDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-
-		  // 입력값을 브랜드 객채에 대입
-		  NotifMrhst notifMrhst = modelMapper.map(notifMrhstDto, NotifMrhst.class);
-
-		  // 레코드 등록
-		  NotifMrhst newNotifMrhst = notifMrhstService.create(notifMrhst);
-
-		  ControllerLinkBuilder selfLinkBuilder = linkTo(NotifMrhstController.class).slash(newNotifMrhst.getId());
-
-		  URI createdUri = selfLinkBuilder.toUri();
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  NotifMrhstResource notifMrhstResource = new NotifMrhstResource(newNotifMrhst);
-		  notifMrhstResource.add(linkTo(NotifMrhstController.class).withRel("query-notifMrhst"));
-		  notifMrhstResource.add(selfLinkBuilder.withRel("update-notifMrhst"));
-		  notifMrhstResource.add(new Link("/docs/index.html#resources-notifMrhst-create").withRel("profile"));
-
-		  return ResponseEntity.created(createdUri).body(notifMrhstResource);
-	 }
-
 
 	 /**
 	  * 정보취득 (조건별 page )
@@ -139,46 +101,46 @@ public class NotifMrhstController extends CommonController {
 	 }
 
 
-	 /**
-	  * 정보 변경
-	  */
-	 @PutMapping("/{id}")
-	 public ResponseEntity putNotifMrhst(@PathVariable Integer id,
-											  @RequestBody @Valid NotifMrhstUpdateDto notifMrhstUpdateDto,
-											  Errors errors,
-											  @CurrentUser Account currentUser) {
-		  // 입력체크
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-		  // 논리적 오류 (제약조건) 체크
-		  this.notifMrhstValidator.validate(notifMrhstUpdateDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-		  // 기존 테이블에서 관련 정보 취득
-		  Optional<NotifMrhst> notifMrhstOptional = this.notifMrhstRepository.findById(id);
-
-		  // 기존 정보 유무 체크
-		  if (notifMrhstOptional.isEmpty()) {
-				// 404 Error return
-				return ResponseEntity.notFound().build();
-		  }
-
-		  // 기존 정보 취득
-		  NotifMrhst existNotifMrhst = notifMrhstOptional.get();
-
-		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
-		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
-		  NotifMrhst saveNotifMrhst = this.notifMrhstService.update(notifMrhstUpdateDto, existNotifMrhst);
-
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  NotifMrhstResource notifMrhstResource = new NotifMrhstResource(saveNotifMrhst);
-		  notifMrhstResource.add(new Link("/docs/index.html#resources-notifMrhst-update").withRel("profile"));
-
-		  // 정상적 처리
-		  return ResponseEntity.ok(notifMrhstResource);
-	 }
+//	 /**
+//	  * 정보 변경
+//	  */
+//	 @PutMapping("/{id}")
+//	 public ResponseEntity putNotifMrhst(@PathVariable Integer id,
+//											  @RequestBody @Valid NotifMrhstUpdateDto notifMrhstUpdateDto,
+//											  Errors errors,
+//											  @CurrentUser Account currentUser) {
+//		  // 입력체크
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 논리적 오류 (제약조건) 체크
+//		  this.notifMrhstValidator.validate(notifMrhstUpdateDto, errors);
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//		  // 기존 테이블에서 관련 정보 취득
+//		  Optional<NotifMrhst> notifMrhstOptional = this.notifMrhstRepository.findById(id);
+//
+//		  // 기존 정보 유무 체크
+//		  if (notifMrhstOptional.isEmpty()) {
+//				// 404 Error return
+//				return ResponseEntity.notFound().build();
+//		  }
+//
+//		  // 기존 정보 취득
+//		  NotifMrhst existNotifMrhst = notifMrhstOptional.get();
+//
+//		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
+//		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
+//		  NotifMrhst saveNotifMrhst = this.notifMrhstService.update(notifMrhstUpdateDto, existNotifMrhst);
+//
+//		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//		  NotifMrhstResource notifMrhstResource = new NotifMrhstResource(saveNotifMrhst);
+//		  notifMrhstResource.add(new Link("/docs/index.html#resources-notifMrhst-update").withRel("profile"));
+//
+//		  // 정상적 처리
+//		  return ResponseEntity.ok(notifMrhstResource);
+//	 }
 }

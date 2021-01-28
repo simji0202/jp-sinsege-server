@@ -32,11 +32,16 @@ public class NotifMrhst {
   @NameDescription("식별번호")
   private Integer id;
 
+//  /**
+//   * 매장
+//   */
+//  @ManyToOne
+//  private Mrhst mrhst;
+
   /**
-   * 매장
+   * 매장 식별번호.
    */
-  @ManyToOne
-  private Mrhst mrhst;
+  private Integer mrhstId;
 
   /**
    * 푸시 메시지

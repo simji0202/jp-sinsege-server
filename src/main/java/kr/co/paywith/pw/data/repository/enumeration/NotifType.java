@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum NotifType implements EnumMapperType {
   USER("회원 대상"),
-  POS("매장 대상");
+  MRHST_TRMNL("매장 대상");
 
   private String title;
 

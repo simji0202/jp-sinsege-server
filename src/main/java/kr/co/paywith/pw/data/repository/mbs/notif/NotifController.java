@@ -204,7 +204,7 @@ public class NotifController extends CommonController {
       return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
-    if (notif.getSendDttm().isBefore(ZonedDateTime.now())) {
+    if (notif.getSendReqDttm().isBefore(ZonedDateTime.now())) {
       // 이미 발송한 메시지는 취소 불가
       return ResponseEntity.badRequest().body(null);
     }

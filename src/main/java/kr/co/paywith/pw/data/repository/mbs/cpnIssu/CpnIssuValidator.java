@@ -3,7 +3,6 @@ package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 import java.time.ZonedDateTime;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
-import kr.co.paywith.pw.data.repository.mbs.cpn.CpnDto;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 

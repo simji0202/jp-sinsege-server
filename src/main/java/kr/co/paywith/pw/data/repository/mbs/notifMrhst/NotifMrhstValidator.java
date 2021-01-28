@@ -7,18 +7,18 @@ import org.springframework.validation.Errors;
 public class NotifMrhstValidator {
 
 
-    public void validate(NotifMrhstDto notifMrhstDto, Errors errors) {
-
-
-        // TODO BeginEventDateTime
-        // TODO CloseEnrollmentDateTime
-    }
-
-    public void validate(NotifMrhstUpdateDto notifMrhstUpdateDto, Errors errors) {
-
-
-        // TODO BeginEventDateTime
-        // TODO CloseEnrollmentDateTime
-    }
+//    public void validate(NotifMrhstDto notifMrhstDto, Errors errors) {
+//
+//
+//        // TODO BeginEventDateTime
+//        // TODO CloseEnrollmentDateTime
+//    }
+//
+//    public void validate(NotifMrhstUpdateDto notifMrhstUpdateDto, Errors errors) {
+//
+//
+//        // TODO BeginEventDateTime
+//        // TODO CloseEnrollmentDateTime
+//    }
 
 }

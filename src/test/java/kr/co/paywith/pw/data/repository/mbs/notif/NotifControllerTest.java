@@ -110,10 +110,10 @@ public class NotifControllerTest extends BaseControllerTest {
 
 		  // Given
 		  NotifDto notif = new NotifDto();
-		  notif.setId(1);
+//		  notif.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/notif/{id}", notif.getId())
+		  this.mockMvc.perform(put("/api/notif/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 

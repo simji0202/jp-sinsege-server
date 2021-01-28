@@ -41,7 +41,7 @@ public class Notif {
   /**
    * 발송 일시. 예약 발송에 사용
    */
-  private ZonedDateTime sendDttm;
+  private ZonedDateTime sendReqDttm;
 
   /**
    * 푸시 메시지 제목
@@ -62,7 +62,7 @@ public class Notif {
   /**
    * 전송 수량
    */
-  private Integer sendCnt = 0;
+  private int sendCnt = 0;
 
   /**
    * 표시할 이미지 웹 경로
@@ -78,15 +78,13 @@ public class Notif {
 
   /**
    * 내부자(테스터) 타겟팅 전송 여부
-   *
-   * 내부자(테스터) 관련 설정이 없어 미사용
    */
-  private Boolean sandboxFl = false;
+  private Boolean toTesterFl = false;
 
   /**
    * 테스트 전송 여부(FCM에서 정상 응답 받는지 확인)
    */
-  private Boolean testFl = false;
+  private Boolean fcmTestFl = false;
 
   @OneToMany(mappedBy = "notif", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<NotifUser> notifUserList = new ArrayList<NotifUser>();

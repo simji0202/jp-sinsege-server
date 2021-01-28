@@ -102,27 +102,27 @@ public class NotifMrhstControllerTest extends BaseControllerTest {
 	 }
 
 
-	 @Test
-	 @TestDescription("고객정보를 정상적으로 수정하기")
-	 public void updateNotifMrhst() throws Exception {
-
-		  // Given
-		  NotifMrhstDto notifMrhst = new NotifMrhstDto();
-		  notifMrhst.setId(1);
-
-		  // When & Then
-		  this.mockMvc.perform(put("/api/notifMrhst/{id}", notifMrhst.getId())
-					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-					 .header("Origin", "*")
-
-					 .contentType(MediaType.APPLICATION_JSON_UTF8)
-					 .content(this.objectMapper.writeValueAsString(notifMrhst)))
-					 .andDo(print())
-					 .andExpect(status().isOk())
-					 .andExpect(jsonPath("_links.self").exists())
-					 .andDo(document("update-notifMrhst"))
-		  ;
-	 }
+//	 @Test
+//	 @TestDescription("고객정보를 정상적으로 수정하기")
+//	 public void updateNotifMrhst() throws Exception {
+//
+//		  // Given
+//		  NotifMrhstDto notifMrhst = new NotifMrhstDto();
+//		  notifMrhst.setId(1);
+//
+//		  // When & Then
+//		  this.mockMvc.perform(put("/api/notifMrhst/{id}", notifMrhst.getId())
+//					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+//					 .header("Origin", "*")
+//
+//					 .contentType(MediaType.APPLICATION_JSON_UTF8)
+//					 .content(this.objectMapper.writeValueAsString(notifMrhst)))
+//					 .andDo(print())
+//					 .andExpect(status().isOk())
+//					 .andExpect(jsonPath("_links.self").exists())
+//					 .andDo(document("update-notifMrhst"))
+//		  ;
+//	 }
 
 
 }

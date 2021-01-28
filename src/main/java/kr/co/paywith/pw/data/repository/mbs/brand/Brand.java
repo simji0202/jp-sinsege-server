@@ -37,6 +37,7 @@ public class Brand implements Serializable {
   /**
    * 브랜드 코드
    * 고정 16개 자리를 이용하여 부모 및 자식 브랜드 정의
+   * 최상위는 현재 "" 으로 설정. 다른 모든 브랜드의 코드에서 indexOf를 하면 0 = 권한 있음)
    *
    */
   private String brandCd;

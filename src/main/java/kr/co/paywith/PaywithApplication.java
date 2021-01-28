@@ -11,6 +11,7 @@ import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandRepository;
 import kr.co.paywith.pw.data.repository.mbs.brand.BrandSetting;
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableScheduling
+@EnableSchedulerLock(defaultLockAtMostFor = "10m")
 @MapperScan("kr.co.paywith.pw.mapper")
 @Slf4j
 public class PaywithApplication implements ApplicationRunner {

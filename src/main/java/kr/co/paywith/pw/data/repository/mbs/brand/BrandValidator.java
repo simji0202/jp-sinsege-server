@@ -1,6 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.brand;
 
 
+import kr.co.paywith.pw.component.ValidatorUtils;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -19,6 +20,8 @@ public class BrandValidator {
       errors.reject("형식 오류", "환경변수 값이 JSON 형식이 아닙니다");
     }
 
+    ValidatorUtils.checkObjectNull(brandDto.getBrandCd(), "브랜드 코드", errors);
+
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
@@ -30,6 +33,7 @@ public class BrandValidator {
     if (envValueMapStr != null && !isValidJson(envValueMapStr)) {
       errors.reject("형식 오류", "환경변수 값이 JSON 형식이 아닙니다");
     }
+    ValidatorUtils.checkObjectNull(brandDto.getBrandCd(), "브랜드 코드", errors);
 
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime

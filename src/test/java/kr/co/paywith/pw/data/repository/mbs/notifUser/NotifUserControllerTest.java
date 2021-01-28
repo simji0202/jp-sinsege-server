@@ -102,27 +102,27 @@ public class NotifUserControllerTest extends BaseControllerTest {
 	 }
 
 
-	 @Test
-	 @TestDescription("고객정보를 정상적으로 수정하기")
-	 public void updateNotifUser() throws Exception {
-
-		  // Given
-		  NotifUserDto notifUser = new NotifUserDto();
-		  notifUser.setId(1);
-
-		  // When & Then
-		  this.mockMvc.perform(put("/api/notifUser/{id}", notifUser.getId())
-					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-					 .header("Origin", "*")
-
-					 .contentType(MediaType.APPLICATION_JSON_UTF8)
-					 .content(this.objectMapper.writeValueAsString(notifUser)))
-					 .andDo(print())
-					 .andExpect(status().isOk())
-					 .andExpect(jsonPath("_links.self").exists())
-					 .andDo(document("update-notifUser"))
-		  ;
-	 }
+//	 @Test
+//	 @TestDescription("고객정보를 정상적으로 수정하기")
+//	 public void updateNotifUser() throws Exception {
+//
+//		  // Given
+//		  NotifUserDto notifUser = new NotifUserDto();
+//		  notifUser.setId(1);
+//
+//		  // When & Then
+//		  this.mockMvc.perform(put("/api/notifUser/{id}", notifUser.getId())
+//					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+//					 .header("Origin", "*")
+//
+//					 .contentType(MediaType.APPLICATION_JSON_UTF8)
+//					 .content(this.objectMapper.writeValueAsString(notifUser)))
+//					 .andDo(print())
+//					 .andExpect(status().isOk())
+//					 .andExpect(jsonPath("_links.self").exists())
+//					 .andDo(document("update-notifUser"))
+//		  ;
+//	 }
 
 
 }

@@ -1,6 +1,8 @@
 package kr.co.paywith.pw.data.repository.mbs.notif;
 
 import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import kr.co.paywith.pw.common.NameDescription;
 import kr.co.paywith.pw.data.repository.enumeration.NotifType;
 import kr.co.paywith.pw.data.repository.mbs.notifMrhst.NotifMrhst;
@@ -18,9 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotifDto {
-
-  @NameDescription("식별번호")
-  private Integer id;
 
   /**
    * 푸시 메시지 구분
@@ -54,22 +53,20 @@ public class NotifDto {
 
   /**
    * 광고 푸시 여부
-   * <p>
+   *
    * 광고 수신 허용한 사람에게 (광고) 문구 붙여 전송
    */
   private Boolean adsFl = false;
 
   /**
    * 내부자(테스터) 타겟팅 전송 여부
-   * <p>
-   * 내부자(테스터) 관련 설정이 없어 미사용
    */
-  private Boolean sandboxFl = false;
+  private Boolean toTesterFl = false;
 
   /**
    * 테스트 전송 여부(FCM에서 정상 응답 받는지 확인)
    */
-  private Boolean testFl = false;
+  private Boolean fcmTestFl = false;
 
   private List<NotifUser> notifUserList = new ArrayList<NotifUser>();
 
