@@ -34,6 +34,7 @@ public class Brand implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+
   /**
    * 브랜드 코드
    * 고정 16개 자리를 이용하여 부모 및 자식 브랜드 정의

@@ -2,6 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.brand;
 
 
 import kr.co.paywith.pw.component.ValidatorUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -11,6 +12,8 @@ import org.springframework.validation.Errors;
 @Component
 public class BrandValidator {
 
+  @Autowired
+  private BrandRepository brandRepository;
 
   public void validate(BrandDto brandDto, Errors errors) {
 
@@ -22,11 +25,14 @@ public class BrandValidator {
 
     ValidatorUtils.checkObjectNull(brandDto.getBrandCd(), "브랜드 코드", errors);
 
+    if (brandRepository.findByBrandCd(brandDto.getBrandCd()).isPresent()) {
+      errors.reject("중복 데이터", "브랜드코드가 중복되었습니다");
+    }
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
 
-  public void validate(BrandUpdateDto brandDto, Errors errors) {
+  public void validate(BrandUpdateDto brandDto, Brand existBrand, Errors errors) {
 
     // 환경 변수 값이 유효한 json 문자열인지 확인
     String envValueMapStr = brandDto.getEnvValueMap();
@@ -35,6 +41,9 @@ public class BrandValidator {
     }
     ValidatorUtils.checkObjectNull(brandDto.getBrandCd(), "브랜드 코드", errors);
 
+    if (brandRepository.findByBrandCdAndIdNot(brandDto.getBrandCd(), existBrand.getId()).isPresent()) {
+      errors.reject("중복 데이터", "브랜드코드가 중복되었습니다");
+    }
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }

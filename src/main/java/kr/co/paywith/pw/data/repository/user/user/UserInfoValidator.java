@@ -75,6 +75,12 @@ public class UserInfoValidator {
     // 인증 구분 오류 검증
     if (isCertTypeCdInvalid(userInfoDto.getCertType())) {
       errors.reject("인증 구분 오류", "인증 구분 값이 없습니다");
+    } else {
+      switch (userInfoDto.getCertType()) {
+        case PHONE:
+          // TODO CertPhone 인증 확인
+          break;
+      }
     }
 
     // TODO BeginEventDateTime

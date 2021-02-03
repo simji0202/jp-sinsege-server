@@ -126,6 +126,12 @@ public class BrandSetting {
    */
   private String danalCppwd;
 
+  /**
+   * 팝빌 발신에 사용하는 발신자 번호. 수신자에게 표시되며, 팝빌에 미리 등록되어있어야 한다.
+   */
+  @Column
+  private String senderNumber;
+
 
 //  /**
 //   * 남은 선불카드가 없을 때 자동으로 발급할 번호 규칙.

@@ -157,23 +157,23 @@ public class  BrandController extends  CommonController {
             return badRequest(errors);
         }
 
-        // 논리적 오류 (제약조건) 체크
-        this.brandValidator.validate(brandUpdateDto, errors);
+      // 기존 테이블에서 관련 정보 취득
+      Optional<Brand> brandOptional = this.brandRepository.findById(id);
+
+      // 기존 정보 유무 체크
+      if (brandOptional.isEmpty()) {
+        // 404 Error return
+        return ResponseEntity.notFound().build();
+      }
+
+      // 기존 정보 취득
+      Brand existBrand = brandOptional.get();
+
+      // 논리적 오류 (제약조건) 체크
+        this.brandValidator.validate(brandUpdateDto, existBrand, errors);
         if (errors.hasErrors()) {
             return badRequest(errors);
         }
-
-        // 기존 테이블에서 관련 정보 취득
-        Optional<Brand> brandOptional = this.brandRepository.findById(id);
-
-        // 기존 정보 유무 체크
-        if (brandOptional.isEmpty()) {
-            // 404 Error return
-            return ResponseEntity.notFound().build();
-        }
-
-        // 기존 정보 취득
-        Brand existBrand = brandOptional.get();
 
         if (currentUser != null) {
             // 변경자 정보 저장
