@@ -38,5 +38,9 @@ public class SearchForm {
    */
   private CpnSttsType cpnSttsType;
 
-
+  // 매장 좌석, 직원
+  /**
+   * 소속 매장
+   */
+  private Integer mrhstId;
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import kr.co.paywith.pw.data.repository.enumeration.DelngType;
+import kr.co.paywith.pw.data.repository.mbs.delngDeliv.DelngDeliv;
+import kr.co.paywith.pw.data.repository.mbs.delngOrdr.DelngOrdr;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
@@ -79,6 +81,10 @@ public class DelngDto {
    */
   private int cpnAmt;
   /////// 쿠폰 사용에 대한 관련 항목 end /////
+
+  private DelngOrdr delngOrdr;
+
+  private DelngDeliv delngDeliv;
 
   /////////////////// 거래 검증 및 리스트 표시를  위한 정보  start //////////////////////
   /**

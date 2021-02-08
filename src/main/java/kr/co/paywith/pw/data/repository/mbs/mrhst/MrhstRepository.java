@@ -7,4 +7,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.Optional;
 
 public interface MrhstRepository extends JpaRepository<Mrhst, Integer>, QuerydslPredicateExecutor<Mrhst> {
+
+  Iterable<Mrhst> findByMrhstOrdr_UseTimetableFlIsTrue();
 }

@@ -9,6 +9,8 @@ import kr.co.paywith.pw.data.repository.mbs.cd.addr.CdAddr1;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr2.CdAddr2;
 import kr.co.paywith.pw.data.repository.enumeration.AvailServiceType;
 import kr.co.paywith.pw.data.repository.mbs.cd.addr3.CdAddr3;
+import kr.co.paywith.pw.data.repository.mbs.delngOrdr.DelngOrdr;
+import kr.co.paywith.pw.data.repository.mbs.mrhstOrdr.MrhstOrdr;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -144,16 +146,10 @@ public class Mrhst {
   private CdAddr1 cdAddr1;
 
   /**
-   * 주소코드2
+   * 매장 주문 설정 정보
    */
-  @ManyToOne
-  private CdAddr2 cdAddr2;
-
-  /**
-   * 주소코드3
-   */
-  @ManyToOne
-  private CdAddr3 cdAddr3;
+  @OneToOne(cascade = CascadeType.ALL)
+  private MrhstOrdr mrhstOrdr;
 
   @ManyToOne
   private Brand brand;

@@ -216,6 +216,16 @@ public class DelngValidator {
         }
       }
     }
+
+    if (delngDto.getDelngOrdr() != null) {
+      // 모바일 주문일 때
+
+    }
+
+    if (delngDto.getDelngDeliv() != null) {
+      // 모바일 주문일 때
+
+    }
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
