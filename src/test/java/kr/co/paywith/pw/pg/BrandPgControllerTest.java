@@ -1,7 +1,9 @@
-package kr.co.paywith.pw.data.repository.mbs.brandPg;
+package kr.co.paywith.pw.pg;
 
 import kr.co.paywith.pw.common.BaseControllerTest;
 import kr.co.paywith.pw.common.TestDescription;
+import kr.co.paywith.pw.data.repository.prx.brandPg.BrandPg;
+import kr.co.paywith.pw.data.repository.prx.brandPg.BrandPgDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class BrandPgControllerTest extends BaseControllerTest {
 //					 .webAppContextSetup(webApplicationContext)
 //					 .build();
 
-		  //		 this.brandPgRepository.deleteAll();
+		  //		 this.pgRepository.deleteAll();
 		  //		 this.adminRepository.deleteAll();
 
 	 }
@@ -35,17 +37,17 @@ public class BrandPgControllerTest extends BaseControllerTest {
 
 	 @Test
 	 @TestDescription("고객을 등록하는 테스트")
-	 public void createBrandPg() throws Exception {
+	 public void createPg() throws Exception {
 
-		  BrandPg brandPg = new BrandPg();
+		  BrandPg pg = new BrandPg();
 
 
-		  mockMvc.perform(post("/api/brandPg/")
+		  mockMvc.perform(post("/api/pg/")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 					 .contentType(MediaType.APPLICATION_JSON_UTF8)
 					 .accept(MediaTypes.HAL_JSON)
-					 .content(objectMapper.writeValueAsString(brandPg)))
+					 .content(objectMapper.writeValueAsString(pg)))
 					 .andDo(print())
 					 .andExpect(status().isCreated())
 					 .andExpect(jsonPath("id").exists())
@@ -58,12 +60,12 @@ public class BrandPgControllerTest extends BaseControllerTest {
 
 	 @Test
 	 @TestDescription("30개의 고객정보를 10개씩 두번째 페이지 조회하기")
-	 public void getBrandPgs() throws Exception {
+	 public void getPgs() throws Exception {
 		  // Given
-		  //  IntStream.range(0, 30).forEach(this::generateBrandPg);
+		  //  IntStream.range(0, 30).forEach(this::generatePg);
 
 		  // When & Then
-		  this.mockMvc.perform(get("/api/brandPg")
+		  this.mockMvc.perform(get("/api/pg")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 					 .param("page", "0")
@@ -73,22 +75,22 @@ public class BrandPgControllerTest extends BaseControllerTest {
 					 .andDo(print())
 					 .andExpect(status().isOk())
 					 .andExpect(jsonPath("page").exists())
-					 .andExpect(jsonPath("_embedded.brandPgList[0]._links.self").exists())
+					 .andExpect(jsonPath("_embedded.pgList[0]._links.self").exists())
 					 .andExpect(jsonPath("_links.self").exists())
 					 .andExpect(jsonPath("_links.profile").exists())
-					 .andDo(document("query-brandPgs"))
+					 .andDo(document("query-pgs"))
 		  ;
 	 }
 
 
 	 @Test
 	 @TestDescription("기존의 고객를 하나 조죄하기")
-	 public void getBrandPg() throws Exception {
+	 public void getPg() throws Exception {
 		  // Given
-		  //  BrandPg brandPg = this.generateBrandPg(100);
+		  //  Pg pg = this.generatePg(100);
 
 		  // When & Then
-		  this.mockMvc.perform(get("/api/brandPg/{id}", 1)
+		  this.mockMvc.perform(get("/api/pg/{id}", 1)
 					 .header("Origin", "*")
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 		  )
@@ -97,30 +99,29 @@ public class BrandPgControllerTest extends BaseControllerTest {
 					 .andExpect(jsonPath("id").exists())
 					 .andExpect(jsonPath("_links.self").exists())
 					 .andExpect(jsonPath("_links.profile").exists())
-					 .andDo(document("get-an-brandPg"))
+					 .andDo(document("get-an-pg"))
 		  ;
 	 }
 
 
 	 @Test
 	 @TestDescription("고객정보를 정상적으로 수정하기")
-	 public void updateBrandPg() throws Exception {
+	 public void updatePg() throws Exception {
 
 		  // Given
-		  BrandPgDto brandPg = new BrandPgDto();
-		  brandPg.setId(1);
+		  BrandPgDto pg = new BrandPgDto();
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/brandPg/{id}", brandPg.getId())
+		  this.mockMvc.perform(put("/api/pg/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 
 					 .contentType(MediaType.APPLICATION_JSON_UTF8)
-					 .content(this.objectMapper.writeValueAsString(brandPg)))
+					 .content(this.objectMapper.writeValueAsString(pg)))
 					 .andDo(print())
 					 .andExpect(status().isOk())
 					 .andExpect(jsonPath("_links.self").exists())
-					 .andDo(document("update-brandPg"))
+					 .andDo(document("update-pg"))
 		  ;
 	 }
 

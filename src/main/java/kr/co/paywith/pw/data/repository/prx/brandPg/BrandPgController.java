@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.brandPg;
+package kr.co.paywith.pw.data.repository.prx.brandPg;
 
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
@@ -101,6 +101,8 @@ public class BrandPgController extends CommonController {
 		  if (searchForm.getId() != null) {
 				booleanBuilder.and(qBrandPg.id.eq(searchForm.getId()));
 		  }
+
+		  booleanBuilder.and(qBrandPg.brand.id.eq(searchForm.getBrandId()));
 
 
 		  Page<BrandPg> page = this.brandPgRepository.findAll(booleanBuilder, pageable);

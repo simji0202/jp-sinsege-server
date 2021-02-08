@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.brandPg;
+package kr.co.paywith.pw.data.repository.prx.brandPg;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class BrandPgService {

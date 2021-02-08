@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.mbs.brandPg;
+package kr.co.paywith.pw.data.repository.prx.brandPg;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;

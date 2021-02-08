@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.billing;
 
 import kr.co.paywith.pw.data.repository.enumeration.PwCorpType;
-import kr.co.paywith.pw.data.repository.mbs.brandPg.BrandPg;
+import kr.co.paywith.pw.data.repository.prx.brandPg.BrandPg;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.*;
 import org.codehaus.jackson.annotate.JsonIgnore;

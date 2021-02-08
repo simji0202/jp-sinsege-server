@@ -43,4 +43,10 @@ public class SearchForm {
    * 소속 매장
    */
   private Integer mrhstId;
+
+  // BrandPg 등
+  /**
+   * 브랜드
+   */
+  private Integer brandId;
 }
