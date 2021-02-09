@@ -102,7 +102,8 @@ public class MrhstSeatController extends CommonController {
 				booleanBuilder.and(qMrhstSeat.id.eq(searchForm.getId()));
 		  }
 
-		  booleanBuilder.and(qMrhstSeat.mrhstId.eq(searchForm.getMrhstId()));
+		  booleanBuilder.and(
+		  		searchForm.getMrhstId() != null ? qMrhstSeat.mrhstId.eq(searchForm.getMrhstId()) : null);
 
 		  Page<MrhstSeat> page = this.mrhstSeatRepository.findAll(booleanBuilder, pageable);
 		  var pagedResources = assembler.toResource(page, e -> new MrhstSeatResource(e));

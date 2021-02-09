@@ -207,6 +207,68 @@ public class DelngController extends CommonController {
 //        return ResponseEntity.ok(delngResource);
 //    }
     
+    @PostMapping("/{id}/accept")
+    public ResponseEntity delngAccept(@PathVariable Integer id,
+        @RequestBody(required = false) AcceptDelngDto acceptDelngDto,
+        Errors errors,
+        @CurrentUser Account currentUser) {
+        // 입력체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        Optional<Delng> delngOptional = this.delngRepository.findById(id);
+
+        if (delngOptional.isEmpty()) {
+            // 404 Error return
+            return ResponseEntity.notFound().build();
+        }
+
+        Delng delng = delngOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.delngValidator.validateAccept(currentUser, delng, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        delngService.accept(acceptDelngDto, delng);
+
+        // 정상적 처리
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/comp")
+    public ResponseEntity delngComp(@PathVariable Integer id,
+        @RequestBody(required = false) CompDelngDto compDelngDto,
+        Errors errors,
+        @CurrentUser Account currentUser) {
+        // 입력체크
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        Optional<Delng> delngOptional = this.delngRepository.findById(id);
+
+        if (delngOptional.isEmpty()) {
+            // 404 Error return
+            return ResponseEntity.notFound().build();
+        }
+
+        Delng delng = delngOptional.get();
+
+        // 논리적 오류 (제약조건) 체크
+        this.delngValidator.validateComp(currentUser, delng, errors);
+        if (errors.hasErrors()) {
+            return badRequest(errors);
+        }
+
+        delngService.comp(delng);
+
+        // 정상적 처리
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity removeDelng(@PathVariable Integer id,
         @RequestBody(required = false) DelngDeleteDto delngDeleteDto,
@@ -238,9 +300,6 @@ public class DelngController extends CommonController {
         // 정상적 처리
         return ResponseEntity.ok().build();
     }
-
-
-
 }
 
 

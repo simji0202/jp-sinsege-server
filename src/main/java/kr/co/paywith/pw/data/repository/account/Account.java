@@ -16,8 +16,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-
-public  class Account {
+public class Account {
 
   private Integer id;
 

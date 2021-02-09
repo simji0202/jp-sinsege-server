@@ -1,17 +1,24 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
 
+import java.time.LocalDateTime;
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
+import kr.co.paywith.pw.data.repository.enumeration.SeatSttsType;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
+import kr.co.paywith.pw.data.repository.mbs.delngOrdrSeatTimetable.DelngOrdrSeatTimetable;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMasterRepository;
+import kr.co.paywith.pw.data.repository.mbs.goodsStock.GoodsStock;
+import kr.co.paywith.pw.data.repository.mbs.goodsStock.GoodsStockRepository;
+import kr.co.paywith.pw.data.repository.mbs.seatTimetable.SeatTimetable;
+import kr.co.paywith.pw.data.repository.mbs.seatTimetable.SeatTimetableRepository;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
 import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
@@ -32,7 +39,13 @@ public class DelngValidator {
   private GoodsOptMasterRepository goodsOptMasterRepository;
 
   @Autowired
+  private SeatTimetableRepository seatTimetableRepository;
+
+  @Autowired
   private UserInfoRepository userInfoRepository;
+
+  @Autowired
+  private GoodsStockRepository goodsStockRepository;
 
   @Autowired
   private GcctRepository gcctRepository;
@@ -102,6 +115,22 @@ public class DelngValidator {
             } else {
               goodsAmt += goods.getGoodsAmt() * delngGoods.getGoodsCnt();
             }
+
+
+            if (delngDto.getDelngDeliv() != null) {
+              // 모바일 주문 배송일 때
+              if (goods.getMngrStockFl()) { // 재고 관리하는 상품이면
+                // 재고 확인
+                GoodsStock goodsStock = goodsStockRepository.findByGoods_IdAndMrhst_Id(
+                    goods.getId(), delngDto.getMrhstId()
+                ).orElse(null);
+                if (goodsStock == null || goodsStock.getCnt() < delngGoods.getGoodsCnt()) {
+                  // 재고 수 보다 주문 수가 많으면 오류
+                  errors.reject("상품 개수 오류", "재고수가 부족합니다");
+                }
+              }
+            }
+
 
             // 상품 쿠폰 유효성 검증
             if (cpn != null &&
@@ -190,7 +219,8 @@ public class DelngValidator {
                 case PRPAY: // 선불카드
                   userInfo = userInfoRepository.findById(delngPaymentDto.getUserInfoId()).get();
                   // 선불카드 유효기간과 잔액 확인
-                  if (userInfo.getUserCard().getPrpayAmt() < delngDto.getTotalAmt() - delngDto.getCpnAmt()) {
+                  if (userInfo.getUserCard().getPrpayAmt() < delngDto.getTotalAmt() - delngDto
+                      .getCpnAmt()) {
                     // 잔액이 부족하면
                     errors.reject("선불카드 검증 오류", "선불카드 잔액이 부족합니다");
                   }
@@ -220,12 +250,32 @@ public class DelngValidator {
     if (delngDto.getDelngOrdr() != null) {
       // 모바일 주문일 때
 
+      if (delngDto.getDelngOrdr().getDelngOrdrSeatTimetable() != null) {
+        // 시트 예약인 경우
+        DelngOrdrSeatTimetable delngOrdrSeatTimetable = delngDto.getDelngOrdr()
+            .getDelngOrdrSeatTimetable();
+
+        for (SeatTimetable seatTimetable : delngOrdrSeatTimetable.getSeatTimetableList()) {
+          SeatTimetable seatTimetable1 = seatTimetableRepository.findById(seatTimetable.getId())
+              .get();
+          if (!seatTimetable1.getSeatSttsType().equals(SeatSttsType.AVAIL)) {
+            errors.reject("기예약 오류", "이미 예약되어 주문할 수 없습니다");
+          }
+
+          if (delngOrdrSeatTimetable.getStaffId() != null) {
+            // TODO 해당 시간 스태프 상태 확인
+          }
+        }
+
+
+      }
     }
 
     if (delngDto.getDelngDeliv() != null) {
-      // 모바일 주문일 때
+      // 모바일 주문 배송일 때
 
     }
+
     // TODO BeginEventDateTime
     // TODO CloseEnrollmentDateTime
   }
@@ -237,19 +287,64 @@ public class DelngValidator {
 //  }
 //  }
 
-  public void validate(Account currentUser, Delng delng, Errors errors) {
+  public void validateAccept(Account currentUser, Delng delng, Errors errors) {
     ValidatorUtils.checkObjectNull(currentUser, "인증", errors);
-    if (currentUser.getAdmin() != null && currentUser.getAdmin().getRoles()
-        .contains(AdminRole.ADMIN_MASTER) // 전체 관리자
+    if ((currentUser.getMrhstTrmnl() != null && currentUser.getMrhstTrmnl().getMrhst().getId()
+        .equals(delng.getMrhstId())) // 주문한 매장
     ) {
 
     } else {
-      // TODO 적절한 권한이 없으면 오류
+      // 적절한 권한이 없으면 오류
       errors.reject("권한 없음", "삭제 권한이 없습니다");
+    }
 
-      // TODO 회원은 자기 거래만 취소 가능
-      // TODO 이미 접수한 거래면 회원이 취소 불가
-      // TODO 매장은 자기 매장 거래만 취소 가능
+    if (delng.getDelngOrdr() == null) { // 모바일 주문만 접수 -> 완료 가능
+      errors.reject("설정 오류", "접수가 불가능한 주문 형태입니다");
+    } else if (delng.getDelngOrdr().getCancelDttm() != null) {
+      errors.reject("접수 오류", "이미 취소한 주문입니다");
+    } else if (delng.getDelngOrdr().getAcceptDttm() != null) {
+      errors.reject("접수 오류", "이미 접수한 주문입니다");
+    }
+  }
+
+  public void validateComp(Account currentUser, Delng delng, Errors errors) {
+    ValidatorUtils.checkObjectNull(currentUser, "인증", errors);
+    if ((currentUser.getMrhstTrmnl() != null && currentUser.getMrhstTrmnl().getMrhst().getId()
+        .equals(delng.getMrhstId())) // 주문한 매장
+    ) {
+
+    } else {
+      // 적절한 권한이 없으면 오류
+      errors.reject("권한 없음", "취소 권한이 없습니다");
+    }
+
+    // TODO 후불결제 있는 거래면 후불 결제 완료 여부 확인
+
+    if (delng.getDelngOrdr() == null) { // 모바일 주문만 접수 -> 완료 가능
+      errors.reject("설정 오류", "완료가 불가능한 주문 형태입니다");
+    } else if (delng.getDelngOrdr().getCancelDttm() != null) {
+      errors.reject("완료 오류", "이미 취소한 주문입니다");
+    } else if (delng.getDelngOrdr().getCompDttm() != null) {
+      errors.reject("완료 오류", "이미 완료한 주문입니다");
+    }
+  }
+
+  public void validate(Account currentUser, Delng delng, Errors errors) {
+    ValidatorUtils.checkObjectNull(currentUser, "인증", errors);
+    if (currentUser.getAdmin() != null && currentUser.getAdmin().getRoles()
+        .contains(AdminRole.ADMIN_MASTER) || // 전체 관리자
+        (currentUser.getMrhstTrmnl() != null && currentUser.getMrhstTrmnl().getMrhst().getId()
+            .equals(delng.getMrhstId())) || // 주문한 매장
+        (currentUser.getUserInfo() != null && currentUser.getUserInfo().getId()
+            .equals((delng.getUserInfo().getId())) &&
+            delng.getDelngOrdr() != null && delng.getDelngOrdr().getAcceptDttm() == null
+            && delng.getDelngOrdr().getCompDttm() == null // 회원은 접수되지 않은 거래만 취소 가능
+        )
+    ) {
+
+    } else {
+      // 적절한 권한이 없으면 오류
+      errors.reject("권한 없음", "삭제 권한이 없습니다");
     }
 
     // 이미 취소한 거래면 오류

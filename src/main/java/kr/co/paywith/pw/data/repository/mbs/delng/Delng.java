@@ -184,7 +184,7 @@ public class Delng {
   /**
    * 거래 매장 아이디
    */
-  private String mrhstId;
+  private Integer mrhstId;
 
   /**
    * 거래 매장 이름

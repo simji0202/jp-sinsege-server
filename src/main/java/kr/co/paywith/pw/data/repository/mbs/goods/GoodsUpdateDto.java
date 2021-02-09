@@ -1,12 +1,9 @@
 package kr.co.paywith.pw.data.repository.mbs.goods;
 
-import com.opencsv.bean.CsvBindByName;
 import java.util.List;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
-
-import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import kr.co.paywith.pw.data.repository.mbs.goodsGrp.GoodsGrp;
+import kr.co.paywith.pw.data.repository.mbs.goodsOpt.GoodsOpt;
 import lombok.Data;
 
 /**
@@ -14,7 +11,6 @@ import lombok.Data;
  */
 @Data
 public class GoodsUpdateDto {
-
 
   /**
    * 상품 코드 (POS 연동)
@@ -66,7 +62,6 @@ public class GoodsUpdateDto {
    */
   private String imgUrl;
 
-
-
+  private Boolean mngrStockFl = false;
 
 }

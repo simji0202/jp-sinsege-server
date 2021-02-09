@@ -55,7 +55,6 @@ public class GoodsDto {
   @OneToOne
   private GoodsGrp goodsGrp;
 
-
   /**
    * 상품 옵션
    */
@@ -66,6 +65,6 @@ public class GoodsDto {
    */
   private String imgUrl;
 
-
+  private Boolean mngrStockFl = false;
 
 }

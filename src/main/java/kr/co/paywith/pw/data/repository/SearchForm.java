@@ -38,11 +38,17 @@ public class SearchForm {
    */
   private CpnSttsType cpnSttsType;
 
-  // 매장 좌석, 직원
+  // 매장 좌석, 직원, 상품 재고
   /**
-   * 소속 매장
+   * 매장 별..
    */
   private Integer mrhstId;
+
+  // 상품 재고
+  /**
+   * 상품 별
+   */
+  private Integer goodsId;
 
   // BrandPg 등
   /**

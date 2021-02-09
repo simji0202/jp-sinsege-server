@@ -48,7 +48,7 @@ public class MrhstTrmnlService {
 
         // 데이터베이스 값 갱신
         if (mrhstTrmnlUpdateDto.getUserPw() != null) {
-            mrhstTrmnlUpdateDto.setUserPw(this.passwordEncoder.encode(mrhstTrmnlUpdateDto.getUserPw()));
+            existMrhstTrmnl.setUserPw(this.passwordEncoder.encode(mrhstTrmnlUpdateDto.getUserPw()));
         }
         // 데이터베이스 값 갱신
         this.mrhstTrmnlRepository.save(existMrhstTrmnl);

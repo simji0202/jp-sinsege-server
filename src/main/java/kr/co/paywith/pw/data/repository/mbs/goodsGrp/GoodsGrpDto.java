@@ -1,6 +1,5 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 
-import javax.persistence.ManyToOne;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import lombok.Data;
 
@@ -10,32 +9,31 @@ import lombok.Data;
 @Data
 public class GoodsGrpDto {
 
-    /**
-     * 상품 그룹 명
-     */
-    private String goodsGrpNm;
+  /**
+   * 상품 그룹 부모 일련번호
+   */
+  private Integer parentId;
 
-    /**
-     * 상품 그룹 코드
-     */
-    private String goodsGrpCd;
+  /**
+   * 상품 그룹 명
+   */
+  private String goodsGrpNm;
 
-    // kms: 2차 3차 그룹이 있다면 필드를 어떻게 관리할지 확인 필요
-    /**
-     * 부모 상품 그룹 일련번호
-     */
-    private Integer parentGoodsGrpSn;
+  /**
+   * 상품 그룹 코드
+   */
+  private String goodsGrpCd;
 
-    /**
-     * 정렬순서
-     */
-    private Integer sort;
+  /**
+   * 정렬순서
+   */
+  private Integer sort;
 
-    /**
-     * 사용 여부
-     */
-    private Boolean activeFl = false;
+  /**
+   * 사용 여부
+   */
+  private Boolean activeFl = false;
 
-    private Brand brand;
+  private Brand brand;
 
 }

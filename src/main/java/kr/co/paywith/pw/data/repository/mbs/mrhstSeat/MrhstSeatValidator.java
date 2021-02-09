@@ -20,7 +20,6 @@ public class MrhstSeatValidator {
     public void validate(MrhstSeatUpdateDto mrhstSeatUpdateDto, Errors errors) {
       ValidatorUtils.checkInteger(mrhstSeatUpdateDto.getSeatCnt(), "시트 수", errors, true, 1, 99);
       ValidatorUtils.checkString(mrhstSeatUpdateDto.getNm(), "시트 명", errors, false, 1, 99);
-      ValidatorUtils.checkObjectNull(mrhstSeatUpdateDto.getMrhstId(), "매장", errors);
 
 
         // TODO BeginEventDateTime

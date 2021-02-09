@@ -63,10 +63,10 @@ public class GoodsGrpService {
         BooleanBuilder bb = new BooleanBuilder();
         QGoodsGrp qGoodsGrp = QGoodsGrp.goodsGrp;
         bb.and(qGoodsGrp.brand.id.eq(goodsGrp.getBrand().getId()));
-        if (goodsGrp.getParentGoodsGrpSn() != null) {
-            bb.and(qGoodsGrp.parentGoodsGrpSn.eq(goodsGrp.getParentGoodsGrpSn()));
+        if (goodsGrp.getParentId() != null) {
+            bb.and(qGoodsGrp.parentId.eq(goodsGrp.getParentId()));
         } else {
-            bb.and(qGoodsGrp.parentGoodsGrpSn.isNull());
+            bb.and(qGoodsGrp.parentId.isNull());
         }
         bb.and(qGoodsGrp.id.ne(goodsGrp.getId()));
         if (goodsGrp.getSort() != null) {

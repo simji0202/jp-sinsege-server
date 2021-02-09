@@ -12,9 +12,6 @@ public class MrhstSeatUpdateDto {
   @NameDescription("좌석수")
   private int seatCnt;
 
-  @NameDescription("매장_일련번호")
-  private int mrhstId;
-
   @NameDescription("사용 여부")
   private Boolean activeFl;
 

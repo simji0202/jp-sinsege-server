@@ -3,19 +3,23 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
-import kr.co.paywith.pw.data.repository.enumeration.PointCutType;
 import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
 import kr.co.paywith.pw.data.repository.enumeration.PointRsrvRuleType;
+import kr.co.paywith.pw.data.repository.enumeration.SeatSttsType;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
+import kr.co.paywith.pw.data.repository.mbs.delngOrdrSeatTimetable.DelngOrdrSeatTimetable;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
+import kr.co.paywith.pw.data.repository.mbs.mrhstStaff.MrhstStaff;
+import kr.co.paywith.pw.data.repository.mbs.mrhstStaff.MrhstStaffRepository;
 import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHist;
 import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHistService;
 import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRule;
@@ -23,6 +27,8 @@ import kr.co.paywith.pw.data.repository.mbs.pointRsrvRule.PointRsrvRuleRepositor
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHist;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistRepository;
 import kr.co.paywith.pw.data.repository.mbs.scoreHist.ScoreHistService;
+import kr.co.paywith.pw.data.repository.mbs.seatTimetable.SeatTimetable;
+import kr.co.paywith.pw.data.repository.mbs.seatTimetable.SeatTimetableRepository;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHist;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistRepository;
 import kr.co.paywith.pw.data.repository.mbs.stampHist.StampHistService;
@@ -64,6 +70,12 @@ public class DelngService {
 
   @Autowired
   private PointHistService pointHistService;
+
+  @Autowired
+  private MrhstStaffRepository mrhstStaffRepository;
+
+  @Autowired
+  private SeatTimetableRepository seatTimetableRepository;
 
   @Autowired
   private Gson gson;
@@ -193,7 +205,11 @@ public class DelngService {
     // 운영 중 거래 식별을 위해 서버에서 생성하는 거래 번호
     newDelng.setConfmNo("D" + StringUtils.leftPad("" + delng.getId(), 11, "0"));
 
-    return delngrRepository.save(newDelng);
+    delngrRepository.save(newDelng);
+
+    // TODO 거래 종류에 따라 회원이나 매장에 메시지 전송
+
+    return newDelng;
   }
 
   @Transactional
@@ -246,6 +262,9 @@ public class DelngService {
           case PG_PAY:
             // TODO PG 환불
             break;
+          case DFPAY:
+            // TODO 후불결제를 했다면 환불 처리
+            break;
           case POINT:
             // 포인트 상태 복원(환불)
             userInfo.getUserCard()
@@ -259,6 +278,73 @@ public class DelngService {
     // TODO 상품권 상태 복원
 
     delngrRepository.save(delng);
+
+    if (delng.getDelngOrdr() != null) {
+        // 좌석 복원 처리. 스태프도 지정 해제
+        if (delng.getDelngOrdr().getDelngOrdrSeatTimetable() != null) {
+          for (SeatTimetable seatTimetable :
+              delng.getDelngOrdr().getDelngOrdrSeatTimetable().getSeatTimetableList()) {
+            seatTimetable.setSeatSttsType(SeatSttsType.AVAIL);
+            // 스태프 지정 해제
+            seatTimetable.setMrhstStaff(null);
+            seatTimetableRepository.save(seatTimetable);
+          }
+      }
+    }
+    // 취소 주체에 따라 회원이나 매장에 메시지 전송
+  }
+
+  /**
+   * 주문 접수
+   */
+  @Transactional
+  public Delng accept(AcceptDelngDto acceptDelngDto, Delng existDelng) {
+
+    existDelng.getDelngOrdr().setAcceptDttm(LocalDateTime.now());
+
+    MrhstStaff mrhstStaff = null;
+    if (acceptDelngDto != null && acceptDelngDto.getStaffId() != null) {
+        existDelng.getDelngOrdr().getDelngOrdrSeatTimetable().setStaffId(
+            acceptDelngDto.getStaffId()
+        );
+       mrhstStaff = mrhstStaffRepository.findById(acceptDelngDto.getStaffId()).get();
+    }
+
+    // 좌석 사용 처리. 필요 시 스태프 지정
+    if (existDelng.getDelngOrdr().getDelngOrdrSeatTimetable() != null) {
+      for (SeatTimetable seatTimetable :
+          existDelng.getDelngOrdr().getDelngOrdrSeatTimetable().getSeatTimetableList()) {
+        seatTimetable.setSeatSttsType(SeatSttsType.RSRV);
+        if (mrhstStaff != null) {
+          // 스태프 지정
+          seatTimetable.setMrhstStaff(mrhstStaff);
+        }
+        seatTimetableRepository.save(seatTimetable);
+      }
+    }
+
+    // 데이터베이스 값 갱신
+    this.delngrRepository.save(existDelng);
+
+    // TODO 회원에게 메시지 전송
+
+    return existDelng;
+  }
+
+  /**
+   * 주문 완료
+   */
+  @Transactional
+  public Delng comp(Delng existDelng) {
+
+    existDelng.getDelngOrdr().setCompDttm(LocalDateTime.now());
+
+    // 데이터베이스 값 갱신
+    this.delngrRepository.save(existDelng);
+
+    // TODO 회원에게 메시지 전송
+
+    return existDelng;
   }
 
 //  /**

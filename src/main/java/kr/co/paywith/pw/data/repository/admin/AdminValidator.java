@@ -68,7 +68,7 @@ public class AdminValidator {
     // Admin 중복 조회
     Optional<Admin> adminOptional = adminRepository.findByAdminId(adminId);
     if (adminOptional.isPresent()) { // 수정하는 경우가 있어 분기 처리
-      if (id == null || !id.equals(adminOptional.get().getAdminId())) { // 본인이 아닌 경우
+      if (id == null || !id.equals(adminOptional.get().getId())) { // 본인이 아닌 경우
         return true;
       }
     }

@@ -79,7 +79,6 @@ public class Goods {
   @OneToOne
   private GoodsGrp goodsGrp;
 
-
   /**
    * 상품 옵션
    */
@@ -91,6 +90,11 @@ public class Goods {
    */
   @Column(nullable = true)
   private String imgUrl;
+
+  /**
+   * 재고관리 여부
+   */
+  private Boolean mngrStockFl = false;
 
 
 //

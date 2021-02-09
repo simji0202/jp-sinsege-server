@@ -97,21 +97,21 @@ public class TimetableService {
                     SeatTimetable seatTimetable = new SeatTimetable();
                     seatTimetable.setMrhstSeat(mrhstSeat);
                     seatTimetable.setStartDttm(tableStartDttm);
-                    seatTimetable.setEndDttm(tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin()));
+                    seatTimetable.setEndDttm(tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin()).minusSeconds(1));
                     seatTimetableRepository.save(seatTimetable);
                     tableStartDttm = tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin());
                   } while (tableStartDttm.isBefore(tableEndDttm));
                 }
               } else {
                 // 시트 없는 시간표만 생성
-                do {
-                  SeatTimetable seatTimetable = new SeatTimetable();
-                  seatTimetable.setMrhstSeat(null);
-                  seatTimetable.setStartDttm(tableStartDttm);
-                  seatTimetable.setEndDttm(tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin()));
-                  seatTimetableRepository.save(seatTimetable);
-                  tableStartDttm = tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin());
-                } while (tableStartDttm.isBefore(tableEndDttm));
+//                do {
+//                  SeatTimetable seatTimetable = new SeatTimetable();
+//                  seatTimetable.setMrhstSeat(null);
+//                  seatTimetable.setStartDttm(tableStartDttm);
+//                  seatTimetable.setEndDttm(tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin()).minusSeconds(1));
+//                  seatTimetableRepository.save(seatTimetable);
+//                  tableStartDttm = tableStartDttm.plusMinutes(mrhst.getMrhstOrdr().getRsrvUnitMin());
+//                } while (tableStartDttm.isBefore(tableEndDttm));
               }
           }
         }

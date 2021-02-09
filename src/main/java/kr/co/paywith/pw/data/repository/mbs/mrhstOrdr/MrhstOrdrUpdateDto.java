@@ -15,6 +15,8 @@ public class MrhstOrdrUpdateDto {
 
   private Boolean ordrFl = false;
 
+  private Boolean useTimetableFl = false;
+
   @NameDescription("시작시간_월")
   private LocalTime openTm1;
 

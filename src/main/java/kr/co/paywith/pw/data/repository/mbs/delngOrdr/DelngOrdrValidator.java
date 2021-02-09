@@ -7,18 +7,18 @@ import org.springframework.validation.Errors;
 public class DelngOrdrValidator {
 
 
-    public void validate(DelngOrdrDto delngOrdrDto, Errors errors) {
-
-
-        // TODO BeginEventDateTime
-        // TODO CloseEnrollmentDateTime
-    }
-
-    public void validate(DelngOrdrUpdateDto delngOrdrUpdateDto, Errors errors) {
-
-
-        // TODO BeginEventDateTime
-        // TODO CloseEnrollmentDateTime
-    }
+//    public void validate(DelngOrdrDto delngOrdrDto, Errors errors) {
+//
+//
+//        // TODO BeginEventDateTime
+//        // TODO CloseEnrollmentDateTime
+//    }
+//
+//    public void validate(DelngOrdrUpdateDto delngOrdrUpdateDto, Errors errors) {
+//
+//
+//        // TODO BeginEventDateTime
+//        // TODO CloseEnrollmentDateTime
+//    }
 
 }

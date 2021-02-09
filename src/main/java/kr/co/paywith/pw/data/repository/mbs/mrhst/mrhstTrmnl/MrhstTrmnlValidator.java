@@ -64,7 +64,7 @@ public class MrhstTrmnlValidator {
     // MrhstTrmnl 중복 조회
     Optional<MrhstTrmnl> mrhstTrmnlOptional = mrhstTrmnlRepository.findByUserId(userId);
     if (mrhstTrmnlOptional.isPresent()) { // 수정하는 경우가 있어 분기 처리
-      if (id == null || !id.equals(mrhstTrmnlOptional.get().getUserId())) { // 본인이 아닌 경우
+      if (id == null || !id.equals(mrhstTrmnlOptional.get().getId())) { // 본인이 아닌 경우
         return true;
       }
     }

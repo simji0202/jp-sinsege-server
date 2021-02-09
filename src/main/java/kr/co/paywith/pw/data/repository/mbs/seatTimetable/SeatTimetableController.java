@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.seatTimetable;
 
+import kr.co.paywith.pw.component.TimetableService;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.CurrentUser;
@@ -25,7 +26,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping(value = "/api/seatTimetable")
-@Api(value = "SeatTimetableController", description = "쿠폰 API", basePath = "/api/seatTimetable")
+@Api(value = "SeatTimetableController", description = "좌석 시간표 API", basePath = "/api/seatTimetable")
 public class SeatTimetableController extends CommonController {
 
 	 @Autowired
@@ -78,7 +79,6 @@ public class SeatTimetableController extends CommonController {
 //		  return ResponseEntity.created(createdUri).body(seatTimetableResource);
 //	 }
 
-
 	 /**
 	  * 정보취득 (조건별 page )
 	  */
@@ -94,7 +94,6 @@ public class SeatTimetableController extends CommonController {
 
 		  QSeatTimetable qSeatTimetable = QSeatTimetable.seatTimetable;
 
-		  //
 		  BooleanBuilder booleanBuilder = new BooleanBuilder();
 
 		  // 검색조건 아이디(키)
@@ -152,23 +151,23 @@ public class SeatTimetableController extends CommonController {
 				return badRequest(errors);
 		  }
 
-		  // 논리적 오류 (제약조건) 체크
-		  this.seatTimetableValidator.validate(seatTimetableUpdateDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
+		 // 기존 테이블에서 관련 정보 취득
+		 Optional<SeatTimetable> seatTimetableOptional = this.seatTimetableRepository.findById(id);
 
-		  // 기존 테이블에서 관련 정보 취득
-		  Optional<SeatTimetable> seatTimetableOptional = this.seatTimetableRepository.findById(id);
+		 // 기존 정보 유무 체크
+		 if (seatTimetableOptional.isEmpty()) {
+			 // 404 Error return
+			 return ResponseEntity.notFound().build();
+		 }
 
-		  // 기존 정보 유무 체크
-		  if (seatTimetableOptional.isEmpty()) {
-				// 404 Error return
-				return ResponseEntity.notFound().build();
-		  }
+		 // 기존 정보 취득
+		 SeatTimetable existSeatTimetable = seatTimetableOptional.get();
 
-		  // 기존 정보 취득
-		  SeatTimetable existSeatTimetable = seatTimetableOptional.get();
+		 // 논리적 오류 (제약조건) 체크
+		 this.seatTimetableValidator.validate(seatTimetableUpdateDto, existSeatTimetable, errors);
+		 if (errors.hasErrors()) {
+			 return badRequest(errors);
+		 }
 
 		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
 		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
@@ -180,5 +179,13 @@ public class SeatTimetableController extends CommonController {
 
 		  // 정상적 처리
 		  return ResponseEntity.ok(seatTimetableResource);
+	 }
+
+	 @Autowired
+	 private TimetableService timetableService;
+
+	 @PostMapping("/make")
+	public  void make() {
+	 timetableService.makeTimetable();
 	 }
 }
