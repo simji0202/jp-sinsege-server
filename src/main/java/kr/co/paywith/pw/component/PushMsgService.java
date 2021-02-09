@@ -69,7 +69,7 @@ public class PushMsgService {
   /**
    * 푸시 정보를 입력했을 때 정기적으로 푸시 전송
    *
-   * FIXME 개별적으로 바로바로 전송하는게 좋을지 검토 필요. 개별 전송 시 sendNotifUserToFcm / sendNotifMrhstToFcm 을 별도 스레드로 호출?
+   * FIXME 개별적으로 바로바로 전송하는게 좋을지 검토 필요. 개별 전송 시 sendNotifUserToFcm / sendNotifMrhstToFcm 을 호출?
    */
 //  @Scheduled(cron = "0 * * * * *")
 //  @SchedulerLock(name = "sendNotif", lockAtMostFor = "50m", lockAtLeastFor = "3m")
@@ -143,116 +143,121 @@ public class PushMsgService {
       return;
     }
 
-    int resultCnt = 0;
-    try {
-      for (NotifUser nu : list) {
-        UserIdSet.add(nu.getId());
-        nu.setSendDttm(ZonedDateTime.now());
+    // 구글에 전송하는 건 비동기 처리
+    new Thread(() -> {
+      int resultCnt = 0;
+      try {
+        for (NotifUser nu : list) {
+          UserIdSet.add(nu.getId());
+          nu.setSendDttm(ZonedDateTime.now());
 
-        BooleanBuilder bb = new BooleanBuilder();
-        QUserApp q = QUserApp.userApp;
-        bb.and(q.userInfo.id.eq(nu.getUserId()));
-        bb.and(q.pushFl.isTrue());
-        bb.and(q.pushKey.isNotNull());
+          BooleanBuilder bb = new BooleanBuilder();
+          QUserApp q = QUserApp.userApp;
+          bb.and(q.userInfo.id.eq(nu.getUserId()));
+          bb.and(q.pushFl.isTrue());
+          bb.and(q.pushKey.isNotNull());
 
-        List<UserApp> userAppList = new ArrayList<>();
-        userAppRepository.findAll(bb).forEach(userAppList::add);
+          List<UserApp> userAppList = new ArrayList<>();
+          userAppRepository.findAll(bb).forEach(userAppList::add);
 
-        List<Header> headers = Lists.newArrayList(
-            new BasicHeader(
-                HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"),
-            new BasicHeader(
-                HttpHeaders.AUTHORIZATION, "key=" + fcmKey)
-        );
+          List<Header> headers = Lists.newArrayList(
+              new BasicHeader(
+                  HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"),
+              new BasicHeader(
+                  HttpHeaders.AUTHORIZATION, "key=" + fcmKey)
+          );
 
-        CloseableHttpClient client = HttpClients.custom().setDefaultHeaders(headers).build();
-        HttpPost httpPost = new HttpPost(FCM_URL);
+          CloseableHttpClient client = HttpClients.custom().setDefaultHeaders(headers).build();
+          HttpPost httpPost = new HttpPost(FCM_URL);
 
-        ObjectMapper mapper = new ObjectMapper();
+          ObjectMapper mapper = new ObjectMapper();
 
-        Map<String, Object> payload = new HashMap<>();
+          Map<String, Object> payload = new HashMap<>();
 
-        Map<String, Object> noti = new HashMap<>();
-        noti.put("title", notif.getNotifSj());
-        noti.put("body", notif.getNotifCn());
-        payload.put("notification", noti);
-        payload.put("priority", "high");
+          Map<String, Object> noti = new HashMap<>();
+          noti.put("title", notif.getNotifSj());
+          noti.put("body", notif.getNotifCn());
+          payload.put("notification", noti);
+          payload.put("priority", "high");
 
-        TypeReference<HashMap<String, Object>> typeRef
-            = new TypeReference<HashMap<String, Object>>() {
-        };
+          TypeReference<HashMap<String, Object>> typeRef
+              = new TypeReference<HashMap<String, Object>>() {
+          };
 
-        if (StringUtils.isNotEmpty((notif.getNotifData()))) {
-          try {
-            payload.put("data", mapper.readValue(notif.getNotifData(), typeRef));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        }
-
-        int sendStart = 0;
-        int sendEnd = 0;
-
-        List<String> tokenList = new ArrayList<>();
-        // 적절한 token 개수 한번에 전송
-        do {
-          if (sendEnd + MAX_PER_SEND > userAppList.size()) {
-            sendEnd = userAppList.size();
-          } else {
-            sendEnd = sendEnd + MAX_PER_SEND;
-          }
-
-          tokenList.clear();
-          for (int i = sendStart; i < sendEnd; i++) {
-            UserApp userApp = userAppList.get(i);
-
-            if (StringUtils.isNotEmpty(userApp.getPushKey())) {
-              tokenList.add(userApp.getPushKey());
+          if (StringUtils.isNotEmpty((notif.getNotifData()))) {
+            try {
+              payload.put("data", mapper.readValue(notif.getNotifData(), typeRef));
+            } catch (IOException e) {
+              e.printStackTrace();
             }
           }
 
-          payload.put("registration_ids", tokenList);
+          int sendStart = 0;
+          int sendEnd = 0;
 
-          String str = mapper.writeValueAsString(payload);
-          httpPost.setEntity(new StringEntity(str, "UTF-8"));
+          List<String> tokenList = new ArrayList<>();
+          // 적절한 token 개수 한번에 전송
+          do {
+            if (sendEnd + MAX_PER_SEND > userAppList.size()) {
+              sendEnd = userAppList.size();
+            } else {
+              sendEnd = sendEnd + MAX_PER_SEND;
+            }
 
-          CloseableHttpResponse response = client.execute(httpPost);
+            tokenList.clear();
+            for (int i = sendStart; i < sendEnd; i++) {
+              UserApp userApp = userAppList.get(i);
 
-          if (response.getStatusLine().getStatusCode() >= 400) {
-            StringWriter writer = new StringWriter();
-            IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
-            String result = writer.toString();
-            log.warn("Send Error >>> {} ///  notifId : {}, start : {}, end : {}] ", result,
-                notif.getId(), sendStart, sendEnd);
-          } else {
-            Map<String, Object> result = mapper
-                .readValue(response.getEntity().getContent(), Map.class);
-            // {multicast_id=7058037433648543745, success=0, failure=1, canonical_ids=0, results=[{error=NotRegistered}]}
-            log.debug(result.toString());
-            List<Map<String, Object>> resultList = (List<Map<String, Object>>) result
-                .get("results");
-            int deleteAppCnt = 0;
-            for (int i = 0; i < resultList.size(); i++) {
-              if ("NotRegistered".equals(resultList.get(i).get("error"))) {
-                deleteAppCnt++;
-                UserApp userApp = userAppList.get(i);
-                userAppRepository.delete(userApp);
+              if (StringUtils.isNotEmpty(userApp.getPushKey())) {
+                tokenList.add(userApp.getPushKey());
               }
             }
-            if (deleteAppCnt > 0) {
-              log.warn("Delete {} Devices' Info", deleteAppCnt);
+
+            payload.put("registration_ids", tokenList);
+
+            String str = mapper.writeValueAsString(payload);
+            httpPost.setEntity(new StringEntity(str, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(httpPost);
+
+            if (response.getStatusLine().getStatusCode() >= 400) {
+              StringWriter writer = new StringWriter();
+              IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
+              String result = writer.toString();
+              log.warn("Send Error >>> {} ///  notifId : {}, start : {}, end : {}] ", result,
+                  notif.getId(), sendStart, sendEnd);
+            } else {
+              Map<String, Object> result = mapper
+                  .readValue(response.getEntity().getContent(), Map.class);
+              // {multicast_id=7058037433648543745, success=0, failure=1, canonical_ids=0, results=[{error=NotRegistered}]}
+              log.debug(result.toString());
+              List<Map<String, Object>> resultList = (List<Map<String, Object>>) result
+                  .get("results");
+              int deleteAppCnt = 0;
+              for (int i = 0; i < resultList.size(); i++) {
+                if ("NotRegistered".equals(resultList.get(i).get("error"))) {
+                  deleteAppCnt++;
+                  UserApp userApp = userAppList.get(i);
+                  userAppRepository.delete(userApp);
+                }
+              }
+              if (deleteAppCnt > 0) {
+                log.warn("Delete {} Devices' Info", deleteAppCnt);
+              }
+              resultCnt += (int) result.get("success");
             }
-            resultCnt += (int) result.get("success");
-          }
-          sendStart = sendEnd;
-          client.close();
-        } while (sendStart < userAppList.size());
+            sendStart = sendEnd;
+            client.close();
+          } while (sendStart < userAppList.size());
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    notif.setSendCnt(resultCnt);
-    notifRepository.save(notif);
+      notif.setSendCnt(resultCnt);
+      notifRepository.save(notif);
+
+    }).start();
+
   }
 
 
@@ -266,116 +271,119 @@ public class PushMsgService {
       return;
     }
 
-    int resultCnt = 0;
-    try {
-      for (NotifMrhst nm : list) {
-        mrhstSnSet.add(nm.getId());
-        nm.setSendDttm(ZonedDateTime.now());
+    new Thread(() -> {
+      int resultCnt = 0;
+      try {
+        for (NotifMrhst nm : list) {
+          mrhstSnSet.add(nm.getId());
+          nm.setSendDttm(ZonedDateTime.now());
 
-        BooleanBuilder bb = new BooleanBuilder();
-        QMrhstTrmnl q = QMrhstTrmnl.mrhstTrmnl;
-        bb.and(q.mrhst.id.eq(nm.getMrhstId()));
-        bb.and(q.pushFl.isTrue());
-        bb.and(q.pushKey.isNotNull());
+          BooleanBuilder bb = new BooleanBuilder();
+          QMrhstTrmnl q = QMrhstTrmnl.mrhstTrmnl;
+          bb.and(q.mrhst.id.eq(nm.getMrhstId()));
+          bb.and(q.pushFl.isTrue());
+          bb.and(q.pushKey.isNotNull());
 
-        List<MrhstTrmnl> mrhstTrmnlList = new ArrayList<>();
-        mrhstTrmnlRepository.findAll(bb).forEach(mrhstTrmnlList::add);
+          List<MrhstTrmnl> mrhstTrmnlList = new ArrayList<>();
+          mrhstTrmnlRepository.findAll(bb).forEach(mrhstTrmnlList::add);
 
-        List<Header> headers = Lists.newArrayList(
-            new BasicHeader(
-                HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"),
-            new BasicHeader(
-                HttpHeaders.AUTHORIZATION, "key=" + fcmKey)
-        );
+          List<Header> headers = Lists.newArrayList(
+              new BasicHeader(
+                  HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"),
+              new BasicHeader(
+                  HttpHeaders.AUTHORIZATION, "key=" + fcmKey)
+          );
 
-        CloseableHttpClient client = HttpClients.custom().setDefaultHeaders(headers).build();
-        HttpPost httpPost = new HttpPost(FCM_URL);
+          CloseableHttpClient client = HttpClients.custom().setDefaultHeaders(headers).build();
+          HttpPost httpPost = new HttpPost(FCM_URL);
 
-        ObjectMapper mapper = new ObjectMapper();
+          ObjectMapper mapper = new ObjectMapper();
 
-        Map<String, Object> payload = new HashMap<>();
+          Map<String, Object> payload = new HashMap<>();
 
-        Map<String, Object> noti = new HashMap<>();
-        noti.put("title", notif.getNotifSj());
-        noti.put("body", notif.getNotifCn());
-        payload.put("notification", noti);
-        payload.put("priority", "high");
+          Map<String, Object> noti = new HashMap<>();
+          noti.put("title", notif.getNotifSj());
+          noti.put("body", notif.getNotifCn());
+          payload.put("notification", noti);
+          payload.put("priority", "high");
 
-        TypeReference<HashMap<String, Object>> typeRef
-            = new TypeReference<HashMap<String, Object>>() {
-        };
+          TypeReference<HashMap<String, Object>> typeRef
+              = new TypeReference<HashMap<String, Object>>() {
+          };
 
-        if (StringUtils.isNotEmpty((notif.getNotifData()))) {
-          try {
-            payload.put("data", mapper.readValue(notif.getNotifData(), typeRef));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        }
-
-        int sendStart = 0;
-        int sendEnd = 0;
-
-        List<String> tokenList = new ArrayList<>();
-        // 적절한 token 개수 한번에 전송
-        do {
-          if (sendEnd + MAX_PER_SEND > mrhstTrmnlList.size()) {
-            sendEnd = mrhstTrmnlList.size();
-          } else {
-            sendEnd = sendEnd + MAX_PER_SEND;
-          }
-
-          tokenList.clear();
-          for (int i = sendStart; i < sendEnd; i++) {
-            MrhstTrmnl mtl = mrhstTrmnlList.get(i);
-
-            if (StringUtils.isNotEmpty(mtl.getPushKey())) {
-              tokenList.add(mtl.getPushKey());
+          if (StringUtils.isNotEmpty((notif.getNotifData()))) {
+            try {
+              payload.put("data", mapper.readValue(notif.getNotifData(), typeRef));
+            } catch (IOException e) {
+              e.printStackTrace();
             }
           }
 
-          payload.put("registration_ids", tokenList);
+          int sendStart = 0;
+          int sendEnd = 0;
 
-          String str = mapper.writeValueAsString(payload);
-          httpPost.setEntity(new StringEntity(str, "UTF-8"));
+          List<String> tokenList = new ArrayList<>();
+          // 적절한 token 개수 한번에 전송
+          do {
+            if (sendEnd + MAX_PER_SEND > mrhstTrmnlList.size()) {
+              sendEnd = mrhstTrmnlList.size();
+            } else {
+              sendEnd = sendEnd + MAX_PER_SEND;
+            }
 
-          CloseableHttpResponse response = client.execute(httpPost);
+            tokenList.clear();
+            for (int i = sendStart; i < sendEnd; i++) {
+              MrhstTrmnl mtl = mrhstTrmnlList.get(i);
 
-          if (response.getStatusLine().getStatusCode() >= 400) {
-            StringWriter writer = new StringWriter();
-            IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
-            String result = writer.toString();
-            log.warn("Send Error >>> {} ///  notifId : {}, start : {}, end : {}] ", result,
-                notif.getId(), sendStart, sendEnd);
-          } else {
-            Map<String, Object> result = mapper
-                .readValue(response.getEntity().getContent(), Map.class);
-            // {multicast_id=7058037433648543745, success=0, failure=1, canonical_ids=0, results=[{error=NotRegistered}]}
-            log.debug(result.toString());
-            List<Map<String, Object>> resultList = (List<Map<String, Object>>) result
-                .get("results");
-            int deleteAppCnt = 0;
-            for (int i = 0; i < resultList.size(); i++) {
-              if ("NotRegistered".equals(resultList.get(i).get("error"))) {
-                deleteAppCnt++;
-                MrhstTrmnl mtl = mrhstTrmnlList.get(i);
-                mtl.setPushKey(null);
-                mrhstTrmnlRepository.save(mtl);
+              if (StringUtils.isNotEmpty(mtl.getPushKey())) {
+                tokenList.add(mtl.getPushKey());
               }
             }
-            if (deleteAppCnt > 0) {
-              log.warn("Delete {} Devices' Info", deleteAppCnt);
+
+            payload.put("registration_ids", tokenList);
+
+            String str = mapper.writeValueAsString(payload);
+            httpPost.setEntity(new StringEntity(str, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(httpPost);
+
+            if (response.getStatusLine().getStatusCode() >= 400) {
+              StringWriter writer = new StringWriter();
+              IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
+              String result = writer.toString();
+              log.warn("Send Error >>> {} ///  notifId : {}, start : {}, end : {}] ", result,
+                  notif.getId(), sendStart, sendEnd);
+            } else {
+              Map<String, Object> result = mapper
+                  .readValue(response.getEntity().getContent(), Map.class);
+              // {multicast_id=7058037433648543745, success=0, failure=1, canonical_ids=0, results=[{error=NotRegistered}]}
+              log.debug(result.toString());
+              List<Map<String, Object>> resultList = (List<Map<String, Object>>) result
+                  .get("results");
+              int deleteAppCnt = 0;
+              for (int i = 0; i < resultList.size(); i++) {
+                if ("NotRegistered".equals(resultList.get(i).get("error"))) {
+                  deleteAppCnt++;
+                  MrhstTrmnl mtl = mrhstTrmnlList.get(i);
+                  mtl.setPushKey(null);
+                  mrhstTrmnlRepository.save(mtl);
+                }
+              }
+              if (deleteAppCnt > 0) {
+                log.warn("Delete {} Devices' Info", deleteAppCnt);
+              }
+              resultCnt += (int) result.get("success");
             }
-            resultCnt += (int) result.get("success");
-          }
-          sendStart = sendEnd;
-          client.close();
-        } while (sendStart < mrhstTrmnlList.size());
+            sendStart = sendEnd;
+            client.close();
+          } while (sendStart < mrhstTrmnlList.size());
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    notif.setSendCnt(resultCnt);
-    notifRepository.save(notif);
+      notif.setSendCnt(resultCnt);
+      notifRepository.save(notif);
+    }).start();
+
   }
 }
