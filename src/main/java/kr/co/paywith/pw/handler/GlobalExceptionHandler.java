@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import javax.validation.ConstraintViolationException;
+import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -71,7 +73,13 @@ public class GlobalExceptionHandler  {
     ex.getBindingResult().getAllErrors()
         .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
     error.put("errors", errors);
-    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+
+    Map<String, Object> errorBody = new HashMap<>();
+    errorBody.put("content", errors);
+    errorBody.put("_links",
+        Map.of("index", ((ServletWebRequest)request).getRequest().getRequestURI().toString()));
+
+    return ResponseEntity.badRequest().body(errorBody);
   }
 
   @ExceptionHandler(value = {NoSuchElementException.class})
