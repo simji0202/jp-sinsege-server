@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 // kms: 시스템 내부에서 생성하므로 POST api, DTO 등 불필요
 
@@ -64,12 +64,12 @@ public class CashReceipt {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 취소 일시
      */
-    private ZonedDateTime cancelRegDttm;
+    private LocalDateTime cancelRegDttm;
 
     /**
      * 취소 전송 예약 여부

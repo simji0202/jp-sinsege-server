@@ -12,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Builder
@@ -65,7 +65,7 @@ public class Admin {
     private Boolean activeFl = true;
 
     @NameDescription("최종 로그인 일시")
-    private ZonedDateTime lastLoginDttm;
+    private LocalDateTime lastLoginDttm;
 
     @NameDescription("관리자타입")
     @ElementCollection(fetch = FetchType.EAGER)
@@ -76,14 +76,14 @@ public class Admin {
     // 공통 부분
     @NameDescription("수정 일시")
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     @NameDescription("갱신담당자")
     private String updateBy;
 
     @NameDescription("등록 일시")
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     @NameDescription("등록담당자")
     private String createBy;

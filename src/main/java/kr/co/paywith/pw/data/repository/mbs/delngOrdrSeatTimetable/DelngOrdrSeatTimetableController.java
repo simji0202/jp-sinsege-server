@@ -40,43 +40,43 @@ public class DelngOrdrSeatTimetableController extends CommonController {
 	 @Autowired
 	 DelngOrdrSeatTimetableService delngOrdrSeatTimetableService;
 
-	 /**
-	  * 정보 등록
-	  */
-	 @PostMapping
-	 public ResponseEntity createDelngOrdrSeatTimetable(
-				@RequestBody @Valid DelngOrdrSeatTimetableDto delngOrdrSeatTimetableDto,
-				Errors errors,
-				@CurrentUser Account currentUser) {
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-
-		  // 입력값 체크
-		  delngOrdrSeatTimetableValidator.validate(delngOrdrSeatTimetableDto, errors);
-		  if (errors.hasErrors()) {
-				return badRequest(errors);
-		  }
-
-
-		  // 입력값을 브랜드 객채에 대입
-		  DelngOrdrSeatTimetable delngOrdrSeatTimetable = modelMapper.map(delngOrdrSeatTimetableDto, DelngOrdrSeatTimetable.class);
-
-		  // 레코드 등록
-		  DelngOrdrSeatTimetable newDelngOrdrSeatTimetable = delngOrdrSeatTimetableService.create(delngOrdrSeatTimetable);
-
-		  ControllerLinkBuilder selfLinkBuilder = linkTo(DelngOrdrSeatTimetableController.class).slash(newDelngOrdrSeatTimetable.getId());
-
-		  URI createdUri = selfLinkBuilder.toUri();
-		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-		  DelngOrdrSeatTimetableResource delngOrdrSeatTimetableResource = new DelngOrdrSeatTimetableResource(newDelngOrdrSeatTimetable);
-		  delngOrdrSeatTimetableResource.add(linkTo(DelngOrdrSeatTimetableController.class).withRel("query-delngOrdrSeatTimetable"));
-		  delngOrdrSeatTimetableResource.add(selfLinkBuilder.withRel("update-delngOrdrSeatTimetable"));
-		  delngOrdrSeatTimetableResource.add(new Link("/docs/index.html#resources-delngOrdrSeatTimetable-create").withRel("profile"));
-
-		  return ResponseEntity.created(createdUri).body(delngOrdrSeatTimetableResource);
-	 }
+//	 /**
+//	  * 정보 등록
+//	  */
+//	 @PostMapping
+//	 public ResponseEntity createDelngOrdrSeatTimetable(
+//				@RequestBody @Valid DelngOrdrSeatTimetableDto delngOrdrSeatTimetableDto,
+//				Errors errors,
+//				@CurrentUser Account currentUser) {
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//
+//		  // 입력값 체크
+//		  delngOrdrSeatTimetableValidator.validate(delngOrdrSeatTimetableDto, errors);
+//		  if (errors.hasErrors()) {
+//				return badRequest(errors);
+//		  }
+//
+//
+//		  // 입력값을 브랜드 객채에 대입
+//		  DelngOrdrSeatTimetable delngOrdrSeatTimetable = modelMapper.map(delngOrdrSeatTimetableDto, DelngOrdrSeatTimetable.class);
+//
+//		  // 레코드 등록
+//		  DelngOrdrSeatTimetable newDelngOrdrSeatTimetable = delngOrdrSeatTimetableService.create(delngOrdrSeatTimetable);
+//
+//		  ControllerLinkBuilder selfLinkBuilder = linkTo(DelngOrdrSeatTimetableController.class).slash(newDelngOrdrSeatTimetable.getId());
+//
+//		  URI createdUri = selfLinkBuilder.toUri();
+//		  // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+//		  DelngOrdrSeatTimetableResource delngOrdrSeatTimetableResource = new DelngOrdrSeatTimetableResource(newDelngOrdrSeatTimetable);
+//		  delngOrdrSeatTimetableResource.add(linkTo(DelngOrdrSeatTimetableController.class).withRel("query-delngOrdrSeatTimetable"));
+//		  delngOrdrSeatTimetableResource.add(selfLinkBuilder.withRel("update-delngOrdrSeatTimetable"));
+//		  delngOrdrSeatTimetableResource.add(new Link("/docs/index.html#resources-delngOrdrSeatTimetable-create").withRel("profile"));
+//
+//		  return ResponseEntity.created(createdUri).body(delngOrdrSeatTimetableResource);
+//	 }
 
 
 	 /**
@@ -169,6 +169,11 @@ public class DelngOrdrSeatTimetableController extends CommonController {
 
 		  // 기존 정보 취득
 		  DelngOrdrSeatTimetable existDelngOrdrSeatTimetable = delngOrdrSeatTimetableOptional.get();
+
+     // 현재 로그인 유저 설정
+     if (currentUser != null) {
+       existDelngOrdrSeatTimetable.setUpdateBy(currentUser.getAccountId());
+     }
 
 		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
 		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음

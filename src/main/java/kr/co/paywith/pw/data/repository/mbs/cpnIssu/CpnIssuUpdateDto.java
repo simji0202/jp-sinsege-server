@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
@@ -29,12 +29,12 @@ public class CpnIssuUpdateDto {
 //    /**
 //     * 쿠폰 표시(회원에게 노출) 일시
 //     */
-//    private ZonedDateTime showDttm = ZonedDateTime.now();
+//    private LocalDateTime showDttm = LocalDateTime.now();
 //
 //    /**
 //     * 쿠폰 유효 시작 일시
 //     */
-//    private ZonedDateTime validStartDttm = ZonedDateTime.now();
+//    private LocalDateTime validStartDttm = LocalDateTime.now();
 
   // che2 : 쿠폰 목록 추가 (20.01.07)
 //  /**
@@ -45,6 +45,6 @@ public class CpnIssuUpdateDto {
   /**
    * 쿠폰 유효 종료 일시
    */
-  private ZonedDateTime validEndDttm = ZonedDateTime.now().plusDays(30);
+  private LocalDateTime validEndDttm = LocalDateTime.now().plusDays(30);
 
 }

@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.pointHist;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -95,11 +95,11 @@ public class PointHist {
    * 등록 일시
    */
   @CreationTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
 
   /**
    * 취소 일시
    */
-  private ZonedDateTime cancelRegDttm;
+  private LocalDateTime cancelRegDttm;
 
 }

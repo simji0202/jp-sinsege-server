@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.stamp;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -170,11 +170,11 @@ public class Stamp {
 	 * ( 브랜드 설정에 stampValidPeriod 항목을 기준으로 만료 일시 설정 )
 	 * 만료 일시
 	 */
-	private ZonedDateTime expiredDttm;
+	private LocalDateTime expiredDttm;
 
 	/**
 	 * 수정 일시
 	 */
-	private ZonedDateTime updtDttm;
+	private LocalDateTime updtDttm;
 
 }

@@ -67,6 +67,12 @@ public class StampHistController extends CommonController {
     // 입력값을 브랜드 객채에 대입
     StampHist stampHist = modelMapper.map(stampHistDto, StampHist.class);
 
+    // 현재 로그인 유저 설정
+    if (currentUser != null) {
+      stampHist.setCreateBy(currentUser.getAccountId());
+      stampHist.setUpdateBy(currentUser.getAccountId());
+    }
+
     // 레코드 등록
     StampHist newStampHist = stampHistService.create(stampHist);
 

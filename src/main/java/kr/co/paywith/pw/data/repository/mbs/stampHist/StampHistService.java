@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.enumeration.StampSttsType;
@@ -158,7 +158,7 @@ public class StampHistService {
   @Transactional
   public void delete(StampHist stampHist) {
     // 스탬프 이력 취소
-    stampHist.setCancelRegDttm(ZonedDateTime.now());
+    stampHist.setCancelRegDttm(LocalDateTime.now());
     stampHistRepository.save(stampHist);
 
     // 회원 스탬프 개수 복원

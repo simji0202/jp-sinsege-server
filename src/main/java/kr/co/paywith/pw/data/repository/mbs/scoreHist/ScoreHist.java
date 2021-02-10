@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.scoreHist;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
@@ -95,18 +95,18 @@ public class ScoreHist {
    * 등록 일시
    */
   @CreationTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
 
   /**
    * 수정 일시
    */
   @UpdateTimestamp
-  private ZonedDateTime updtDttm;
+  private LocalDateTime updtDttm;
 
   /**
    * 취소 일시
    */
-  private ZonedDateTime cancelRegDttm;
+  private LocalDateTime cancelRegDttm;
 
   @NameDescription("갱신담당자")
   private String updateBy;

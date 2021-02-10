@@ -13,7 +13,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -70,7 +70,7 @@ public class Gift {
 	/**
 	 * 발송 일시
 	 */
-	private ZonedDateTime sendDttm;
+	private LocalDateTime sendDttm;
 
 	/**
 	 * 선물 내용
@@ -119,13 +119,23 @@ public class Gift {
 	 * 등록 일시
 	 */
 	@CreationTimestamp
-	private ZonedDateTime regDttm;
+	private LocalDateTime regDttm;
 
 	/**
 	 * 수정 일시
 	 */
 	@UpdateTimestamp
-	private ZonedDateTime updtDttm;
+	private LocalDateTime updtDttm;
+
+
+  @NameDescription("갱신담당자")
+  private String updateBy;
+
+  @NameDescription("등록담당자")
+  private String createBy;
+
+  @NameDescription("삭제담당자")
+  private String deleteBy;
 
 
 }

@@ -66,6 +66,12 @@ public class ScoreHistController extends CommonController {
     // 입력값을 브랜드 객채에 대입
     ScoreHist scoreHist = modelMapper.map(scoreHistDto, ScoreHist.class);
 
+    // 현재 로그인 유저 설정
+    if (currentUser != null) {
+      scoreHist.setCreateBy(currentUser.getAccountId());
+      scoreHist.setUpdateBy(currentUser.getAccountId());
+    }
+
     scoreHist.setUserInfo(userInfoRepository.findById(scoreHistDto.getUserInfo().getId()).get());
 
     // 레코드 등록

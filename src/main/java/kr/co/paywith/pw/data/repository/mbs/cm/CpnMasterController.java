@@ -67,6 +67,11 @@ public class CpnMasterController extends CommonController {
     // 입력값을 브랜드 객채에 대입
     CpnMaster cpnMaster = modelMapper.map(cpnMasterDto, CpnMaster.class);
 
+    // 현재 로그인 유저 설정
+    if (currentUser != null) {
+      cpnMaster.setCreateBy(currentUser.getAccountId());
+      cpnMaster.setUpdateBy(currentUser.getAccountId());
+    }
     // 레코드 등록
     CpnMaster newCpnMaster = cpnMasterService.create(cpnMaster);
 
@@ -164,6 +169,11 @@ public class CpnMasterController extends CommonController {
 
     // 기존 정보 취득
     CpnMaster existCpnMaster = cpnMasterOptional.get();
+
+    // 현재 로그인 유저 설정
+    if (currentUser != null) {
+      existCpnMaster.setUpdateBy(currentUser.getAccountId());
+    }
 
     // 논리적 오류 (제약조건) 체크
     this.cpnMasterValidator.validate(cpnMasterUpdateDto, existCpnMaster, errors);

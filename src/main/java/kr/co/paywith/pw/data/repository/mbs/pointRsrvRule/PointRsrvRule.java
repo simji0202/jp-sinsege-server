@@ -11,7 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -61,13 +61,13 @@ public class PointRsrvRule {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     /**
      * 회원 등급. 등급별로 적립 비율을 다르게 적용할 수 있다

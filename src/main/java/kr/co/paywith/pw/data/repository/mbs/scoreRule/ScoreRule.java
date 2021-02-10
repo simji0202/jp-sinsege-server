@@ -12,7 +12,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 // kms: TODO scoreRule 필요성 확인
 @NoArgsConstructor
@@ -59,13 +59,13 @@ public class ScoreRule {
 	 * 등록 일시
 	 */
 	@CreationTimestamp
-	private ZonedDateTime regDttm;
+	private LocalDateTime regDttm;
 
 	/**
 	 * 수정 일시
 	 */
 	@UpdateTimestamp
-	private ZonedDateTime updtDttm;
+	private LocalDateTime updtDttm;
 
 	@NameDescription("갱신담당자")
 	private String updateBy;

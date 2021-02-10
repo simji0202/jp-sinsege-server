@@ -15,7 +15,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,5 +58,5 @@ public class NotifMrhst {
   /**
    * 전송 일시
    */
-  private ZonedDateTime sendDttm;
+  private LocalDateTime sendDttm;
 }

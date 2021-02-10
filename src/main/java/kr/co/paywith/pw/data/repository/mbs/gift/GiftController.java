@@ -63,6 +63,13 @@ public class GiftController extends CommonController {
 		  // 입력값을 브랜드 객채에 대입
 		  Gift gift = modelMapper.map(giftDto, Gift.class);
 
+
+     // 현재 로그인 유저 설정
+     if (currentUser != null) {
+       gift.setCreateBy(currentUser.getAccountId());
+       gift.setUpdateBy(currentUser.getAccountId());
+     }
+
 		  // 레코드 등록
 		  Gift newGift = giftService.create(gift);
 

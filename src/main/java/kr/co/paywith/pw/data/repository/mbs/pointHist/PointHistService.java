@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.pointHist;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHist;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
@@ -56,7 +56,7 @@ public class PointHistService {
   @Transactional
   public void delete(PointHist pointHist) {
     // 스코어 이력 취소
-    pointHist.setCancelRegDttm(ZonedDateTime.now());
+    pointHist.setCancelRegDttm(LocalDateTime.now());
 
     // 데이터베이스 값 갱신
     this.pointHistRepository.save(pointHist);

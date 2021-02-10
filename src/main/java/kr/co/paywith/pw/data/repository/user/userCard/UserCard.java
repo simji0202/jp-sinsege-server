@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,12 +38,12 @@ public class UserCard {
   /**
    * 현재 스탬프 적립 시작 일시
    */
-  private ZonedDateTime stampStartDttm;
+  private LocalDateTime stampStartDttm;
 
   /**
    * 스탬프 갱신 일시
    */
-  private ZonedDateTime stampUpdtDttm;
+  private LocalDateTime stampUpdtDttm;
 
   /**
    * 스탬프 누적 획득 개수
@@ -57,7 +57,7 @@ public class UserCard {
   /**
    * 선불금액 유효 일시. 충전일 기준으로 정책으로 정하는 만료 일시
    */
-  private ZonedDateTime prpayValidDttm;
+  private LocalDateTime prpayValidDttm;
 
   ///////////   선불카드 관련 정보 end /////////////
 
@@ -106,12 +106,12 @@ public class UserCard {
   /**
    * 정지 일시
    */
-  private ZonedDateTime prpayStopDttm;
+  private LocalDateTime prpayStopDttm;
 
   /**
    * 유저에게 카드 발급 일시
    */
-  private ZonedDateTime prpayRegistDttm;
+  private LocalDateTime prpayRegistDttm;
 
   ///////////   선불 카드 관련 정보 start /////////////
 

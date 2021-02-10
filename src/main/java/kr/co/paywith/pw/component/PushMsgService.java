@@ -8,7 +8,7 @@ import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.dsl.Expressions;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,7 +96,7 @@ public class PushMsgService {
    */
   public void sendNotifMrhst(String fcmKey) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String nowDttmStr = ZonedDateTime.now().format(format);
+    String nowDttmStr = LocalDateTime.now().format(format);
 
     // 매장 푸시 조회 후 전송
     BooleanBuilder bb = new BooleanBuilder();
@@ -117,7 +117,7 @@ public class PushMsgService {
    */
   public void sendNotifUser(String fcmKey) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String nowDttmStr = ZonedDateTime.now().format(format);
+    String nowDttmStr = LocalDateTime.now().format(format);
 
     // 매장 푸시 조회 후 전송
     BooleanBuilder bb = new BooleanBuilder();
@@ -149,7 +149,7 @@ public class PushMsgService {
       try {
         for (NotifUser nu : list) {
           UserIdSet.add(nu.getId());
-          nu.setSendDttm(ZonedDateTime.now());
+          nu.setSendDttm(LocalDateTime.now());
 
           BooleanBuilder bb = new BooleanBuilder();
           QUserApp q = QUserApp.userApp;
@@ -276,7 +276,7 @@ public class PushMsgService {
       try {
         for (NotifMrhst nm : list) {
           mrhstSnSet.add(nm.getId());
-          nm.setSendDttm(ZonedDateTime.now());
+          nm.setSendDttm(LocalDateTime.now());
 
           BooleanBuilder bb = new BooleanBuilder();
           QMrhstTrmnl q = QMrhstTrmnl.mrhstTrmnl;

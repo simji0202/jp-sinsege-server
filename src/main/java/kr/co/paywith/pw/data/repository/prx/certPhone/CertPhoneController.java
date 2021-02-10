@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.prx.certPhone;
 
 import com.popbill.api.MessageService;
 import com.popbill.api.PopbillException;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Map;
@@ -104,7 +104,7 @@ public class CertPhoneController {
       certPhone.setBrandId(brand.getId());
       certPhone.setMobileNum(mobileNum);
     }
-    certPhone.setInputValidDttm(ZonedDateTime.now().plusSeconds(CERT_VALID_SECOND));
+    certPhone.setInputValidDttm(LocalDateTime.now().plusSeconds(CERT_VALID_SECOND));
     certPhone.setCertNum(certNum);
     certPhoneRepository.save(certPhone);
 
@@ -194,7 +194,7 @@ public class CertPhoneController {
     }
 
     if (certPhone.getCheckValidDttm() != null && certPhone.getCheckValidDttm()
-        .isBefore(ZonedDateTime.now())) {
+        .isBefore(LocalDateTime.now())) {
       // 인증 유효시간 만료
       return Map.of(
           "result", false
@@ -202,14 +202,14 @@ public class CertPhoneController {
     }
     if (certPhone.getCheckValidDttm() == null || certCheckModel.getExtendFl()) {
       // 최초 인증이라 유효시간(checkValidDttm) 초기 설정. 혹은 연장
-      certPhone.setCheckValidDttm(ZonedDateTime.now().plusSeconds(CERT_VALID_SECOND));
-      certPhone.setInputValidDttm(ZonedDateTime.now());
+      certPhone.setCheckValidDttm(LocalDateTime.now().plusSeconds(CERT_VALID_SECOND));
+      certPhone.setInputValidDttm(LocalDateTime.now());
     }
 
     return Map.of(
         "result", true,
         "certId", certPhone.getId(),
-        "valid", ChronoUnit.SECONDS.between(ZonedDateTime.now(), certPhone.getCheckValidDttm())
+        "valid", ChronoUnit.SECONDS.between(LocalDateTime.now(), certPhone.getCheckValidDttm())
     );
   }
 

@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.chrg;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import kr.co.paywith.pw.data.repository.enumeration.CpnIssuRuleType;
 import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
@@ -95,7 +95,7 @@ public class ChrgService {
   @Transactional
   public void delete(Chrg chrg) {
     // 취소 일시 입력
-    chrg.setCancelRegDttm(ZonedDateTime.now());
+    chrg.setCancelRegDttm(LocalDateTime.now());
 
     // 잔액 복원
     UserInfo userInfo = chrg.getUserInfo();
@@ -162,7 +162,7 @@ public class ChrgService {
       CpnIssu cpnIssu = new CpnIssu();
       cpnIssu.setCpnIssuRule(cpnIssuRule);
       cpnIssu.setCpnIssuNm(cpnIssuRule.getRuleNm());
-      cpnIssu.setValidEndDttm(ZonedDateTime.now().plusDays(cpnIssuRule.getCpnMaster().getValidDay()));
+      cpnIssu.setValidEndDttm(LocalDateTime.now().plusDays(cpnIssuRule.getCpnMaster().getValidDay()));
       cpnIssu.setCreateBy(newChrg.getCreateBy());
       cpnIssu.setUpdateBy(newChrg.getCreateBy());
 

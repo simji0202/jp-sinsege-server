@@ -5,7 +5,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
 import java.net.URI;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import javax.validation.Valid;
 import kr.co.paywith.pw.common.ErrorsResource;
@@ -68,6 +68,12 @@ public class NotifController extends CommonController {
 
     // 입력값을 브랜드 객채에 대입
     Notif notif = modelMapper.map(notifDto, Notif.class);
+
+    // 현재 로그인 유저 설정
+    if (currentUser != null) {
+      notif.setCreateBy(currentUser.getAccountId());
+      notif.setUpdateBy(currentUser.getAccountId());
+    }
 
     // 레코드 등록
     Notif newNotif = notifService.create(notif);
@@ -204,7 +210,7 @@ public class NotifController extends CommonController {
       return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
-    if (notif.getSendReqDttm().isBefore(ZonedDateTime.now())) {
+    if (notif.getSendReqDttm().isBefore(LocalDateTime.now())) {
       // 이미 발송한 메시지는 취소 불가
       return ResponseEntity.badRequest().body(null);
     }

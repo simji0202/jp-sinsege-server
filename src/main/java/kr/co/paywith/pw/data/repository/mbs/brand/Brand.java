@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,13 +120,13 @@ public class Brand implements Serializable {
    * 등록 일시
    */
   @CreationTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
 
   /**
    * 수정 일시
    */
   @UpdateTimestamp
-  private ZonedDateTime updtDttm;
+  private LocalDateTime updtDttm;
 
   @NameDescription("갱신담당자")
   private String updateBy;

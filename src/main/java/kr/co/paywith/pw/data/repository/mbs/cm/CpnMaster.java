@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cm;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import kr.co.paywith.pw.data.repository.enumeration.CpnMasterType;
@@ -119,13 +119,13 @@ public class CpnMaster {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     /**
      * 추가한 관리자

@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,7 +70,7 @@ public class Delng {
   /**
    * 거래 일시. 현장에서 실제 거래가 발생한 시각
    */
-  private ZonedDateTime delngDttm = ZonedDateTime.now();
+  private LocalDateTime delngDttm = LocalDateTime.now();
 
   /**
    * 전체 거래 금액. 쿠폰할인 받은 상품은 할인 전 금액을 더한다.
@@ -202,19 +202,19 @@ public class Delng {
   /**
    * 취소 일시
    */
-  private ZonedDateTime cancelRegDttm;
+  private LocalDateTime cancelRegDttm;
 
 
   /**
    * 등록 일시
    */
   @CreationTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
   /**
    * 수정 일시
    */
   @UpdateTimestamp
-  private ZonedDateTime updtDttm;
+  private LocalDateTime updtDttm;
 
   /**
    * 추가한 관리자 부하를 줄이기 위해 감소 시키지 위해 해당 아이디만 저장

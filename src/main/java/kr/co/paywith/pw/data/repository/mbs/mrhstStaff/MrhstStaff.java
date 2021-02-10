@@ -9,7 +9,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -34,5 +34,21 @@ public class MrhstStaff {
 	@NameDescription("사용 여부")
 	private Boolean activeFl = true;
 
+  @NameDescription("갱신담당자")
+  private String updateBy;
 
+  @NameDescription("등록담당자")
+  private String createBy;
+
+  /**
+   * 등록 일시
+   */
+  @CreationTimestamp
+  private LocalDateTime regDttm;
+
+  /**
+   * 수정 일시
+   */
+  @UpdateTimestamp
+  private LocalDateTime updtDttm;
 }

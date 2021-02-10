@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -53,5 +53,5 @@ public class NotifUser {
   /**
    * 전송 일시. FCM 에 요청한 일시. null : 미전송 상태
    */
-  private ZonedDateTime sendDttm = null;
+  private LocalDateTime sendDttm = null;
 }

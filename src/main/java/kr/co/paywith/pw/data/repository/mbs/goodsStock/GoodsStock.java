@@ -1,12 +1,13 @@
 package kr.co.paywith.pw.data.repository.mbs.goodsStock;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import kr.co.paywith.pw.data.repository.mbs.brand.Brand;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
@@ -61,13 +62,13 @@ public class GoodsStock {
    * 등록 일시
    */
   @CreationTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
 
   /**
    * 수정 일시
    */
   @UpdateTimestamp
-  private ZonedDateTime updtDttm;
+  private LocalDateTime updtDttm;
 
   /**
    * 추가한 관리자
@@ -78,5 +79,18 @@ public class GoodsStock {
    * 변경한 관리자
    */
   private String updateBy;
+
+  /**
+   * create 시에 dto의 값을 가지고 service 에서 사용
+   */
+  @Transient
+  private Integer goodsId;
+
+  /**
+   * create 시에 dto의 값을 가지고 service 에서 사용
+   */
+  @Transient
+  private Integer mrhstId;
+
 
 }

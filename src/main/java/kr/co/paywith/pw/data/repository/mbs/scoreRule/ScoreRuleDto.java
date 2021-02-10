@@ -11,7 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -48,13 +48,13 @@ public class ScoreRuleDto {
 	 * 등록 일시
 	 */
 	@CreationTimestamp
-	private ZonedDateTime regDttm;
+	private LocalDateTime regDttm;
 
 	/**
 	 * 수정 일시
 	 */
 	@UpdateTimestamp
-	private ZonedDateTime updtDttm;
+	private LocalDateTime updtDttm;
 
 	@NameDescription("갱신담당자")
 	private String updateBy;

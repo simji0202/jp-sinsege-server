@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.user.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -151,7 +151,7 @@ public class UserInfo {
     /**
      * 등급 변동 일시
      */
-    private ZonedDateTime gradeUpdtDttm;
+    private LocalDateTime gradeUpdtDttm;
 
 //    /**
 //     * 회원 등급. TODO GUEST는 grade가 없어도 될지 검토
@@ -169,7 +169,7 @@ public class UserInfo {
     /**
      * 최근 로그인 일시
      */
-    private ZonedDateTime lastLoginDttm;
+    private LocalDateTime lastLoginDttm;
 
 
     /**
@@ -188,7 +188,7 @@ public class UserInfo {
      * 4. activeFl = false, outDttm == null : 현재 존재하지 않는 상태
      *
      */
-    private ZonedDateTime outDttm;
+    private LocalDateTime outDttm;
 
     @OneToOne (cascade = CascadeType.ALL)
     private UserCard userCard;
@@ -230,12 +230,12 @@ public class UserInfo {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     /**
      * 추가한 관리자

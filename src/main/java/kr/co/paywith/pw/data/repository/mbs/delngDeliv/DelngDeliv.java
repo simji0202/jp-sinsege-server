@@ -30,17 +30,29 @@ public class DelngDeliv {
   @NameDescription("일련번호")
   private Integer id;
 
+  @NameDescription("배달비")
+  private Integer delivAmt;
+
   @NameDescription("발송시각")
-  private LocalDateTime outDttm;
+  private LocalDateTime sendDttm;
 
   @NameDescription("수령시각")
-  private LocalDateTime inDttm;
+  private LocalDateTime rcvDttm;
 
   @NameDescription("수령자명")
-  private String inNm;
+  private String rcvNm;
+
+  @NameDescription("수령주소코드")
+  private String rcvAddrCodeCd;
+
+  /**
+   * 최초 등록시 rcvAddrCodeCd 로 값 조회 후 넣는다. 이후 운영 중 주소지 확인 등에 사용
+   */
+  @NameDescription("수령주소코드값")
+  private String rcvAddrCodeNm;
 
   @NameDescription("수령주소")
-  private String inAddr;
+  private String rcvAddr;
 
   @NameDescription("요청사항")
   private String reqCn;

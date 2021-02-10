@@ -5,7 +5,7 @@ import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * 게시판(게시물)
@@ -47,9 +47,9 @@ public class BbsDto {
 
     private Boolean openedFl;
 
-    private ZonedDateTime startDttm;
+    private LocalDateTime startDttm;
 
-    private ZonedDateTime endDttm;
+    private LocalDateTime endDttm;
 
     private Mrhst mrhst;
 

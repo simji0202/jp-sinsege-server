@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.prx.certPhone;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -54,13 +54,13 @@ public class CertPhone {
    * 인증번호 입력 유효
    */
   @Column
-  private ZonedDateTime inputValidDttm;
+  private LocalDateTime inputValidDttm;
 
   /**
    * 인증번호 확인 유효 시간. 번호 검증을 마친 후 부터 이 시간 동안 사용이 가능하다
    */
   @Column
-  private ZonedDateTime checkValidDttm;
+  private LocalDateTime checkValidDttm;
 
   private Integer brandId;
 
@@ -68,7 +68,7 @@ public class CertPhone {
    * 등록 일시
    */
   @UpdateTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
 
   /**
    * 부정 요청 모니터링 위해 클라이언트 IP 기록

@@ -6,7 +6,7 @@
 //import lombok.Data;
 //
 //import javax.persistence.ManyToOne;
-//import java.time.ZonedDateTime;
+//import java.time.LocalDateTime;
 //
 //@Data
 //public class NotifUserUpdateDto {
@@ -44,6 +44,6 @@
 //    /**
 //     * 전송 일시
 //     */
-//    private ZonedDateTime sendDttm;
+//    private LocalDateTime sendDttm;
 //
 //}

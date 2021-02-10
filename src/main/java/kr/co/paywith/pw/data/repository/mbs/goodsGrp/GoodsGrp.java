@@ -8,7 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * 상품 그룹(카테고리)
@@ -62,13 +62,13 @@ public class GoodsGrp {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     /**
      * 추가한 관리자

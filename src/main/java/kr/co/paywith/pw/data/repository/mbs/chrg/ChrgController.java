@@ -64,6 +64,11 @@ public class ChrgController extends CommonController {
 		  // 입력값을 브랜드 객채에 대입
 		  Chrg chrg = modelMapper.map(chrgDto, Chrg.class);
 
+     // 현재 로그인 유저 설정
+     if (currentUser != null) {
+       chrg.setCreateBy(currentUser.getAccountId());
+       chrg.setUpdateBy(currentUser.getAccountId());
+     }
 		  // 레코드 등록
 		  Chrg newChrg = chrgService.create(chrg);
 

@@ -1,5 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.delngOrdrSeatTimetable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -14,7 +15,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @NoArgsConstructor
@@ -38,5 +41,22 @@ public class DelngOrdrSeatTimetable {
 
   @NameDescription("직원_일련번호")
   private Integer staffId;
+
+  /**
+   * 등록 일시
+   */
+  @CreationTimestamp
+  private LocalDateTime regDttm;
+  /**
+   * 수정 일시
+   */
+  @UpdateTimestamp
+  private LocalDateTime updtDttm;
+
+  @NameDescription("갱신담당자")
+  private String updateBy;
+
+  @NameDescription("등록담당자")
+  private String createBy;
 
 }

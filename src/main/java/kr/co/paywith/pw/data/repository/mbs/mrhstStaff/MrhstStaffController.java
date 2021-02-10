@@ -63,6 +63,12 @@ public class MrhstStaffController extends CommonController {
 		  // 입력값을 브랜드 객채에 대입
 		  MrhstStaff mrhstStaff = modelMapper.map(mrhstStaffDto, MrhstStaff.class);
 
+     // 현재 로그인 유저 설정
+     if (currentUser != null) {
+       mrhstStaff.setCreateBy(currentUser.getAccountId());
+       mrhstStaff.setUpdateBy(currentUser.getAccountId());
+     }
+
 		  // 레코드 등록
 		  MrhstStaff newMrhstStaff = mrhstStaffService.create(mrhstStaff);
 
@@ -171,7 +177,13 @@ public class MrhstStaffController extends CommonController {
 		  // 기존 정보 취득
 		  MrhstStaff existMrhstStaff = mrhstStaffOptional.get();
 
-		  // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
+     // 현재 로그인 유저 설정
+     if (currentUser != null) {
+       existMrhstStaff.setUpdateBy(currentUser.getAccountId());
+     }
+
+
+     // 변경사항이 자동으로 적용되지 않기 때문에 수동으로 저장
 		  // 자동 적용은 service class {  @Transactional Method  } 형식으로 구현해서 Transactional안에서 처리할 필요가 있음
 		  MrhstStaff saveMrhstStaff = this.mrhstStaffService.update(mrhstStaffUpdateDto, existMrhstStaff);
 

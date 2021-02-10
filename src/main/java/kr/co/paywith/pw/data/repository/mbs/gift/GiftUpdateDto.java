@@ -6,7 +6,7 @@ import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 public class GiftUpdateDto {
@@ -34,7 +34,7 @@ public class GiftUpdateDto {
 	/**
 	 * 발송 일시
 	 */
-	private ZonedDateTime sendDttm;
+	private LocalDateTime sendDttm;
 
 	/**
 	 * 선물 내용

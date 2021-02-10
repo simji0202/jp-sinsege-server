@@ -12,7 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -49,7 +49,7 @@ public class GiftDto {
 	/**
 	 * 발송 일시
 	 */
-	private ZonedDateTime sendDttm;
+	private LocalDateTime sendDttm;
 
 	/**
 	 * 선물 내용
@@ -98,11 +98,11 @@ public class GiftDto {
 	 * 등록 일시
 	 */
 	@CreationTimestamp
-	private ZonedDateTime regDttm;
+	private LocalDateTime regDttm;
 
 	/**
 	 * 수정 일시
 	 */
 	@UpdateTimestamp
-	private ZonedDateTime updtDttm;
+	private LocalDateTime updtDttm;
 }

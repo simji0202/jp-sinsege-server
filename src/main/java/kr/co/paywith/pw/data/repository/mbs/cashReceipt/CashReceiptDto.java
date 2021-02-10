@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.cashReceipt;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import kr.co.paywith.pw.common.NameDescription;
@@ -44,7 +44,7 @@ public class CashReceiptDto {
 	/**
 	 * 취소 일시
 	 */
-	private ZonedDateTime cancelRegDttm;
+	private LocalDateTime cancelRegDttm;
 
 	/**
 	 * 취소 전송 예약 여부

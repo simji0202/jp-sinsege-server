@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,7 +12,7 @@ public class CpnIssuValidator {
   public void validate(CpnIssuDto cpnIssuDto, Errors errors) {
 
     if (cpnIssuDto.getValidEndDttm() != null &&
-        cpnIssuDto.getValidEndDttm().isBefore(ZonedDateTime.now())) {
+        cpnIssuDto.getValidEndDttm().isBefore(LocalDateTime.now())) {
       // 새로 발급하는 쿠폰은 현재 시간보다 이후여야 함
       errors.reject("쿠폰 유효 일시 오류", "유효일시는 현재시간 이후여야 합니다");
     }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -49,7 +49,7 @@ public class AdminUpdateDto {
   private Boolean activeFl;
 
   @NameDescription("최종 로그인 일시")
-  private ZonedDateTime lastLoginDttm;
+  private LocalDateTime lastLoginDttm;
 
   @NameDescription("관리자타입")
   @Enumerated(EnumType.STRING)

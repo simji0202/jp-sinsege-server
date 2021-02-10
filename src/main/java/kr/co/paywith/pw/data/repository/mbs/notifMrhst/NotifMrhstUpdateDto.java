@@ -13,7 +13,7 @@
 //import javax.persistence.Temporal;
 //import javax.persistence.TemporalType;
 //import java.time.LocalDateTime;
-//import java.time.ZonedDateTime;
+//import java.time.LocalDateTime;
 //import java.util.ArrayList;
 //import java.util.Date;
 //import java.util.List;
@@ -49,5 +49,5 @@
 //	/**
 //	 * 전송 일시
 //	 */
-//	private ZonedDateTime sendDttm;
+//	private LocalDateTime sendDttm;
 //}

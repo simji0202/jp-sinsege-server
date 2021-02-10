@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EnumType;
@@ -49,7 +49,7 @@ public class DelngDto {
    *
    * 클라이언트에서 받은 값이 없다면 요청 시간을 거래 시간으로 한다
    */
-  private ZonedDateTime delngDttm;
+  private LocalDateTime delngDttm;
 
   /**
    * 결재 금액 ( +- 총합 ) 회원이 저장한다면, 조작을 막기 위해 검증을 함.

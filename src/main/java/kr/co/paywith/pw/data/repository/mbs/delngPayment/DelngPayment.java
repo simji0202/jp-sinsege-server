@@ -11,7 +11,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 // kms: pg 결제 한건 이었으나, 용도 변경 -> 구매한 상품들을 결제하는 결제수단 한가지(배열로 들어가면 복합결제)
 @NoArgsConstructor
@@ -62,13 +62,13 @@ public class DelngPayment {
    * 등록 일시
    */
   @CreationTimestamp
-  private ZonedDateTime regDttm;
+  private LocalDateTime regDttm;
 
   /**
    * 수정 일시
    */
   @UpdateTimestamp
-  private ZonedDateTime updtDttm;
+  private LocalDateTime updtDttm;
 
 
 }

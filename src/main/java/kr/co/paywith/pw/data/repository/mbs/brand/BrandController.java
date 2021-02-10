@@ -43,8 +43,6 @@ public class  BrandController extends  CommonController {
     @Autowired
     BrandService brandService;
 
-
-
     @PostMapping
     public ResponseEntity createBrand(
             @RequestBody @Valid BrandDto brandDto,

@@ -6,21 +6,17 @@ import lombok.Data;
 
 @Data
 public class DelngDelivUpdateDto {
-
-  @NameDescription("일련번호")
-  private Integer id;
-
   @NameDescription("발송시각")
-  private LocalDateTime outDttm;
+  private LocalDateTime sendDttm;
 
   @NameDescription("수령시각")
-  private LocalDateTime inDttm;
+  private LocalDateTime rcvDttm;
 
   @NameDescription("수령자명")
-  private String inNm;
+  private String rcvNm;
 
   @NameDescription("수령주소")
-  private String inAddr;
+  private String rcvAddr;
 
   @NameDescription("요청사항")
   private String reqCn;

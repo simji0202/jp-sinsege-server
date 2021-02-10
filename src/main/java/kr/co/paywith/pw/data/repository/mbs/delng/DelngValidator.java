@@ -1,13 +1,14 @@
 package kr.co.paywith.pw.data.repository.mbs.delng;
 
 
-import java.time.LocalDateTime;
 import kr.co.paywith.pw.component.ValidatorUtils;
 import kr.co.paywith.pw.data.repository.account.Account;
 import kr.co.paywith.pw.data.repository.admin.AdminRole;
+import kr.co.paywith.pw.data.repository.enumeration.DelngType;
 import kr.co.paywith.pw.data.repository.enumeration.SeatSttsType;
 import kr.co.paywith.pw.data.repository.mbs.cpn.Cpn;
 import kr.co.paywith.pw.data.repository.mbs.cpn.CpnRepository;
+import kr.co.paywith.pw.data.repository.mbs.delngDeliv.DelngDeliv;
 import kr.co.paywith.pw.data.repository.mbs.delngOrdrSeatTimetable.DelngOrdrSeatTimetable;
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.gcct.GcctRepository;
@@ -17,11 +18,14 @@ import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMaster;
 import kr.co.paywith.pw.data.repository.mbs.goodsOptMaster.GoodsOptMasterRepository;
 import kr.co.paywith.pw.data.repository.mbs.goodsStock.GoodsStock;
 import kr.co.paywith.pw.data.repository.mbs.goodsStock.GoodsStockRepository;
+import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
+import kr.co.paywith.pw.data.repository.mbs.mrhst.MrhstRepository;
+import kr.co.paywith.pw.data.repository.mbs.mrhstDelivAmt.MrhstDelivAmt;
+import kr.co.paywith.pw.data.repository.mbs.mrhstDelivAmt.MrhstDelivAmtRepository;
 import kr.co.paywith.pw.data.repository.mbs.seatTimetable.SeatTimetable;
 import kr.co.paywith.pw.data.repository.mbs.seatTimetable.SeatTimetableRepository;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
-import kr.co.paywith.pw.data.repository.user.userCard.UserCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -48,6 +52,12 @@ public class DelngValidator {
   private GoodsStockRepository goodsStockRepository;
 
   @Autowired
+  private MrhstRepository mrhstRepository;
+
+  @Autowired
+  private MrhstDelivAmtRepository mrhstDelivAmtRepository;
+
+  @Autowired
   private GcctRepository gcctRepository;
 
   public void validate(DelngDto delngDto, Errors errors) {
@@ -68,6 +78,7 @@ public class DelngValidator {
         break;
       case APP:
         isReqFromUser = true;
+        ValidatorUtils.checkObjectNull(delngDto.getDelngOrdr(), "오더", errors);
         break;
     }
 
@@ -117,8 +128,8 @@ public class DelngValidator {
             }
 
 
-            if (delngDto.getDelngDeliv() != null) {
-              // 모바일 주문 배송일 때
+            if (delngDto.getDelngType().equals(DelngType.APP)) {
+              // 모바일 오더일 때
               if (goods.getMngrStockFl()) { // 재고 관리하는 상품이면
                 // 재고 확인
                 GoodsStock goodsStock = goodsStockRepository.findByGoods_IdAndMrhst_Id(
@@ -171,6 +182,33 @@ public class DelngValidator {
             }
           }
         }
+      }
+
+
+      if (delngDto.getDelngDeliv() != null) {
+        DelngDeliv delngDeliv = delngDto.getDelngDeliv();
+        // 모바일 주문 배송일 때
+        ValidatorUtils.checkObjectNull(delngDeliv.getDelivAmt(), "배달비", errors);
+
+        // 배달비 대조
+        if (delngDeliv.getRcvAddrCodeCd() != null) {
+          // 지역별 배달비용 대조
+          MrhstDelivAmt mrhstDelivAmt =
+              mrhstDelivAmtRepository.findByMrhstIdAndAddrCode_Cd(delngDto.getMrhstId(), delngDeliv.getRcvAddrCodeCd()).get();
+
+          if (mrhstDelivAmt.getDelivAmt() != delngDeliv.getDelivAmt()) {
+            errors.reject("데이터 미일치", "설정한 배달비와 일치하지 않습니다");
+          }
+        } else {
+          // 매장 기본 배달비와 대조
+          Mrhst mrhst = mrhstRepository.findById(delngDto.getMrhstId()).get();
+          if (mrhst.getMrhstOrdr().getDelivAmt() != delngDeliv.getDelivAmt()) {
+            errors.reject("데이터 미일치", "설정한 배달비와 일치하지 않습니다");
+          }
+        }
+
+        // 금액 대조할 goodsAmt 에 배달비 가산
+        goodsAmt += delngDto.getDelngDeliv().getDelivAmt();
       }
 
       if (isReqFromUser && delngDto.getTotalAmt() < goodsAmt) {
@@ -266,14 +304,7 @@ public class DelngValidator {
             // TODO 해당 시간 스태프 상태 확인
           }
         }
-
-
       }
-    }
-
-    if (delngDto.getDelngDeliv() != null) {
-      // 모바일 주문 배송일 때
-
     }
 
     // TODO BeginEventDateTime
@@ -304,6 +335,28 @@ public class DelngValidator {
       errors.reject("접수 오류", "이미 취소한 주문입니다");
     } else if (delng.getDelngOrdr().getAcceptDttm() != null) {
       errors.reject("접수 오류", "이미 접수한 주문입니다");
+    }
+
+    if (delng.getDelngOrdr() != null) {
+      // 모바일 주문일 때
+
+      if (delng.getDelngOrdr().getDelngOrdrSeatTimetable() != null) {
+        // 시트 예약인 경우
+        DelngOrdrSeatTimetable delngOrdrSeatTimetable = delng.getDelngOrdr()
+            .getDelngOrdrSeatTimetable();
+
+        for (SeatTimetable seatTimetable : delngOrdrSeatTimetable.getSeatTimetableList()) {
+          SeatTimetable seatTimetable1 = seatTimetableRepository.findById(seatTimetable.getId())
+              .get();
+          if (!seatTimetable1.getSeatSttsType().equals(SeatSttsType.AVAIL)) {
+            errors.reject("기예약 오류", "이미 예약되어 주문할 수 없습니다");
+          }
+
+          if (delngOrdrSeatTimetable.getStaffId() != null) {
+            // TODO 해당 시간 스태프 상태 확인
+          }
+        }
+      }
     }
   }
 
@@ -337,8 +390,9 @@ public class DelngValidator {
             .equals(delng.getMrhstId())) || // 주문한 매장
         (currentUser.getUserInfo() != null && currentUser.getUserInfo().getId()
             .equals((delng.getUserInfo().getId())) &&
-            delng.getDelngOrdr() != null && delng.getDelngOrdr().getAcceptDttm() == null
-            && delng.getDelngOrdr().getCompDttm() == null // 회원은 접수되지 않은 거래만 취소 가능
+            delng.getDelngOrdr() != null &&
+            delng.getDelngOrdr().getAcceptDttm() == null &&
+            delng.getDelngOrdr().getCompDttm() == null // 회원은 접수되지 않은 거래만 취소 가능
         )
     ) {
 

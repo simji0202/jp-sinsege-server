@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.gcct;
 
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.component.StringUtil;
 import kr.co.paywith.pw.data.repository.user.user.UserInfoRepository;
@@ -66,7 +66,7 @@ public class GcctService {
    */
   @Transactional
   public void delete(Gcct gcct) {
-    gcct.setCancelRegDttm(ZonedDateTime.now());
+    gcct.setCancelRegDttm(LocalDateTime.now());
     
     gcctRepository.save(gcct);
 

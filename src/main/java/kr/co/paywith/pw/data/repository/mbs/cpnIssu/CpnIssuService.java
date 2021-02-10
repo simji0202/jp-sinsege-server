@@ -1,7 +1,7 @@
 package kr.co.paywith.pw.data.repository.mbs.cpnIssu;
 
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 
 import kr.co.paywith.pw.data.repository.account.Account;
@@ -119,7 +119,7 @@ public class CpnIssuService {
         for (Cpn cpn : cpnIssu.getCpnList()) {
             cpnService.delete(cpn);
         }
-        cpnIssu.setValidEndDttm(ZonedDateTime.now());
+        cpnIssu.setValidEndDttm(LocalDateTime.now());
 
     }
 }

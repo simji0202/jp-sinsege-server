@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.stampHist;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import kr.co.paywith.pw.data.repository.enumeration.StampHistType;
@@ -31,7 +31,7 @@ public class StampHistDto {
   /**
    * 처리 일시
    */
-  private ZonedDateTime setleDttm = ZonedDateTime.now();
+  private LocalDateTime setleDttm = LocalDateTime.now();
 
   /**
    * 스탬프 개수

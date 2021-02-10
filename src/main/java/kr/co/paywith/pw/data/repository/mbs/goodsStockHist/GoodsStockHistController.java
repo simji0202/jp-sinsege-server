@@ -24,7 +24,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,116 +36,128 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "GoodsStockHistController", description = "상품 재고 API", basePath = "/api/goodsStockHist")
 public class GoodsStockHistController extends CommonController {
 
-    @Autowired
-    GoodsStockHistRepository goodsStockHistRepository;
+  @Autowired
+  GoodsStockHistRepository goodsStockHistRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+  @Autowired
+  ModelMapper modelMapper;
 
-    @Autowired
-    GoodsStockHistValidator goodsStockHistValidator;
+  @Autowired
+  GoodsStockHistValidator goodsStockHistValidator;
 
-    @Autowired
-    GoodsStockHistService goodsStockHistService;
+  @Autowired
+  GoodsStockHistService goodsStockHistService;
 
-    /**
-     * 정보 등록
-     */
-    @PostMapping
-    public ResponseEntity createGoodsStockHist(
-            @RequestBody @Valid GoodsStockHistDto goodsStockHistDto,
-            Errors errors,
-            @CurrentUser Account currentUser) {
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-        // 입력값 체크
-        goodsStockHistValidator.validate(goodsStockHistDto, errors);
-        if (errors.hasErrors()) {
-            return badRequest(errors);
-        }
-
-        // 입력값을 브랜드 객채에 대입
-        GoodsStockHist goodsStockHist = modelMapper.map(goodsStockHistDto, GoodsStockHist.class);
-
-        // 레코드 등록
-        GoodsStockHist newGoodsStockHist = goodsStockHistService.create(goodsStockHist);
-
-        ControllerLinkBuilder selfLinkBuilder = linkTo(GoodsStockHistController.class).slash(newGoodsStockHist.getId());
-
-        URI createdUri = selfLinkBuilder.toUri();
-        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-        GoodsStockHistResource goodsStockHistResource = new GoodsStockHistResource(newGoodsStockHist);
-        goodsStockHistResource.add(linkTo(GoodsStockHistController.class).withRel("query-goodsStockHist"));
-        goodsStockHistResource.add(selfLinkBuilder.withRel("update-goodsStockHist"));
-        goodsStockHistResource.add(new Link("/docs/index.html#resources-goodsStockHist-create").withRel("profile"));
-
-        return ResponseEntity.created(createdUri).body(goodsStockHistResource);
+  /**
+   * 정보 등록
+   */
+  @PostMapping
+  public ResponseEntity createGoodsStockHist(
+      @RequestBody @Valid GoodsStockHistDto goodsStockHistDto,
+      Errors errors,
+      @CurrentUser Account currentUser) {
+    if (errors.hasErrors()) {
+      return badRequest(errors);
     }
 
+    // 입력값 체크
+    goodsStockHistValidator.validate(goodsStockHistDto, currentUser, errors);
+    if (errors.hasErrors()) {
+      return badRequest(errors);
+    }
 
-    /**
-     * 정보취득 (조건별 page )
-     */
-    @GetMapping
-    public ResponseEntity getGoodsStockHists(SearchForm searchForm,
-                                    Pageable pageable,
-                                    PagedResourcesAssembler<GoodsStockHist> assembler
-            , @CurrentUser Account currentUser) {
+    // 입력값을 브랜드 객채에 대입
+    GoodsStockHist goodsStockHist = modelMapper.map(goodsStockHistDto, GoodsStockHist.class);
 
-        // 인증상태의 유저 정보 확인
+    // 현재 로그인 유저 설정
+    if (currentUser != null) {
+      goodsStockHist.setCreateBy(currentUser.getAccountId());
+      goodsStockHist.setUpdateBy(currentUser.getAccountId());
+    }
+
+    // 레코드 등록
+    GoodsStockHist newGoodsStockHist = goodsStockHistService.create(goodsStockHist);
+
+    ControllerLinkBuilder selfLinkBuilder = linkTo(GoodsStockHistController.class)
+        .slash(newGoodsStockHist.getId());
+
+    URI createdUri = selfLinkBuilder.toUri();
+    // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+    GoodsStockHistResource goodsStockHistResource = new GoodsStockHistResource(newGoodsStockHist);
+    goodsStockHistResource
+        .add(linkTo(GoodsStockHistController.class).withRel("query-goodsStockHist"));
+    goodsStockHistResource.add(selfLinkBuilder.withRel("update-goodsStockHist"));
+    goodsStockHistResource
+        .add(new Link("/docs/index.html#resources-goodsStockHist-create").withRel("profile"));
+
+    return ResponseEntity.created(createdUri).body(goodsStockHistResource);
+  }
+
+
+  /**
+   * 정보취득 (조건별 page )
+   */
+  @GetMapping
+  public ResponseEntity getGoodsStockHists(SearchForm searchForm,
+      Pageable pageable,
+      PagedResourcesAssembler<GoodsStockHist> assembler
+      , @CurrentUser Account currentUser) {
+
+    // 인증상태의 유저 정보 확인
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        GoodsStockHistr princpal = (GoodsStockHistr) authentication.getPrincipal();
 
-        QGoodsStockHist qGoodsStockHist = QGoodsStockHist.goodsStockHist;
+    QGoodsStockHist qGoodsStockHist = QGoodsStockHist.goodsStockHist;
 
-        //
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
+    //
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        // 검색조건 아이디(키)
-        if (searchForm.getId() != null) {
-            booleanBuilder.and(qGoodsStockHist.id.eq(searchForm.getId()));
-        }
-
-        booleanBuilder.and(searchForm.getGoodsId() != null ? qGoodsStockHist.goodsStock.goods.id.eq(searchForm.getGoodsId()): null);
-        booleanBuilder.and(searchForm.getMrhstId() != null ? qGoodsStockHist.goodsStock.mrhst.id.eq(searchForm.getMrhstId()): null);
-
-        Page<GoodsStockHist> page = this.goodsStockHistRepository.findAll(booleanBuilder, pageable);
-        var pagedResources = assembler.toResource(page, e -> new GoodsStockHistResource(e));
-        pagedResources.add(new Link("/docs/index.html#resources-goodsStockHists-list").withRel("profile"));
-        pagedResources.add(linkTo(GoodsStockHistController.class).withRel("create-goodsStockHist"));
-        return ResponseEntity.ok(pagedResources);
+    // 검색조건 아이디(키)
+    if (searchForm.getId() != null) {
+      booleanBuilder.and(qGoodsStockHist.id.eq(searchForm.getId()));
     }
 
-    private ResponseEntity badRequest(Errors errors) {
-        return ResponseEntity.badRequest().body(new ErrorsResource(errors));
+    booleanBuilder.and(searchForm.getGoodsId() != null ? qGoodsStockHist.goodsStock.goods.id
+        .eq(searchForm.getGoodsId()) : null);
+    booleanBuilder.and(searchForm.getMrhstId() != null ? qGoodsStockHist.goodsStock.mrhst.id
+        .eq(searchForm.getMrhstId()) : null);
+
+    Page<GoodsStockHist> page = this.goodsStockHistRepository.findAll(booleanBuilder, pageable);
+    var pagedResources = assembler.toResource(page, e -> new GoodsStockHistResource(e));
+    pagedResources
+        .add(new Link("/docs/index.html#resources-goodsStockHists-list").withRel("profile"));
+    pagedResources.add(linkTo(GoodsStockHistController.class).withRel("create-goodsStockHist"));
+    return ResponseEntity.ok(pagedResources);
+  }
+
+  private ResponseEntity badRequest(Errors errors) {
+    return ResponseEntity.badRequest().body(new ErrorsResource(errors));
+  }
+
+
+  /**
+   * 정보취득 (1건 )
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity getGoodsStockHist(@PathVariable Integer id,
+      @CurrentUser Account currentUser) {
+
+    Optional<GoodsStockHist> goodsStockHistOptional = this.goodsStockHistRepository.findById(id);
+
+    // 고객 정보 체크
+    if (goodsStockHistOptional.isEmpty()) {
+      return ResponseEntity.notFound().build();
     }
 
+    GoodsStockHist goodsStockHist = goodsStockHistOptional.get();
 
-    /**
-     * 정보취득 (1건 )
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity getGoodsStockHist(@PathVariable Integer id,
-                                   @CurrentUser Account currentUser) {
+    // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
+    GoodsStockHistResource goodsStockHistResource = new GoodsStockHistResource(goodsStockHist);
+    goodsStockHistResource
+        .add(new Link("/docs/index.html#resources-goodsStockHist-get").withRel("profile"));
 
-        Optional<GoodsStockHist> goodsStockHistOptional = this.goodsStockHistRepository.findById(id);
-
-        // 고객 정보 체크
-        if (goodsStockHistOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        GoodsStockHist goodsStockHist = goodsStockHistOptional.get();
-
-        // Hateoas 관련 클래스를 이용하여 필요한 링크 정보 추가
-        GoodsStockHistResource goodsStockHistResource = new GoodsStockHistResource(goodsStockHist);
-        goodsStockHistResource.add(new Link("/docs/index.html#resources-goodsStockHist-get").withRel("profile"));
-
-        return ResponseEntity.ok(goodsStockHistResource);
-    }
-
+    return ResponseEntity.ok(goodsStockHistResource);
+  }
 
 //    /**
 //     * 정보 변경

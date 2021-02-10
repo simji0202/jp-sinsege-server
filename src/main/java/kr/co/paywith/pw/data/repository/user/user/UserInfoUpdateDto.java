@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.user;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -92,7 +92,7 @@ public class UserInfoUpdateDto {
     /**
      * 등급 변동 일시
      */
-    private ZonedDateTime gradeUpdtDttm;
+    private LocalDateTime gradeUpdtDttm;
 
     /**
      * 회원 누적 사용 점수
@@ -111,7 +111,7 @@ public class UserInfoUpdateDto {
     /**
      * 최근 로그인 일시
      */
-    private ZonedDateTime lastLoginDttm;
+    private LocalDateTime lastLoginDttm;
 
 
     /**
@@ -130,7 +130,7 @@ public class UserInfoUpdateDto {
      * 4. activeFl = false, outDttm == null : 현재 존재하지 않는 상태
      *
      */
-    private ZonedDateTime outDttm;
+    private LocalDateTime outDttm;
 
 
     private UserCard userCard;

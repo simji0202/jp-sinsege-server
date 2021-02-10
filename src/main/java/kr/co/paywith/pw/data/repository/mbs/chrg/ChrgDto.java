@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.chrg;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import kr.co.paywith.pw.data.repository.enumeration.ChrgType;
 import kr.co.paywith.pw.data.repository.user.user.UserInfo;
 import lombok.AllArgsConstructor;
@@ -36,7 +36,7 @@ public class ChrgDto {
      *
      * regDttm만 일단 입력되며 우선 저장, 무통장입금 결과 수신 시 chrgDttm 저장하며 후속처리(잔액 충전, 쿠폰 발급 등)를 한다
      */
-    private ZonedDateTime chrgDttm;
+    private LocalDateTime chrgDttm;
 
     /**
      * 충전 금액

@@ -3,7 +3,6 @@ package kr.co.paywith.pw.data.repository.mbs.goodsGrp;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 
-import kr.co.paywith.pw.data.repository.mbs.goodsGrpgrp.GoodsGrpController;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 

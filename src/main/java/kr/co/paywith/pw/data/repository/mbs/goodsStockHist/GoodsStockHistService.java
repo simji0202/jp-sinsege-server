@@ -2,8 +2,12 @@ package kr.co.paywith.pw.data.repository.mbs.goodsStockHist;
 
 
 import javax.transaction.Transactional;
+import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
+import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
 import kr.co.paywith.pw.data.repository.mbs.goodsStock.GoodsStock;
 import kr.co.paywith.pw.data.repository.mbs.goodsStock.GoodsStockRepository;
+import kr.co.paywith.pw.data.repository.mbs.mrhst.Mrhst;
+import kr.co.paywith.pw.data.repository.mbs.mrhst.MrhstRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,36 +16,60 @@ import org.springframework.stereotype.Service;
 @Service
 public class GoodsStockHistService {
 
-    @Autowired
-    private GoodsStockHistRepository goodsStockHistRepository;
+  @Autowired
+  private GoodsStockHistRepository goodsStockHistRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+  @Autowired
+  private ModelMapper modelMapper;
 
-    @Autowired
-    private GoodsStockRepository goodsStockRepository;
+  @Autowired
+  private GoodsStockRepository goodsStockRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+  @Autowired
+  private GoodsRepository goodsRepository;
 
-    /**
-     * 정보 등록
-     */
-    @Transactional
-    public GoodsStockHist create(GoodsStockHist goodsStockHist) {
+  @Autowired
+  private MrhstRepository mrhstRepository;
 
-        // 데이터베이스 값 갱신
-        GoodsStockHist newGoodsStockHist = this.goodsStockHistRepository.save(goodsStockHist);
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
-        // 재고 갱신
-        GoodsStock goodsStock = goodsStockRepository.findById(newGoodsStockHist.getId()).get();
-        goodsStock.setCnt(goodsStock.getCnt() + newGoodsStockHist.getCnt());
-        goodsStock.setUpdateBy(goodsStockHist.getCreateBy());
-        goodsStockRepository.save(goodsStock);
+  /**
+   * 정보 등록
+   */
+  @Transactional
+  public GoodsStockHist create(GoodsStockHist goodsStockHist) {
 
-        return newGoodsStockHist;
+    // 재고 정보 요청
+    GoodsStock goodsStock = null;
+    if (goodsStockHist.getGoodsStock().getId() != null) {
+      goodsStock = goodsStockRepository.findById(goodsStockHist.getGoodsStock().getId()).get();
+    } else {
+      goodsStock = goodsStockRepository.findByGoods_IdAndMrhst_Id(
+          goodsStockHist.getGoodsStock().getGoodsId(),
+          goodsStockHist.getGoodsStock().getMrhstId()).orElse(null);
     }
+    if (goodsStock == null) {
+      // 재고 정보 최초 생성
+      goodsStock = new GoodsStock();
+      Goods goods = goodsRepository.findById(goodsStockHist.getGoodsStock().getGoodsId()).get();
+      Mrhst mrhst = mrhstRepository.findById(goodsStockHist.getGoodsStock().getMrhstId()).get();
+      goodsStock.setGoods(goods);
+      goodsStock.setMrhst(mrhst);
+      goodsStockRepository.save(goodsStock);
+    }
+    goodsStockHist.setGoodsStock(goodsStock);
 
+    // 데이터베이스 값 갱신
+    GoodsStockHist newGoodsStockHist = this.goodsStockHistRepository.save(goodsStockHist);
+
+    // 재고 정보 수정
+    goodsStock.setCnt(goodsStock.getCnt() + newGoodsStockHist.getCnt());
+    goodsStock.setUpdateBy(goodsStockHist.getCreateBy());
+    goodsStockRepository.save(goodsStock);
+
+    return newGoodsStockHist;
+  }
 
 //    /**
 //     * 정보 갱신

@@ -14,7 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * 쿠폰
@@ -80,11 +80,11 @@ public class Cpn {
 
     @NameDescription("변경 일시")
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     @NameDescription("수정 일시")
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
 
     @NameDescription("갱신담당자")
@@ -101,7 +101,7 @@ public class Cpn {
     @Transient
     public boolean isAvail() {
         if (this.cpnSttsType.equals(CpnSttsType.AVAIL)) {
-            if (this.cpnIssu != null && this.cpnIssu.getValidEndDttm().isAfter(ZonedDateTime.now())) {
+            if (this.cpnIssu != null && this.cpnIssu.getValidEndDttm().isAfter(LocalDateTime.now())) {
                 return true;
             }
         }

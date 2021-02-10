@@ -9,7 +9,7 @@ import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 public class PointHistUpdateDto {
@@ -28,7 +28,7 @@ public class PointHistUpdateDto {
     /**
      * 등록 일시
      */
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 포인트 적립 규칙
@@ -42,7 +42,7 @@ public class PointHistUpdateDto {
     /**
      * 취소 일시
      */
-    private ZonedDateTime cancelRegDttm;
+    private LocalDateTime cancelRegDttm;
 
     /**
      * 회원

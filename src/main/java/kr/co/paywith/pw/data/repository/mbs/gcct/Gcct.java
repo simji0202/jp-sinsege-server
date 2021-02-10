@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.gcct;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -43,7 +43,7 @@ public class Gcct {
     /**
      * 유효일시. 환결설정값을 받아, 등록일시 기준 +해서 set
      */
-    private ZonedDateTime validEndDttm;
+    private LocalDateTime validEndDttm;
 
     /**
      * 상품권 번호
@@ -93,12 +93,12 @@ public class Gcct {
     /**
      * 취소 일시. null 여부로 취소 여부 확인
      */
-    private ZonedDateTime usedDttm;
+    private LocalDateTime usedDttm;
 
     /**
      * 취소 일시. null 여부로 취소 여부 확인
      */
-    private ZonedDateTime cancelRegDttm;
+    private LocalDateTime cancelRegDttm;
 
     // kms: TODO prx 결제 만들어지면 여기 연결
 //    /**
@@ -109,11 +109,11 @@ public class Gcct {
 
     @NameDescription("변경 일시")
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     @NameDescription("수정 일시")
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     @NameDescription("갱신담당자")
     private String updateBy;

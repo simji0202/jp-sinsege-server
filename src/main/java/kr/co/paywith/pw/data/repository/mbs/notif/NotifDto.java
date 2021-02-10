@@ -12,7 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -29,7 +29,7 @@ public class NotifDto {
   /**
    * 발송 일시. 예약 발송에 사용. 현재 시간이 sendDttm 이후라면(=이미 발송했다면) 삭제 불가
    */
-  private ZonedDateTime sendDttm = ZonedDateTime.now();
+  private LocalDateTime sendDttm = LocalDateTime.now();
 
   /**
    * 푸시 메시지 제목

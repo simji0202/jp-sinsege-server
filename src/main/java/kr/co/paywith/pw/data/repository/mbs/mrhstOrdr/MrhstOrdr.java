@@ -51,6 +51,18 @@ public class MrhstOrdr {
   private Boolean ordrFl = false;
 
   /**
+   * 배달 여부. true 인 매장만 배달 가능
+   */
+  @NameDescription("배달 여부")
+  private Boolean delivFl = false;
+
+  /**
+   * 배달 금액. 지역 설정 따로 하지 않으면 이 금액을 배달 비용으로 가산
+   */
+  @NameDescription("배달 금액")
+  private Integer delivAmt;
+
+  /**
    * 시간표 사용 여부. 스케쥴러로 매일 설정한 일자의 timetable 을 생성한다
    */
   @NameDescription("시간표 여부")

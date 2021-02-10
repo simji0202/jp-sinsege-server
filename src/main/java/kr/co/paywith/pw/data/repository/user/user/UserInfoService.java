@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.user.user;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.component.StringUtil;
@@ -128,7 +128,7 @@ public class UserInfoService {
     // 활설 - 비활성 상태 바꿀 때 outDttm 변경
     if (!userInfoUpdateDto.getActiveFl().equals(userInfo.isActiveFl())) {
       if (!userInfoUpdateDto.getActiveFl()) { // 활성 -> 비활성
-        userInfo.setOutDttm(ZonedDateTime.now());
+        userInfo.setOutDttm(LocalDateTime.now());
       } else {
         userInfo.setOutDttm(null);
       }
@@ -163,7 +163,7 @@ public class UserInfoService {
       CpnIssu cpnIssu = new CpnIssu();
       cpnIssu.setCpnIssuRule(cpnIssuRule);
       cpnIssu.setCpnIssuNm(cpnIssuRule.getRuleNm());
-      cpnIssu.setValidEndDttm(ZonedDateTime.now().plusDays(cpnIssuRule.getCpnMaster().getValidDay()));
+      cpnIssu.setValidEndDttm(LocalDateTime.now().plusDays(cpnIssuRule.getCpnMaster().getValidDay()));
       cpnIssu.setCreateBy(userInfo.getCreateBy());
       cpnIssu.setUpdateBy(userInfo.getCreateBy());
 
@@ -196,7 +196,7 @@ public class UserInfoService {
   @Transactional
   public void outUser(UserInfo userInfo) {
     // 활설 - 비활성 상태 바꿀 때 outDttm 변경
-    userInfo.setOutDttm(ZonedDateTime.now());
+    userInfo.setOutDttm(LocalDateTime.now());
     userInfo.setActiveFl(false);
 
     if (userInfoKeepDay == 0) {

@@ -108,10 +108,9 @@ public class DelngReviewControllerTest extends BaseControllerTest {
 
 		  // Given
 		  DelngReviewDto delngReview = new DelngReviewDto();
-		  delngReview.setId(1);
 
 		  // When & Then
-		  this.mockMvc.perform(put("/api/delngReview/{id}", delngReview.getId())
+		  this.mockMvc.perform(put("/api/delngReview/{id}", 1)
 					 .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
 					 .header("Origin", "*")
 

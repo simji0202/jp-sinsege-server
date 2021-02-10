@@ -10,7 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 public class ScoreRuleUpdateDto {
@@ -44,13 +44,13 @@ public class ScoreRuleUpdateDto {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     @NameDescription("갱신담당자")
     private String updateBy;

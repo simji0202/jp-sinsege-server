@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.pointHist;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
@@ -33,7 +33,7 @@ public class PointHistDto {
 	/**
 	 * 등록 일시
 	 */
-	private ZonedDateTime regDttm;
+	private LocalDateTime regDttm;
 
 	/**
 	 * 포인트 적립 규칙
@@ -47,7 +47,7 @@ public class PointHistDto {
 	/**
 	 * 취소 일시
 	 */
-	private ZonedDateTime cancelRegDttm;
+	private LocalDateTime cancelRegDttm;
 
 	/**
 	 * 회원

@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,17 +44,17 @@ public class CpnIssu {
     /**
      * 쿠폰 표시(회원에게 노출) 일시
      */
-    private ZonedDateTime showDttm = ZonedDateTime.now();
+    private LocalDateTime showDttm = LocalDateTime.now();
 
     /**
      * 쿠폰 유효 시작 일시
      */
-    private ZonedDateTime validStartDttm = ZonedDateTime.now();
+    private LocalDateTime validStartDttm = LocalDateTime.now();
 
     /**
      * 쿠폰 유효 종료 일시
      */
-    private ZonedDateTime validEndDttm = ZonedDateTime.now().plusDays(30);
+    private LocalDateTime validEndDttm = LocalDateTime.now().plusDays(30);
 
     /**
      * 쿠폰 발급 수량
@@ -77,7 +77,7 @@ public class CpnIssu {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 추가한 관리자

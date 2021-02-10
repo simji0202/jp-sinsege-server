@@ -12,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -94,7 +94,7 @@ public class MrhstTrmnl {
     /**
      * 최근 로그인 일시
      */
-    private ZonedDateTime lastLoginDttm;
+    private LocalDateTime lastLoginDttm;
 
     /**
      * 최근 로그인 IP
@@ -106,13 +106,13 @@ public class MrhstTrmnl {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     /**
      * 관리자타입

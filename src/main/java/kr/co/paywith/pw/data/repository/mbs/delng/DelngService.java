@@ -4,10 +4,11 @@ package kr.co.paywith.pw.data.repository.mbs.delng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
+import kr.co.paywith.pw.data.repository.enumeration.GoodsStockHistType;
 import kr.co.paywith.pw.data.repository.enumeration.PointHistType;
 import kr.co.paywith.pw.data.repository.enumeration.PointRsrvRuleType;
 import kr.co.paywith.pw.data.repository.enumeration.SeatSttsType;
@@ -18,6 +19,8 @@ import kr.co.paywith.pw.data.repository.mbs.delngOrdrSeatTimetable.DelngOrdrSeat
 import kr.co.paywith.pw.data.repository.mbs.delngPayment.DelngPaymentDto;
 import kr.co.paywith.pw.data.repository.mbs.goods.Goods;
 import kr.co.paywith.pw.data.repository.mbs.goods.GoodsRepository;
+import kr.co.paywith.pw.data.repository.mbs.goodsStockHist.GoodsStockHist;
+import kr.co.paywith.pw.data.repository.mbs.goodsStockHist.GoodsStockHistService;
 import kr.co.paywith.pw.data.repository.mbs.mrhstStaff.MrhstStaff;
 import kr.co.paywith.pw.data.repository.mbs.mrhstStaff.MrhstStaffRepository;
 import kr.co.paywith.pw.data.repository.mbs.pointHist.PointHist;
@@ -78,6 +81,9 @@ public class DelngService {
   private SeatTimetableRepository seatTimetableRepository;
 
   @Autowired
+  private GoodsStockHistService goodsStockHistService;
+
+  @Autowired
   private Gson gson;
 
   /**
@@ -106,6 +112,18 @@ public class DelngService {
 
         // 스탬프 가산
         stamp += goods.getStampPlusCnt() + delngGoods.getGoodsCnt();
+
+        // 재고 관리되는 상품이면 재고 수 차감
+        if (goods.getMngrStockFl()) {
+          GoodsStockHist goodsStockHist= new GoodsStockHist(
+              GoodsStockHistType.OUT,
+              -1 * delngGoods.getGoodsCnt(),
+              delngGoods.getGoodsId(),
+              delng.getMrhstId()
+          );
+          goodsStockHist.setCreateBy(delng.getCreateBy());
+          goodsStockHistService.create(goodsStockHist);
+        }
       }
     }
 
@@ -126,7 +144,7 @@ public class DelngService {
       StampHist stampHist = new StampHist();
       stampHist.setUserInfo(userInfo);
       stampHist.setStampHistType(StampHistType.RSRV);
-      stampHist.setSetleDttm(ZonedDateTime.now());
+      stampHist.setSetleDttm(LocalDateTime.now());
       stampHist.setCnt(stamp);
       stampHist.setDelng(newDelng);
       stampHistService.create(stampHist);
@@ -215,12 +233,12 @@ public class DelngService {
   @Transactional
   public void delete(Delng delng) {
     // 취소 일시 입력
-    delng.setCancelRegDttm(ZonedDateTime.now());
+    delng.setCancelRegDttm(LocalDateTime.now());
 
     // 쿠폰 상태 복원
     if (delng.getCpnId() != null) {
       Cpn cpn = cpnRepository.findById(delng.getCpnId()).get();
-      if (cpn.getCpnIssu().getValidEndDttm().isAfter(ZonedDateTime.now())) {
+      if (cpn.getCpnIssu().getValidEndDttm().isAfter(LocalDateTime.now())) {
         // 유효기간이 남아있다면
         cpn.setCpnSttsType(CpnSttsType.AVAIL);
       } else {
@@ -239,6 +257,29 @@ public class DelngService {
     ScoreHist scoreHist = scoreHistRepository.findByDelng_Id(delng.getId());
     if (scoreHist != null) {
       scoreHistService.delete(scoreHist);
+    }
+
+    // 결제 관련 정보 복원
+    // 결제 상품 정보를  Json 데이터에서 객체화
+    if (delng.getDelngGoodsListJson() != null) {
+      List<DelngGoods> delngGoodsList =
+          gson.fromJson(delng.getDelngGoodsListJson(), new TypeToken<List<DelngGoods>>() {
+          }.getType());
+
+      for (DelngGoods delngGoods: delngGoodsList) {
+        Goods goods = goodsRepository.findById(delngGoods.getGoodsId()).get();
+        // 재고 관리되는 상품이면 재고 수 복원
+        if (goods.getMngrStockFl()) {
+          GoodsStockHist goodsStockHist= new GoodsStockHist(
+              GoodsStockHistType.IN,
+              delngGoods.getGoodsCnt(),
+              delngGoods.getGoodsId(),
+              delng.getMrhstId()
+          );
+          goodsStockHist.setCreateBy(delng.getCreateBy());
+          goodsStockHistService.create(goodsStockHist);
+        }
+      }
     }
 
     // 결제 관련 정보 복원

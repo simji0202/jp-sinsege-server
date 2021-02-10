@@ -101,6 +101,21 @@ public class SeatTimetableController extends CommonController {
 				booleanBuilder.and(qSeatTimetable.id.eq(searchForm.getId()));
 		  }
 
+		  if (searchForm.getRangeStartDttm() != null) {
+		    booleanBuilder.and(qSeatTimetable.startDttm.after(searchForm.getRangeStartDttm()));
+      }
+
+		  if (searchForm.getRangeEndDttm() != null) {
+		    booleanBuilder.and(qSeatTimetable.endDttm.before(searchForm.getRangeEndDttm()));
+      }
+
+		  if (searchForm.getStaffId() != null) {
+		    booleanBuilder.and(qSeatTimetable.mrhstStaff.id.eq(searchForm.getStaffId()));
+      }
+
+		  if (searchForm.getMrhstId() != null) {
+		    booleanBuilder.and(qSeatTimetable.mrhstSeat.mrhstId.eq(searchForm.getStaffId()));
+      }
 
 		  Page<SeatTimetable> page = this.seatTimetableRepository.findAll(booleanBuilder, pageable);
 		  var pagedResources = assembler.toResource(page, e -> new SeatTimetableResource(e));

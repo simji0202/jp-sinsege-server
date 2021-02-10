@@ -1,6 +1,6 @@
 package kr.co.paywith.pw.data.repository.mbs.stamp;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class StampService {
    */
   @Transactional
   public Stamp create(Stamp stamp) {
-    stamp.setExpiredDttm(ZonedDateTime.now().plusDays(stampValidDay));
+    stamp.setExpiredDttm(LocalDateTime.now().plusDays(stampValidDay));
 
     // 데이터베이스 값 갱신
     Stamp newStamp = this.stampRepository.save(stamp);

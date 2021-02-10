@@ -11,7 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * 게시판(게시물)
@@ -94,12 +94,12 @@ public class Bbs {
     /**
      * 이벤트 등 시작 시각
      */
-    private ZonedDateTime startDttm;
+    private LocalDateTime startDttm;
 
     /**
      * 이벤트 등 종료 시각
      */
-    private ZonedDateTime endDttm;
+    private LocalDateTime endDttm;
 
     /**
      * 조회가능한 매장. QnA 등에서 관리자와 회원, 매장과 회원 간 글 작성에 활용. 매장 공지에 활용
@@ -113,13 +113,13 @@ public class Bbs {
      * 등록 일시
      */
     @CreationTimestamp
-    private ZonedDateTime regDttm;
+    private LocalDateTime regDttm;
 
     /**
      * 수정 일시
      */
     @UpdateTimestamp
-    private ZonedDateTime updtDttm;
+    private LocalDateTime updtDttm;
 
     @NameDescription("갱신담당자")
     private String updateBy;

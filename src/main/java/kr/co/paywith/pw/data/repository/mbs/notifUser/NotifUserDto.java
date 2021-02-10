@@ -8,7 +8,7 @@
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
 //
-//import java.time.ZonedDateTime;
+//import java.time.LocalDateTime;
 //
 //@Data
 //@Builder
@@ -47,6 +47,6 @@
 //    /**
 //     * 전송 일시
 //     */
-//    private ZonedDateTime sendDttm;
+//    private LocalDateTime sendDttm;
 //
 //}
