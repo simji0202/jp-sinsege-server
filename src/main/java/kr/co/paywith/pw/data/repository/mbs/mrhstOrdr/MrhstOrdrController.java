@@ -5,7 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.account.Account;
-import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.account.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

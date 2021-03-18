@@ -2,7 +2,7 @@ package kr.co.paywith.pw.data.repository.mbs.cashReceipt;
 
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
-import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.account.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;

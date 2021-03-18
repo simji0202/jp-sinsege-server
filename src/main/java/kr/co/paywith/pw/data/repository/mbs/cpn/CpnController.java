@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
-import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.account.CurrentUser;
 import kr.co.paywith.pw.data.repository.enumeration.CpnSttsType;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
 import org.apache.commons.lang3.StringUtils;

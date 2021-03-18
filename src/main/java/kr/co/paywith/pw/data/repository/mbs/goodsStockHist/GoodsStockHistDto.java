@@ -25,12 +25,12 @@ public class GoodsStockHistDto {
    * 상품 재고
    */
   @ManyToOne
-  private GoodsStock goodsStock;
+  private GoodsStockDto goodsStock;
 
 }
 
 @Data
-class GoodsStock {
+class GoodsStockDto {
   // id 가 있거나  goodsId + mrhstId 가 있어야 함
 
   private Integer id;

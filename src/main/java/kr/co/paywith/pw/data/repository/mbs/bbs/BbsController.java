@@ -2,14 +2,11 @@ package kr.co.paywith.pw.data.repository.mbs.bbs;
 
 import com.querydsl.core.BooleanBuilder;
 import io.swagger.annotations.Api;
-import java.util.Map;
 import kr.co.paywith.pw.common.ErrorsResource;
 import kr.co.paywith.pw.data.repository.SearchForm;
 import kr.co.paywith.pw.data.repository.account.Account;
-import kr.co.paywith.pw.data.repository.admin.CurrentUser;
+import kr.co.paywith.pw.data.repository.account.CurrentUser;
 import kr.co.paywith.pw.data.repository.mbs.abs.CommonController;
-import kr.co.paywith.pw.data.repository.mbs.bbs.*;
-import kr.co.paywith.pw.data.repository.mbs.bbs.Bbs;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

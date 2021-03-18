@@ -1,4 +1,4 @@
-package kr.co.paywith.pw.data.repository.admin;
+package kr.co.paywith.pw.data.repository.account;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
